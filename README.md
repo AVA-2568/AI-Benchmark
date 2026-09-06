@@ -25,14 +25,14 @@
 
 <!--SNAPSHOT_GENERAL_START-->
 > 2026-09-06 抓取（50 精选模型 -> 50 行）。
-> 填补验证：Terminal-Bench v2.1 MAE=0.03 (>10%: 8.7%/46) ; DeepSWE MAE=5.43 (>10%: 28.6%/28) ; LiveBench Coding MAE=3.33 (>10%: 6.4%/47) ; tau3-Banking MAE=0.05 (>10%: 50.0%/46) ; LiveBench Agentic Coding MAE=2.89 (>10%: 23.4%/47) ; LiveBench Instruction Following MAE=5.49 (>10%: 36.2%/47) ; LCR MAE=0.02 (>10%: 2.0%/50) ; IFBench MAE=0.08 (>10%: 48.0%/25) ; HLE MAE=0.03 (>10%: 22.0%/50) ; SciCode MAE=0.02 (>10%: 0.0%/36) ; LiveBench Reasoning MAE=3.20 (>10%: 4.3%/47) ; Omniscience Index MAE=9.18 (>10%: 88.0%/50)
+> 填补验证：Terminal-Bench v2.1 MAE=0.03 (>10%: 8.7%/46) ; DeepSWE MAE=5.43 (>10%: 28.6%/28) ; LiveBench Coding MAE=3.27 (>10%: 6.2%/48) ; tau3-Banking MAE=0.05 (>10%: 56.5%/46) ; LiveBench Agentic Coding MAE=2.99 (>10%: 22.9%/48) ; LiveBench Instruction Following MAE=5.51 (>10%: 33.3%/48) ; LCR MAE=0.02 (>10%: 2.0%/50) ; IFBench MAE=0.08 (>10%: 48.0%/25) ; HLE MAE=0.03 (>10%: 20.0%/50) ; SciCode MAE=0.02 (>10%: 0.0%/36) ; LiveBench Reasoning MAE=3.15 (>10%: 4.2%/48) ; Omniscience Index MAE=9.12 (>10%: 88.0%/50)
 <!--SNAPSHOT_GENERAL_END-->
 
 <!--TOP15_GENERAL_START-->
 | # | Model | Creator | Vision | Score | Imputed |
 |---|---|---|---|---|---|
 | 1 | claude-fable-5.1 | Anthropic | 👁️ | 76.0 | DeepSWE(reg), BrowseComp(reg), IFBench(reg) |
-| 2 | gpt-6-astra | OpenAI | 👁️ | 73.8 | LiveBench Coding(reg), LiveBench Agentic Coding(reg), LiveBench Instruction Following(reg), IFBench(reg), LiveBench Reasoning(reg) |
+| 2 | gpt-6-astra | OpenAI | 👁️ | 74.4 | IFBench(reg) |
 | 3 | claude-opus-5 | Anthropic | 👁️ | 72.8 | IFBench(reg) |
 | 4 | claude-fable-5 | Anthropic | 👁️ | 72.4 | BrowseComp(reg) |
 | 5 | muse-spark-1.3 | Meta | 👁️ | 71.2 | DeepSWE(reg), BrowseComp(reg), IFBench(reg) |
@@ -60,7 +60,7 @@
 
 <!--SNAPSHOT_TEXT_START-->
 > 2026-09-06 抓取（50 精选模型 -> 50 行）。
-> 填补验证：EQ-Bench 4 MAE=77.48 (>10%: 22.2%/18) ; LiveBench StoryGen MAE=4.75 (>10%: 25.5%/47) ; LiveBench Language MAE=3.51 (>10%: 6.4%/47) ; GDPval-AA MAE=0.06 (>10%: 65.2%/46) ; AA Briefcase MAE=45.23 (>10%: 0.0%/11) ; LiveBench Summarize MAE=6.44 (>10%: 36.2%/47) ; IFBench MAE=0.08 (>10%: 48.0%/25) ; LiveBench Instruction Following MAE=5.49 (>10%: 36.2%/47) ; LiveBench Simplify MAE=5.92 (>10%: 42.6%/47) ; Omniscience Index MAE=9.18 (>10%: 88.0%/50) ; LCR MAE=0.02 (>10%: 2.0%/50) ; Omniscience Non-Halluc. MAE=0.20 (>10%: 92.0%/50) ; LiveBench Theory of Mind MAE=1.85 (>10%: 2.1%/47) ; CritPt MAE=0.03 (>10%: 60.0%/50)
+> 填补验证：EQ-Bench 4 MAE=77.47 (>10%: 22.2%/18) ; LiveBench StoryGen MAE=4.69 (>10%: 22.9%/48) ; LiveBench Language MAE=3.45 (>10%: 8.3%/48) ; GDPval-AA MAE=0.06 (>10%: 65.2%/46) ; AA Briefcase MAE=53.04 (>10%: 0.0%/11) ; LiveBench Summarize MAE=6.58 (>10%: 37.5%/48) ; IFBench MAE=0.08 (>10%: 48.0%/25) ; LiveBench Instruction Following MAE=5.51 (>10%: 33.3%/48) ; LiveBench Simplify MAE=5.94 (>10%: 37.5%/48) ; Omniscience Index MAE=9.12 (>10%: 88.0%/50) ; LCR MAE=0.02 (>10%: 2.0%/50) ; Omniscience Non-Halluc. MAE=0.20 (>10%: 92.0%/50) ; LiveBench Theory of Mind MAE=1.81 (>10%: 2.1%/48) ; CritPt MAE=0.03 (>10%: 54.0%/50)
 <!--SNAPSHOT_TEXT_END-->
 
 <!--TOP15_TEXT_START-->
@@ -68,19 +68,19 @@
 |---|---|---|---|---|---|
 | 1 | claude-fable-5.1 | Anthropic | 👁️ | 72.3 | EQ-Bench 4(reg), IFBench(reg), DeepSearchQA(reg) |
 | 2 | muse-spark-1.3 | Meta | 👁️ | 70.9 | EQ-Bench 4(reg), IFBench(reg) |
-| 3 | kimi-k3 | Moonshot AI | 👁️ | 70.7 | IFBench(reg) |
-| 4 | grok-4.6 | xAI | 👁️ | 68.9 | EQ-Bench 4(reg), IFBench(reg), DeepSearchQA(reg) |
-| 5 | claude-fable-5 | Anthropic | 👁️ | 68.3 | EQ-Bench 4(reg), AA Briefcase(reg), DeepSearchQA(reg) |
-| 6 | gemini-3.8-flash | Google | 👁️ | 67.7 | EQ-Bench 4(reg), AA Briefcase(reg), IFBench(reg), DeepSearchQA(reg) |
-| 7 | gpt-5.6-sol | OpenAI | 👁️ | 67.1 | DeepSearchQA(reg) |
-| 8 | claude-opus-4.8 | Anthropic | 👁️ | 66.4 | AA Briefcase(reg) |
-| 9 | claude-opus-5 | Anthropic | 👁️ | 66.4 | EQ-Bench 4(reg), IFBench(reg) |
-| 10 | gemini-3.7-flash | Google | 👁️ | 66.3 | EQ-Bench 4(reg), AA Briefcase(reg), IFBench(reg), DeepSearchQA(reg) |
-| 11 | glm-5.3 | Z.AI | - | 66.0 | EQ-Bench 4(reg), IFBench(reg), DeepSearchQA(reg) |
-| 12 | gpt-5.5 | OpenAI | 👁️ | 66.0 | AA Briefcase(reg), DeepSearchQA(reg) |
-| 13 | muse-spark-1.2 | Meta | 👁️ | 65.2 | EQ-Bench 4(reg), AA Briefcase(reg), IFBench(reg), DeepSearchQA(reg) |
-| 14 | qwen3.8-max | Alibaba | 👁️ | 65.0 | EQ-Bench 4(reg), AA Briefcase(reg), IFBench(reg), DeepSearchQA(reg) |
-| 15 | gpt-6-astra | OpenAI | 👁️ | 64.9 | EQ-Bench 4(reg), LiveBench StoryGen(reg), LiveBench Language(reg), LiveBench Summarize(reg), IFBench(reg), LiveBench Instruction Following(reg), LiveBench Simplify(reg), LiveBench Theory of Mind(reg), DeepSearchQA(reg) |
+| 3 | gpt-6-astra | OpenAI | 👁️ | 70.8 | EQ-Bench 4(reg), IFBench(reg), DeepSearchQA(reg) |
+| 4 | kimi-k3 | Moonshot AI | 👁️ | 70.7 | IFBench(reg) |
+| 5 | grok-4.6 | xAI | 👁️ | 68.9 | EQ-Bench 4(reg), IFBench(reg), DeepSearchQA(reg) |
+| 6 | claude-fable-5 | Anthropic | 👁️ | 68.7 | EQ-Bench 4(reg), AA Briefcase(reg), DeepSearchQA(reg) |
+| 7 | gemini-3.8-flash | Google | 👁️ | 67.7 | EQ-Bench 4(reg), AA Briefcase(reg), IFBench(reg), DeepSearchQA(reg) |
+| 8 | gpt-5.6-sol | OpenAI | 👁️ | 67.1 | DeepSearchQA(reg) |
+| 9 | claude-opus-4.8 | Anthropic | 👁️ | 66.5 | AA Briefcase(reg) |
+| 10 | claude-opus-5 | Anthropic | 👁️ | 66.4 | EQ-Bench 4(reg), IFBench(reg) |
+| 11 | gemini-3.7-flash | Google | 👁️ | 66.3 | EQ-Bench 4(reg), AA Briefcase(reg), IFBench(reg), DeepSearchQA(reg) |
+| 12 | glm-5.3 | Z.AI | - | 66.0 | EQ-Bench 4(reg), IFBench(reg), DeepSearchQA(reg) |
+| 13 | gpt-5.5 | OpenAI | 👁️ | 66.0 | AA Briefcase(reg), DeepSearchQA(reg) |
+| 14 | muse-spark-1.2 | Meta | 👁️ | 65.6 | EQ-Bench 4(reg), AA Briefcase(reg), IFBench(reg), DeepSearchQA(reg) |
+| 15 | qwen3.8-max | Alibaba | 👁️ | 65.3 | EQ-Bench 4(reg), AA Briefcase(reg), IFBench(reg), DeepSearchQA(reg) |
 <!--TOP15_TEXT_END-->
 
 [完整排名 CSV](results/text_scored.csv)
@@ -91,23 +91,23 @@
 
 <!--SNAPSHOT_VALUE_START-->
 > 2026-09-06 抓取（50 精选模型 -> 50 行）。
-> 填补验证：Terminal-Bench v2.1 MAE=0.03 (>10%: 8.7%/46) ; DeepSWE MAE=5.43 (>10%: 28.6%/28) ; LiveBench Coding MAE=3.33 (>10%: 6.4%/47) ; tau3-Banking MAE=0.05 (>10%: 50.0%/46) ; LiveBench Agentic Coding MAE=2.89 (>10%: 23.4%/47) ; LiveBench Instruction Following MAE=5.49 (>10%: 36.2%/47) ; LCR MAE=0.02 (>10%: 2.0%/50) ; IFBench MAE=0.08 (>10%: 48.0%/25) ; HLE MAE=0.03 (>10%: 22.0%/50) ; SciCode MAE=0.02 (>10%: 0.0%/36) ; LiveBench Reasoning MAE=3.20 (>10%: 4.3%/47) ; Omniscience Index MAE=9.18 (>10%: 88.0%/50)
+> 填补验证：Terminal-Bench v2.1 MAE=0.03 (>10%: 8.7%/46) ; DeepSWE MAE=5.43 (>10%: 28.6%/28) ; LiveBench Coding MAE=3.27 (>10%: 6.2%/48) ; tau3-Banking MAE=0.05 (>10%: 56.5%/46) ; LiveBench Agentic Coding MAE=2.99 (>10%: 22.9%/48) ; LiveBench Instruction Following MAE=5.51 (>10%: 33.3%/48) ; LCR MAE=0.02 (>10%: 2.0%/50) ; IFBench MAE=0.08 (>10%: 48.0%/25) ; HLE MAE=0.03 (>10%: 20.0%/50) ; SciCode MAE=0.02 (>10%: 0.0%/36) ; LiveBench Reasoning MAE=3.15 (>10%: 4.2%/48) ; Omniscience Index MAE=9.12 (>10%: 88.0%/50)
 <!--SNAPSHOT_VALUE_END-->
 
 <!--TOP15_VALUE_START-->
 | # | Model | Creator | Vision | Score | API $/1M | 套餐 | 月费 | 倍率 | 套餐内 $/1M | 套餐内 ¥/1M | Value |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | claude-fable-5.1 | Anthropic | 👁️ | 76.0 | 8.956 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.224 | 1.504 | 339.19 |
-| 2 | gpt-6-astra | OpenAI | 👁️ | 73.8 | 9.88 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.141 | 0.946 | 523.7 |
+| 2 | gpt-6-astra | OpenAI | 👁️ | 74.4 | 9.88 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.141 | 0.946 | 527.85 |
 | 3 | claude-opus-5 | Anthropic | 👁️ | 72.8 | 4.749 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.119 | 0.799 | 611.92 |
 | 4 | claude-fable-5 | Anthropic | 👁️ | 72.4 | 9.059 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.226 | 1.517 | 320.55 |
 | 5 | muse-spark-1.3 | Meta | 👁️ | 71.2 | 1.139 | API 按量 | - | 1× | 1.139 | 7.646 | 62.54 |
 | 6 | kimi-k3 | Moonshot AI | 👁️ | 70.8 | 2.734 | [Kimi 会员 Allegretto](https://www.kimi.com/membership/pricing) | $27.6 | 4.5× | 0.602 | 4.041 | 117.68 |
 | 7 | gemini-3.8-flash | Google | 👁️ | 70.7 | 0.741 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | 2× | 0.37 | 2.484 | 191.02 |
 | 8 | gpt-5.6-sol | OpenAI | 👁️ | 70.3 | 3.952 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.057 | 0.383 | 1233.89 |
-| 9 | grok-4.6 | xAI | 👁️ | 69.4 | 1.771 | [SuperGrok Heavy](https://x.ai/pricing) | $300 | 5.3× | 0.332 | 2.229 | 209.11 |
-| 10 | gemini-3.7-flash | Google | 👁️ | 68.7 | 0.741 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | 2× | 0.37 | 2.484 | 185.66 |
-| 11 | gpt-5.5 | OpenAI | 👁️ | 67.6 | 5.69 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.081 | 0.544 | 835.12 |
+| 9 | grok-4.6 | xAI | 👁️ | 69.4 | 1.771 | [SuperGrok Heavy](https://x.ai/pricing) | $300 | 5.3× | 0.332 | 2.229 | 209.12 |
+| 10 | gemini-3.7-flash | Google | 👁️ | 68.7 | 0.741 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | 2× | 0.37 | 2.484 | 185.67 |
+| 11 | gpt-5.5 | OpenAI | 👁️ | 67.6 | 5.69 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.081 | 0.544 | 835.09 |
 | 12 | glm-5.3 | Z.AI | - | 67.4 | 1.65 | [GLM Coding Plan Max](https://bigmodel.cn/glm-coding) | $149.7 | 34.4× | 0.048 | 0.322 | 1403.63 |
 | 13 | claude-opus-4.8 | Anthropic | 👁️ | 66.3 | 4.749 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.119 | 0.799 | 556.88 |
 | 14 | muse-spark-1.2 | Meta | 👁️ | 65.7 | 1.139 | API 按量 | - | 1× | 1.139 | 7.646 | 57.68 |
@@ -142,14 +142,14 @@ Imputed 列：`-` 表示全部真实值，`指标(reg)` 是岭回归填补，`�
 | 4 | [GLM Coding Plan Max](https://bigmodel.cn/glm-coding) | $149.7 | ¥1005 | 34.4× | 2.9% | ≈29.3~58.6亿/月 | glm-5.3 (#12) | 67.4 | 0.048 | 1408.6 |
 | 5 | [GLM Coding Plan Pro](https://bigmodel.cn/glm-coding) | $74.7 | ¥501 | 29.6× | 3.4% | ≈12.6~25.1亿/月 | glm-5.3 (#12) | 67.4 | 0.056 | 1201.4 |
 | 6 | [GLM Coding Plan Lite](https://bigmodel.cn/glm-coding) | $16.4 | ¥110 | 22.4× | 4.5% | ≈2.1~4.2亿/月 | glm-5.3 (#12) | 67.4 | 0.074 | 907.7 |
-| 7 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | ¥1343 | 70× | 1.4% | ≈14亿 | gpt-6-astra (#2) | 73.8 | 0.141 | 522.4 |
+| 7 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | ¥1343 | 70× | 1.4% | ≈14亿 | gpt-6-astra (#2) | 74.4 | 0.141 | 526.6 |
 | 8 | [Hy Token Plan Max](https://cloud.tencent.com/act/pro/tokenplan) | $65 | ¥436 | 1.4× | 73.5% | 6.5亿/月 | hy3 (#39) | 48.4 | 0.098 | 491.4 |
 | 9 | [Hy Token Plan Pro](https://cloud.tencent.com/act/pro/tokenplan) | $33.06 | ¥222 | 1.3× | 76.0% | 3.2亿/月 | hy3 (#39) | 48.4 | 0.102 | 475.3 |
 | 10 | [Hy Token Plan Standard](https://cloud.tencent.com/act/pro/tokenplan) | $10.83 | ¥73 | 1.3× | 79.0% | 1亿/月 | hy3 (#39) | 48.4 | 0.106 | 457.2 |
 | 11 | [Hy Token Plan Lite](https://cloud.tencent.com/act/pro/tokenplan) | $3.9 | ¥26 | 1.2× | 81.0% | 3500万/月 | hy3 (#39) | 48.4 | 0.109 | 445.9 |
 | 12 | [Claude Max 20x](https://claude.com/pricing) | $200 | ¥1343 | 40× | 2.5% | ≈9亿 | claude-fable-5.1 (#1) | 76.0 | 0.224 | 339.4 |
-| 13 | [ChatGPT Pro 5x](https://chatgpt.com/pricing) | $100 | ¥671 | 35× | 2.9% | ≈4亿 | gpt-6-astra (#2) | 73.8 | 0.283 | 261.2 |
-| 14 | [ChatGPT Plus](https://chatgpt.com/pricing) | $20 | ¥134 | 35× | 2.9% | ≈0.7亿 | gpt-6-astra (#2) | 73.8 | 0.283 | 261.2 |
+| 13 | [ChatGPT Pro 5x](https://chatgpt.com/pricing) | $100 | ¥671 | 35× | 2.9% | ≈4亿 | gpt-6-astra (#2) | 74.4 | 0.283 | 263.3 |
+| 14 | [ChatGPT Plus](https://chatgpt.com/pricing) | $20 | ¥134 | 35× | 2.9% | ≈0.7亿 | gpt-6-astra (#2) | 74.4 | 0.283 | 263.3 |
 | 15 | [MiMo Token Plan Max](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $100 | ¥671 | 1.3× | 79.0% | ≈4.5亿/月 | mimo-v2.5-pro (#38) | 50.4 | 0.221 | 227.8 |
 | 16 | [SuperGrok Heavy](https://x.ai/pricing) | $300 | ¥2014 | 5.3× | 18.8% | ≈9亿 | grok-4.6 (#9) | 69.4 | 0.332 | 209.0 |
 | 17 | [SuperGrok](https://x.ai/pricing) | $30 | ¥201 | 5.3× | 18.8% | ≈0.9亿 | grok-4.6 (#9) | 69.4 | 0.332 | 209.0 |

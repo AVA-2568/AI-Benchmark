@@ -20,12 +20,12 @@
     "n": 46
   },
   "AA Briefcase": {
-    "mae": 53.0402,
+    "mae": 53.0401,
     "pct_over10": 0.0,
     "n": 11
   },
   "LiveBench Summarize": {
-    "mae": 6.5773,
+    "mae": 6.5778,
     "pct_over10": 37.5,
     "n": 48
   },
