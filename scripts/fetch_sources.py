@@ -233,102 +233,6 @@ def fetch_eqbench():
     return path
 
 
-# ---------- BrowseComp ----------
-
-def fetch_browsecomp():
-    """BrowseComp 网页自主浏览与搜索智能体评测。"""
-    path = os.path.join(CACHE, "browsecomp.csv")
-    try:
-        html = _get("https://benchlm.ai/benchmarks/browsecomp").decode("utf-8", errors="replace")
-        matches = re.findall(r'\"model\":\"(.*?)\",\"slug\":(\"[^\"]+\"|null).*?\"score\":([0-9.]+)', html)
-        rows = []
-        for m_name, slug_raw, score in matches:
-            slug = json.loads(slug_raw) if slug_raw != "null" else ""
-            rows.append([m_name, slug or "", score])
-        if rows:
-            return _write_csv("browsecomp.csv", ["model", "slug", "BrowseComp"], rows)
-    except Exception as e:
-        print(f"  browsecomp remote fetch error: {e}, fallback cache")
-    if os.path.exists(path):
-        with open(path, encoding="utf-8-sig", newline="") as f:
-            n = sum(1 for _ in csv.DictReader(f))
-        print(f"browsecomp: {n} 模型 -> {os.path.basename(path)}")
-        return path
-    return _write_csv("browsecomp.csv", ["model", "slug", "BrowseComp"], [])
-
-
-# ---------- EQ-Bench 4 ----------
-
-def fetch_eqbench4():
-    """EQ-Bench 4 多轮人设立体对话与情商评测。"""
-    path = os.path.join(CACHE, "eqbench4.csv")
-    try:
-        html = _get("https://benchlm.ai/benchmarks/eqbench4").decode("utf-8", errors="replace")
-        matches = re.findall(r'\"model\":\"(.*?)\",\"slug\":(\"[^\"]+\"|null).*?\"score\":([0-9.]+)', html)
-        rows = []
-        for m_name, slug_raw, score in matches:
-            slug = json.loads(slug_raw) if slug_raw != "null" else ""
-            rows.append([m_name, slug or "", score])
-        if rows:
-            return _write_csv("eqbench4.csv", ["model", "slug", "EQ-Bench 4"], rows)
-    except Exception as e:
-        print(f"  eqbench4 remote fetch error: {e}, fallback cache")
-    if os.path.exists(path):
-        with open(path, encoding="utf-8-sig", newline="") as f:
-            n = sum(1 for _ in csv.DictReader(f))
-        print(f"eqbench4: {n} 模型 -> {os.path.basename(path)}")
-        return path
-    return _write_csv("eqbench4.csv", ["model", "slug", "EQ-Bench 4"], [])
-
-
-# ---------- AA Briefcase ----------
-
-def fetch_aabriefcase():
-    """Artificial Analysis Briefcase 专业白领知识工作评测。"""
-    path = os.path.join(CACHE, "aabriefcase.csv")
-    try:
-        html = _get("https://benchlm.ai/benchmarks/aabriefcaseelo").decode("utf-8", errors="replace")
-        matches = re.findall(r'\"model\":\"(.*?)\",\"slug\":(\"[^\"]+\"|null).*?\"score\":([0-9.]+)', html)
-        rows = []
-        for m_name, slug_raw, score in matches:
-            slug = json.loads(slug_raw) if slug_raw != "null" else ""
-            rows.append([m_name, slug or "", score])
-        if rows:
-            return _write_csv("aabriefcase.csv", ["model", "slug", "AA Briefcase"], rows)
-    except Exception as e:
-        print(f"  aabriefcase remote fetch error: {e}, fallback cache")
-    if os.path.exists(path):
-        with open(path, encoding="utf-8-sig", newline="") as f:
-            n = sum(1 for _ in csv.DictReader(f))
-        print(f"aabriefcase: {n} 模型 -> {os.path.basename(path)}")
-        return path
-    return _write_csv("aabriefcase.csv", ["model", "slug", "AA Briefcase"], [])
-
-
-# ---------- DeepSearchQA ----------
-
-def fetch_deepsearchqa():
-    """DeepSearchQA 长程深度信息检索与开放式问答评测。"""
-    path = os.path.join(CACHE, "deepsearchqa.csv")
-    try:
-        html = _get("https://benchlm.ai/benchmarks/deepsearchqa").decode("utf-8", errors="replace")
-        matches = re.findall(r'\"model\":\"(.*?)\",\"slug\":(\"[^\"]+\"|null).*?\"score\":([0-9.]+)', html)
-        rows = []
-        for m_name, slug_raw, score in matches:
-            slug = json.loads(slug_raw) if slug_raw != "null" else ""
-            rows.append([m_name, slug or "", score])
-        if rows:
-            return _write_csv("deepsearchqa.csv", ["model", "slug", "DeepSearchQA"], rows)
-    except Exception as e:
-        print(f"  deepsearchqa remote fetch error: {e}, fallback cache")
-    if os.path.exists(path):
-        with open(path, encoding="utf-8-sig", newline="") as f:
-            n = sum(1 for _ in csv.DictReader(f))
-        print(f"deepsearchqa: {n} 模型 -> {os.path.basename(path)}")
-        return path
-    return _write_csv("deepsearchqa.csv", ["model", "slug", "DeepSearchQA"], [])
-
-
 # ---------- 汇率 ----------
 
 def fetch_fx():
@@ -380,10 +284,6 @@ FETCHERS = {
     "deepswe": fetch_deepswe,
     "swebench": fetch_swebench,
     "eqbench": fetch_eqbench,
-    "browsecomp": fetch_browsecomp,
-    "eqbench4": fetch_eqbench4,
-    "aabriefcase": fetch_aabriefcase,
-    "deepsearchqa": fetch_deepsearchqa,
     "fx": fetch_fx,
     "openrouter": fetch_openrouter,
 }

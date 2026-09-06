@@ -10,39 +10,34 @@
     "n": 28
   },
   "LiveBench Coding": {
-    "mae": 3.2656,
+    "mae": 3.2659,
     "pct_over10": 6.2,
     "n": 48
   },
   "tau3-Banking": {
-    "mae": 0.0502,
+    "mae": 0.0513,
     "pct_over10": 56.5,
     "n": 46
   },
-  "BrowseComp": {
-    "mae": null,
-    "pct_over10": null,
-    "n": 6
+  "LiveBench Data Analysis": {
+    "mae": 5.1714,
+    "pct_over10": 25.0,
+    "n": 48
   },
   "LiveBench Agentic Coding": {
-    "mae": 2.992,
-    "pct_over10": 22.9,
+    "mae": 3.7122,
+    "pct_over10": 31.2,
     "n": 48
   },
   "LiveBench Instruction Following": {
-    "mae": 5.5106,
-    "pct_over10": 33.3,
+    "mae": 5.7329,
+    "pct_over10": 31.2,
     "n": 48
   },
   "LCR": {
-    "mae": 0.0233,
+    "mae": 0.0227,
     "pct_over10": 2.0,
     "n": 50
-  },
-  "IFBench": {
-    "mae": 0.0773,
-    "pct_over10": 48.0,
-    "n": 25
   },
   "HLE": {
     "mae": 0.0252,
@@ -55,7 +50,7 @@
     "n": 36
   },
   "LiveBench Reasoning": {
-    "mae": 3.1506,
+    "mae": 3.1507,
     "pct_over10": 4.2,
     "n": 48
   },

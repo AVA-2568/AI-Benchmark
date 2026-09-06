@@ -7,13 +7,12 @@
     ],
     "automation_web": [
       "tau3-Banking",
-      "BrowseComp",
+      "LiveBench Data Analysis",
       "LiveBench Agentic Coding"
     ],
     "instruction_context": [
       "LiveBench Instruction Following",
-      "LCR",
-      "IFBench"
+      "LCR"
     ],
     "reasoning": [
       "HLE",
@@ -26,24 +25,26 @@
       "Omniscience Index"
     ],
     "creative_literature": [
-      "EQ-Bench 4",
-      "LiveBench StoryGen"
+      "LiveBench StoryGen",
+      "LiveBench Language"
     ],
     "professional_work": [
       "GDPval-AA",
-      "AA Briefcase",
+      "LiveBench Data Analysis",
       "LiveBench Summarize"
     ],
     "text_instruction": [
+      "LiveBench Instruction Following",
       "LiveBench Simplify"
     ],
     "factuality_longtext": [
-      "Omniscience Non-Halluc."
+      "Omniscience Index",
+      "Omniscience Non-Halluc.",
+      "LCR"
     ],
     "humanities_mind": [
       "LiveBench Theory of Mind",
-      "CritPt",
-      "DeepSearchQA"
+      "CritPt"
     ]
   },
   "imputation_pool": [
@@ -51,27 +52,23 @@
     "DeepSWE",
     "LiveBench Coding",
     "tau3-Banking",
-    "BrowseComp",
     "LiveBench Agentic Coding",
+    "LiveBench Data Analysis",
     "LiveBench Instruction Following",
     "LCR",
-    "IFBench",
     "HLE",
     "SciCode",
     "LiveBench Reasoning",
     "EQ-Bench Creative Writing",
     "LiveBench Language",
     "Omniscience Index",
-    "EQ-Bench 4",
     "LiveBench StoryGen",
     "GDPval-AA",
-    "AA Briefcase",
     "LiveBench Summarize",
     "LiveBench Simplify",
     "Omniscience Non-Halluc.",
     "LiveBench Theory of Mind",
-    "CritPt",
-    "DeepSearchQA"
+    "CritPt"
   ],
   "metric_scales": {
     "DeepSWE": [
@@ -79,10 +76,6 @@
       100
     ],
     "LiveBench Coding": [
-      0,
-      100
-    ],
-    "BrowseComp": [
       0,
       100
     ],
@@ -95,10 +88,6 @@
       100
     ],
     "LCR": [
-      0,
-      1
-    ],
-    "IFBench": [
       0,
       1
     ],
@@ -126,10 +115,6 @@
       -50,
       50
     ],
-    "EQ-Bench 4": [
-      1000,
-      1400
-    ],
     "LiveBench StoryGen": [
       0,
       100
@@ -137,10 +122,6 @@
     "GDPval-AA": [
       0,
       1
-    ],
-    "AA Briefcase": [
-      1200,
-      1800
     ],
     "LiveBench Summarize": [
       0,
@@ -151,10 +132,6 @@
       100
     ],
     "LiveBench Theory of Mind": [
-      0,
-      100
-    ],
-    "DeepSearchQA": [
       0,
       100
     ],
@@ -173,6 +150,10 @@
     "CritPt": [
       0,
       1
+    ],
+    "LiveBench Data Analysis": [
+      0,
+      100
     ]
   },
   "leaderboards": {
@@ -208,7 +189,7 @@
               "sub_weight": 0.5
             },
             {
-              "name": "BrowseComp",
+              "name": "LiveBench Data Analysis",
               "sub_weight": 0.3
             },
             {
@@ -223,15 +204,11 @@
           "metrics": [
             {
               "name": "LiveBench Instruction Following",
-              "sub_weight": 0.45
+              "sub_weight": 0.55
             },
             {
               "name": "LCR",
-              "sub_weight": 0.35
-            },
-            {
-              "name": "IFBench",
-              "sub_weight": 0.2
+              "sub_weight": 0.45
             }
           ]
         },
@@ -275,16 +252,12 @@
           "weight": 0.25,
           "metrics": [
             {
-              "name": "EQ-Bench 4",
-              "sub_weight": 0.5
-            },
-            {
               "name": "LiveBench StoryGen",
-              "sub_weight": 0.3
+              "sub_weight": 0.55
             },
             {
               "name": "LiveBench Language",
-              "sub_weight": 0.2
+              "sub_weight": 0.45
             }
           ]
         },
@@ -297,12 +270,12 @@
               "sub_weight": 0.5
             },
             {
-              "name": "AA Briefcase",
-              "sub_weight": 0.3
+              "name": "LiveBench Data Analysis",
+              "sub_weight": 0.25
             },
             {
               "name": "LiveBench Summarize",
-              "sub_weight": 0.2
+              "sub_weight": 0.25
             }
           ]
         },
@@ -311,16 +284,12 @@
           "weight": 0.2,
           "metrics": [
             {
-              "name": "IFBench",
-              "sub_weight": 0.5
-            },
-            {
               "name": "LiveBench Instruction Following",
-              "sub_weight": 0.3
+              "sub_weight": 0.6
             },
             {
               "name": "LiveBench Simplify",
-              "sub_weight": 0.2
+              "sub_weight": 0.4
             }
           ]
         },
@@ -348,15 +317,11 @@
           "metrics": [
             {
               "name": "LiveBench Theory of Mind",
-              "sub_weight": 0.5
+              "sub_weight": 0.6
             },
             {
               "name": "CritPt",
-              "sub_weight": 0.3
-            },
-            {
-              "name": "DeepSearchQA",
-              "sub_weight": 0.2
+              "sub_weight": 0.4
             }
           ]
         }
@@ -395,7 +360,7 @@
               "sub_weight": 0.5
             },
             {
-              "name": "BrowseComp",
+              "name": "LiveBench Data Analysis",
               "sub_weight": 0.3
             },
             {
@@ -410,15 +375,11 @@
           "metrics": [
             {
               "name": "LiveBench Instruction Following",
-              "sub_weight": 0.45
+              "sub_weight": 0.55
             },
             {
               "name": "LCR",
-              "sub_weight": 0.35
-            },
-            {
-              "name": "IFBench",
-              "sub_weight": 0.2
+              "sub_weight": 0.45
             }
           ]
         },
@@ -974,13 +935,12 @@
     ],
     "automation_web": [
       "LiveBench Agentic Coding",
-      "BrowseComp",
+      "LiveBench Data Analysis",
       "tau3-Banking"
     ],
     "instruction_context": [
       "LCR",
-      "LiveBench Instruction Following",
-      "IFBench"
+      "LiveBench Instruction Following"
     ],
     "reasoning": [
       "LiveBench Reasoning",
@@ -992,16 +952,15 @@
       "EQ-Bench Creative Writing"
     ],
     "creative_literature": [
-      "LiveBench StoryGen",
-      "EQ-Bench 4"
+      "LiveBench Language",
+      "LiveBench StoryGen"
     ],
     "professional_work": [
       "LiveBench Summarize",
-      "AA Briefcase",
+      "LiveBench Data Analysis",
       "GDPval-AA"
     ],
     "humanities_mind": [
-      "DeepSearchQA",
       "CritPt",
       "LiveBench Theory of Mind"
     ]

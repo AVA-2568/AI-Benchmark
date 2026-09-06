@@ -74,29 +74,6 @@ def build_merged():
     lb = _alias_index(_read_csv(os.path.join(CACHE, "livebench.csv")), "model")
     ds = _alias_index(_read_csv(os.path.join(CACHE, "deepswe.csv")), "model")
     eq = _alias_index(_read_csv(os.path.join(CACHE, "eqbench.csv")), "model")
-    bc = _alias_index(_read_csv(os.path.join(CACHE, "browsecomp.csv")), "model")
-    bc_slug = _alias_index(_read_csv(os.path.join(CACHE, "browsecomp.csv")), "slug")
-
-    eq4 = _alias_index(_read_csv(os.path.join(CACHE, "eqbench4.csv")), "model")
-    eq4_slug = _alias_index(_read_csv(os.path.join(CACHE, "eqbench4.csv")), "slug")
-    briefcase = _alias_index(_read_csv(os.path.join(CACHE, "aabriefcase.csv")), "model")
-    briefcase_slug = _alias_index(_read_csv(os.path.join(CACHE, "aabriefcase.csv")), "slug")
-    deepsearch = _alias_index(_read_csv(os.path.join(CACHE, "deepsearchqa.csv")), "model")
-    deepsearch_slug = _alias_index(_read_csv(os.path.join(CACHE, "deepsearchqa.csv")), "slug")
-
-    def _pick_benchlm(im, islug, slug):
-        if slug in islug:
-            return islug[slug]
-        norm_s = slug.replace(".", "-")
-        if norm_s in islug:
-            return islug[norm_s]
-        if slug in im:
-            return im[slug]
-        s_clean = slug.replace("-", "").replace(".", "").lower()
-        for k in im:
-            if s_clean in k.replace("-", "").replace(".", "").lower():
-                return im[k]
-        return None
 
     # 官方发布技术报告核定的权威指标补充（声明式配置，便于自动化及模型维护）
     evals_path = os.path.join(os.path.dirname(__file__), "official_evals.json")
@@ -108,16 +85,16 @@ def build_merged():
     # 指标名（与 config.json imputation_pool 一致）
     cols = [
         "Terminal-Bench v2.1", "DeepSWE", "LiveBench Coding",
-        "tau3-Banking", "BrowseComp", "LiveBench Agentic Coding",
-        "LiveBench Instruction Following", "LCR", "IFBench",
+        "tau3-Banking", "LiveBench Agentic Coding", "LiveBench Data Analysis",
+        "LiveBench Instruction Following", "LCR",
         "HLE", "SciCode", "LiveBench Reasoning",
         "EQ-Bench Creative Writing", "LiveBench Language", "Omniscience Index",
-        # 文本榜五维新增指标
-        "EQ-Bench 4", "LiveBench StoryGen",
-        "GDPval-AA", "AA Briefcase", "LiveBench Summarize",
+        # 文本榜五维指标
+        "LiveBench StoryGen",
+        "GDPval-AA", "LiveBench Summarize",
         "LiveBench Simplify",
         "Omniscience Non-Halluc.",
-        "LiveBench Theory of Mind", "CritPt", "DeepSearchQA",
+        "LiveBench Theory of Mind", "CritPt",
     ]
 
     out_rows = []
@@ -130,6 +107,7 @@ def build_merged():
         if lb_row:
             row["LiveBench Coding"] = _num(lb_row.get("Coding"))
             row["LiveBench Agentic Coding"] = _num(lb_row.get("Agentic Coding"))
+            row["LiveBench Data Analysis"] = _num(lb_row.get("Data Analysis"))
             row["LiveBench Instruction Following"] = _num(lb_row.get("IF"))
             row["LiveBench Language"] = _num(lb_row.get("Language"))
             row["LiveBench Reasoning"] = _num(lb_row.get("Reasoning"))
@@ -138,13 +116,6 @@ def build_merged():
             row["LiveBench Summarize"] = _num(lb_row.get("LiveBench Summarize"))
             row["LiveBench Simplify"] = _num(lb_row.get("LiveBench Simplify"))
             row["LiveBench Theory of Mind"] = _num(lb_row.get("LiveBench Theory of Mind"))
-
-        # BrowseComp
-        bc_row, _ = _pick_max(bc, m.get("browsecomp") or slug)
-        if not bc_row:
-            bc_row, _ = _pick_max(bc_slug, m.get("browsecomp") or slug)
-        if bc_row:
-            row["BrowseComp"] = _num(bc_row.get("BrowseComp"))
 
         # DeepSWE
         ds_row, _ = _pick_max(ds, m.get("deepswe"))
@@ -156,19 +127,6 @@ def build_merged():
         if eq_row:
             row["EQ-Bench Creative Writing"] = _num(eq_row.get("Elo"))
 
-        # benchlm.ai 新增文本指标
-        eq4_row = _pick_benchlm(eq4, eq4_slug, slug)
-        if eq4_row and eq4_row.get("EQ-Bench 4"):
-            row["EQ-Bench 4"] = _num(eq4_row.get("EQ-Bench 4"))
-
-        bc_brief_row = _pick_benchlm(briefcase, briefcase_slug, slug)
-        if bc_brief_row and bc_brief_row.get("AA Briefcase"):
-            row["AA Briefcase"] = _num(bc_brief_row.get("AA Briefcase"))
-
-        deepsearch_row = _pick_benchlm(deepsearch, deepsearch_slug, slug)
-        if deepsearch_row and deepsearch_row.get("DeepSearchQA"):
-            row["DeepSearchQA"] = _num(deepsearch_row.get("DeepSearchQA"))
-
         # AA
         aa_row, _ = _pick_max(aa, m.get("aa"))
         if aa_row:
@@ -178,7 +136,6 @@ def build_merged():
             row["Omniscience Index"] = _num(aa_row.get("Omniscience Index"))
             row["Omniscience Non-Halluc."] = _num(aa_row.get("Omniscience Non-Halluc."))
             row["HLE"] = _num(aa_row.get("HLE"))
-            row["IFBench"] = _num(aa_row.get("IFBench"))
             row["SciCode"] = _num(aa_row.get("SciCode"))
             row["CritPt"] = _num(aa_row.get("CritPt"))
             if aa_row.get("GDPval-AA"):
