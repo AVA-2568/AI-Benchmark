@@ -97,10 +97,10 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 
 | 领域分类 (权重) | 1 个高难前沿主基准 (Major) | 2 个高覆盖辅助小基准 (Minors) | 子权重分配 | 官方来源与域内互锁逻辑 |
 |---|---|---|---|---|
-| **代码与 Agent** (35%) | **Terminal-Bench 4.0** | | 45% | 官方主表 Agentic Coding 第一项（真实终端操作） |
-| | | **DeepSWE v1.1** | 35% | 官方主表 Software Engineering（真实 GitHub Issue） |
-| | | **LiveBench Coding** | 20% | 独立防污染算法与代码生成 |
-| **业务自动化与 Web** (15%) | **AutomationBench** | | 50% | 官方主表 Business Workflows（企业端到端办公业务流） |
+| **代码与 Agent** (35%) | **Terminal-Bench v2.1** | | 45% | AA 官方统一测试 harness 评测真实终端操作与命令行 Agent，杜绝多平台 scaffold 干扰 |
+| | | **DeepSWE v1.1** | 35% | 官方主表 Software Engineering（真实 GitHub Issue 修复） |
+| | | **LiveBench Coding** | 20% | 独立防污染算法与严谨代码生成 |
+| **业务自动化与 Web** (15%) | **tau3-Banking** | | 50% | AA 官方银行与金融真实业务智能体交互测试（Agentic Tool Use & Banking Workflows） |
 | | | **BrowseComp** | 30% | 真实网络环境自主搜索与信息检索 Agent |
 | | | **LiveBench Agentic** | 20% | 多步工具与智能体指令合成 |
 | **指令遵循与长上下文** (20%) | **LiveBench IF** | | 45% | 严格多约束与负向规则遵循（指哪打哪） |
@@ -140,9 +140,9 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 | | | **LiveBench Simplify** | 20% | 文本通俗化表达与精准改写 (LiveBench) |
 | **事实抗伪与超长文本** (20%) | **Omniscience Index** | | 50% | 事实性与未知边界防幻觉拒答得分 (AA) |
 | | | **LCR** | 30% | 1M 超长文本跨文档精确检索 (AA) |
-| | | **BullshitBench v2** | 20% | 抗诱导提问与防虚假常识盲从测试 (benchlm.ai) |
+| | | **Omniscience Non-Halluc.** | 20% | AA 官方抗幻觉率 (1 - Hallucination Rate)，排除外部诱导配置干扰 (AA) |
 | **人际心智与人文社科** (15%) | **LiveBench Theory of Mind** | | 50% | 心智理论测试，评估社交认知与意图推断 (LiveBench) |
-| | | **Harvey LAB** | 30% | 复杂法律文本分析与逻辑推理 (AA) |
+| | | **CritPt** | 30% | Critical Point 前沿物理学与复杂系统深度推理 (AA) |
 | | | **DeepSearchQA** | 20% | 长程深度信息检索与开放式问答 (benchlm.ai) |
 
 全局权重之和 = 1.00。
@@ -175,8 +175,8 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 
 | 指标 | 锚点 [lo, hi] | 说明 |
 |---|---|---|
-| LiveBench 各分类 / DeepSWE / BullshitBench / DeepSearchQA | [0, 100] | 已是 0–100 百分比 |
-| LCR / GPQA Diamond / HLE / GDPval-AA / Harvey LAB / IFBench / AutomationBench | [0, 1] | 0–1 比例，×100 隐含 |
+| LiveBench 各分类 / DeepSWE / DeepSearchQA | [0, 100] | 已是 0–100 百分比 |
+| LCR / GPQA Diamond / HLE / GDPval-AA / IFBench / Terminal-Bench v2.1 / tau3-Banking / Omniscience Non-Halluc. / CritPt | [0, 1] | 0–1 比例，×100 隐含 |
 | Omniscience Index | [-50, 50] | 净得分实际可达范围（全对/全错几乎不可能，0=中性） |
 | EQ-Bench Creative Writing | [1400, 2200] | Elo 实际分布约 1438~2105，下限收紧到 1400 避免分数被压到 45 分以上 |
 | EQ-Bench 4 | [1000, 1400] | Elo 实际分布约 1035~1350，下限标定 1000、上限 1400 |
@@ -210,7 +210,7 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 1. **初始化**：缺失值用该领域内的基准均值填充；
 2. **每轮分域迭代**：提取领域内真实值样本训练独立标准化 Scaler 与岭回归 → 预测缺失值 → 裁剪到 P95；
 3. **物理层级单调性与防刷分天花板约束（Hierarchy Envelope）**：
-   - 现实中，高阶前沿指标（如 `Terminal-Bench 4.0` 终端交互、`HLE` 博士考场）的难度必然高于基础指标（如 `LiveBench Coding`、`LiveBench Reasoning`）；
+   - 现实中，高阶前沿指标（如 `Terminal-Bench v2.1` 终端交互、`HLE` 博士考场）的难度必然高于基础指标（如 `LiveBench Coding`、`LiveBench Reasoning`）；
    - 算法内置领域层级链（`domain_hierarchies`），强制执行单调性约束：**高层级预测分严格不得脱离底层基础能力分**（防止未公布高难指标的普通模型被盲目抬高虚高分）；
 4. **阻尼更新**：`cur = 0.5 * cur + 0.5 * pred`，迭代直至收敛（量程容差 0.5%）。
 

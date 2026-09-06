@@ -74,8 +74,6 @@ def build_merged():
     lb = _alias_index(_read_csv(os.path.join(CACHE, "livebench.csv")), "model")
     ds = _alias_index(_read_csv(os.path.join(CACHE, "deepswe.csv")), "model")
     eq = _alias_index(_read_csv(os.path.join(CACHE, "eqbench.csv")), "model")
-    tb = _alias_index(_read_csv(os.path.join(CACHE, "terminalbench.csv")), "model")
-    tb_slug = _alias_index(_read_csv(os.path.join(CACHE, "terminalbench.csv")), "slug")
     bc = _alias_index(_read_csv(os.path.join(CACHE, "browsecomp.csv")), "model")
     bc_slug = _alias_index(_read_csv(os.path.join(CACHE, "browsecomp.csv")), "slug")
 
@@ -83,8 +81,6 @@ def build_merged():
     eq4_slug = _alias_index(_read_csv(os.path.join(CACHE, "eqbench4.csv")), "slug")
     briefcase = _alias_index(_read_csv(os.path.join(CACHE, "aabriefcase.csv")), "model")
     briefcase_slug = _alias_index(_read_csv(os.path.join(CACHE, "aabriefcase.csv")), "slug")
-    bullshit = _alias_index(_read_csv(os.path.join(CACHE, "bullshitbench.csv")), "model")
-    bullshit_slug = _alias_index(_read_csv(os.path.join(CACHE, "bullshitbench.csv")), "slug")
     deepsearch = _alias_index(_read_csv(os.path.join(CACHE, "deepsearchqa.csv")), "model")
     deepsearch_slug = _alias_index(_read_csv(os.path.join(CACHE, "deepsearchqa.csv")), "slug")
 
@@ -111,8 +107,8 @@ def build_merged():
 
     # 指标名（与 config.json imputation_pool 一致）
     cols = [
-        "Terminal-Bench 4.0", "DeepSWE", "LiveBench Coding",
-        "AutomationBench", "BrowseComp", "LiveBench Agentic Coding",
+        "Terminal-Bench v2.1", "DeepSWE", "LiveBench Coding",
+        "tau3-Banking", "BrowseComp", "LiveBench Agentic Coding",
         "LiveBench Instruction Following", "LCR", "IFBench",
         "HLE", "SciCode", "LiveBench Reasoning",
         "EQ-Bench Creative Writing", "LiveBench Language", "Omniscience Index",
@@ -120,8 +116,8 @@ def build_merged():
         "EQ-Bench 4", "LiveBench StoryGen",
         "GDPval-AA", "AA Briefcase", "LiveBench Summarize",
         "LiveBench Simplify",
-        "BullshitBench v2",
-        "LiveBench Theory of Mind", "Harvey LAB", "DeepSearchQA",
+        "Omniscience Non-Halluc.",
+        "LiveBench Theory of Mind", "CritPt", "DeepSearchQA",
     ]
 
     out_rows = []
@@ -142,13 +138,6 @@ def build_merged():
             row["LiveBench Summarize"] = _num(lb_row.get("LiveBench Summarize"))
             row["LiveBench Simplify"] = _num(lb_row.get("LiveBench Simplify"))
             row["LiveBench Theory of Mind"] = _num(lb_row.get("LiveBench Theory of Mind"))
-
-        # Terminal-Bench 4.0
-        tb_row, _ = _pick_max(tb, m.get("terminalbench") or slug)
-        if not tb_row:
-            tb_row, _ = _pick_max(tb_slug, m.get("terminalbench") or slug)
-        if tb_row:
-            row["Terminal-Bench 4.0"] = _num(tb_row.get("Terminal-Bench 4.0"))
 
         # BrowseComp
         bc_row, _ = _pick_max(bc, m.get("browsecomp") or slug)
@@ -176,10 +165,6 @@ def build_merged():
         if bc_brief_row and bc_brief_row.get("AA Briefcase"):
             row["AA Briefcase"] = _num(bc_brief_row.get("AA Briefcase"))
 
-        bullshit_row = _pick_benchlm(bullshit, bullshit_slug, slug)
-        if bullshit_row and bullshit_row.get("BullshitBench v2"):
-            row["BullshitBench v2"] = _num(bullshit_row.get("BullshitBench v2"))
-
         deepsearch_row = _pick_benchlm(deepsearch, deepsearch_slug, slug)
         if deepsearch_row and deepsearch_row.get("DeepSearchQA"):
             row["DeepSearchQA"] = _num(deepsearch_row.get("DeepSearchQA"))
@@ -187,17 +172,17 @@ def build_merged():
         # AA
         aa_row, _ = _pick_max(aa, m.get("aa"))
         if aa_row:
+            row["Terminal-Bench v2.1"] = _num(aa_row.get("Terminal-Bench v2.1"))
+            row["tau3-Banking"] = _num(aa_row.get("tau3-Banking"))
             row["LCR"] = _num(aa_row.get("LCR"))
             row["Omniscience Index"] = _num(aa_row.get("Omniscience Index"))
+            row["Omniscience Non-Halluc."] = _num(aa_row.get("Omniscience Non-Halluc."))
             row["HLE"] = _num(aa_row.get("HLE"))
             row["IFBench"] = _num(aa_row.get("IFBench"))
             row["SciCode"] = _num(aa_row.get("SciCode"))
-            if aa_row.get("AutomationBench"):
-                row["AutomationBench"] = _num(aa_row.get("AutomationBench"))
+            row["CritPt"] = _num(aa_row.get("CritPt"))
             if aa_row.get("GDPval-AA"):
                 row["GDPval-AA"] = _num(aa_row.get("GDPval-AA"))
-            if aa_row.get("Harvey LAB"):
-                row["Harvey LAB"] = _num(aa_row.get("Harvey LAB"))
             # 成本列（性价比榜用）
             row["Price 1M Input"] = _num(aa_row.get("Price 1M Input"))
             row["Price 1M Output"] = _num(aa_row.get("Price 1M Output"))

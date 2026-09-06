@@ -233,30 +233,6 @@ def fetch_eqbench():
     return path
 
 
-# ---------- Terminal-Bench 4.0 ----------
-
-def fetch_terminalbench():
-    """Terminal-Bench 4.0 官方与公开评测成绩。"""
-    path = os.path.join(CACHE, "terminalbench.csv")
-    try:
-        html = _get("https://benchlm.ai/benchmarks/terminal-bench-4").decode("utf-8", errors="replace")
-        matches = re.findall(r'\"model\":\"(.*?)\",\"slug\":(\"[^\"]+\"|null).*?\"score\":([0-9.]+)', html)
-        rows = []
-        for m_name, slug_raw, score in matches:
-            slug = json.loads(slug_raw) if slug_raw != "null" else ""
-            rows.append([m_name, slug or "", score])
-        if rows:
-            return _write_csv("terminalbench.csv", ["model", "slug", "Terminal-Bench 4.0"], rows)
-    except Exception as e:
-        print(f"  terminalbench remote fetch error: {e}, fallback cache")
-    if os.path.exists(path):
-        with open(path, encoding="utf-8-sig", newline="") as f:
-            n = sum(1 for _ in csv.DictReader(f))
-        print(f"terminalbench: {n} 模型 -> {os.path.basename(path)}")
-        return path
-    return _write_csv("terminalbench.csv", ["model", "slug", "Terminal-Bench 4.0"], [])
-
-
 # ---------- BrowseComp ----------
 
 def fetch_browsecomp():
@@ -327,30 +303,6 @@ def fetch_aabriefcase():
         print(f"aabriefcase: {n} 模型 -> {os.path.basename(path)}")
         return path
     return _write_csv("aabriefcase.csv", ["model", "slug", "AA Briefcase"], [])
-
-
-# ---------- BullshitBench v2 ----------
-
-def fetch_bullshitbench():
-    """BullshitBench v2 抗诱导胡扯与事实抗伪评测。"""
-    path = os.path.join(CACHE, "bullshitbench.csv")
-    try:
-        html = _get("https://benchlm.ai/benchmarks/bullshitbenchv2").decode("utf-8", errors="replace")
-        matches = re.findall(r'\"model\":\"(.*?)\",\"slug\":(\"[^\"]+\"|null).*?\"score\":([0-9.]+)', html)
-        rows = []
-        for m_name, slug_raw, score in matches:
-            slug = json.loads(slug_raw) if slug_raw != "null" else ""
-            rows.append([m_name, slug or "", score])
-        if rows:
-            return _write_csv("bullshitbench.csv", ["model", "slug", "BullshitBench v2"], rows)
-    except Exception as e:
-        print(f"  bullshitbench remote fetch error: {e}, fallback cache")
-    if os.path.exists(path):
-        with open(path, encoding="utf-8-sig", newline="") as f:
-            n = sum(1 for _ in csv.DictReader(f))
-        print(f"bullshitbench: {n} 模型 -> {os.path.basename(path)}")
-        return path
-    return _write_csv("bullshitbench.csv", ["model", "slug", "BullshitBench v2"], [])
 
 
 # ---------- DeepSearchQA ----------
@@ -428,11 +380,9 @@ FETCHERS = {
     "deepswe": fetch_deepswe,
     "swebench": fetch_swebench,
     "eqbench": fetch_eqbench,
-    "terminalbench": fetch_terminalbench,
     "browsecomp": fetch_browsecomp,
     "eqbench4": fetch_eqbench4,
     "aabriefcase": fetch_aabriefcase,
-    "bullshitbench": fetch_bullshitbench,
     "deepsearchqa": fetch_deepsearchqa,
     "fx": fetch_fx,
     "openrouter": fetch_openrouter,

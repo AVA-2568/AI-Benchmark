@@ -506,12 +506,24 @@
       "slug": "gpt-6-astra",
       "creator": "OpenAI",
       "aa": "gpt-6-astra",
-      "livebench": null,
+      "livebench": "gpt-6-astra-max",
       "deepswe": "gpt-6-astra",
       "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-09-04"
+    },
+    {
+      "slug": "muse-spark-1.3",
+      "creator": "Meta",
+      "aa": "muse-spark-1-3",
+      "livebench": "muse-spark-1.3-xhigh",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-09-06",
+      "openrouter": "meta/muse-spark-1.3"
     }
   ]
 }

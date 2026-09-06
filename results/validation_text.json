@@ -1,77 +1,77 @@
 {
   "EQ-Bench 4": {
-    "mae": 77.4498,
+    "mae": 77.4688,
     "pct_over10": 22.2,
     "n": 18
   },
   "LiveBench StoryGen": {
-    "mae": 4.7466,
-    "pct_over10": 26.1,
-    "n": 46
+    "mae": 4.6884,
+    "pct_over10": 22.9,
+    "n": 48
   },
   "LiveBench Language": {
-    "mae": 3.5876,
-    "pct_over10": 6.5,
-    "n": 46
+    "mae": 3.448,
+    "pct_over10": 8.3,
+    "n": 48
   },
   "GDPval-AA": {
-    "mae": 0.0413,
-    "pct_over10": 35.6,
-    "n": 45
-  },
-  "AA Briefcase": {
-    "mae": 63.3655,
-    "pct_over10": 25.0,
-    "n": 12
-  },
-  "LiveBench Summarize": {
-    "mae": 6.4983,
-    "pct_over10": 34.8,
+    "mae": 0.0638,
+    "pct_over10": 65.2,
     "n": 46
   },
+  "AA Briefcase": {
+    "mae": 53.0402,
+    "pct_over10": 0.0,
+    "n": 11
+  },
+  "LiveBench Summarize": {
+    "mae": 6.5773,
+    "pct_over10": 37.5,
+    "n": 48
+  },
   "IFBench": {
-    "mae": 0.0783,
-    "pct_over10": 44.0,
+    "mae": 0.0773,
+    "pct_over10": 48.0,
     "n": 25
   },
   "LiveBench Instruction Following": {
-    "mae": 5.2045,
-    "pct_over10": 34.8,
-    "n": 46
+    "mae": 5.5106,
+    "pct_over10": 33.3,
+    "n": 48
   },
   "LiveBench Simplify": {
-    "mae": 5.8332,
-    "pct_over10": 41.3,
-    "n": 46
+    "mae": 5.9423,
+    "pct_over10": 37.5,
+    "n": 48
   },
   "Omniscience Index": {
-    "mae": 9.2687,
-    "pct_over10": 87.8,
-    "n": 49
+    "mae": 9.1163,
+    "pct_over10": 88.0,
+    "n": 50
   },
   "LCR": {
-    "mae": 0.0254,
+    "mae": 0.0233,
     "pct_over10": 2.0,
-    "n": 49
+    "n": 50
   },
-  "BullshitBench v2": {
-    "mae": 19.0373,
-    "pct_over10": 85.7,
-    "n": 35
+  "Omniscience Non-Halluc.": {
+    "mae": 0.1974,
+    "pct_over10": 92.0,
+    "n": 50
   },
   "LiveBench Theory of Mind": {
-    "mae": 2.3641,
-    "pct_over10": 8.7,
-    "n": 46
+    "mae": 1.8134,
+    "pct_over10": 2.1,
+    "n": 48
   },
-  "Harvey LAB": {
-    "mae": 0.0287,
-    "pct_over10": 11.5,
-    "n": 26
+  "CritPt": {
+    "mae": 0.0282,
+    "pct_over10": 54.0,
+    "n": 50
   },
   "DeepSearchQA": {
     "mae": null,
     "pct_over10": null,
-    "n": 7
+    "n": 8
   }
 }

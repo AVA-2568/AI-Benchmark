@@ -1,12 +1,12 @@
 {
   "domain_groups": {
     "code_agent": [
-      "Terminal-Bench 4.0",
+      "Terminal-Bench v2.1",
       "DeepSWE",
       "LiveBench Coding"
     ],
     "automation_web": [
-      "AutomationBench",
+      "tau3-Banking",
       "BrowseComp",
       "LiveBench Agentic Coding"
     ],
@@ -38,19 +38,19 @@
       "LiveBench Simplify"
     ],
     "factuality_longtext": [
-      "BullshitBench v2"
+      "Omniscience Non-Halluc."
     ],
     "humanities_mind": [
       "LiveBench Theory of Mind",
-      "Harvey LAB",
+      "CritPt",
       "DeepSearchQA"
     ]
   },
   "imputation_pool": [
-    "Terminal-Bench 4.0",
+    "Terminal-Bench v2.1",
     "DeepSWE",
     "LiveBench Coding",
-    "AutomationBench",
+    "tau3-Banking",
     "BrowseComp",
     "LiveBench Agentic Coding",
     "LiveBench Instruction Following",
@@ -68,16 +68,12 @@
     "AA Briefcase",
     "LiveBench Summarize",
     "LiveBench Simplify",
-    "BullshitBench v2",
+    "Omniscience Non-Halluc.",
     "LiveBench Theory of Mind",
-    "Harvey LAB",
+    "CritPt",
     "DeepSearchQA"
   ],
   "metric_scales": {
-    "Terminal-Bench 4.0": [
-      0,
-      100
-    ],
     "DeepSWE": [
       0,
       100
@@ -85,10 +81,6 @@
     "LiveBench Coding": [
       0,
       100
-    ],
-    "AutomationBench": [
-      0,
-      1
     ],
     "BrowseComp": [
       0,
@@ -158,21 +150,29 @@
       0,
       100
     ],
-    "BullshitBench v2": [
-      0,
-      100
-    ],
     "LiveBench Theory of Mind": [
       0,
       100
     ],
-    "Harvey LAB": [
-      0,
-      1
-    ],
     "DeepSearchQA": [
       0,
       100
+    ],
+    "Terminal-Bench v2.1": [
+      0,
+      1
+    ],
+    "tau3-Banking": [
+      0,
+      1
+    ],
+    "Omniscience Non-Halluc.": [
+      0,
+      1
+    ],
+    "CritPt": [
+      0,
+      1
     ]
   },
   "leaderboards": {
@@ -186,7 +186,7 @@
           "weight": 0.35,
           "metrics": [
             {
-              "name": "Terminal-Bench 4.0",
+              "name": "Terminal-Bench v2.1",
               "sub_weight": 0.45
             },
             {
@@ -204,7 +204,7 @@
           "weight": 0.15,
           "metrics": [
             {
-              "name": "AutomationBench",
+              "name": "tau3-Banking",
               "sub_weight": 0.5
             },
             {
@@ -337,7 +337,7 @@
               "sub_weight": 0.3
             },
             {
-              "name": "BullshitBench v2",
+              "name": "Omniscience Non-Halluc.",
               "sub_weight": 0.2
             }
           ]
@@ -351,7 +351,7 @@
               "sub_weight": 0.5
             },
             {
-              "name": "Harvey LAB",
+              "name": "CritPt",
               "sub_weight": 0.3
             },
             {
@@ -373,7 +373,7 @@
           "weight": 0.35,
           "metrics": [
             {
-              "name": "Terminal-Bench 4.0",
+              "name": "Terminal-Bench v2.1",
               "sub_weight": 0.45
             },
             {
@@ -391,7 +391,7 @@
           "weight": 0.15,
           "metrics": [
             {
-              "name": "AutomationBench",
+              "name": "tau3-Banking",
               "sub_weight": 0.5
             },
             {
@@ -970,12 +970,12 @@
     "code_agent": [
       "LiveBench Coding",
       "DeepSWE",
-      "Terminal-Bench 4.0"
+      "Terminal-Bench v2.1"
     ],
     "automation_web": [
       "LiveBench Agentic Coding",
       "BrowseComp",
-      "AutomationBench"
+      "tau3-Banking"
     ],
     "instruction_context": [
       "LCR",
@@ -1002,7 +1002,7 @@
     ],
     "humanities_mind": [
       "DeepSearchQA",
-      "Harvey LAB",
+      "CritPt",
       "LiveBench Theory of Mind"
     ]
   }

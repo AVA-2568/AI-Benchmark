@@ -1,34 +1,4 @@
 {
-  "_note": "模型厂商官方技术报告（Technical Reports / Model Cards）披露并经社区复核的权威指标补充数据，供 merge.py 补录真值",
-  "models": {
-    "gpt-6-astra": {
-      "Terminal-Bench 4.0": 57.9,
-      "AutomationBench": 0.414,
-      "source": "https://openai.com/index/gpt-6-astra/"
-    },
-    "claude-fable-5.1": {
-      "Terminal-Bench 4.0": 55.8,
-      "AutomationBench": 0.314,
-      "source": "https://www.anthropic.com/claude-fable-and-mythos-5-1"
-    },
-    "claude-opus-5": {
-      "Terminal-Bench 4.0": 52.3,
-      "AutomationBench": 0.269,
-      "source": "https://www.anthropic.com/claude-fable-and-mythos-5-1"
-    },
-    "claude-fable-5": {
-      "Terminal-Bench 4.0": 42.0,
-      "AutomationBench": 0.174,
-      "source": "https://www.anthropic.com/claude-fable-and-mythos-5-1"
-    },
-    "gpt-5.6-sol": {
-      "Terminal-Bench 4.0": 37.3,
-      "AutomationBench": 0.181,
-      "source": "https://openai.com/index/advancing-the-price-performance-frontier-with-gpt-5-6/"
-    },
-    "gemini-3.8-flash": {
-      "Terminal-Bench 4.0": 19.1,
-      "source": "https://openai.com/index/gpt-6-astra/"
-    }
-  }
+  "_note": "模型厂商官方技术报告披露并经社区复核的权威指标补充数据，供 merge.py 补录真值",
+  "models": {}
 }
