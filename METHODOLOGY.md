@@ -27,6 +27,10 @@
 
 性价比榜同时输出美元与人民币价格：`Total ¥/1M` / `Effective ¥/1M` = 对应美元价 × 实时 USD→CNY 汇率。汇率每次构建实时抓取（Frankfurter 主、open.er-api 备），写入 `scripts/.cache/fx.json`，不硬编码。
 
+### 缓存命中率假设
+
+混合价按 90% 缓存命中率折算（`config.json` 的 `provider_cache_rates` 全厂商统一 0.9）：输入部分按 10% 未命中价 + 90% 缓存命中价混合，再按输入/输出占比（0.85/0.15）加权。AA 不公布分模型命中率，命中率取决于用户提示词复用程度；90% 取编程场景高复用假设（GLM 官方额度参考即按 95% 档标定），属偏乐观口径。`Total $/1M` 标准价列沿用全局中性假设（`cache_hit_rate` 0.5），与 `Effective` 列口径分离。
+
 ### 订阅套餐与倍率
 
 官方订阅套餐定义在 `config.json` 的 `plans` 表（每条含 `creator_match` / `monthly` / `implied_value` 或 `credit_value` / `discount` / `url`）。两种价值基准：

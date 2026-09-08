@@ -414,16 +414,16 @@
     "cache_write_ratio": 0,
     "provider_cache_rates": {
       "Moonshot AI": 0.9,
-      "DeepSeek": 0.88,
-      "Anthropic": 0.85,
-      "OpenAI": 0.8,
-      "Google": 0.8,
-      "Alibaba": 0.7,
-      "Z.AI": 0.7,
-      "MiniMax": 0.65,
-      "Tencent": 0.65,
-      "xAI": 0.65,
-      "default": 0.6
+      "DeepSeek": 0.9,
+      "Anthropic": 0.9,
+      "OpenAI": 0.9,
+      "Google": 0.9,
+      "Alibaba": 0.9,
+      "Z.AI": 0.9,
+      "MiniMax": 0.9,
+      "Tencent": 0.9,
+      "xAI": 0.9,
+      "default": 0.9
     }
   },
   "plans": [
