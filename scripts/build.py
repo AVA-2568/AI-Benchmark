@@ -440,7 +440,7 @@ def _write_manifest(stale, parser=None):
         "parser": parser,
         "input_sha256": _sha256(merged_csv) if os.path.exists(merged_csv) else None,
         "config_sha256": _sha256(config_path),
-        "algorithm_version": "0a62096",
+        "algorithm_version": "e5b76d2",
         "models": _count(merged_csv),
         "stale": stale,
     }
