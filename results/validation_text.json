@@ -5,27 +5,27 @@
     "n": 48
   },
   "LiveBench Language": {
-    "mae": 3.448,
+    "mae": 3.4481,
     "pct_over10": 8.3,
     "n": 48
   },
-  "GDPval-AA": {
-    "mae": 0.0804,
-    "pct_over10": 69.6,
-    "n": 46
+  "AA-Briefcase": {
+    "mae": 237.2984,
+    "pct_over10": 73.8,
+    "n": 42
   },
   "LiveBench Data Analysis": {
-    "mae": 5.1714,
+    "mae": 5.176,
     "pct_over10": 25.0,
     "n": 48
   },
   "LiveBench Summarize": {
-    "mae": 7.1815,
-    "pct_over10": 41.7,
+    "mae": 7.5814,
+    "pct_over10": 43.8,
     "n": 48
   },
   "LiveBench Instruction Following": {
-    "mae": 5.7329,
+    "mae": 5.7459,
     "pct_over10": 31.2,
     "n": 48
   },
@@ -35,17 +35,17 @@
     "n": 48
   },
   "Omniscience Index": {
-    "mae": 9.1163,
+    "mae": 9.1166,
     "pct_over10": 88.0,
     "n": 50
   },
   "LCR": {
-    "mae": 0.0227,
+    "mae": 0.0225,
     "pct_over10": 2.0,
     "n": 50
   },
   "Omniscience Non-Halluc.": {
-    "mae": 0.1975,
+    "mae": 0.197,
     "pct_over10": 90.0,
     "n": 50
   },

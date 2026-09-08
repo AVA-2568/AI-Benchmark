@@ -20,7 +20,7 @@
 | LiveBench | Coding / Agentic Coding / Instruction Following / Language | Abacus.AI + 学界 | `table_<release>.csv` + `categories_<release>.json` |
 | DeepSWE | Pass@1（长程工程 agent） | Datacurve | `/artifacts/v1.1/leaderboard-live.json`（JSON API，每模型取最高 pass_rate 档） |
 | EQ-Bench | Creative Writing Elo | 独立 | `creative_writing.js` 内嵌 CSV |
-| Artificial Analysis | LCR / Omniscience Index / GPQA Diamond / HLE | 独立评测机构 | RSC 流（三级解析链） |
+| Artificial Analysis (Intelligence Index v4.3) | Terminal-Bench v4.0 / AA-Briefcase / tau3-Banking / LCR / Omniscience Index / HLE / CritPt / SciCode | 独立评测机构 | RSC 流（三级解析链） |
 | Frankfurter | USD→CNY 汇率（ECB 官方） | 开源 | v2 rates API（备源 open.er-api.com） |
 
 ### 人民币价格
@@ -97,7 +97,7 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 
 | 领域分类 (权重) | 核心主基准 (Major) | 关键辅助基准 (Minors) | 子权重分配 | 官方来源与域内互锁逻辑 |
 |---|---|---|---|---|
-| **代码与 Agent** (35%) | **Terminal-Bench v2.1** | | 45% | AA 官方统一测试 harness 评测真实终端操作与命令行 Agent，杜绝多平台 scaffold 干扰 |
+| **代码与 Agent** (35%) | **Terminal-Bench v4.0** | | 45% | AA 官方统一测试 harness 评测真实终端操作与命令行 Agent，杜绝多平台 scaffold 干扰。v4.0 在 AA v4.3 中取代 v2.1：v2.1 已饱和（精选池 24/39 模型挤在 ≥0.78），v4.0 区分度显著更高（标准差 0.165 vs 0.117），两者 r=0.709 |
 | | | **DeepSWE v1.1** | 35% | 官方主表 Software Engineering（真实 GitHub Issue 修复） |
 | | | **LiveBench Coding** | 20% | 独立防污染算法与严谨代码生成 |
 | **业务自动化与 Web** (15%) | **tau3-Banking** | | 50% | AA 官方银行与金融真实业务智能体交互测试（Agentic Tool Use & Banking Workflows） |
@@ -130,7 +130,7 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 |---|---|---|---|---|
 | **创意文学与小说创作** (25%) | **LiveBench StoryGen** | | 55% | 故事生成与长篇叙事创作 (LiveBench) |
 | | | **LiveBench Language** | 45% | 字词组织、语感拼句与文字修辞 (LiveBench) |
-| **专业案头与深度研究** (20%) | **GDPval-AA** | | 50% | 专业知识工作与高价值案头任务产出 (AA) |
+| **专业案头与深度研究** (20%) | **AA-Briefcase** | | 50% | 真实多周知识工作项目（数千源文件、多关联任务）的 rubric + 两两对比评分 (AA)。2026-09 同步自 AA v4.3：取代 GDPval-AA——两者 r=0.973 高度冗余，Briefcase 覆盖 100%（GDPval 92%）且为私有 held-out 测试集，抗污染 |
 | | | **LiveBench Data Analysis** | 25% | 商业数据表合并、转换与定量信息提取 (LiveBench) |
 | | | **LiveBench Summarize** | 25% | 长文核心要点提炼与摘要 (LiveBench) |
 | **严格指令与格式约束** (20%) | **LiveBench IF** | | 60% | 多重格式规则与负向约束遵循 (LiveBench) |
@@ -163,7 +163,7 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 
 - 锚点是**固定的理论范围**（不是样本动态 min/max），定义在 `config.json` 的 `metric_scales`
 - 结果范围 0–100，代表「原始值在理论范围中的位置」，即**真实能力分**而非**名次分**
-- 保留绝对难度信息：DeepSWE 最高 74%（基准难）就是 74 分，GPQA 最高 92%（快饱和）就是 92 分，两者不再被同等拍成 100
+- 保留绝对难度信息：DeepSWE 最高 74%（基准难）就是 74 分，Terminal-Bench v4.0 最高 0.591（基准难）就是 59 分，两者不再被同等拍成 100
 - 加新模型不影响已有模型的分数（锚点固定，不随样本漂移）
 - **越界裁剪**：原始值超出锚点范围时裁剪到 0–100（如 EQ-Bench Elo 超过 2200 上限不再产生 >100 的异常分）
 
@@ -172,9 +172,10 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 | 指标 | 锚点 [lo, hi] | 说明 |
 |---|---|---|
 | LiveBench 各分类（含 Data Analysis）/ DeepSWE | [0, 100] | 已是 0–100 百分比 |
-| LCR / GPQA Diamond / HLE / GDPval-AA / Terminal-Bench v2.1 / tau3-Banking / Omniscience Non-Halluc. / CritPt | [0, 1] | 0–1 比例，×100 隐含 |
+| LCR / HLE / tau3-Banking / Omniscience Non-Halluc. / CritPt / SciCode / Terminal-Bench v4.0 | [0, 1] | 0–1 比例，×100 隐含 |
 | Omniscience Index | [-50, 50] | 净得分实际可达范围（全对/全错几乎不可能，0=中性） |
 | EQ-Bench Creative Writing | [1400, 2200] | Elo 实际分布约 1438~2105，下限收紧到 1400 避免分数被压到 45 分以上 |
+| AA-Briefcase | [400, 1700] | Elo 实际分布约 459~1662（AA v4.3 重锚后），与 EQ-Bench 同为 Elo 制固定锚点 |
 
 > 与旧版 min-max 的区别：min-max 用「样本最高=100、最低=0」动态锚点，把名次差当能力差（离群值敏感、样本小不稳定、二次归一化抹掉难度）；固定锚点保留绝对难度与稳定性。Omniscience Index 用 [-50,50] 而非官方 [-100,100]：后者把实际样本（约 -19~43）压缩到 40-72 的窄区间、且让负分模型虚高到 40 分，[-50,50] 更贴合实际可达范围，负分模型正确压到 <50 分。
 
@@ -204,7 +205,7 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 1. **初始化**：缺失值用该领域内的基准均值填充；
 2. **每轮分域迭代**：提取领域内真实值样本训练独立标准化 Scaler 与岭回归 → 预测缺失值 → 裁剪到 P95；
 3. **物理层级单调性与防刷分天花板约束（Hierarchy Envelope）**：
-   - 现实中，高阶前沿指标（如 `Terminal-Bench v2.1` 终端交互、`HLE` 博士考场）的难度必然高于基础指标（如 `LiveBench Coding`、`LiveBench Reasoning`）；
+   - 现实中，高阶前沿指标（如 `Terminal-Bench v4.0` 终端交互、`HLE` 博士考场）的难度必然高于基础指标（如 `LiveBench Coding`、`LiveBench Reasoning`）；
    - 算法内置领域层级链（`domain_hierarchies`），强制执行单调性约束：**高层级预测分严格不得脱离底层基础能力分**（防止未公布高难指标的普通模型被盲目抬高虚高分）；
 4. **阻尼更新**：`cur = 0.5 * cur + 0.5 * pred`，迭代直至收敛（量程容差 0.5%）。
 
@@ -228,7 +229,7 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 
 ## 模型拟合质量（R²）
 
-用全量训练集拟合后，计算每个指标的训练集 R²（z-score 空间）。R² 越高，该指标的缺失值预测越可信。当前（2026-08 快照）各指标 R² 约 0.71–0.93，其中 GPQA Diamond（0.93）与 HLE（0.92）最可预测，LiveBench Instruction Following（0.71）最低——填补可信度请以留一验证 MAE 为准。
+用全量训练集拟合后，计算每个指标的训练集 R²（z-score 空间）。R² 越高，该指标的缺失值预测越可信。当前（2026-09 快照）各指标 R² 约 0.01–0.86，其中 LiveBench Simplify（0.86）、HLE（0.86）、SciCode（0.81）最可预测，LiveBench Summarize（0.01）、LCR（0.04）最低；AA-Briefcase 为 0.26——填补可信度请以留一验证 MAE 为准。
 
 ## 能力-成本前沿图
 

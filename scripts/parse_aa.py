@@ -120,8 +120,8 @@ PARSERS = [
 # 数据哨兵阈值（模块级常量，供单测断言）
 MIN_ROWS = 800
 SENTINEL_FIELDS = [
-    "gdpvalNormalized", "terminalbenchHard", "terminalbenchV21", "scicode",
-    "lcr", "omniscience", "ifbench", "gpqa", "hle",
+    "gdpvalNormalized", "terminalbenchHard", "terminalbenchV40", "scicode",
+    "lcr", "omniscience", "ifbench", "hle", "briefcase",
     "omniscienceAccuracy", "omniscienceNonHallucination",
 ]
 MEAN_RATE_MIN = 0.60   # 11 字段平均非空率下限（2026-07 实测 87%，留波动余量）
@@ -209,8 +209,10 @@ def build_cols(rows):
         ("Omniscience Accuracy", "model", "omniscienceAccuracy"),
         ("Omniscience Non-Halluc.", "model", "omniscienceNonHallucination"),
         ("GDPval-AA", "model", "gdpvalNormalized"),
+        ("AA-Briefcase", "model", "briefcase", "elo"),
         ("Terminal-Bench Hard", "model", "terminalbenchHard"),
         ("Terminal-Bench v2.1", "model", "terminalbenchV21"),
+        ("Terminal-Bench v4.0", "model", "terminalbenchV40"),
         ("tau2-Bench Telecom", "model", "tau2"),
         ("tau3-Banking", "model", "tauBanking"),
         ("LCR", "model", "lcr"),

@@ -1,7 +1,7 @@
 {
   "domain_groups": {
     "code_agent": [
-      "Terminal-Bench v2.1",
+      "Terminal-Bench v4.0",
       "DeepSWE",
       "LiveBench Coding"
     ],
@@ -29,7 +29,7 @@
       "LiveBench Language"
     ],
     "professional_work": [
-      "GDPval-AA",
+      "AA-Briefcase",
       "LiveBench Data Analysis",
       "LiveBench Summarize"
     ],
@@ -48,7 +48,7 @@
     ]
   },
   "imputation_pool": [
-    "Terminal-Bench v2.1",
+    "Terminal-Bench v4.0",
     "DeepSWE",
     "LiveBench Coding",
     "tau3-Banking",
@@ -63,7 +63,7 @@
     "LiveBench Language",
     "Omniscience Index",
     "LiveBench StoryGen",
-    "GDPval-AA",
+    "AA-Briefcase",
     "LiveBench Summarize",
     "LiveBench Simplify",
     "Omniscience Non-Halluc.",
@@ -119,9 +119,9 @@
       0,
       100
     ],
-    "GDPval-AA": [
-      0,
-      1
+    "AA-Briefcase": [
+      400,
+      1700
     ],
     "LiveBench Summarize": [
       0,
@@ -135,7 +135,7 @@
       0,
       100
     ],
-    "Terminal-Bench v2.1": [
+    "Terminal-Bench v4.0": [
       0,
       1
     ],
@@ -167,7 +167,7 @@
           "weight": 0.35,
           "metrics": [
             {
-              "name": "Terminal-Bench v2.1",
+              "name": "Terminal-Bench v4.0",
               "sub_weight": 0.45
             },
             {
@@ -266,7 +266,7 @@
           "weight": 0.2,
           "metrics": [
             {
-              "name": "GDPval-AA",
+              "name": "AA-Briefcase",
               "sub_weight": 0.5
             },
             {
@@ -338,7 +338,7 @@
           "weight": 0.35,
           "metrics": [
             {
-              "name": "Terminal-Bench v2.1",
+              "name": "Terminal-Bench v4.0",
               "sub_weight": 0.45
             },
             {
@@ -931,7 +931,7 @@
     "code_agent": [
       "LiveBench Coding",
       "DeepSWE",
-      "Terminal-Bench v2.1"
+      "Terminal-Bench v4.0"
     ],
     "automation_web": [
       "LiveBench Agentic Coding",
@@ -958,7 +958,7 @@
     "professional_work": [
       "LiveBench Summarize",
       "LiveBench Data Analysis",
-      "GDPval-AA"
+      "AA-Briefcase"
     ],
     "humanities_mind": [
       "CritPt",

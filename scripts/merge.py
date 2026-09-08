@@ -84,14 +84,14 @@ def build_merged():
 
     # 指标名（与 config.json imputation_pool 一致）
     cols = [
-        "Terminal-Bench v2.1", "DeepSWE", "LiveBench Coding",
+        "Terminal-Bench v4.0", "DeepSWE", "LiveBench Coding",
         "tau3-Banking", "LiveBench Agentic Coding", "LiveBench Data Analysis",
         "LiveBench Instruction Following", "LCR",
         "HLE", "SciCode", "LiveBench Reasoning",
         "EQ-Bench Creative Writing", "LiveBench Language", "Omniscience Index",
         # 文本榜五维指标
         "LiveBench StoryGen",
-        "GDPval-AA", "LiveBench Summarize",
+        "AA-Briefcase", "LiveBench Summarize",
         "LiveBench Simplify",
         "Omniscience Non-Halluc.",
         "LiveBench Theory of Mind", "CritPt",
@@ -130,7 +130,7 @@ def build_merged():
         # AA
         aa_row, _ = _pick_max(aa, m.get("aa"))
         if aa_row:
-            row["Terminal-Bench v2.1"] = _num(aa_row.get("Terminal-Bench v2.1"))
+            row["Terminal-Bench v4.0"] = _num(aa_row.get("Terminal-Bench v4.0"))
             row["tau3-Banking"] = _num(aa_row.get("tau3-Banking"))
             row["LCR"] = _num(aa_row.get("LCR"))
             row["Omniscience Index"] = _num(aa_row.get("Omniscience Index"))
@@ -138,8 +138,8 @@ def build_merged():
             row["HLE"] = _num(aa_row.get("HLE"))
             row["SciCode"] = _num(aa_row.get("SciCode"))
             row["CritPt"] = _num(aa_row.get("CritPt"))
-            if aa_row.get("GDPval-AA"):
-                row["GDPval-AA"] = _num(aa_row.get("GDPval-AA"))
+            if aa_row.get("AA-Briefcase"):
+                row["AA-Briefcase"] = _num(aa_row.get("AA-Briefcase"))
             # 成本列（性价比榜用）
             row["Price 1M Input"] = _num(aa_row.get("Price 1M Input"))
             row["Price 1M Output"] = _num(aa_row.get("Price 1M Output"))

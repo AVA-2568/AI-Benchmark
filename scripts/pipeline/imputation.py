@@ -107,7 +107,7 @@ class ImputationEngine:
     def _apply_hierarchy_bounds(self, m, pred_val, i):
         """物理层级单调性与防刷分天花板约束。
         
-        对于高层级前沿指标（如 L3 Terminal-Bench v2.1），其得分能力不应脱离基础层级（如 L1 LiveBench Coding）。
+        对于高层级前沿指标（如 L3 Terminal-Bench v4.0），其得分能力不应脱离基础层级（如 L1 LiveBench Coding）。
         依据固定锚点归一化空间映射，防止未公布高阶指标的模型被机械回归盲目抬高。
         """
         if not self.domain_hierarchies or not self.metric_scales:
