@@ -1,5 +1,5 @@
 {
-  "note": "主流旗舰模型注册表：统一 slug + 各源别名。slug 规范=全小写、连字符分词、版本号保留点(如 claude-opus-4.8)。每个模型取各源最高推理档。aa=AA Model Slug(max档)；livebench=LiveBench CSV rawName(可列表,多个时取最高分)；deepswe/swebench/eqbench=各源 leaderboard 模型名。null 表示该源未评测。",
+  "note": "主流旗舰模型注册表：统一 slug + 各源别名。slug 规范=全小写、连字符分词、版本号保留点(如 claude-opus-4.8)。每个模型取各源最高推理档。aa=AA Model Slug(max档)；livebench=LiveBench CSV rawName(可列表,多个时取最高分)；deepswe/eqbench=各源 leaderboard 模型名；swebench=遗留字段（SWE-bench 已饱和停用，不再抓取，仅存量条目保留）；terminalbench=Terminal-Bench 独立实测别名（有实测的模型才有）；openrouter=OpenRouter 模型 ID。null 表示该源未评测。",
   "models": [
     {
       "slug": "claude-fable-5",
@@ -472,7 +472,7 @@
       "livebench": "claude-fable-5-1-max-effort",
       "deepswe": null,
       "swebench": null,
-      "eqbench": null,
+      "eqbench": "claude-fable-5-1",
       "auto_added": "2026-09-02",
       "vision": true
     },
@@ -494,7 +494,7 @@
       "livebench": "gemini-3.8-flash-high",
       "deepswe": "gemini-3.8-flash",
       "swebench": null,
-      "eqbench": null,
+      "eqbench": "gemini-3.8-flash",
       "vision": true,
       "auto_added": "2026-09-03",
       "terminalbench": [
@@ -509,7 +509,7 @@
       "livebench": "gpt-6-astra-max",
       "deepswe": "gpt-6-astra",
       "swebench": null,
-      "eqbench": null,
+      "eqbench": "gpt-6-astra",
       "vision": true,
       "auto_added": "2026-09-04"
     },
@@ -520,7 +520,7 @@
       "livebench": "muse-spark-1.3-xhigh",
       "deepswe": null,
       "swebench": null,
-      "eqbench": null,
+      "eqbench": "muse-spark-1.3",
       "vision": true,
       "auto_added": "2026-09-06",
       "openrouter": "meta/muse-spark-1.3"

@@ -7,11 +7,11 @@
     ],
     "automation_web": [
       "tau3-Banking",
-      "LiveBench Data Analysis",
       "LiveBench Agentic Coding"
     ],
-    "instruction_context": [
+    "instruction": [
       "LiveBench Instruction Following",
+      "LiveBench Simplify",
       "LCR"
     ],
     "reasoning": [
@@ -19,10 +19,9 @@
       "SciCode",
       "LiveBench Reasoning"
     ],
-    "language_writing": [
-      "EQ-Bench Creative Writing",
-      "LiveBench Language",
-      "Omniscience Index"
+    "factuality": [
+      "Omniscience Index",
+      "Omniscience Non-Halluc."
     ],
     "creative_literature": [
       "LiveBench StoryGen",
@@ -33,18 +32,12 @@
       "LiveBench Data Analysis",
       "LiveBench Summarize"
     ],
-    "text_instruction": [
-      "LiveBench Instruction Following",
-      "LiveBench Simplify"
-    ],
-    "factuality_longtext": [
-      "Omniscience Index",
-      "Omniscience Non-Halluc.",
-      "LCR"
-    ],
     "humanities_mind": [
       "LiveBench Theory of Mind",
       "CritPt"
+    ],
+    "eqbench_solo": [
+      "EQ-Bench Creative Writing"
     ]
   },
   "imputation_pool": [
@@ -935,10 +928,9 @@
     ],
     "automation_web": [
       "LiveBench Agentic Coding",
-      "LiveBench Data Analysis",
       "tau3-Banking"
     ],
-    "instruction_context": [
+    "instruction": [
       "LCR",
       "LiveBench Instruction Following"
     ],
@@ -946,10 +938,6 @@
       "LiveBench Reasoning",
       "SciCode",
       "HLE"
-    ],
-    "language_writing": [
-      "LiveBench Language",
-      "EQ-Bench Creative Writing"
     ],
     "creative_literature": [
       "LiveBench Language",
@@ -959,10 +947,6 @@
       "LiveBench Summarize",
       "LiveBench Data Analysis",
       "AA-Briefcase"
-    ],
-    "humanities_mind": [
-      "CritPt",
-      "LiveBench Theory of Mind"
     ]
   }
 }

@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""抓取 4 个独立源 leaderboard → 标准化 CSV。
+"""抓取独立源 leaderboard → 标准化 CSV。
 
 每个源一个函数，产出 ``scripts/.cache/<source>.csv``（第一列 ``model``，
 其余为该源的分数列）。抓取失败时回退到已存在的缓存文件。
 
 - LiveBench:  动态定位最新 release 的 table_*.csv + categories_*.json，聚合 7 分类
-- DeepSWE:    静态 HTML，提取 model[effort] + Pass@1%
-- SWE-bench:  静态 HTML，提取 model + % Resolved
+- DeepSWE:    JSON API，提取 model + Pass@1%（每模型取最高档）
 - EQ-Bench:   creative_writing.js，提取 model + Elo
+
+SWE-bench 已饱和停用（前沿厂商停止报告），不再抓取。
 
 所有源均为公开网页/文件，无需登录，可被 GitHub Actions 调用。
 """
@@ -171,36 +172,6 @@ def fetch_deepswe():
     return path
 
 
-# ---------- SWE-bench ----------
-
-def fetch_swebench():
-    html = _get("https://www.swebench.com/").decode("utf-8", errors="replace")
-    # 数据是内嵌 JSON 数组，每个对象含 name(含 effort)/per_instance_details。
-    # % Resolved = per_instance_details 中 resolved=true 的比例。
-    i = html.find('"model_display"')
-    if i == -1:
-        raise RuntimeError("swebench JSON not found")
-    start = html.rfind('[{', 0, i)
-    if start == -1:
-        start = html.rfind('[', 0, i)
-    try:
-        arr, _ = json.JSONDecoder().raw_decode(html, start)
-    except json.JSONDecodeError:
-        raise RuntimeError("swebench JSON decode failed")
-    rows = []
-    for obj in arr:
-        name = obj.get("name")
-        details = obj.get("per_instance_details") or {}
-        if not name or not details:
-            continue
-        n = len(details)
-        ok = sum(1 for d in details.values() if d.get("resolved"))
-        rows.append([name, round(ok / n * 100, 1) if n else ""])
-    path = _write_csv("swebench.csv", ["model", "Resolved"], rows)
-    print(f"swebench: {len(rows)} 模型 -> {os.path.basename(path)}")
-    return path
-
-
 # ---------- EQ-Bench ----------
 
 def fetch_eqbench():
@@ -282,7 +253,6 @@ def fetch_openrouter():
 FETCHERS = {
     "livebench": fetch_livebench,
     "deepswe": fetch_deepswe,
-    "swebench": fetch_swebench,
     "eqbench": fetch_eqbench,
     "fx": fetch_fx,
     "openrouter": fetch_openrouter,

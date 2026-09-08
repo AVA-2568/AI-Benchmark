@@ -6,10 +6,9 @@
 多个匹配时取分数最高者。缺失值留空，交由评分阶段的岭回归填补。
 
 数据源：
-- AA (scripts/aa_providers.csv)         -> LCR / Omniscience Index / GPQA Diamond / HLE
-- LiveBench (scripts/.cache/livebench.csv) -> Coding / Agentic Coding / IF / Language
+- AA (scripts/aa_providers.csv)         -> Terminal-Bench v4.0 / tau3-Banking / LCR / Omniscience / HLE / SciCode / CritPt / 成本列
+- LiveBench (scripts/.cache/livebench.csv) -> Coding / Agentic Coding / IF / Language / Reasoning / Data Analysis / StoryGen / Summarize / Simplify / Theory of Mind
 - DeepSWE   (scripts/.cache/deepswe.csv)   -> Pass@1
-- SWE-bench (scripts/.cache/swebench.csv)  -> Resolved
 - EQ-Bench  (scripts/.cache/eqbench.csv)   -> Elo
 """
 import csv

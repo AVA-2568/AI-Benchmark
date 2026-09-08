@@ -5,48 +5,48 @@
     "n": 48
   },
   "LiveBench Language": {
-    "mae": 3.4481,
-    "pct_over10": 8.3,
+    "mae": 4.6024,
+    "pct_over10": 14.6,
     "n": 48
   },
   "AA-Briefcase": {
-    "mae": 237.2984,
-    "pct_over10": 73.8,
+    "mae": 213.4151,
+    "pct_over10": 61.9,
     "n": 42
   },
   "LiveBench Data Analysis": {
-    "mae": 5.176,
-    "pct_over10": 25.0,
+    "mae": 4.8012,
+    "pct_over10": 18.8,
     "n": 48
   },
   "LiveBench Summarize": {
-    "mae": 7.5814,
+    "mae": 7.5812,
     "pct_over10": 43.8,
     "n": 48
   },
   "LiveBench Instruction Following": {
-    "mae": 5.7459,
-    "pct_over10": 31.2,
+    "mae": 2.2609,
+    "pct_over10": 0.0,
     "n": 48
   },
   "LiveBench Simplify": {
-    "mae": 2.2811,
+    "mae": 2.2482,
     "pct_over10": 0.0,
     "n": 48
   },
   "Omniscience Index": {
-    "mae": 9.1166,
-    "pct_over10": 88.0,
+    "mae": 14.6453,
+    "pct_over10": 96.0,
     "n": 50
   },
   "LCR": {
     "mae": 0.0225,
-    "pct_over10": 2.0,
+    "pct_over10": 0.0,
     "n": 50
   },
   "Omniscience Non-Halluc.": {
-    "mae": 0.197,
-    "pct_over10": 90.0,
+    "mae": 0.1952,
+    "pct_over10": 88.0,
     "n": 50
   },
   "LiveBench Theory of Mind": {
@@ -55,8 +55,8 @@
     "n": 48
   },
   "CritPt": {
-    "mae": 0.0602,
-    "pct_over10": 80.0,
+    "mae": 0.0539,
+    "pct_over10": 84.0,
     "n": 50
   }
 }

@@ -12,12 +12,7 @@
   },
   "missing_aliases": {
     "aa": [],
-    "eqbench": [
-      "claude-fable-5.1 -> claude-fable-5-1",
-      "gemini-3.8-flash -> gemini-3.8-flash",
-      "gpt-6-astra -> gpt-6-astra",
-      "muse-spark-1.3 -> muse-spark-1.3"
-    ],
+    "eqbench": [],
     "deepswe": [],
     "livebench": []
   },

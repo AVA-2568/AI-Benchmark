@@ -208,7 +208,7 @@ def _board_blocks(bkey, board, n_models, today):
     top15_md = "\n".join(lines)
 
     snapshot_parts = [
-        f"> {today} 抓取（{n_models} 精选模型 -> {n_out} 行）。"
+        f"> {today} 数据（{n_models} 精选模型 -> {n_out} 行；日期为上游抓取实际时点，stale 构建不刷新）。"
     ]
     if os.path.exists(val_json):
         with open(val_json, encoding="utf-8") as f:
@@ -236,6 +236,26 @@ def _read_fx():
             return float(json.load(f).get("usd_cny") or 0) or None
     except (OSError, ValueError):
         return None
+
+
+def _data_date():
+    """快照日期 = fx 缓存的实际抓取日期（stale 构建不冒充今日）。
+
+    fx.json 每次构建实时抓取，其 date 即本次数据时点；缺失时回退
+    到 merged.csv 的修改日期，再缺失才用今日。"""
+    fx_path = os.path.join(BASE, ".cache", "fx.json")
+    try:
+        with open(fx_path, encoding="utf-8") as f:
+            d = (json.load(f).get("date") or "").strip()
+            if d:
+                return d[:10]
+    except (OSError, ValueError):
+        pass
+    merged_csv = os.path.join(BASE, "merged.csv")
+    if os.path.exists(merged_csv):
+        return datetime.date.fromtimestamp(
+            os.path.getmtime(merged_csv)).isoformat()
+    return datetime.date.today().isoformat()
 
 
 def _fmt_tokens_m(m_tokens):
@@ -337,7 +357,7 @@ def update_readme():
     """用最新 scored CSV 刷新 README：每榜单一组 SNAPSHOT/TOP15 区块 +
     套餐购买指南 PLANS_GUIDE 区块。"""
     merged_csv = os.path.join(BASE, "merged.csv")
-    today = datetime.date.today().isoformat()
+    today = _data_date()
     n_models = _count(merged_csv)
     cfg = _load_config()
 
@@ -436,6 +456,7 @@ def _write_manifest(stale, parser=None):
     merged_csv = os.path.join(BASE, "merged.csv")
     manifest = {
         "run_date": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "data_date": _data_date(),
         "source_url": URL,
         "parser": parser,
         "input_sha256": _sha256(merged_csv) if os.path.exists(merged_csv) else None,

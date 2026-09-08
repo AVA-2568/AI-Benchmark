@@ -6,12 +6,12 @@
 
 ### 模型池：主流旗舰精选
 
-榜单只收录**国际 + 国内主流厂商旗舰**模型（当前 41 个），而非全量长尾。模型池定义在 [`scripts/model_registry.json`](scripts/model_registry.json)：
+榜单只收录**国际 + 国内主流厂商旗舰**模型（当前 50 个，随新模型自动入池增长），而非全量长尾。模型池定义在 [`scripts/model_registry.json`](scripts/model_registry.json)：
 
-- **国际**：OpenAI（GPT-5.6/5.5/5.4/5.2）、Anthropic（Claude Fable 5 / Opus 5 / Opus 4.x / Sonnet）、Google（Gemini 3.x）、xAI（Grok 4.x）、Meta（Muse Spark）、Thinking Machines（Inkling）
-- **国内**：DeepSeek（V4）、Kimi（K3/K2.6/K2.7）、Qwen（3.8/3.7/3.6）、GLM（5.2）、MiniMax（M3）
+- **国际**：OpenAI（GPT-6/5.6/5.5/5.4/5.2）、Anthropic（Claude Fable 5 / Opus 5 / Opus 4.x / Sonnet）、Google（Gemini 3.x）、xAI（Grok 4.x/Build）、Meta（Muse Spark）、Thinking Machines（Inkling）
+- **国内**：DeepSeek（V4）、Kimi（K3/K2.6/K2.7）、Qwen（3.8/3.7/3.6）、GLM（5.3/5.2）、MiniMax（M3）、Xiaomi（MiMo）、Tencent（Hy）
 
-**为什么是精选而非全量**：AA 的 1000+ 模型里 90% 是重复变体（同一模型不同推理档）、长尾小厂、已弃用条目。精选池让覆盖率更高（核心指标覆盖 34–40/41）、填补更少、分数更「实」。
+**为什么是精选而非全量**：AA 的 1000+ 模型里 90% 是重复变体（同一模型不同推理档）、长尾小厂、已弃用条目。精选池让覆盖率更高（核心指标覆盖 28–50/50，其中 LCR/HLE/Omniscience 全覆盖，DeepSWE 28/50 最低）、填补更少、分数更「实」。
 
 ### 数据源（6 个，全部公开可抓）
 
@@ -72,7 +72,7 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 
 `merge.py` 以 `model_registry.json` 为白名单，registry 维护不当会静默丢数据。`detect_new_models.py` 在每次构建时做两类检测，结果写入 `results/new_model_candidates.json` 并打印告警：
 
-1. **新模型**：源里出现、registry 完全没有收录的模型。只扫 LiveBench + DeepSWE 两个「前沿模型评测源」（命名规范、几乎无长尾噪音）；EQ-Bench / SWE-bench / AA 因含大量 open-weights 长尾与旧模型不纳入。
+1. **新模型**：源里出现、registry 完全没有收录的模型。只扫 LiveBench + DeepSWE 两个「前沿模型评测源」（命名规范、几乎无长尾噪音）；EQ-Bench / AA 因含大量 open-weights 长尾与旧模型不纳入新模型扫描。
 2. **别名漏配**：registry 已收录但某源字段为 null，而该源里存在「规范化 slug」（点/连字符互换）对应的数据 —— 数据其实有，只是别名没配。这类检测覆盖 aa / eqbench / deepswe / livebench 四源，用 registry slug 做确定性反向匹配，无长尾噪音问题。
 
 构建以 `detect_new_models.py --apply` 运行，对「新模型」做**自动入池**：
@@ -196,7 +196,19 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 
 ### 分域填补池（Domain Groups）
 
-填补在 5 大独立领域分组上进行，**严格禁止跨领域特征污染**（如禁止用文学写作分预测终端代码能力）。各领域池成员在 `config.json` `domain_groups` 中声明。
+填补在 9 个互不相交的领域分组上进行，**严格禁止跨领域特征污染**（如禁止用文学写作分预测终端代码能力）。各领域池成员在 `config.json` `domain_groups` 中声明；`validate_config` 强制每个池指标恰属一域（重叠声明或漏声明都会构建失败，避免静默退化）。
+
+| 域 | 成员 | 说明 |
+|---|---|---|
+| `code_agent` | Terminal-Bench v4.0 / DeepSWE / LiveBench Coding | 通用榜代码与 Agent |
+| `automation_web` | tau3-Banking / LiveBench Agentic Coding | 通用榜业务自动化 |
+| `instruction` | LiveBench IF / LiveBench Simplify / LCR | 两榜共用：指令遵循语义 |
+| `reasoning` | HLE / SciCode / LiveBench Reasoning | 通用榜科学与推理 |
+| `factuality` | Omniscience Index / Omniscience Non-Halluc. | 两榜共用：事实抗伪。Omniscience 当前全覆盖（50/50），该域回归实际只服务 Non-Halluc 缺失行；Omniscience LOO-MAE 偏高（≈14.7）仅作诚实披露，不影响任何行分数 |
+| `creative_literature` | LiveBench StoryGen / LiveBench Language | 文本榜创意文学 |
+| `professional_work` | AA-Briefcase / LiveBench Data Analysis / LiveBench Summarize | 文本榜专业案头 |
+| `humanities_mind` | LiveBench Theory of Mind / CritPt | 文本榜人际心智（无层级链，见下） |
+| `eqbench_solo` | EQ-Bench Creative Writing | 单指标域：EQ 不参与任一榜权重，缺失填均值并标 `(reg,low)`，比跨语义伪回归更诚实 |
 
 ### 填补算法：分域多变量岭回归 + 物理层级单调性约束
 
@@ -207,6 +219,7 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 3. **物理层级单调性与防刷分天花板约束（Hierarchy Envelope）**：
    - 现实中，高阶前沿指标（如 `Terminal-Bench v4.0` 终端交互、`HLE` 博士考场）的难度必然高于基础指标（如 `LiveBench Coding`、`LiveBench Reasoning`）；
    - 算法内置领域层级链（`domain_hierarchies`），强制执行单调性约束：**高层级预测分严格不得脱离底层基础能力分**（防止未公布高难指标的普通模型被盲目抬高虚高分）；
+   - 无实证难度排序的域不设链（`factuality`、`humanities_mind`、`eqbench_solo`、`instruction` 内 Simplify）：宁可无约束，不设错约束。反例：`humanities_mind` 曾设 `CritPt→Theory of Mind` 链，方向与数据相反（ToM 均值 78 是基础项、CritPt 均值 0.15 是高难项），导致无 ToM 真值的模型被压到 4~5 分，已删除；
 4. **阻尼更新**：`cur = 0.5 * cur + 0.5 * pred`，迭代直至收敛（量程容差 0.5%）。
 
 ### 最小样本门槛
@@ -229,7 +242,7 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 
 ## 模型拟合质量（R²）
 
-用全量训练集拟合后，计算每个指标的训练集 R²（z-score 空间）。R² 越高，该指标的缺失值预测越可信。当前（2026-09 快照）各指标 R² 约 0.01–0.86，其中 LiveBench Simplify（0.86）、HLE（0.86）、SciCode（0.81）最可预测，LiveBench Summarize（0.01）、LCR（0.04）最低；AA-Briefcase 为 0.26——填补可信度请以留一验证 MAE 为准。
+用全量训练集拟合后，计算每个指标的训练集 R²（z-score 空间）。R² 越高，该指标的缺失值预测越可信。当前（2026-09 快照）各指标 R² 约 0.00–0.87，其中 LiveBench Simplify（0.87）、LiveBench IF（0.86）、HLE（0.86）最可预测，EQ-Bench（0.00，单指标域、无交叉特征）、LiveBench Summarize（0.01）、LCR/Omniscience 系（0.05–0.08）最低；AA-Briefcase 为 0.31——填补可信度请以留一验证 MAE 为准。
 
 ## 能力-成本前沿图
 

@@ -226,4 +226,32 @@ def validate_config(cfg: Dict[str, Any]) -> bool:
                     f"[{bkey}] metric '{m}' not in imputation_pool — "
                     "add it to the pool"
                 )
+    # 域分组完整性：pool 中每个指标必须恰好归属一个域（首个命中生效）。
+    # 重叠声明会被静默忽略（后者退化），缺失声明则回退全池污染——两者
+    # 都是静默漂移，必须 fail fast。
+    groups = cfg.get("domain_groups") or {}
+    for m in pool:
+        hits = [g for g, ms in groups.items() if m in ms]
+        if not hits:
+            raise ConfigError(
+                f"metric '{m}' in imputation_pool but in no domain_group — "
+                "it would fall back to the full pool"
+            )
+        if len(hits) > 1:
+            raise ConfigError(
+                f"metric '{m}' in multiple domain_groups {hits} — "
+                "only the first takes effect, remove the overlap"
+            )
+    # 层级链必须引用已声明的域内指标，缺组即缺约束
+    for g, chain in (cfg.get("domain_hierarchies") or {}).items():
+        if g not in groups:
+            raise ConfigError(
+                f"domain_hierarchies group '{g}' not in domain_groups"
+            )
+        for m in chain:
+            if m not in pool:
+                raise ConfigError(
+                    f"domain_hierarchies['{g}'] metric '{m}' "
+                    "not in imputation_pool"
+                )
     return True
