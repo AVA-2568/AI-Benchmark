@@ -155,6 +155,8 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 
 `merge.py` 读 `model_registry.json` + 各源 CSV，把 5 个源的分数合并成统一宽表（行 = 统一 slug，列 = 10 个指标 + Model/Creator）。LiveBench 别名可为列表（如 `deepseek-v4-pro` 的正式版 `-0813` 与预览版），多个匹配时取分数最高者。缺失值留空，交由评分阶段的岭回归填补。
 
+**AA 定价取官方行**：AA 是按（Model Slug × Provider）的宽表，同一模型有 N 个 Provider 行（如 `deepseek-v4-flash` 15 行）。各行评测分数完全一致，但定价是各 Provider 自报的分销价——排行榜展示的必须是模型官方牌价（`Provider` 与 `Creator` 归一化互含，如 DeepSeek 行 0.44/1.32），而非 CSV 末行的分销价（Makora 0.09/0.195）。无官方行的模型（如 hy3 纯第三方分销）回退末行。视觉变体是独立 Model Slug（如 `deepseek-v4-flash-vision`），不会混入对应文本模型的行。
+
 ### 数据哨兵（AA）
 
 AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`）+ 数据哨兵（行数 + 评分字段非空率），不达标即失败退出，避免半残数据静默污染排名。

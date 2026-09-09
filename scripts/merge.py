@@ -7,6 +7,8 @@
 
 数据源：
 - AA (scripts/aa_providers.csv)         -> Terminal-Bench v4.0 / tau3-Banking / LCR / Omniscience / HLE / SciCode / CritPt / 成本列
+    （同一 Model Slug 有多 Provider 行时：分数各行一致，定价取官方行，
+    见 _pick_aa_row；视觉变体是独立 slug，不会混入）
 - LiveBench (scripts/.cache/livebench.csv) -> Coding / Agentic Coding / IF / Language / Reasoning / Data Analysis / StoryGen / Summarize / Simplify / Theory of Mind
 - DeepSWE   (scripts/.cache/deepswe.csv)   -> Pass@1
 - EQ-Bench  (scripts/.cache/eqbench.csv)   -> Elo
@@ -14,6 +16,7 @@
 import csv
 import json
 import os
+import re
 import sys
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -65,11 +68,60 @@ def _pick_max(idx, alias):
     return None, None
 
 
+def _norm_token(s):
+    """归一化单个 token：去空白/分隔符 + 小写，供官方行判定用。"""
+    return re.sub(r"[\s.\-_]+", "", (s or "").lower())
+
+
+def _is_official_aa_row(row, registry_creator):
+    """AA 行是否为模型官方行：Provider 与 Creator 归一化后互含即官方。
+
+    归一化去空白/分隔符/大小写后，官方行天然互含（"Thinking Machines"
+    vs "thinking-machines"、"Z.AI" vs "zai"、"Alibaba" vs
+    "alibaba_cloud"、"xAI" vs "SpaceXAI"/"xai"）。唯一特例是
+    Moonshot AI（官方 Provider 叫 Kimi），走别名表。
+    registry_creator 为空时退回 True（不过滤）。
+    """
+    if not registry_creator:
+        return True
+    creator = _norm_token(registry_creator)
+    provs = [_norm_token(row.get("Provider Slug")),
+             _norm_token(row.get("Provider"))]
+    if any(p and (creator in p or p in creator) for p in provs):
+        return True
+    wants = {"moonshotai": ("kimi",)}.get(creator, ())
+    return any(p and any(w in p or p in w for w in wants) for p in provs)
+
+
+def _pick_aa_row(rows, alias, creator):
+    """AA 定价行选择：同 slug 多 Provider 行时优先官方行。
+
+    背景：AA 是按 (Model Slug × Provider) 的宽表，同一模型有 N 个
+    Provider 行（如 deepseek-v4-flash 有 15 行）。各行评测分数完全
+    一致，但定价是各 Provider 自报的分销价。旧逻辑按 CSV 行序取最后
+    一行（Makora 0.09/0.195），而榜单展示的应是模型官方牌价
+    （DeepSeek 0.44/1.32）。无官方行时（如 hy3 纯第三方分销）回退
+    旧语义（末行），保证总有值。
+    """
+    if alias is None:
+        return None, None
+    alist = alias if isinstance(alias, list) else [alias]
+    for a in alist:
+        cands = [r for r in rows if (r.get("Model Slug") or "").strip() == a]
+        if not cands:
+            continue
+        for r in cands:
+            if _is_official_aa_row(r, creator):
+                return r, a
+        return cands[-1], a
+    return None, None
+
+
 def build_merged():
     registry = load_registry()
 
     # ---- 各源索引 ----
-    aa = _alias_index(_read_csv(AA_CSV), "Model Slug")
+    aa_rows = _read_csv(AA_CSV)
     lb = _alias_index(_read_csv(os.path.join(CACHE, "livebench.csv")), "model")
     ds = _alias_index(_read_csv(os.path.join(CACHE, "deepswe.csv")), "model")
     eq = _alias_index(_read_csv(os.path.join(CACHE, "eqbench.csv")), "model")
@@ -126,8 +178,8 @@ def build_merged():
         if eq_row:
             row["EQ-Bench Creative Writing"] = _num(eq_row.get("Elo"))
 
-        # AA
-        aa_row, _ = _pick_max(aa, m.get("aa"))
+        # AA（分数各 Provider 行一致；定价取官方行，见 _pick_aa_row）
+        aa_row, _ = _pick_aa_row(aa_rows, m.get("aa"), m.get("creator"))
         if aa_row:
             row["Terminal-Bench v4.0"] = _num(aa_row.get("Terminal-Bench v4.0"))
             row["tau3-Banking"] = _num(aa_row.get("tau3-Banking"))
