@@ -82,7 +82,7 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 构建以 `detect_new_models.py --apply` 运行，对「新模型」做**自动入池**：
 
 - **双源确认门槛**：候选需在 livebench / deepswe / aa 三个独立信号中至少出现两处才自动写入 registry；单源孤立条目（特评项、内部实验名等）只留在候选清单并标注 `insufficient_confirmation`，避免错误模型污染榜单。
-- **确定性 slug/别名**：slug 由源名小写、剥离 effort 后缀、剥离 LiveBench 发布日分量（`gpt-5.2-2025-12-11-high` → `gpt-5.2`）、再把版本号分隔符收敛为点号派生（裸 `-max` 有歧义——`qwen3.8-max` 是型号名、`gpt-5.6-luna-max` 的 max 是档位——仅当前段非版本数字才剥离）。各源别名只取源数据里真实存在的名字，livebench 别名保留 effort 后缀原文。
+- **确定性 slug/别名**：slug 由源名小写、剥离 effort 后缀、剥离 LiveBench 发布日分量（`gpt-5.2-2025-12-11-high` → `gpt-5.2`）、再把版本号分隔符收敛为点号派生（裸 `-max` 有歧义——`qwen3.8-max` 是型号名、`gpt-5.6-luna-max` 的 max 是档位——仅当前段非版本数字才剥离）。各源别名只取源数据里真实存在的名字，livebench 别名保留 effort 后缀原文。AA/DeepSWE 别名匹配时额外归一化实验版 `-exp` 后缀（LiveBench `deepseek-v4-flash-vision-exp` vs AA `deepseek-v4-flash-vision` 是同一模型，去后缀后才双源确认入池）。
 
 > **版本分隔符必须收敛为点号。** 各源对版本号的写法不一致：DeepSWE / registry 用点（`claude-fable-5.1`、`qwen3.8-max`），LiveBench 与 AA 用连字符（`claude-fable-5-1-max-effort`、`qwen3-8-max`）。早期实现直接拿源名当 slug，LiveBench 的连字符写法被原样写成 `claude-fable-5-1`（2026-09-02 修复），既与 `claude-fable-5.1` 的正名不符、又让读者误以为是 `claude-fable-5` 的变体。现在候选先按规范化 slug 归组（点/连字符两种写法合并成一个条目），再取各源内真实存在的名字作别名。点号化只作用于「纯数字分量之间」的最左侧一对，`llama-3-70b`、`nemotron-3-ultra-550b-a55b` 这类不会被改坏。
 - **creator 推断**：AA 命中时取其 Creator（经 `Z AI→Z.AI` 等修正表归一），未命中时按 slug 前缀推断主流厂商，均不中则 `Unknown`。

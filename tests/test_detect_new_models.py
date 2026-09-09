@@ -353,3 +353,22 @@ def test_auto_add_groups_dash_and_dot_variants(tmp_path):
     assert e["deepswe"] == "glm-5.4"  # 优先取与 slug 一致的写法
     assert e["aa"] == "glm-5-4"
     assert e["eqbench"] is None
+
+
+def test_auto_add_exp_suffix_same_model(tmp_path):
+    """-exp 实验版后缀是同物异名：LiveBench 带、AA 不带也应双源确认入池。
+
+    回归：deepseek-v4-flash-vision-exp（LiveBench）vs
+    deepseek-v4-flash-vision（AA），旧逻辑 aa_alias=None 判单源 defer。
+    """
+    reg, added, deferred = _run_auto_add(
+        tmp_path, {"models": []},
+        lb=["deepseek-v4-flash-vision-exp"], ds=[],
+        aa_rows=[("deepseek-v4-flash-vision", "DeepSeek")])
+    assert deferred == []
+    assert len(added) == 1
+    e = added[0]
+    assert e["slug"] == "deepseek-v4-flash-vision-exp"
+    assert e["livebench"] == "deepseek-v4-flash-vision-exp"
+    assert e["aa"] == "deepseek-v4-flash-vision"
+    assert e["creator"] == "DeepSeek"

@@ -57,13 +57,24 @@ NEW_MODEL_SOURCES = {
 
 
 def _norm_candidates(slug):
-    """slug 的规范化候选（小写 + 点/连字符互换）。
+    """slug 的规范化候选（小写 + 点/连字符互换 + 去实验版后缀）。
 
     registry 用点号（qwen3.8-max），AA 用连字符（qwen3-8-max）；
     DeepSWE/EQ-Bench 两者都有。互换覆盖所有情况。
+
+    实验版后缀（-exp）是同物异名：LiveBench deepseek-v4-flash-vision-exp
+    vs AA deepseek-v4-flash-vision，去后缀后才能命中同一模型。
     """
     s = slug.lower()
-    return [s, s.replace(".", "-"), s.replace("-", ".")]
+    base = s
+    for suf in EXP_SUFFIXES:
+        if base.endswith(suf) and len(base) > len(suf):
+            base = base[:-len(suf)]
+            break
+    out = [s, s.replace(".", "-"), s.replace("-", ".")]
+    if base != s:
+        out += [base, base.replace(".", "-"), base.replace("-", ".")]
+    return out
 
 
 def load_registry(registry_path=REGISTRY):
@@ -184,6 +195,10 @@ STRIP_SUFFIXES = (
     "-thinking-auto-high", "-thinking-auto-medium", "-thinking-auto-low",
     "-xhigh", "-high", "-medium", "-low",
 )
+
+# 实验版后缀（同模型在别源不带，如 LiveBench deepseek-v4-flash-vision-exp
+# vs AA deepseek-v4-flash-vision）：AA/DeepSWE 别名匹配时归一化掉。
+EXP_SUFFIXES = ("-exp",)
 
 # AA Creator 名 -> registry 惯用名
 CREATOR_FIXUPS = {"Z AI": "Z.AI", "Kimi": "Moonshot AI", "SpaceXAI": "xAI"}
