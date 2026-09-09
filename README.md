@@ -24,7 +24,7 @@
 编程、智能体、日常混合使用看这张。权重：代码与 Agent 35%（Terminal-Bench v4.0 45%、DeepSWE 35%、LiveBench Coding 20%）、业务自动化 15%、指令遵循与长上下文 20%、科学与推理 20%、事实准确性 10%。
 
 <!--SNAPSHOT_GENERAL_START-->
-> 2026-09-08 数据（50 精选模型 -> 50 行；日期为上游抓取实际时点，stale 构建不刷新）。
+> 2026-09-09 数据（50 精选模型 -> 50 行；日期为上游抓取实际时点，stale 构建不刷新）。
 > 填补验证：Terminal-Bench v4.0 MAE=0.07 (>10%: 84.6%/39) ; DeepSWE MAE=8.39 (>10%: 53.6%/28) ; LiveBench Coding MAE=3.02 (>10%: 4.2%/48) ; tau3-Banking MAE=0.05 (>10%: 56.5%/46) ; LiveBench Data Analysis MAE=4.80 (>10%: 18.8%/48) ; LiveBench Agentic Coding MAE=3.66 (>10%: 27.1%/48) ; LiveBench Instruction Following MAE=2.26 (>10%: 0.0%/48) ; LCR MAE=0.02 (>10%: 0.0%/50) ; HLE MAE=0.03 (>10%: 20.0%/50) ; SciCode MAE=0.02 (>10%: 2.4%/42) ; LiveBench Reasoning MAE=3.25 (>10%: 6.2%/48) ; Omniscience Index MAE=14.65 (>10%: 96.0%/50)
 <!--SNAPSHOT_GENERAL_END-->
 
@@ -59,7 +59,7 @@
 <!--TEXT_FRONTIER_END-->
 
 <!--SNAPSHOT_TEXT_START-->
-> 2026-09-08 数据（50 精选模型 -> 50 行；日期为上游抓取实际时点，stale 构建不刷新）。
+> 2026-09-09 数据（50 精选模型 -> 50 行；日期为上游抓取实际时点，stale 构建不刷新）。
 > 填补验证：LiveBench StoryGen MAE=4.64 (>10%: 22.9%/48) ; LiveBench Language MAE=4.60 (>10%: 14.6%/48) ; AA-Briefcase MAE=213.41 (>10%: 61.9%/42) ; LiveBench Data Analysis MAE=4.80 (>10%: 18.8%/48) ; LiveBench Summarize MAE=7.58 (>10%: 43.8%/48) ; LiveBench Instruction Following MAE=2.26 (>10%: 0.0%/48) ; LiveBench Simplify MAE=2.25 (>10%: 0.0%/48) ; Omniscience Index MAE=14.65 (>10%: 96.0%/50) ; LCR MAE=0.02 (>10%: 0.0%/50) ; Omniscience Non-Halluc. MAE=0.20 (>10%: 88.0%/50) ; LiveBench Theory of Mind MAE=4.86 (>10%: 10.4%/48) ; CritPt MAE=0.05 (>10%: 84.0%/50)
 <!--SNAPSHOT_TEXT_END-->
 
@@ -90,7 +90,7 @@
 回答「买哪个套餐最划算」。行序跟通用榜一致——按性价比排会让便宜小模型霸榜，没有决策价值。各列含义：API $/1M 是官方按量混合价（含缓存命中假设）；套餐内 $/1M 是该厂商最优订阅折算后的等效价；倍率是每 1 元月费换到的 API 等价额度，70× 即 $1 月费约换 $70 额度；Value = 综合分 ÷ 套餐内 $/1M。套餐名就是官方购买链接，没有订阅制的厂商按 API 按量计费（1×）。
 
 <!--SNAPSHOT_VALUE_START-->
-> 2026-09-08 数据（50 精选模型 -> 50 行；日期为上游抓取实际时点，stale 构建不刷新）。
+> 2026-09-09 数据（50 精选模型 -> 50 行；日期为上游抓取实际时点，stale 构建不刷新）。
 > 填补验证：Terminal-Bench v4.0 MAE=0.07 (>10%: 84.6%/39) ; DeepSWE MAE=8.39 (>10%: 53.6%/28) ; LiveBench Coding MAE=3.02 (>10%: 4.2%/48) ; tau3-Banking MAE=0.05 (>10%: 56.5%/46) ; LiveBench Data Analysis MAE=4.80 (>10%: 18.8%/48) ; LiveBench Agentic Coding MAE=3.66 (>10%: 27.1%/48) ; LiveBench Instruction Following MAE=2.26 (>10%: 0.0%/48) ; LCR MAE=0.02 (>10%: 0.0%/50) ; HLE MAE=0.03 (>10%: 20.0%/50) ; SciCode MAE=0.02 (>10%: 2.4%/42) ; LiveBench Reasoning MAE=3.25 (>10%: 6.2%/48) ; Omniscience Index MAE=14.65 (>10%: 96.0%/50)
 <!--SNAPSHOT_VALUE_END-->
 
@@ -102,11 +102,11 @@
 | 3 | claude-fable-5 | Anthropic | 👁️ | 67.1 | 8.651 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.216 | 1.449 | 310.65 |
 | 4 | claude-opus-5 | Anthropic | 👁️ | 65.9 | 4.558 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.114 | 0.765 | 578.5 |
 | 5 | gpt-5.6-sol | OpenAI | 👁️ | 63.9 | 3.646 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.052 | 0.349 | 1228.82 |
-| 6 | muse-spark-1.3 | Meta | 👁️ | 63.4 | 0.858 | API 按量 | - | 1× | 0.858 | 5.756 | 73.94 |
+| 6 | muse-spark-1.3 | Meta | 👁️ | 63.4 | 0.858 | API 按量 | - | 1× | 0.858 | 5.755 | 73.94 |
 | 7 | glm-5.3 | Z.AI | - | 61.2 | 1.329 | [GLM Coding Plan Max](https://bigmodel.cn/glm-coding) | $149.7 | 34.4× | 0.039 | 0.262 | 1568.3 |
 | 8 | gemini-3.8-flash | Google | 👁️ | 60.1 | 0.684 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | 2× | 0.342 | 2.294 | 175.87 |
 | 9 | grok-4.6 | xAI | 👁️ | 59.6 | 1.452 | [SuperGrok Heavy](https://x.ai/pricing) | $300 | 5.3× | 0.272 | 1.825 | 219.26 |
-| 10 | kimi-k3 | Moonshot AI | 👁️ | 59.1 | 2.734 | [Kimi 会员 Allegretto](https://www.kimi.com/membership/pricing) | $27.6 | 4.5× | 0.602 | 4.038 | 98.21 |
+| 10 | kimi-k3 | Moonshot AI | 👁️ | 59.1 | 2.188 | [Kimi 会员 Allegretto](https://www.kimi.com/membership/pricing) | $27.6 | 4.5× | 0.481 | 3.227 | 122.91 |
 | 11 | claude-opus-4.7 | Anthropic | 👁️ | 58.1 | 4.558 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.114 | 0.765 | 509.64 |
 | 12 | gpt-5.6-terra | OpenAI | 👁️ | 58.0 | 2.923 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.042 | 0.282 | 1382.03 |
 | 13 | gemini-3.7-flash | Google | 👁️ | 57.9 | 0.684 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | 2× | 0.342 | 2.294 | 169.37 |
@@ -156,9 +156,9 @@ Imputed 列：`-` 表示全部真实值，`指标(reg)` 是岭回归填补，`�
 | 18 | [SuperGrok](https://x.ai/pricing) | $30 | ¥201 | 5.3× | 18.8% | ≈1亿 | grok-4.6 (#9) | 59.6 | 0.272 | 218.9 |
 | 19 | [Claude Max 5x](https://claude.com/pricing) | $100 | ¥671 | 20× | 5.0% | ≈2亿 | claude-fable-5.1 (#1) | 70.5 | 0.427 | 165.1 |
 | 20 | [Claude Pro](https://claude.com/pricing) | $20 | ¥134 | 20× | 5.0% | ≈0.5亿 | claude-fable-5.1 (#1) | 70.5 | 0.427 | 165.1 |
-| 21 | [OpenCode Go](https://opencode.ai/go) | $10 | ¥67 | 6× | 16.7% | $60/月（$60 档模型） | kimi-k3 (#10) | 59.1 | 0.457 | 129.4 |
-| 22 | [Kimi 会员 Allegretto](https://www.kimi.com/membership/pricing) | $27.6 | ¥185 | 4.5× | 22.0% | ≈0.5亿 | kimi-k3 (#10) | 59.1 | 0.601 | 98.3 |
-| 23 | [Kimi Andante](https://www.kimi.com/membership/pricing) | $6.8 | ¥46 | 2.5× | 40.5% | 周4M uncached in/out | kimi-k3 (#10) | 59.1 | 1.107 | 53.4 |
+| 21 | [OpenCode Go](https://opencode.ai/go) | $10 | ¥67 | 6× | 16.7% | $60/月（$60 档模型） | kimi-k3 (#10) | 59.1 | 0.365 | 161.7 |
+| 22 | [Kimi 会员 Allegretto](https://www.kimi.com/membership/pricing) | $27.6 | ¥185 | 4.5× | 22.0% | ≈0.6亿 | kimi-k3 (#10) | 59.1 | 0.481 | 122.8 |
+| 23 | [Kimi Andante](https://www.kimi.com/membership/pricing) | $6.8 | ¥46 | 2.5× | 40.5% | 周4M uncached in/out | kimi-k3 (#10) | 59.1 | 0.886 | 66.7 |
 | 24 | [Factory Droid Pro](https://factory.ai) | $20 | ¥134 | 2.4× | 41.7% | 2000万标准token | claude-fable-5.1 (#1) | 70.5 | 3.562 | 19.8 |
 | 25 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | ¥671 | 2× | 50.0% | ≈0.2亿 | claude-fable-5.1 (#1) | 70.5 | 4.271 | 16.5 |
 | 26 | [Trae Pro](https://www.trae.ai) | $10 | ¥67 | 2× | 50.0% | $20 基础用量 | claude-fable-5.1 (#1) | 70.5 | 4.271 | 16.5 |
