@@ -474,3 +474,42 @@ def test_score_board_feature_bonuses():
     assert to["Weighted Total"] == 20.0
 
 
+def test_plan_for_wildcard_and_exclude():
+    from pipeline.scoring import _plan_for
+
+    plans = [
+        {
+            "name": "Proxy Plan",
+            "monthly": 10.0,
+            "discount": 0.167,
+            "model_match": ["deepseek-v4*", "qwen3.*-max", "muse-spark-1.[23]*"],
+            "exclude_match": ["*-27b*", "muse-spark-1.1"],
+            "model_cost_scale": {"*-pro": 4.0, "deepseek-v4-flash": 2.0},
+        }
+    ]
+    # 1. 命中通配符且 scale 显式命中
+    p1 = _plan_for(plans, "DeepSeek", "deepseek-v4-flash")
+    assert p1 is not None and abs(p1["discount"] - 0.167 * 2.0) < 1e-4
+
+    # 2. 命中通配符但 scale 未显式指定 -> 触发最大 scale 4.0 兜底
+    p2 = _plan_for(plans, "DeepSeek", "deepseek-v4.1-flash")
+    assert p2 is not None and abs(p2["discount"] - 0.167 * 4.0) < 1e-4
+
+    # 3. 命中 exclude 黑名单 -> 一票否决
+    p3 = _plan_for(plans, "Meta", "muse-spark-1.1")
+    assert p3 is None
+
+    # 4. 正常命中白名单通配
+    p4 = _plan_for(plans, "Meta", "muse-spark-1.3")
+    assert p4 is not None
+
+    # 5. 通配命中 qwen3.*-max，未显式指定 scale -> 同样触发 4.0 兜底
+    p5 = _plan_for(plans, "Alibaba", "qwen3.7-max")
+    assert p5 is not None and abs(p5["discount"] - 0.167 * 4.0) < 1e-4
+
+    # 6. 通配命中 qwen3.*-max 但命中了 exclude_match "*-27b*" -> 一票否决
+    p6 = _plan_for(plans, "Alibaba", "qwen3.5-27b-max")
+    assert p6 is None
+
+
+

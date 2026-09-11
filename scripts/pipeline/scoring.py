@@ -1,6 +1,7 @@
 """Scoring: min-max norm, weighted total, cost, ranking + threshold."""
 from __future__ import annotations
 
+import fnmatch
 from typing import Any, Dict, List, Optional, Tuple
 
 from .config import board_weights, to_float
@@ -43,14 +44,33 @@ def _cache_rate_for(cost, creator):
     return float(cost.get("cache_hit_rate", 0.50))
 
 
+def _match_pattern(name: Optional[str], patterns: Optional[Any]) -> bool:
+    """Check if name matches any pattern in patterns (using fnmatch)."""
+    if not name or not patterns:
+        return False
+    return any(fnmatch.fnmatch(name, str(pat).strip()) for pat in patterns)
+
+
+def _resolve_scale(model: Optional[str], scale_map: Optional[Dict[str, Any]]) -> Optional[float]:
+    """Resolve model_cost_scale: exact match first, then fnmatch pattern."""
+    if not model or not scale_map:
+        return 1.0
+    if model in scale_map:
+        return float(scale_map[model])
+    for pat, scale in scale_map.items():
+        if fnmatch.fnmatch(model, str(pat).strip()):
+            return float(scale)
+    return None
+
+
 def _plan_for(plans, creator, model=None):
     """Best (lowest-effective-discount) matching subscription plan, else None.
 
     A plan matches when the row's Creator is in its ``creator_match``
-    OR the model slug is in its ``model_match`` (per-model override —
-    e.g. OpenCode Go only grants its 6x multiplier on specific
-    models). The lowest discount wins (cheapest effective price).
-    Credit-value plans (e.g. GitHub Copilot) make API usage
+    OR the model slug matches any pattern in its ``model_match`` (supports
+    fnmatch wildcards). A plan is rejected if the model matches any pattern
+    in ``exclude_match`` (one-vote veto). The lowest discount wins (cheapest
+    effective price). Credit-value plans (e.g. GitHub Copilot) make API usage
     effectively cheaper than the list price. Plans with discount >= 1
     (credit-metered, no reliable token conversion) never change the
     cost math; when no real discount plan matches, the cheapest
@@ -58,20 +78,21 @@ def _plan_for(plans, creator, model=None):
     leaderboard can show it exists (discount 1.0 = list price).
 
     ``model_cost_scale`` is applied *before* the comparison: the chosen
-    plan must be the cheapest by what this model actually pays. Picking
-    on the nominal discount instead would select plans that look
-    cheaper but bill this model at a denser rate (kimi-k3 case:
-    OpenCode Go's nominal 6x vs its $15-tier real 1.5x — 3x more
-    expensive than Kimi 会员 Allegretto's flat 4.5x). The returned plan
-    carries the scaled discount, so callers must not rescale again.
+    plan must be the cheapest by what this model actually pays. Resolves
+    by exact key first, then fnmatch pattern; if unmatched but matched via
+    wildcard in ``model_match``, falls back safely to max(scale_map.values())
+    to prevent underestimating costs. The returned plan carries the scaled
+    discount, so callers must not rescale again.
     """
     best = None
     best_d = None
     nominal = None
     for p in plans or []:
+        if model and _match_pattern(model, p.get("exclude_match")):
+            continue
         matched = creator in (p.get("creator_match") or [])
         if not matched and model and p.get("model_match"):
-            matched = model in p["model_match"]
+            matched = _match_pattern(model, p["model_match"])
         if not matched:
             continue
         d = float(p.get("discount") or 1.0)
@@ -80,9 +101,13 @@ def _plan_for(plans, creator, model=None):
                     float(nominal.get("monthly") or 0):
                 nominal = p
             continue
-        m_scale = (p.get("model_cost_scale") or {}).get(model) if model else None
-        if m_scale:
-            d = min(d * float(m_scale), 1.0)
+        scale_map = p.get("model_cost_scale") or {}
+        if scale_map and model:
+            scale = _resolve_scale(model, scale_map)
+            if scale is None and p.get("model_match"):
+                if model not in p["model_match"] and _match_pattern(model, p["model_match"]):
+                    scale = max(float(v) for v in scale_map.values())
+            d = min(d * (scale or 1.0), 1.0)
         if best is None or d < best_d:
             best, best_d = {**p, "discount": round(d, 6)}, d
     return best or nominal
