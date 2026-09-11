@@ -33,6 +33,7 @@ config.json 里 35 个订阅套餐的月费/额度/折扣是性价比榜的地�
 """
 import argparse
 import datetime
+import fnmatch
 import json
 import os
 import re
@@ -43,6 +44,7 @@ import urllib.request
 BASE = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(BASE)
 CONFIG = os.path.join(REPO_ROOT, "config.json")
+REGISTRY = os.path.join(REPO_ROOT, "scripts", "model_registry.json")
 OUT = os.path.join(REPO_ROOT, "results", "plan_audit.json")
 
 # 联网层参数
@@ -105,6 +107,53 @@ def family_of(name):
 
 # ---------- 检查层 ----------
 
+def load_registry_models():
+    """从 scripts/model_registry.json 读取模型列表。"""
+    if not os.path.exists(REGISTRY):
+        return []
+    with open(REGISTRY, encoding="utf-8") as f:
+        data = json.load(f)
+        return data.get("models", [])
+
+
+def _extract_slugs(registry_models):
+    """从 registry_models（dict 列表或 str 列表）提取 slug 字符串集合/列表。"""
+    slugs = []
+    for m in registry_models or []:
+        if isinstance(m, dict):
+            s = m.get("slug")
+            if s:
+                slugs.append(str(s).strip())
+        elif isinstance(m, str):
+            s = m.strip()
+            if s:
+                slugs.append(s)
+    return slugs
+
+
+def check_dead_patterns(plans, registry_models=None):
+    """单 Pattern 死规则检测：检查 model_match 是否命中 registry 中至少一个模型。
+
+    若某个 pattern 无法命中任何模型的 slug，记为 DEAD_PATTERN 错误。
+    """
+    if registry_models is None:
+        registry_models = load_registry_models()
+    slugs = _extract_slugs(registry_models)
+
+    errs = []
+    for p in plans:
+        name = p.get("name") or "?"
+        patterns = p.get("model_match") or []
+        for pat in patterns:
+            pat_str = str(pat).strip()
+            if not pat_str:
+                continue
+            matched = any(fnmatch.fnmatch(slug, pat_str) for slug in slugs)
+            if not matched:
+                errs.append(f"{name}: DEAD_PATTERN model_match pattern '{pat_str}' 未匹配到任何 registry 模型")
+    return errs
+
+
 def check_fields(plan):
     """必填字段与取值域。返回 errors。"""
     errs = []
@@ -120,6 +169,9 @@ def check_fields(plan):
         errs.append(f"discount={d} 越界 (0,1]")
     if not (plan.get("creator_match") or plan.get("model_match")):
         errs.append("creator_match 与 model_match 均为空，该套餐永远不会被匹配")
+    exclude = plan.get("exclude_match")
+    if exclude is not None and not isinstance(exclude, list):
+        errs.append("exclude_match 必须为列表")
     if errs:
         errs = [f"{name}: {e}" for e in errs]
     return errs
@@ -230,13 +282,16 @@ def check_url(plan):
 
 # ---------- 汇总 ----------
 
-def audit(plans, max_age_days, today, online):
+def audit(plans, max_age_days, today, online, registry_models=None):
     """跑全部检查层，返回审计 dict。"""
+    if registry_models is None:
+        registry_models = load_registry_models()
     entries = []
     fail = 0
     warn = 0
     for p in plans:
-        errors = check_fields(p) + check_arithmetic(p)[0]
+        dead_errs = check_dead_patterns([p], registry_models=registry_models)
+        errors = check_fields(p) + check_arithmetic(p)[0] + dead_errs
         warnings = check_arithmetic(p)[1] + check_freshness(p, max_age_days, today)
         url_status = None
         if online:
@@ -252,8 +307,8 @@ def audit(plans, max_age_days, today, online):
             "warnings": warnings,
             "url_status": url_status,
         })
-    errors = check_family_monotonic(plans)
-    for e in errors:
+    family_errors = check_family_monotonic(plans)
+    for e in family_errors:
         fail += 1
         entries.append({"name": "(family)", "status": "fail",
                         "errors": [e], "warnings": [], "url_status": None})
@@ -261,7 +316,7 @@ def audit(plans, max_age_days, today, online):
         "run_date": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "max_age_days": max_age_days,
         "online": online,
-        "summary": {"plans": len(plans), "pass": len(plans) + len(errors) - fail - warn,
+        "summary": {"plans": len(plans), "pass": len(plans) + len(family_errors) - fail - warn,
                     "warn": warn, "fail": fail},
         "entries": entries,
     }

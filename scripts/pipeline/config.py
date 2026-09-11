@@ -92,6 +92,7 @@ def plan_params(cfg: Dict[str, Any]) -> List[Dict[str, Any]]:
             "name": p.get("name", "?"),
             "creator_match": p.get("creator_match") or [],
             "model_match": p.get("model_match") or [],
+            "exclude_match": p.get("exclude_match") or [],
             "monthly": to_float(p.get("monthly")),
             "credit_value": to_float(p.get("credit_value")),
             "implied_value": to_float(p.get("implied_value")),
@@ -201,6 +202,10 @@ def validate_config(cfg: Dict[str, Any]) -> bool:
         if url and not str(url).startswith(("http://", "https://")):
             raise ConfigError(
                 f"plan '{name}' url must start with http:// or https://"
+            )
+        if "exclude_match" in p and not isinstance(p["exclude_match"], list):
+            raise ConfigError(
+                f"plan '{name}' exclude_match must be a list"
             )
     for bkey, board in boards.items():
         if board.get("rank_by") not in (None, "score", "value"):

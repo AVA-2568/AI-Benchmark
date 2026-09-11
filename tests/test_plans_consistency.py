@@ -44,3 +44,78 @@ def test_offline_audit_has_no_fail():
                       today=datetime.date(2026, 9, 1), online=False)
     fails = [e for e in result["entries"] if e["status"] == "fail"]
     assert fails == []
+
+
+def test_verify_plans_catches_dead_patterns():
+    """当某个 plan 的 model_match 中包含无法命中任何模型的 pattern 时，必须报错 DEAD_PATTERN。"""
+    bad_plan = {
+        "name": "Test Plan With Dead Pattern",
+        "monthly": 10.0,
+        "discount": 0.5,
+        "url": "https://example.com",
+        "model_match": ["non_existent_model_12345*"],
+    }
+    errs = vp.check_dead_patterns([bad_plan])
+    assert any("DEAD_PATTERN" in e for e in errs)
+
+    # 正常 pattern 命中已有模型时无 DEAD_PATTERN 错误
+    good_plan = {
+        "name": "Test Plan With Valid Pattern",
+        "monthly": 10.0,
+        "discount": 0.5,
+        "url": "https://example.com",
+        "model_match": ["claude*"],
+    }
+    good_errs = vp.check_dead_patterns([good_plan])
+    assert good_errs == []
+
+    # 支持显式传入 registry_models（dict 列表或 str 列表）
+    custom_errs = vp.check_dead_patterns([bad_plan], registry_models=["foo-model", "bar-model"])
+    assert any("DEAD_PATTERN" in e for e in custom_errs)
+    matched_errs = vp.check_dead_patterns([bad_plan], registry_models=[{"slug": "non_existent_model_123456"}])
+    assert matched_errs == []
+
+    # 集成到 audit 流程中，dead pattern 导致 fail 计数累加并记入 entry
+    import datetime
+    audit_res = vp.audit([bad_plan], max_age_days=10**6, today=datetime.date(2026, 9, 1), online=False)
+    assert audit_res["summary"]["fail"] >= 1
+    assert any(e["name"] == "Test Plan With Dead Pattern" and e["status"] == "fail" for e in audit_res["entries"])
+
+
+def test_check_fields_allows_exclude_match():
+    """check_fields 放行合法的 exclude_match，类型非法时报错。"""
+    valid_plan = {
+        "name": "Valid Exclude Plan",
+        "monthly": 15.0,
+        "discount": 0.3,
+        "url": "https://example.com",
+        "creator_match": ["OpenAI"],
+        "exclude_match": ["*-mini", "*-preview"],
+    }
+    assert vp.check_fields(valid_plan) == []
+
+    invalid_plan = dict(valid_plan, exclude_match="not-a-list")
+    errs = vp.check_fields(invalid_plan)
+    assert any("exclude_match 必须为列表" in e for e in errs)
+
+
+def test_plan_params_preserves_exclude_match():
+    """plan_params 正确提取并传递 exclude_match 列表。"""
+    from pipeline.config import plan_params
+    cfg = {
+        "plans": [
+            {
+                "name": "Test Plan",
+                "creator_match": ["OpenAI"],
+                "exclude_match": ["gpt-4o-realtime*", "*-mini"],
+                "monthly": 20.0,
+                "discount": 0.5,
+            }
+        ]
+    }
+    parsed = plan_params(cfg)
+    assert len(parsed) == 1
+    assert parsed[0]["exclude_match"] == ["gpt-4o-realtime*", "*-mini"]
+
+
+
