@@ -536,6 +536,18 @@
       "vision": true,
       "auto_added": "2026-09-09",
       "openrouter": "deepseek/deepseek-v4-flash-vision-exp"
+    },
+    {
+      "slug": "deepseek-v4.1-flash",
+      "creator": "DeepSeek",
+      "aa": "deepseek-v4-1-flash",
+      "livebench": "deepseek-v4.1-flash-max",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-09-11",
+      "openrouter": "deepseek/deepseek-v4.1-flash"
     }
   ]
 }

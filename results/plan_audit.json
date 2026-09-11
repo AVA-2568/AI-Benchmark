@@ -1,264 +1,349 @@
 {
-  "run_date": "2026-09-07T06:43:14.543672+00:00",
+  "run_date": "2026-09-11T11:39:27.978772+00:00",
   "max_age_days": 21,
-  "online": true,
+  "online": false,
   "summary": {
-    "plans": 35,
-    "pass": 32,
-    "warn": 3,
+    "plans": 48,
+    "pass": 48,
+    "warn": 0,
     "fail": 0
   },
   "entries": [
     {
       "name": "ChatGPT Pro 20x",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "ChatGPT Pro 20x: 官方页 HTTP 403（https://chatgpt.com/pricing）"
-      ],
-      "url_status": 403
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "ChatGPT Pro 5x",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "ChatGPT Pro 5x: 官方页 HTTP 403（https://chatgpt.com/pricing）"
-      ],
-      "url_status": 403
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "ChatGPT Plus",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "ChatGPT Plus: 官方页 HTTP 403（https://chatgpt.com/pricing）"
-      ],
-      "url_status": 403
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Claude Max 20x",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Claude Max 5x",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Claude Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiniMax Max Token Plan",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiniMax Ultra Token Plan",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiniMax Plus Token Plan",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Kimi 会员 Allegretto",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "SuperGrok Heavy",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "SuperGrok",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GitHub Copilot Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GitHub Copilot Pro+",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GitHub Copilot Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GLM Coding Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GLM Coding Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GLM Coding Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Qwen Token Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Qwen Token Plan Standard",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Qwen Token Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "WorkBuddy 高级版",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "WorkBuddy 标准版",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "WorkBuddy 旗舰版",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Standard",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "OpenCode Go",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Kimi Andante",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Factory Droid Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Trae Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Cursor Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
+    },
+    {
+      "name": "Kimi Moderato",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Kimi Allegro",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "MiMo Token Plan Standard",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "MiMo Token Plan Pro",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Cursor Pro+",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Cursor Ultra",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Windsurf Pro",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Ollama Pro",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "火山方舟 Coding Plan Lite",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "火山方舟 Coding Plan Pro",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Command Code GOAT",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "R4 Coder Code Lite",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Poe Premium",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
     }
   ]
 }
