@@ -1,7 +1,6 @@
 {
   "new_models": {
     "livebench.csv": [
-      "deepseek-v4-flash-vision-exp",
       "nemotron-3-ultra-550b-a55b",
       "ox-alpha-max",
       "smaug-agentic",
@@ -17,16 +16,6 @@
     "livebench": []
   },
   "deferred": [
-    {
-      "name": "deepseek-v4-flash-vision-exp",
-      "slug": "deepseek-v4-flash-vision-exp",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
     {
       "name": "nemotron-3-ultra-550b-a55b",
       "slug": "nemotron-3-ultra-550b-a55b",
