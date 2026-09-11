@@ -823,29 +823,36 @@
       "credit_value": 60,
       "discount": 0.167,
       "model_cost_scale": {
-        "deepseek-v4-flash": 2.0,
+        "*-pro": 4.0,
+        "*-flash": 2.0,
         "kimi-k3": 4.0,
+        "glm-5.3*": 4.0,
         "qwen3.8-max": 4.0,
+        "qwen3.7-max": 2.0,
         "mimo-v2.5-pro": 4.0,
-        "deepseek-v4-pro": 4.0
+        "grok-4.6": 4.0,
+        "gpt-5.6-luna": 4.0,
+        "deepseek-v4-flash-vision-exp": 4.0
       },
       "source": "OpenCode 官方 docs 2026-08-25 模型价格表：月使用额度分档（$60/$30/$15）；2026-09-01 复核：$60/$30/$15 三档与 model_cost_scale 与官方 docs 一致",
       "note": "$10/月，可用于任意编程 Agent；$60 档按 6× 基准，$30 档 deepseek-v4-flash 为 3×（相对基准 ×2），$15 档 kimi-k3/qwen3.8-max/mimo-v2.5-pro/deepseek-v4-pro 为 1.5×（相对基准 ×4）；仅收录当前榜单模型",
       "tokens": "$60/月（$60 档模型）",
       "url": "https://opencode.ai/go",
       "model_match": [
-        "glm-5.2",
-        "minimax-m3",
-        "hy3",
-        "kimi-k2.6",
-        "kimi-k2.7-code",
-        "qwen3.7-max",
-        "qwen3.6-plus",
-        "deepseek-v4-flash",
-        "kimi-k3",
-        "qwen3.8-max",
-        "mimo-v2.5-pro",
-        "deepseek-v4-pro"
+        "deepseek-v4*",
+        "kimi-k*",
+        "glm-5*",
+        "muse-spark-1.[23]*",
+        "qwen3.*-max",
+        "qwen3.*-plus",
+        "minimax-m*",
+        "mimo-v2.5*",
+        "hy3"
+      ],
+      "exclude_match": [
+        "*-27b*",
+        "*-7b*",
+        "muse-spark-1.1"
       ]
     },
     {
@@ -1009,11 +1016,8 @@
       "credit_value": 60.0,
       "discount": 0.3333,
       "model_match": [
-        "deepseek-v4-pro",
-        "deepseek-v4-flash",
-        "qwen3.8-max",
-        "qwen3.7-max",
-        "qwen3.6-plus"
+        "deepseek-v4*",
+        "qwen3.*-27b"
       ],
       "tokens": "$60/月 API 用量",
       "source": "ollama.com/blog/transparent-pricing 2026-09-01 官方透明定价；0/月含 0 额度（3x 倍率）",
@@ -1026,13 +1030,11 @@
       "implied_value": 55.6,
       "discount": 0.1,
       "model_match": [
-        "deepseek-v4-pro",
-        "deepseek-v4-flash",
-        "glm-5.2",
-        "glm-5.3",
-        "kimi-k3",
-        "kimi-k2.7-code"
+        "deepseek-v4*",
+        "glm-5*",
+        "kimi-k*"
       ],
+      "exclude_match": [],
       "tokens": "每月最高 18,000 次请求",
       "source": "volcengine.com 2026-09-01 官方常规标价 ¥40/月（按固定 7.2 折合 .56，不计限时活动首购）；每月最高 18,000 次请求，折合 API 成本约 1 折",
       "note": "字节火山方舟 AI 编码订阅常规标价 ¥40/月；聚合 Doubao/GLM/Kimi/DeepSeek 多模型，多工具共享 API Key",
@@ -1044,13 +1046,11 @@
       "implied_value": 278.0,
       "discount": 0.0999,
       "model_match": [
-        "deepseek-v4-pro",
-        "deepseek-v4-flash",
-        "glm-5.2",
-        "glm-5.3",
-        "kimi-k3",
-        "kimi-k2.7-code"
+        "deepseek-v4*",
+        "glm-5*",
+        "kimi-k*"
       ],
+      "exclude_match": [],
       "tokens": "每月最高 90,000 次请求",
       "source": "volcengine.com 2026-09-01 官方常规标价 ¥200/月（折合 7.78，不计限时促销）；每月最高 90,000 次请求，Lite 的 5 倍额度",
       "note": "字节火山方舟 AI 编码订阅常规标价 ¥200/月；5 倍 Lite 额度，多租户隔离高并发保障",
@@ -1062,16 +1062,12 @@
       "credit_value": 70.0,
       "discount": 0.1429,
       "model_match": [
-        "deepseek-v4-pro",
-        "deepseek-v4-flash",
-        "glm-5.2",
-        "glm-5.3",
-        "kimi-k3",
-        "kimi-k2.7-code",
-        "qwen3.7-max",
-        "qwen3.8-max",
-        "minimax-m3",
-        "mimo-v2.5-pro"
+        "deepseek-v4*",
+        "glm-5*",
+        "kimi-k*",
+        "qwen3.*-max",
+        "minimax-m*",
+        "mimo-v2.5*"
       ],
       "tokens": "$70/月 API 用量",
       "source": "commandcode.ai 2026-09-01 官方核验；GOAT 常规订阅 0/月含 0 额度（7x 倍率，不采用限时 Deal）",
@@ -1084,10 +1080,9 @@
       "credit_value": 60.0,
       "discount": 0.1667,
       "model_match": [
-        "kimi-k3",
-        "glm-5.3",
-        "deepseek-v4-pro",
-        "deepseek-v4-flash"
+        "kimi-k*",
+        "glm-5*",
+        "deepseek-v4*"
       ],
       "tokens": "$60/月 API 用量",
       "source": "r4.codes 2026-09-01 官方核验；常设预付费包 0 买 0 额度（6x 杠杆，30天有效）",
