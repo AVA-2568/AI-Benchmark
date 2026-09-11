@@ -904,6 +904,211 @@
       "note": "额度等价月费，倍率 1×；Ultra $200 档另有",
       "tokens": "$20 API 用量",
       "url": "https://cursor.com/pricing"
+    },
+    {
+      "name": "Kimi Moderato",
+      "creator_match": [
+        "Moonshot AI"
+      ],
+      "monthly": 13.75,
+      "implied_value": 67.2,
+      "discount": 0.2046,
+      "tokens": "周16M uncached in/out",
+      "source": "kimi.com/membership/pricing 2026-09-01 官方常规标价（¥99/月），不用限时活动价；Andante 4× 额度，各档年付约 8 折",
+      "note": "¥99/月（中档会员）；含 Kimi Code 4× 额度，共享 token 池",
+      "url": "https://www.kimi.com/membership/pricing"
+    },
+    {
+      "name": "Kimi Allegro",
+      "creator_match": [
+        "Moonshot AI"
+      ],
+      "monthly": 97.08,
+      "implied_value": 1008.0,
+      "discount": 0.0963,
+      "tokens": "周240M uncached in/out",
+      "source": "kimi.com/membership/pricing 2026-09-01 官方常规标价（¥699/月），不用限时活动价；Andante 60× 额度",
+      "note": "¥699/月（顶配旗舰）；含 Kimi Code 60× 额度、Agent Swarm 高并发集群支持",
+      "url": "https://www.kimi.com/membership/pricing"
+    },
+    {
+      "name": "MiMo Token Plan Standard",
+      "creator_match": [
+        "Xiaomi"
+      ],
+      "monthly": 16.0,
+      "implied_value": 17.5,
+      "discount": 0.9143,
+      "tokens": "≈6200万/月",
+      "source": "mimo.mi.com/docs/zh-CN/price/token-plan 2026-09-01 官方常规月费 6/¥99，不用限时优惠；11B Credits/月",
+      "note": "官方 6/¥99 月；11B Credits/月 ≈ 1600 轮中等任务",
+      "url": "https://mimo.mi.com/docs/zh-CN/price/token-plan"
+    },
+    {
+      "name": "MiMo Token Plan Pro",
+      "creator_match": [
+        "Xiaomi"
+      ],
+      "monthly": 50.0,
+      "implied_value": 60.5,
+      "discount": 0.8264,
+      "tokens": "≈2.1亿/月",
+      "source": "mimo.mi.com/docs/zh-CN/price/token-plan 2026-09-01 官方常规月费 0/¥329，不用限时优惠；38B Credits/月",
+      "note": "官方 0/¥329 月；38B Credits/月 ≈ 5600 轮中等任务",
+      "url": "https://mimo.mi.com/docs/zh-CN/price/token-plan"
+    },
+    {
+      "name": "Cursor Pro+",
+      "creator_match": [
+        "Anthropic",
+        "OpenAI",
+        "Google",
+        "xAI"
+      ],
+      "monthly": 60.0,
+      "credit_value": 70.0,
+      "discount": 0.8571,
+      "tokens": "$70 API 用量",
+      "source": "cursor.com/pricing 2026-09-01 官方长期标准定价 0/月，含 0 第三方模型 API 用量",
+      "note": "进阶档；额度折合 API 单价 ×0.857（约 1.2x 倍率）",
+      "url": "https://cursor.com/pricing"
+    },
+    {
+      "name": "Cursor Ultra",
+      "creator_match": [
+        "Anthropic",
+        "OpenAI",
+        "Google",
+        "xAI"
+      ],
+      "monthly": 200.0,
+      "credit_value": 400.0,
+      "discount": 0.5,
+      "tokens": "$400 API 用量",
+      "source": "cursor.com/pricing 2026-09-01 官方长期标准定价 00/月，含 00 第三方模型 API 用量",
+      "note": "个人顶级档；额度折合 API 单价 ×0.50（2x 倍率），无限 Tab 预测与高优先级并发",
+      "url": "https://cursor.com/pricing"
+    },
+    {
+      "name": "Windsurf Pro",
+      "creator_match": [
+        "Anthropic",
+        "OpenAI"
+      ],
+      "monthly": 15.0,
+      "credit_value": 25.0,
+      "discount": 0.6,
+      "tokens": "500 prompt credits/月",
+      "source": "codeium.com/windsurf 2026-09-01 官方常规月付标价 5/月，提供 500 次高级模型请求",
+      "note": "Codeium AI IDE 订阅；支持 Claude 3.5/3.7 Sonnet、GPT-4o 与自研 SWE-1.5",
+      "url": "https://codeium.com/windsurf"
+    },
+    {
+      "name": "Ollama Pro",
+      "monthly": 20.0,
+      "credit_value": 60.0,
+      "discount": 0.3333,
+      "model_match": [
+        "deepseek-v4-pro",
+        "deepseek-v4-flash",
+        "qwen3.8-max",
+        "qwen3.7-max",
+        "qwen3.6-plus"
+      ],
+      "tokens": "$60/月 API 用量",
+      "source": "ollama.com/blog/transparent-pricing 2026-09-01 官方透明定价；0/月含 0 额度（3x 倍率）",
+      "note": "0/月包含 0 API 额度（3× 倍率），按 Token 计费，无 5 小时限额，支持 API 接入任意编程工具",
+      "url": "https://ollama.com"
+    },
+    {
+      "name": "火山方舟 Coding Plan Lite",
+      "monthly": 5.56,
+      "implied_value": 55.6,
+      "discount": 0.1,
+      "model_match": [
+        "deepseek-v4-pro",
+        "deepseek-v4-flash",
+        "glm-5.2",
+        "glm-5.3",
+        "kimi-k3",
+        "kimi-k2.7-code"
+      ],
+      "tokens": "每月最高 18,000 次请求",
+      "source": "volcengine.com 2026-09-01 官方常规标价 ¥40/月（按固定 7.2 折合 .56，不计限时活动首购）；每月最高 18,000 次请求，折合 API 成本约 1 折",
+      "note": "字节火山方舟 AI 编码订阅常规标价 ¥40/月；聚合 Doubao/GLM/Kimi/DeepSeek 多模型，多工具共享 API Key",
+      "url": "https://www.volcengine.com"
+    },
+    {
+      "name": "火山方舟 Coding Plan Pro",
+      "monthly": 27.78,
+      "implied_value": 278.0,
+      "discount": 0.0999,
+      "model_match": [
+        "deepseek-v4-pro",
+        "deepseek-v4-flash",
+        "glm-5.2",
+        "glm-5.3",
+        "kimi-k3",
+        "kimi-k2.7-code"
+      ],
+      "tokens": "每月最高 90,000 次请求",
+      "source": "volcengine.com 2026-09-01 官方常规标价 ¥200/月（折合 7.78，不计限时促销）；每月最高 90,000 次请求，Lite 的 5 倍额度",
+      "note": "字节火山方舟 AI 编码订阅常规标价 ¥200/月；5 倍 Lite 额度，多租户隔离高并发保障",
+      "url": "https://www.volcengine.com"
+    },
+    {
+      "name": "Command Code GOAT",
+      "monthly": 10.0,
+      "credit_value": 70.0,
+      "discount": 0.1429,
+      "model_match": [
+        "deepseek-v4-pro",
+        "deepseek-v4-flash",
+        "glm-5.2",
+        "glm-5.3",
+        "kimi-k3",
+        "kimi-k2.7-code",
+        "qwen3.7-max",
+        "qwen3.8-max",
+        "minimax-m3",
+        "mimo-v2.5-pro"
+      ],
+      "tokens": "$70/月 API 用量",
+      "source": "commandcode.ai 2026-09-01 官方核验；GOAT 常规订阅 0/月含 0 额度（7x 倍率，不采用限时 Deal）",
+      "note": "0/月含 0 API 额度（7× 倍率）；主打开源与国产旗舰，提供标准 API 接入任意客户端",
+      "url": "https://commandcode.ai"
+    },
+    {
+      "name": "R4 Coder Code Lite",
+      "monthly": 10.0,
+      "credit_value": 60.0,
+      "discount": 0.1667,
+      "model_match": [
+        "kimi-k3",
+        "glm-5.3",
+        "deepseek-v4-pro",
+        "deepseek-v4-flash"
+      ],
+      "tokens": "$60/月 API 用量",
+      "source": "r4.codes 2026-09-01 官方核验；常设预付费包 0 买 0 额度（6x 杠杆，30天有效）",
+      "note": "预付免订阅制（0 买 0 额度，6× 倍率）；聚焦 Kimi K3、GLM 5.3、DeepSeek V4，主打高缓存",
+      "url": "https://r4.codes"
+    },
+    {
+      "name": "Poe Premium",
+      "creator_match": [
+        "Anthropic",
+        "OpenAI",
+        "Google",
+        "xAI",
+        "DeepSeek"
+      ],
+      "monthly": 19.99,
+      "discount": 1.0,
+      "tokens": "660,000 计算积分/月",
+      "source": "poe.com 2026-09-01 官方核验；长期标准月费 9.99/月，660,000 计算积分/月",
+      "note": "Quora 旗下多模型聚合订阅；积分制全模型通用，不折算名义倍率",
+      "url": "https://poe.com"
     }
   ],
   "score_threshold": 0,
