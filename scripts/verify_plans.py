@@ -42,6 +42,13 @@ import urllib.error
 import urllib.request
 
 BASE = os.path.dirname(os.path.abspath(__file__))
+if BASE not in sys.path:
+    sys.path.insert(0, BASE)
+try:
+    from pipeline.scoring import _match_pattern, _resolve_scale, _plan_for
+except ImportError:
+    from scripts.pipeline.scoring import _match_pattern, _resolve_scale, _plan_for
+
 REPO_ROOT = os.path.dirname(BASE)
 CONFIG = os.path.join(REPO_ROOT, "config.json")
 REGISTRY = os.path.join(REPO_ROOT, "scripts", "model_registry.json")
@@ -280,6 +287,173 @@ def check_url(plan):
         return None, [f"{plan.get('name')}: 官方页不可达（{type(e).__name__}: {e}）"]
 
 
+# ---------- 双向透视矩阵 ----------
+
+def resolve_plan_model_scale(plan, model_slug):
+    """计算某个模型在特定套餐下的生效 scale 与有效 discount。
+
+    返回 (scale, eff_discount, is_fallback)。
+    """
+    base_discount = float(plan.get("discount") or 1.0)
+    scale_map = plan.get("model_cost_scale") or {}
+    model_match = plan.get("model_match") or []
+
+    scale = _resolve_scale(model_slug, scale_map) if scale_map else 1.0
+    fallback = False
+    if scale is None and model_match:
+        if model_slug not in model_match and _match_pattern(model_slug, model_match) and scale_map:
+            scale = max(float(v) for v in scale_map.values())
+            fallback = True
+        else:
+            scale = 1.0
+    elif scale is None:
+        scale = 1.0
+    eff_discount = round(min(base_discount * scale, 1.0), 6)
+    return scale, eff_discount, fallback
+
+
+def build_coverage_matrix(plans, registry_models=None):
+    """构建双向透视矩阵数据：正向（聚合套餐->命中模型）与反向（模型->最优套餐）。"""
+    if registry_models is None:
+        registry_models = load_registry_models()
+
+    model_list = []
+    for m in registry_models or []:
+        if isinstance(m, dict):
+            slug = (m.get("slug") or "").strip()
+            creator = (m.get("creator") or "").strip()
+        else:
+            slug = str(m).strip()
+            creator = ""
+        if slug:
+            model_list.append({"slug": slug, "creator": creator})
+
+    # 1. 正向透视：带有 model_match 的聚合类套餐
+    forward = []
+    for p in plans or []:
+        if not p.get("model_match"):
+            continue
+        p_name = p.get("name") or "?"
+        p_monthly = p.get("monthly")
+        p_discount = float(p.get("discount") or 1.0)
+        ex_match = p.get("exclude_match") or []
+        m_match = p.get("model_match") or []
+        c_match = p.get("creator_match") or []
+
+        hits = []
+        for m in model_list:
+            slug, creator = m["slug"], m["creator"]
+            if _match_pattern(slug, ex_match):
+                continue
+            matched = (creator in c_match) or _match_pattern(slug, m_match)
+            if not matched:
+                continue
+            scale, eff_discount, fallback = resolve_plan_model_scale(p, slug)
+            hits.append({
+                "slug": slug,
+                "creator": creator,
+                "scale": scale,
+                "effective_discount": eff_discount,
+                "multiplier": round(1.0 / eff_discount, 2) if eff_discount > 0 else 1.0,
+                "fallback": fallback,
+            })
+        forward.append({
+            "name": p_name,
+            "monthly": p_monthly,
+            "discount": p_discount,
+            "hit_count": len(hits),
+            "hits": hits,
+        })
+
+    # 2. 反向透视：全模型最优套餐匹配概览与未覆盖模型高亮
+    covered = []
+    uncovered = []
+    for m in model_list:
+        slug, creator = m["slug"], m["creator"]
+        best = _plan_for(plans, creator, slug)
+        d = float(best.get("discount") or 1.0) if best else 1.0
+        if best is None or d >= 1.0:
+            status = "API 按量" if best is None else f"名义原价 ({best.get('name')})"
+            uncovered.append({
+                "slug": slug,
+                "creator": creator,
+                "status": status,
+                "plan_name": best.get("name") if best else None,
+                "discount": 1.0,
+                "multiplier": 1.0,
+            })
+        else:
+            covered.append({
+                "slug": slug,
+                "creator": creator,
+                "plan_name": best.get("name"),
+                "monthly": best.get("monthly"),
+                "discount": d,
+                "multiplier": round(1.0 / d, 2) if d > 0 else 1.0,
+            })
+
+    total = len(model_list)
+    return {
+        "summary": {
+            "total_models": total,
+            "covered_count": len(covered),
+            "uncovered_count": len(uncovered),
+            "coverage_rate": round(len(covered) / total, 4) if total > 0 else 0.0,
+        },
+        "forward": forward,
+        "reverse": {
+            "uncovered": uncovered,
+            "covered": covered,
+        },
+    }
+
+
+def print_coverage_matrix(matrix_data):
+    """在控制台直观打印正向透视表与反向透视表。"""
+    if not matrix_data:
+        return
+    print("\n" + "=" * 80)
+    print("【正向透视：聚合类套餐命中模型与生效 Scale 审计】")
+    print("=" * 80)
+    for p in matrix_data.get("forward", []):
+        name = p["name"]
+        monthly = f"${p['monthly']:.1f}/月" if p.get("monthly") is not None else "免月费"
+        disc_pct = f"{p['discount'] * 100:.1f}%"
+        base_mult = f"{1.0 / p['discount']:.1f}×" if p['discount'] > 0 else "-"
+        print(f"\n* {name} ({monthly}, 基准折扣 {disc_pct} / {base_mult} 杠杆) -> 实际命中 {p['hit_count']} 个模型:")
+        for h in p["hits"]:
+            fb_flag = " [FALLBACK MAX]" if h.get("fallback") else ""
+            print(f"    - {h['slug']:<30} ({h['creator']:<18}) scale={h['scale']:<4.1f} 生效折扣: {h['effective_discount'] * 100:>5.1f}% ({h['multiplier']:>4.1f}×){fb_flag}")
+
+    print("\n" + "=" * 80)
+    print("【反向透视：全部模型最优套餐匹配概览与未覆盖专栏】")
+    print("=" * 80)
+    rev = matrix_data.get("reverse", {})
+    summary = matrix_data.get("summary", {})
+    tot = summary.get("total_models", 0)
+    cov_cnt = summary.get("covered_count", 0)
+    uncov_cnt = summary.get("uncovered_count", 0)
+    cov_rate = summary.get("coverage_rate", 0.0) * 100
+    print(f"模型总数: {tot} | 折扣覆盖: {cov_cnt} ({cov_rate:.1f}%) | 未覆盖/名义原价: {uncov_cnt} ({100 - cov_rate:.1f}%)\n")
+
+    print("-" * 80)
+    print(">>> [重点高亮] 未覆盖 / 名义原价模型 (Uncovered / Full Price Models)")
+    print("-" * 80)
+    uncovered = rev.get("uncovered", [])
+    if not uncovered:
+        print("  (全部模型均已享受有效折扣覆盖)")
+    else:
+        for u in uncovered:
+            print(f"  * {u['slug']:<30} ({u['creator']:<18}) -> 状态: {u['status']} (折扣: 100.0%, 1.0×)")
+
+    print("\n" + "-" * 80)
+    print(">>> [最优匹配] 折扣覆盖模型明细 (Covered Models)")
+    print("-" * 80)
+    for c in rev.get("covered", []):
+        print(f"  * {c['slug']:<30} ({c['creator']:<18}) -> {c['plan_name']:<25} | 折扣: {c['discount'] * 100:>5.1f}% ({c['multiplier']:>4.1f}×)")
+    print("=" * 80 + "\n")
+
+
 # ---------- 汇总 ----------
 
 def audit(plans, max_age_days, today, online, registry_models=None):
@@ -312,12 +486,14 @@ def audit(plans, max_age_days, today, online, registry_models=None):
         fail += 1
         entries.append({"name": "(family)", "status": "fail",
                         "errors": [e], "warnings": [], "url_status": None})
+    coverage_data = build_coverage_matrix(plans, registry_models=registry_models)
     return {
         "run_date": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "max_age_days": max_age_days,
         "online": online,
         "summary": {"plans": len(plans), "pass": len(plans) + len(family_errors) - fail - warn,
                     "warn": warn, "fail": fail},
+        "coverage": coverage_data,
         "entries": entries,
     }
 
@@ -332,6 +508,8 @@ def print_report(audit_result):
         print(f"  [{tag}] {e['name']}")
         for line in e["errors"] + e["warnings"]:
             print(f"        {line}")
+    if "coverage" in audit_result:
+        print_coverage_matrix(audit_result["coverage"])
 
 
 def main(argv=None):

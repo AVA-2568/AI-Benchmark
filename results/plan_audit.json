@@ -1,5 +1,5 @@
 {
-  "run_date": "2026-09-11T11:49:33.590898+00:00",
+  "run_date": "2026-09-11T12:40:17.351891+00:00",
   "max_age_days": 21,
   "online": false,
   "summary": {
@@ -7,6 +7,1030 @@
     "pass": 48,
     "warn": 0,
     "fail": 0
+  },
+  "coverage": {
+    "summary": {
+      "total_models": 52,
+      "covered_count": 49,
+      "uncovered_count": 3,
+      "coverage_rate": 0.9423
+    },
+    "forward": [
+      {
+        "name": "OpenCode Go",
+        "monthly": 10.0,
+        "discount": 0.167,
+        "hit_count": 18,
+        "hits": [
+          {
+            "slug": "muse-spark-1.2",
+            "creator": "Meta",
+            "scale": 1.0,
+            "effective_discount": 0.167,
+            "multiplier": 5.99,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-pro",
+            "creator": "DeepSeek",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash",
+            "creator": "DeepSeek",
+            "scale": 2.0,
+            "effective_discount": 0.334,
+            "multiplier": 2.99,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k3",
+            "creator": "Moonshot AI",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.6",
+            "creator": "Moonshot AI",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": true
+          },
+          {
+            "slug": "kimi-k2.7-code",
+            "creator": "Moonshot AI",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": true
+          },
+          {
+            "slug": "qwen3.8-max",
+            "creator": "Alibaba",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "qwen3.7-max",
+            "creator": "Alibaba",
+            "scale": 2.0,
+            "effective_discount": 0.334,
+            "multiplier": 2.99,
+            "fallback": false
+          },
+          {
+            "slug": "qwen3.6-plus",
+            "creator": "Alibaba",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": true
+          },
+          {
+            "slug": "glm-5.2",
+            "creator": "Z.AI",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": true
+          },
+          {
+            "slug": "minimax-m3",
+            "creator": "MiniMax",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": true
+          },
+          {
+            "slug": "mimo-v2.5-pro",
+            "creator": "Xiaomi",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "hy3",
+            "creator": "Tencent",
+            "scale": 1.0,
+            "effective_discount": 0.167,
+            "multiplier": 5.99,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3",
+            "creator": "Z.AI",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3-flash",
+            "creator": "Z.AI",
+            "scale": 2.0,
+            "effective_discount": 0.334,
+            "multiplier": 2.99,
+            "fallback": false
+          },
+          {
+            "slug": "muse-spark-1.3",
+            "creator": "Meta",
+            "scale": 1.0,
+            "effective_discount": 0.167,
+            "multiplier": 5.99,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision-exp",
+            "creator": "DeepSeek",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4.1-flash",
+            "creator": "DeepSeek",
+            "scale": 2.0,
+            "effective_discount": 0.334,
+            "multiplier": 2.99,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "Ollama Pro",
+        "monthly": 20.0,
+        "discount": 0.3333,
+        "hit_count": 6,
+        "hits": [
+          {
+            "slug": "deepseek-v4-pro",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.3333,
+            "multiplier": 3.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.3333,
+            "multiplier": 3.0,
+            "fallback": false
+          },
+          {
+            "slug": "qwen3.6-27b",
+            "creator": "Alibaba",
+            "scale": 1.0,
+            "effective_discount": 0.3333,
+            "multiplier": 3.0,
+            "fallback": false
+          },
+          {
+            "slug": "qwen3.8-27b",
+            "creator": "Alibaba",
+            "scale": 1.0,
+            "effective_discount": 0.3333,
+            "multiplier": 3.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision-exp",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.3333,
+            "multiplier": 3.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4.1-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.3333,
+            "multiplier": 3.0,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "火山方舟 Coding Plan Lite",
+        "monthly": 5.56,
+        "discount": 0.1,
+        "hit_count": 10,
+        "hits": [
+          {
+            "slug": "deepseek-v4-pro",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1,
+            "multiplier": 10.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1,
+            "multiplier": 10.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k3",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 0.1,
+            "multiplier": 10.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.6",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 0.1,
+            "multiplier": 10.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.7-code",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 0.1,
+            "multiplier": 10.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.2",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.1,
+            "multiplier": 10.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.1,
+            "multiplier": 10.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3-flash",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.1,
+            "multiplier": 10.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision-exp",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1,
+            "multiplier": 10.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4.1-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1,
+            "multiplier": 10.0,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "火山方舟 Coding Plan Pro",
+        "monthly": 27.78,
+        "discount": 0.0999,
+        "hit_count": 10,
+        "hits": [
+          {
+            "slug": "deepseek-v4-pro",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.0999,
+            "multiplier": 10.01,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.0999,
+            "multiplier": 10.01,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k3",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 0.0999,
+            "multiplier": 10.01,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.6",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 0.0999,
+            "multiplier": 10.01,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.7-code",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 0.0999,
+            "multiplier": 10.01,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.2",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.0999,
+            "multiplier": 10.01,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.0999,
+            "multiplier": 10.01,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3-flash",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.0999,
+            "multiplier": 10.01,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision-exp",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.0999,
+            "multiplier": 10.01,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4.1-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.0999,
+            "multiplier": 10.01,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "Command Code GOAT",
+        "monthly": 10.0,
+        "discount": 0.1429,
+        "hit_count": 14,
+        "hits": [
+          {
+            "slug": "deepseek-v4-pro",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k3",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.6",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.7-code",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "qwen3.8-max",
+            "creator": "Alibaba",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "qwen3.7-max",
+            "creator": "Alibaba",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.2",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "minimax-m3",
+            "creator": "MiniMax",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "mimo-v2.5-pro",
+            "creator": "Xiaomi",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3-flash",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision-exp",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4.1-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "R4 Coder Code Lite",
+        "monthly": 10.0,
+        "discount": 0.1667,
+        "hit_count": 10,
+        "hits": [
+          {
+            "slug": "deepseek-v4-pro",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1667,
+            "multiplier": 6.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1667,
+            "multiplier": 6.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k3",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 0.1667,
+            "multiplier": 6.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.6",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 0.1667,
+            "multiplier": 6.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.7-code",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 0.1667,
+            "multiplier": 6.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.2",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.1667,
+            "multiplier": 6.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.1667,
+            "multiplier": 6.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3-flash",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.1667,
+            "multiplier": 6.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision-exp",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1667,
+            "multiplier": 6.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4.1-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1667,
+            "multiplier": 6.0,
+            "fallback": false
+          }
+        ]
+      }
+    ],
+    "reverse": {
+      "uncovered": [
+        {
+          "slug": "muse-spark-1.1",
+          "creator": "Meta",
+          "status": "API 按量",
+          "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
+        },
+        {
+          "slug": "inkling",
+          "creator": "Thinking Machines",
+          "status": "API 按量",
+          "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
+        },
+        {
+          "slug": "qwen3.8-flash-next",
+          "creator": "Alibaba",
+          "status": "名义原价 (Qwen Token Plan Lite)",
+          "plan_name": "Qwen Token Plan Lite",
+          "discount": 1.0,
+          "multiplier": 1.0
+        }
+      ],
+      "covered": [
+        {
+          "slug": "claude-fable-5",
+          "creator": "Anthropic",
+          "plan_name": "Claude Max 20x",
+          "monthly": 200,
+          "discount": 0.025,
+          "multiplier": 40.0
+        },
+        {
+          "slug": "claude-opus-5",
+          "creator": "Anthropic",
+          "plan_name": "Claude Max 20x",
+          "monthly": 200,
+          "discount": 0.025,
+          "multiplier": 40.0
+        },
+        {
+          "slug": "claude-opus-4.8",
+          "creator": "Anthropic",
+          "plan_name": "Claude Max 20x",
+          "monthly": 200,
+          "discount": 0.025,
+          "multiplier": 40.0
+        },
+        {
+          "slug": "claude-opus-4.7",
+          "creator": "Anthropic",
+          "plan_name": "Claude Max 20x",
+          "monthly": 200,
+          "discount": 0.025,
+          "multiplier": 40.0
+        },
+        {
+          "slug": "claude-opus-4.6",
+          "creator": "Anthropic",
+          "plan_name": "Claude Max 20x",
+          "monthly": 200,
+          "discount": 0.025,
+          "multiplier": 40.0
+        },
+        {
+          "slug": "claude-opus-4.5",
+          "creator": "Anthropic",
+          "plan_name": "Claude Max 20x",
+          "monthly": 200,
+          "discount": 0.025,
+          "multiplier": 40.0
+        },
+        {
+          "slug": "claude-sonnet-5",
+          "creator": "Anthropic",
+          "plan_name": "Claude Max 20x",
+          "monthly": 200,
+          "discount": 0.025,
+          "multiplier": 40.0
+        },
+        {
+          "slug": "claude-sonnet-4.6",
+          "creator": "Anthropic",
+          "plan_name": "Claude Max 20x",
+          "monthly": 200,
+          "discount": 0.025,
+          "multiplier": 40.0
+        },
+        {
+          "slug": "gpt-5.6-sol",
+          "creator": "OpenAI",
+          "plan_name": "ChatGPT Pro 20x",
+          "monthly": 200,
+          "discount": 0.0143,
+          "multiplier": 69.93
+        },
+        {
+          "slug": "gpt-5.6-terra",
+          "creator": "OpenAI",
+          "plan_name": "ChatGPT Pro 20x",
+          "monthly": 200,
+          "discount": 0.0143,
+          "multiplier": 69.93
+        },
+        {
+          "slug": "gpt-5.6-luna",
+          "creator": "OpenAI",
+          "plan_name": "ChatGPT Pro 20x",
+          "monthly": 200,
+          "discount": 0.0143,
+          "multiplier": 69.93
+        },
+        {
+          "slug": "gpt-5.5",
+          "creator": "OpenAI",
+          "plan_name": "ChatGPT Pro 20x",
+          "monthly": 200,
+          "discount": 0.0143,
+          "multiplier": 69.93
+        },
+        {
+          "slug": "gpt-5.4",
+          "creator": "OpenAI",
+          "plan_name": "ChatGPT Pro 20x",
+          "monthly": 200,
+          "discount": 0.0143,
+          "multiplier": 69.93
+        },
+        {
+          "slug": "gpt-5.4-mini",
+          "creator": "OpenAI",
+          "plan_name": "ChatGPT Pro 20x",
+          "monthly": 200,
+          "discount": 0.0143,
+          "multiplier": 69.93
+        },
+        {
+          "slug": "gpt-5.4-nano",
+          "creator": "OpenAI",
+          "plan_name": "ChatGPT Pro 20x",
+          "monthly": 200,
+          "discount": 0.0143,
+          "multiplier": 69.93
+        },
+        {
+          "slug": "gpt-5.2",
+          "creator": "OpenAI",
+          "plan_name": "ChatGPT Pro 20x",
+          "monthly": 200,
+          "discount": 0.0143,
+          "multiplier": 69.93
+        },
+        {
+          "slug": "gpt-5.2-codex",
+          "creator": "OpenAI",
+          "plan_name": "ChatGPT Pro 20x",
+          "monthly": 200,
+          "discount": 0.0143,
+          "multiplier": 69.93
+        },
+        {
+          "slug": "gemini-3.1-pro",
+          "creator": "Google",
+          "plan_name": "GitHub Copilot Max",
+          "monthly": 100,
+          "discount": 0.5,
+          "multiplier": 2.0
+        },
+        {
+          "slug": "gemini-3.5-flash",
+          "creator": "Google",
+          "plan_name": "GitHub Copilot Max",
+          "monthly": 100,
+          "discount": 0.5,
+          "multiplier": 2.0
+        },
+        {
+          "slug": "gemini-3.6-flash",
+          "creator": "Google",
+          "plan_name": "GitHub Copilot Max",
+          "monthly": 100,
+          "discount": 0.5,
+          "multiplier": 2.0
+        },
+        {
+          "slug": "gemini-3.7-flash",
+          "creator": "Google",
+          "plan_name": "GitHub Copilot Max",
+          "monthly": 100,
+          "discount": 0.5,
+          "multiplier": 2.0
+        },
+        {
+          "slug": "gemini-3.5-flash-lite",
+          "creator": "Google",
+          "plan_name": "GitHub Copilot Max",
+          "monthly": 100,
+          "discount": 0.5,
+          "multiplier": 2.0
+        },
+        {
+          "slug": "grok-4.6",
+          "creator": "xAI",
+          "plan_name": "SuperGrok Heavy",
+          "monthly": 300,
+          "discount": 0.1875,
+          "multiplier": 5.33
+        },
+        {
+          "slug": "grok-4.5",
+          "creator": "xAI",
+          "plan_name": "SuperGrok Heavy",
+          "monthly": 300,
+          "discount": 0.1875,
+          "multiplier": 5.33
+        },
+        {
+          "slug": "grok-4.3",
+          "creator": "xAI",
+          "plan_name": "SuperGrok Heavy",
+          "monthly": 300,
+          "discount": 0.1875,
+          "multiplier": 5.33
+        },
+        {
+          "slug": "grok-build-0.1",
+          "creator": "xAI",
+          "plan_name": "SuperGrok Heavy",
+          "monthly": 300,
+          "discount": 0.1875,
+          "multiplier": 5.33
+        },
+        {
+          "slug": "muse-spark-1.2",
+          "creator": "Meta",
+          "plan_name": "OpenCode Go",
+          "monthly": 10.0,
+          "discount": 0.167,
+          "multiplier": 5.99
+        },
+        {
+          "slug": "deepseek-v4-pro",
+          "creator": "DeepSeek",
+          "plan_name": "火山方舟 Coding Plan Pro",
+          "monthly": 27.78,
+          "discount": 0.0999,
+          "multiplier": 10.01
+        },
+        {
+          "slug": "deepseek-v4-flash",
+          "creator": "DeepSeek",
+          "plan_name": "火山方舟 Coding Plan Pro",
+          "monthly": 27.78,
+          "discount": 0.0999,
+          "multiplier": 10.01
+        },
+        {
+          "slug": "kimi-k3",
+          "creator": "Moonshot AI",
+          "plan_name": "Kimi Allegro",
+          "monthly": 97.08,
+          "discount": 0.0963,
+          "multiplier": 10.38
+        },
+        {
+          "slug": "kimi-k2.6",
+          "creator": "Moonshot AI",
+          "plan_name": "Kimi Allegro",
+          "monthly": 97.08,
+          "discount": 0.0963,
+          "multiplier": 10.38
+        },
+        {
+          "slug": "kimi-k2.7-code",
+          "creator": "Moonshot AI",
+          "plan_name": "Kimi Allegro",
+          "monthly": 97.08,
+          "discount": 0.0963,
+          "multiplier": 10.38
+        },
+        {
+          "slug": "qwen3.8-max",
+          "creator": "Alibaba",
+          "plan_name": "Command Code GOAT",
+          "monthly": 10.0,
+          "discount": 0.1429,
+          "multiplier": 7.0
+        },
+        {
+          "slug": "qwen3.7-max",
+          "creator": "Alibaba",
+          "plan_name": "Command Code GOAT",
+          "monthly": 10.0,
+          "discount": 0.1429,
+          "multiplier": 7.0
+        },
+        {
+          "slug": "qwen3.6-plus",
+          "creator": "Alibaba",
+          "plan_name": "OpenCode Go",
+          "monthly": 10.0,
+          "discount": 0.668,
+          "multiplier": 1.5
+        },
+        {
+          "slug": "qwen3.6-27b",
+          "creator": "Alibaba",
+          "plan_name": "Ollama Pro",
+          "monthly": 20.0,
+          "discount": 0.3333,
+          "multiplier": 3.0
+        },
+        {
+          "slug": "glm-5.2",
+          "creator": "Z.AI",
+          "plan_name": "GLM Coding Plan Max",
+          "monthly": 149.7,
+          "discount": 0.029,
+          "multiplier": 34.48
+        },
+        {
+          "slug": "minimax-m3",
+          "creator": "MiniMax",
+          "plan_name": "MiniMax Max Token Plan",
+          "monthly": 16.5,
+          "discount": 0.0151,
+          "multiplier": 66.23
+        },
+        {
+          "slug": "mimo-v2.5-pro",
+          "creator": "Xiaomi",
+          "plan_name": "Command Code GOAT",
+          "monthly": 10.0,
+          "discount": 0.1429,
+          "multiplier": 7.0
+        },
+        {
+          "slug": "hy3",
+          "creator": "Tencent",
+          "plan_name": "OpenCode Go",
+          "monthly": 10.0,
+          "discount": 0.167,
+          "multiplier": 5.99
+        },
+        {
+          "slug": "qwen3.8-27b",
+          "creator": "Alibaba",
+          "plan_name": "Ollama Pro",
+          "monthly": 20.0,
+          "discount": 0.3333,
+          "multiplier": 3.0
+        },
+        {
+          "slug": "glm-5.3",
+          "creator": "Z.AI",
+          "plan_name": "GLM Coding Plan Max",
+          "monthly": 149.7,
+          "discount": 0.029,
+          "multiplier": 34.48
+        },
+        {
+          "slug": "glm-5.3-flash",
+          "creator": "Z.AI",
+          "plan_name": "GLM Coding Plan Max",
+          "monthly": 149.7,
+          "discount": 0.087,
+          "multiplier": 11.49
+        },
+        {
+          "slug": "claude-fable-5.1",
+          "creator": "Anthropic",
+          "plan_name": "Claude Max 20x",
+          "monthly": 200,
+          "discount": 0.025,
+          "multiplier": 40.0
+        },
+        {
+          "slug": "gemini-3.8-flash",
+          "creator": "Google",
+          "plan_name": "GitHub Copilot Max",
+          "monthly": 100,
+          "discount": 0.5,
+          "multiplier": 2.0
+        },
+        {
+          "slug": "gpt-6-astra",
+          "creator": "OpenAI",
+          "plan_name": "ChatGPT Pro 20x",
+          "monthly": 200,
+          "discount": 0.0143,
+          "multiplier": 69.93
+        },
+        {
+          "slug": "muse-spark-1.3",
+          "creator": "Meta",
+          "plan_name": "OpenCode Go",
+          "monthly": 10.0,
+          "discount": 0.167,
+          "multiplier": 5.99
+        },
+        {
+          "slug": "deepseek-v4-flash-vision-exp",
+          "creator": "DeepSeek",
+          "plan_name": "火山方舟 Coding Plan Pro",
+          "monthly": 27.78,
+          "discount": 0.0999,
+          "multiplier": 10.01
+        },
+        {
+          "slug": "deepseek-v4.1-flash",
+          "creator": "DeepSeek",
+          "plan_name": "火山方舟 Coding Plan Pro",
+          "monthly": 27.78,
+          "discount": 0.0999,
+          "multiplier": 10.01
+        }
+      ]
+    }
   },
   "entries": [
     {

@@ -118,4 +118,40 @@ def test_plan_params_preserves_exclude_match():
     assert parsed[0]["exclude_match"] == ["gpt-4o-realtime*", "*-mini"]
 
 
+def test_coverage_matrix_bidirectional_pivot():
+    """双向透视表正确生成正向透视、反向透视以及高亮未覆盖模型。"""
+    plans = _load()
+    matrix = vp.build_coverage_matrix(plans)
+    assert "summary" in matrix
+    assert "forward" in matrix
+    assert "reverse" in matrix
+
+    # 正向透视：聚合类套餐（model_match 非空）必须存在
+    forward_names = {p["name"] for p in matrix["forward"]}
+    assert "OpenCode Go" in forward_names
+    assert "火山方舟 Coding Plan Pro" in forward_names
+
+    # OpenCode Go 正向命中 muse-spark-1.3，scale 为 1.0
+    opencode = next(p for p in matrix["forward"] if p["name"] == "OpenCode Go")
+    opencode_hits = {h["slug"]: h for h in opencode["hits"]}
+    assert "muse-spark-1.3" in opencode_hits
+    assert opencode_hits["muse-spark-1.3"]["scale"] == 1.0
+    assert abs(opencode_hits["muse-spark-1.3"]["effective_discount"] - 0.167) < 1e-4
+
+    # 反向透视：高亮专栏必须精准识别未覆盖模型（muse-spark-1.1, inkling）
+    uncovered_slugs = {u["slug"] for u in matrix["reverse"]["uncovered"]}
+    assert "muse-spark-1.1" in uncovered_slugs
+    assert "inkling" in uncovered_slugs
+
+    # audit 字典完整包含 coverage 字段且原有结构毫发无损
+    import datetime
+    res = vp.audit(plans, max_age_days=10**6, today=datetime.date(2026, 9, 1), online=False)
+    assert "coverage" in res
+    assert res["summary"]["fail"] == 0
+
+    # 验证控制台打印无报错
+    vp.print_coverage_matrix(matrix)
+
+
+
 
