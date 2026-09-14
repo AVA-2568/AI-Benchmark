@@ -1,10 +1,10 @@
 {
-  "run_date": "2026-09-11T12:38:26.115013+00:00",
-  "data_date": "2026-09-11",
+  "run_date": "2026-09-14T03:18:47.392345+00:00",
+  "data_date": "2026-09-14",
   "source_url": "https://artificialanalysis.ai/leaderboards/providers",
   "parser": "RSC stream",
-  "input_sha256": "46a0622b5099043ac0895710ee12f1b967ac3728dedc278c5b1e933f33f199c6",
-  "config_sha256": "5626ed789f151a9116a46cb6546da50f4f412bf0b705eace5931e951320c19c2",
+  "input_sha256": "b635bb6e7cdc043f4d47f8e66ec375c4acd69b7f8d18a0439979c58e5717ebe2",
+  "config_sha256": "4fa6fada42868087f793d1ed00fda91010559f77756e2adbc674cc75d8358138",
   "algorithm_version": "e5b76d2",
   "models": 52,
   "stale": false

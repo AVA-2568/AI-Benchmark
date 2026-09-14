@@ -24,8 +24,8 @@
 编程、智能体、日常混合使用看这张。权重：代码与 Agent 35%（Terminal-Bench v4.0 45%、DeepSWE 35%、LiveBench Coding 20%）、业务自动化 15%、指令遵循与长上下文 20%、科学与推理 20%、事实准确性 10%。
 
 <!--SNAPSHOT_GENERAL_START-->
-> 2026-09-11 数据（52 精选模型 -> 52 行；日期为上游抓取实际时点，stale 构建不刷新）。
-> 填补验证：Terminal-Bench v4.0 MAE=0.07 (>10%: 85.7%/42) ; DeepSWE MAE=8.39 (>10%: 53.6%/28) ; LiveBench Coding MAE=3.22 (>10%: 6.0%/50) ; tau3-Banking MAE=0.05 (>10%: 59.6%/47) ; LiveBench Data Analysis MAE=4.79 (>10%: 18.0%/50) ; LiveBench Agentic Coding MAE=4.07 (>10%: 32.0%/50) ; LiveBench Instruction Following MAE=2.22 (>10%: 0.0%/50) ; LCR MAE=0.02 (>10%: 0.0%/52) ; HLE MAE=0.03 (>10%: 21.2%/52) ; SciCode MAE=0.02 (>10%: 2.3%/44) ; LiveBench Reasoning MAE=3.27 (>10%: 6.0%/50) ; Omniscience Index MAE=14.65 (>10%: 96.2%/52)
+> 2026-09-14 数据（52 精选模型 -> 52 行；日期为上游抓取实际时点，stale 构建不刷新）。
+> 填补验证：Terminal-Bench v4.0 MAE=0.07 (>10%: 88.4%/43) ; DeepSWE MAE=8.07 (>10%: 50.0%/28) ; LiveBench Coding MAE=3.27 (>10%: 6.0%/50) ; tau3-Banking MAE=0.05 (>10%: 59.6%/47) ; LiveBench Data Analysis MAE=4.79 (>10%: 18.0%/50) ; LiveBench Agentic Coding MAE=4.07 (>10%: 32.0%/50) ; LiveBench Instruction Following MAE=2.22 (>10%: 0.0%/50) ; LCR MAE=0.02 (>10%: 0.0%/52) ; HLE MAE=0.03 (>10%: 21.2%/52) ; SciCode MAE=0.02 (>10%: 2.3%/44) ; LiveBench Reasoning MAE=3.27 (>10%: 6.0%/50) ; Omniscience Index MAE=14.65 (>10%: 96.2%/52)
 <!--SNAPSHOT_GENERAL_END-->
 
 <!--TOP15_GENERAL_START-->
@@ -36,7 +36,7 @@
 | 3 | claude-fable-5 | Anthropic | 👁️ | 67.1 | - |
 | 4 | claude-opus-5 | Anthropic | 👁️ | 65.9 | - |
 | 5 | gpt-5.6-sol | OpenAI | 👁️ | 63.9 | - |
-| 6 | muse-spark-1.3 | Meta | 👁️ | 63.4 | DeepSWE(reg) |
+| 6 | muse-spark-1.3 | Meta | 👁️ | 63.5 | DeepSWE(reg) |
 | 7 | glm-5.3 | Z.AI | - | 61.2 | - |
 | 8 | gemini-3.8-flash | Google | 👁️ | 60.1 | - |
 | 9 | grok-4.6 | xAI | 👁️ | 59.6 | - |
@@ -59,8 +59,8 @@
 <!--TEXT_FRONTIER_END-->
 
 <!--SNAPSHOT_TEXT_START-->
-> 2026-09-11 数据（52 精选模型 -> 52 行；日期为上游抓取实际时点，stale 构建不刷新）。
-> 填补验证：LiveBench StoryGen MAE=4.50 (>10%: 22.0%/50) ; LiveBench Language MAE=4.44 (>10%: 14.0%/50) ; AA-Briefcase MAE=208.59 (>10%: 53.3%/45) ; LiveBench Data Analysis MAE=4.79 (>10%: 18.0%/50) ; LiveBench Summarize MAE=7.28 (>10%: 42.0%/50) ; LiveBench Instruction Following MAE=2.22 (>10%: 0.0%/50) ; LiveBench Simplify MAE=2.21 (>10%: 0.0%/50) ; Omniscience Index MAE=14.65 (>10%: 96.2%/52) ; LCR MAE=0.02 (>10%: 0.0%/52) ; Omniscience Non-Halluc. MAE=0.20 (>10%: 88.5%/52) ; LiveBench Theory of Mind MAE=4.78 (>10%: 12.0%/50) ; CritPt MAE=0.05 (>10%: 84.6%/52)
+> 2026-09-14 数据（52 精选模型 -> 52 行；日期为上游抓取实际时点，stale 构建不刷新）。
+> 填补验证：LiveBench StoryGen MAE=4.50 (>10%: 22.0%/50) ; LiveBench Language MAE=4.44 (>10%: 14.0%/50) ; AA-Briefcase MAE=208.33 (>10%: 53.3%/45) ; LiveBench Data Analysis MAE=4.79 (>10%: 18.0%/50) ; LiveBench Summarize MAE=7.28 (>10%: 42.0%/50) ; LiveBench Instruction Following MAE=2.22 (>10%: 0.0%/50) ; LiveBench Simplify MAE=2.21 (>10%: 0.0%/50) ; Omniscience Index MAE=14.65 (>10%: 96.2%/52) ; LCR MAE=0.02 (>10%: 0.0%/52) ; Omniscience Non-Halluc. MAE=0.20 (>10%: 88.5%/52) ; LiveBench Theory of Mind MAE=4.78 (>10%: 12.0%/50) ; CritPt MAE=0.05 (>10%: 84.6%/52)
 <!--SNAPSHOT_TEXT_END-->
 
 <!--TOP15_TEXT_START-->
@@ -90,27 +90,27 @@
 回答「买哪个套餐最划算」。行序跟通用榜一致——按性价比排会让便宜小模型霸榜，没有决策价值。各列含义：API $/1M 是官方按量混合价（含缓存命中假设）；套餐内 $/1M 是该厂商最优订阅折算后的等效价；倍率是每 1 元月费换到的 API 等价额度，70× 即 $1 月费约换 $70 额度；Value = 综合分 ÷ 套餐内 $/1M。套餐名就是官方购买链接，没有订阅制的厂商按 API 按量计费（1×）。
 
 <!--SNAPSHOT_VALUE_START-->
-> 2026-09-11 数据（52 精选模型 -> 52 行；日期为上游抓取实际时点，stale 构建不刷新）。
-> 填补验证：Terminal-Bench v4.0 MAE=0.07 (>10%: 85.7%/42) ; DeepSWE MAE=8.39 (>10%: 53.6%/28) ; LiveBench Coding MAE=3.22 (>10%: 6.0%/50) ; tau3-Banking MAE=0.05 (>10%: 59.6%/47) ; LiveBench Data Analysis MAE=4.79 (>10%: 18.0%/50) ; LiveBench Agentic Coding MAE=4.07 (>10%: 32.0%/50) ; LiveBench Instruction Following MAE=2.22 (>10%: 0.0%/50) ; LCR MAE=0.02 (>10%: 0.0%/52) ; HLE MAE=0.03 (>10%: 21.2%/52) ; SciCode MAE=0.02 (>10%: 2.3%/44) ; LiveBench Reasoning MAE=3.27 (>10%: 6.0%/50) ; Omniscience Index MAE=14.65 (>10%: 96.2%/52)
+> 2026-09-14 数据（52 精选模型 -> 52 行；日期为上游抓取实际时点，stale 构建不刷新）。
+> 填补验证：Terminal-Bench v4.0 MAE=0.07 (>10%: 88.4%/43) ; DeepSWE MAE=8.07 (>10%: 50.0%/28) ; LiveBench Coding MAE=3.27 (>10%: 6.0%/50) ; tau3-Banking MAE=0.05 (>10%: 59.6%/47) ; LiveBench Data Analysis MAE=4.79 (>10%: 18.0%/50) ; LiveBench Agentic Coding MAE=4.07 (>10%: 32.0%/50) ; LiveBench Instruction Following MAE=2.22 (>10%: 0.0%/50) ; LCR MAE=0.02 (>10%: 0.0%/52) ; HLE MAE=0.03 (>10%: 21.2%/52) ; SciCode MAE=0.02 (>10%: 2.3%/44) ; LiveBench Reasoning MAE=3.27 (>10%: 6.0%/50) ; Omniscience Index MAE=14.65 (>10%: 96.2%/52)
 <!--SNAPSHOT_VALUE_END-->
 
 <!--TOP15_VALUE_START-->
 | # | Model | Creator | Vision | Score | API $/1M | 套餐 | 月费 | 倍率 | 套餐内 $/1M | 套餐内 ¥/1M | Value |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | claude-fable-5.1 | Anthropic | 👁️ | 70.5 | 8.541 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.214 | 1.435 | 329.44 |
-| 2 | gpt-6-astra | OpenAI | 👁️ | 69.6 | 9.115 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.13 | 0.872 | 535.73 |
-| 3 | claude-fable-5 | Anthropic | 👁️ | 67.1 | 9.115 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.228 | 1.529 | 294.3 |
+| 1 | claude-fable-5.1 | Anthropic | 👁️ | 70.5 | 8.541 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.214 | 1.434 | 329.44 |
+| 2 | gpt-6-astra | OpenAI | 👁️ | 69.6 | 9.115 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.13 | 0.871 | 535.73 |
+| 3 | claude-fable-5 | Anthropic | 👁️ | 67.1 | 9.115 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.228 | 1.528 | 294.3 |
 | 4 | claude-opus-5 | Anthropic | 👁️ | 65.9 | 4.558 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.114 | 0.764 | 578.5 |
 | 5 | gpt-5.6-sol | OpenAI | 👁️ | 63.9 | 3.646 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.052 | 0.349 | 1228.82 |
-| 6 | muse-spark-1.3 | Meta | 👁️ | 63.4 | 0.858 | [OpenCode Go](https://opencode.ai/go) | $10 | 6× | 0.143 | 0.959 | 443.64 |
+| 6 | muse-spark-1.3 | Meta | 👁️ | 63.5 | 0.858 | [OpenCode Go](https://opencode.ai/go) | $10 | 6× | 0.143 | 0.958 | 443.84 |
 | 7 | glm-5.3 | Z.AI | - | 61.2 | 0.978 | [GLM Coding Plan Max](https://bigmodel.cn/glm-coding) | $149.7 | 34.4× | 0.028 | 0.188 | 2184.42 |
-| 8 | gemini-3.8-flash | Google | 👁️ | 60.1 | 0.684 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | 2× | 0.342 | 2.293 | 175.87 |
-| 9 | grok-4.6 | xAI | 👁️ | 59.6 | 1.452 | [SuperGrok Heavy](https://x.ai/pricing) | $300 | 5.3× | 0.272 | 1.824 | 219.26 |
+| 8 | gemini-3.8-flash | Google | 👁️ | 60.1 | 0.684 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | 2× | 0.342 | 2.292 | 175.87 |
+| 9 | grok-4.6 | xAI | 👁️ | 59.6 | 1.452 | [SuperGrok Heavy](https://x.ai/pricing) | $300 | 5.3× | 0.272 | 1.823 | 219.26 |
 | 10 | kimi-k3 | Moonshot AI | 👁️ | 59.1 | 2.734 | [Kimi Allegro](https://www.kimi.com/membership/pricing) | $97.08 | 10.4× | 0.263 | 1.763 | 224.8 |
-| 11 | claude-opus-4.7 | Anthropic | 👁️ | 58.0 | 4.558 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.114 | 0.764 | 509.05 |
+| 11 | claude-opus-4.7 | Anthropic | 👁️ | 58.0 | 4.558 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.114 | 0.764 | 508.59 |
 | 12 | gpt-5.6-terra | OpenAI | 👁️ | 58.0 | 2.123 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.03 | 0.201 | 1934.84 |
-| 13 | gemini-3.7-flash | Google | 👁️ | 57.9 | 0.684 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | 2× | 0.342 | 2.293 | 169.37 |
-| 14 | gpt-5.5 | OpenAI | 👁️ | 57.9 | 5.308 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.076 | 0.51 | 761.43 |
+| 13 | gemini-3.7-flash | Google | 👁️ | 57.9 | 0.684 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | 2× | 0.342 | 2.292 | 169.37 |
+| 14 | gpt-5.5 | OpenAI | 👁️ | 57.9 | 5.308 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.076 | 0.509 | 761.43 |
 | 15 | claude-opus-4.8 | Anthropic | 👁️ | 57.4 | 4.558 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.114 | 0.764 | 503.91 |
 <!--TOP15_VALUE_END-->
 
@@ -140,19 +140,19 @@ Imputed 列：`-` 表示全部真实值，`指标(reg)` 是岭回归填补，`�
 | 2 | [MiniMax Ultra Token Plan](https://platform.minimaxi.com/subscribe/token-plan) | $65.1 | ¥436 | 66.3× | 1.5% | 71亿+ | minimax-m3 (#44) | 44.4 | 0.004 | 11714.7 |
 | 3 | [MiniMax Plus Token Plan](https://platform.minimaxi.com/subscribe/token-plan) | $6.8 | ¥46 | 53.7× | 1.9% | 6亿+ | minimax-m3 (#44) | 44.4 | 0.005 | 9510.3 |
 | 4 | [OpenCode Go](https://opencode.ai/go) | $10 | ¥67 | 6× | 16.7% | $60/月（$60 档模型） | hy3 (#47) | 43.3 | 0.019 | 2274.4 |
-| 5 | [GLM Coding Plan Max](https://bigmodel.cn/glm-coding) | $149.7 | ¥1004 | 34.4× | 2.9% | ≈29.3~58.6亿/月 | glm-5.3 (#7) | 61.2 | 0.028 | 2157.8 |
+| 5 | [GLM Coding Plan Max](https://bigmodel.cn/glm-coding) | $149.7 | ¥1003 | 34.4× | 2.9% | ≈29.3~58.6亿/月 | glm-5.3 (#7) | 61.2 | 0.028 | 2157.8 |
 | 6 | [GLM Coding Plan Pro](https://bigmodel.cn/glm-coding) | $74.7 | ¥501 | 29.6× | 3.4% | ≈12.6~25.1亿/月 | glm-5.3 (#7) | 61.2 | 0.033 | 1840.5 |
 | 7 | [GLM Coding Plan Lite](https://bigmodel.cn/glm-coding) | $16.4 | ¥110 | 22.4× | 4.5% | ≈2.1~4.2亿/月 | glm-5.3 (#7) | 61.2 | 0.044 | 1390.6 |
-| 8 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | ¥1341 | 70× | 1.4% | ≈15亿 | gpt-6-astra (#2) | 69.6 | 0.13 | 534.0 |
+| 8 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | ¥1340 | 70× | 1.4% | ≈15亿 | gpt-6-astra (#2) | 69.6 | 0.13 | 534.0 |
 | 9 | [Hy Token Plan Max](https://cloud.tencent.com/act/pro/tokenplan) | $65 | ¥436 | 1.4× | 73.5% | 6.5亿/月 | hy3 (#47) | 43.3 | 0.084 | 516.8 |
 | 10 | [Hy Token Plan Pro](https://cloud.tencent.com/act/pro/tokenplan) | $33.06 | ¥222 | 1.3× | 76.0% | 3.2亿/月 | hy3 (#47) | 43.3 | 0.087 | 499.8 |
 | 11 | [Hy Token Plan Standard](https://cloud.tencent.com/act/pro/tokenplan) | $10.83 | ¥73 | 1.3× | 79.0% | 1亿/月 | hy3 (#47) | 43.3 | 0.09 | 480.8 |
 | 12 | [Hy Token Plan Lite](https://cloud.tencent.com/act/pro/tokenplan) | $3.9 | ¥26 | 1.2× | 81.0% | 3500万/月 | hy3 (#47) | 43.3 | 0.092 | 468.9 |
-| 13 | [MiMo Token Plan Max](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $100 | ¥670 | 1.3× | 79.0% | ≈4.5亿/月 | mimo-v2.5-pro (#43) | 44.5 | 0.134 | 331.3 |
-| 14 | [Claude Max 20x](https://claude.com/pricing) | $200 | ¥1341 | 40× | 2.5% | ≈9亿 | claude-fable-5.1 (#1) | 70.5 | 0.214 | 330.2 |
-| 15 | [MiMo Token Plan Pro](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $50 | ¥335 | 1.2× | 82.6% | ≈2.1亿/月 | mimo-v2.5-pro (#43) | 44.5 | 0.14 | 316.8 |
-| 16 | [MiMo Token Plan Standard](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $16 | ¥107 | 1.1× | 91.4% | ≈6200万/月 | mimo-v2.5-pro (#43) | 44.5 | 0.155 | 286.3 |
-| 17 | [MiMo Token Plan Lite](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $6 | ¥40 | 1.1× | 94.0% | ≈2300万/月 | mimo-v2.5-pro (#43) | 44.5 | 0.16 | 278.5 |
+| 13 | [MiMo Token Plan Max](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $100 | ¥670 | 1.3× | 79.0% | ≈4.5亿/月 | mimo-v2.5-pro (#43) | 44.6 | 0.134 | 332.1 |
+| 14 | [Claude Max 20x](https://claude.com/pricing) | $200 | ¥1340 | 40× | 2.5% | ≈9亿 | claude-fable-5.1 (#1) | 70.5 | 0.214 | 330.2 |
+| 15 | [MiMo Token Plan Pro](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $50 | ¥335 | 1.2× | 82.6% | ≈2.1亿/月 | mimo-v2.5-pro (#43) | 44.6 | 0.14 | 317.5 |
+| 16 | [MiMo Token Plan Standard](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $16 | ¥107 | 1.1× | 91.4% | ≈6200万/月 | mimo-v2.5-pro (#43) | 44.6 | 0.155 | 286.9 |
+| 17 | [MiMo Token Plan Lite](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $6 | ¥40 | 1.1× | 94.0% | ≈2300万/月 | mimo-v2.5-pro (#43) | 44.6 | 0.16 | 279.1 |
 | 18 | [ChatGPT Pro 5x](https://chatgpt.com/pricing) | $100 | ¥670 | 35× | 2.9% | ≈4亿 | gpt-6-astra (#2) | 69.6 | 0.261 | 267.0 |
 | 19 | [ChatGPT Plus](https://chatgpt.com/pricing) | $20 | ¥134 | 35× | 2.9% | ≈0.8亿 | gpt-6-astra (#2) | 69.6 | 0.261 | 267.0 |
 | 20 | [Kimi Allegro](https://www.kimi.com/membership/pricing) | $97.08 | ¥651 | 10.4× | 9.6% | 周240M uncached in/out | kimi-k3 (#10) | 59.1 | 0.263 | 224.5 |
@@ -166,20 +166,20 @@ Imputed 列：`-` 表示全部真实值，`指标(reg)` 是岭回归填补，`�
 | 28 | [Factory Droid Pro](https://factory.ai) | $20 | ¥134 | 2.4× | 41.7% | 2000万标准token | claude-fable-5.1 (#1) | 70.5 | 3.562 | 19.8 |
 | 29 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | ¥670 | 2× | 50.0% | ≈0.2亿 | claude-fable-5.1 (#1) | 70.5 | 4.271 | 16.5 |
 | 30 | [Trae Pro](https://www.trae.ai) | $10 | ¥67 | 2× | 50.0% | $20 基础用量 | claude-fable-5.1 (#1) | 70.5 | 4.271 | 16.5 |
-| 31 | [Cursor Ultra](https://cursor.com/pricing) | $200 | ¥1341 | 2× | 50.0% | $400 API 用量 | claude-fable-5.1 (#1) | 70.5 | 4.271 | 16.5 |
+| 31 | [Cursor Ultra](https://cursor.com/pricing) | $200 | ¥1340 | 2× | 50.0% | $400 API 用量 | claude-fable-5.1 (#1) | 70.5 | 4.271 | 16.5 |
 | 32 | [GitHub Copilot Pro+](https://github.com/features/copilot/plans) | $39 | ¥261 | 1.8× | 55.7% | ≈8M | claude-fable-5.1 (#1) | 70.5 | 4.757 | 14.8 |
 | 33 | [Windsurf Pro](https://codeium.com/windsurf) | $15 | ¥101 | 1.7× | 60.0% | 500 prompt credits/月 | claude-fable-5.1 (#1) | 70.5 | 5.125 | 13.8 |
 | 34 | [GitHub Copilot Pro](https://github.com/features/copilot/plans) | $10 | ¥67 | 1.5× | 66.7% | ≈2M | claude-fable-5.1 (#1) | 70.5 | 5.697 | 12.4 |
 | 35 | [Cursor Pro+](https://cursor.com/pricing) | $60 | ¥402 | 1.2× | 85.7% | $70 API 用量 | claude-fable-5.1 (#1) | 70.5 | 7.32 | 9.6 |
 | | *—— 以下为积分/任务制套餐（官方未公布 Credits→token 换算，不参与倍率排序）——* | | | | | | | | | |
 | 36 | [Qwen Token Plan Lite](https://platform.qianwenai.com/pricing/token-plan) | $5.4 | ¥36 | - | - | 2,500 Credits/7天 | qwen3.8-max (#18) | 55.4 | 1.261 | 43.9 |
-| 37 | [WorkBuddy 标准版](https://www.workbuddy.cn/docs/workbuddy/Pricing) | $13.8 | ¥93 | - | - | ≈1600万/月 | hy3 (#47) | 43.3 | 0.114 | 379.8 |
+| 37 | [WorkBuddy 标准版](https://www.workbuddy.cn/docs/workbuddy/Pricing) | $13.8 | ¥92 | - | - | ≈1600万/月 | hy3 (#47) | 43.3 | 0.114 | 379.8 |
 | 38 | [Qwen Token Plan Standard](https://platform.qianwenai.com/pricing/token-plan) | $19.3 | ¥129 | - | - | 10,000 Credits/7天 | qwen3.8-max (#18) | 55.4 | 1.261 | 43.9 |
 | 39 | [Poe Premium](https://poe.com) | $19.99 | ¥134 | - | - | 660,000 计算积分/月 | claude-fable-5.1 (#1) | 70.5 | 8.541 | 8.3 |
 | 40 | [Cursor Pro](https://cursor.com/pricing) | $20 | ¥134 | - | - | $20 API 用量 | claude-fable-5.1 (#1) | 70.5 | 8.541 | 8.3 |
 | 41 | [WorkBuddy 高级版](https://www.workbuddy.cn/docs/workbuddy/Pricing) | $27.6 | ¥185 | - | - | ≈3700万/月 | hy3 (#47) | 43.3 | 0.114 | 379.8 |
-| 42 | [Qwen Token Plan Pro](https://platform.qianwenai.com/pricing/token-plan) | $69.3 | ¥465 | - | - | 40,000 Credits/7天 | qwen3.8-max (#18) | 55.4 | 1.261 | 43.9 |
-| 43 | [WorkBuddy 旗舰版](https://www.workbuddy.cn/docs/workbuddy/Pricing) | $138.8 | ¥931 | - | - | ≈2亿/月 | hy3 (#47) | 43.3 | 0.114 | 379.8 |
+| 42 | [Qwen Token Plan Pro](https://platform.qianwenai.com/pricing/token-plan) | $69.3 | ¥464 | - | - | 40,000 Credits/7天 | qwen3.8-max (#18) | 55.4 | 1.261 | 43.9 |
+| 43 | [WorkBuddy 旗舰版](https://www.workbuddy.cn/docs/workbuddy/Pricing) | $138.8 | ¥930 | - | - | ≈2亿/月 | hy3 (#47) | 43.3 | 0.114 | 379.8 |
 <!--PLANS_GUIDE_END-->
 
 ---

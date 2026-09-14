@@ -1,16 +1,16 @@
 {
   "Terminal-Bench v4.0": {
-    "mae": 0.0716,
-    "pct_over10": 85.7,
-    "n": 42
+    "mae": 0.0722,
+    "pct_over10": 88.4,
+    "n": 43
   },
   "DeepSWE": {
-    "mae": 8.3936,
-    "pct_over10": 53.6,
+    "mae": 8.0741,
+    "pct_over10": 50.0,
     "n": 28
   },
   "LiveBench Coding": {
-    "mae": 3.224,
+    "mae": 3.2683,
     "pct_over10": 6.0,
     "n": 50
   },
@@ -20,7 +20,7 @@
     "n": 47
   },
   "LiveBench Data Analysis": {
-    "mae": 4.791,
+    "mae": 4.7893,
     "pct_over10": 18.0,
     "n": 50
   },

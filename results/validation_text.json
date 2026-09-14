@@ -10,17 +10,17 @@
     "n": 50
   },
   "AA-Briefcase": {
-    "mae": 208.5891,
+    "mae": 208.3292,
     "pct_over10": 53.3,
     "n": 45
   },
   "LiveBench Data Analysis": {
-    "mae": 4.791,
+    "mae": 4.7893,
     "pct_over10": 18.0,
     "n": 50
   },
   "LiveBench Summarize": {
-    "mae": 7.2801,
+    "mae": 7.279,
     "pct_over10": 42.0,
     "n": 50
   },
