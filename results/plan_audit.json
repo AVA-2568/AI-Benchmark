@@ -1,11 +1,11 @@
 {
-  "run_date": "2026-09-21T07:21:34.702198+00:00",
+  "run_date": "2026-09-28T07:51:00.041961+00:00",
   "max_age_days": 21,
   "online": true,
   "summary": {
     "plans": 48,
-    "pass": 45,
-    "warn": 3,
+    "pass": 3,
+    "warn": 45,
     "fail": 0
   },
   "coverage": {
@@ -1038,6 +1038,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
+        "ChatGPT Pro 20x: 最近核验日期 2026-09-01 距今 27 天（>21），待复核",
         "ChatGPT Pro 20x: 官方页 HTTP 403（https://chatgpt.com/pricing）"
       ],
       "url_status": 403
@@ -1047,7 +1048,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "ChatGPT Pro 5x: 最近核验日期 2026-08-27 距今 25 天（>21），待复核",
+        "ChatGPT Pro 5x: 最近核验日期 2026-08-27 距今 32 天（>21），待复核",
         "ChatGPT Pro 5x: 官方页 HTTP 403（https://chatgpt.com/pricing）"
       ],
       "url_status": 403
@@ -1057,6 +1058,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
+        "ChatGPT Plus: 最近核验日期 2026-09-01 距今 27 天（>21），待复核",
         "ChatGPT Plus: 官方页 HTTP 403（https://chatgpt.com/pricing）"
       ],
       "url_status": 403
@@ -1084,296 +1086,380 @@
     },
     {
       "name": "MiniMax Max Token Plan",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "MiniMax Max Token Plan: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "MiniMax Ultra Token Plan",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "MiniMax Ultra Token Plan: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "MiniMax Plus Token Plan",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "MiniMax Plus Token Plan: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Kimi 会员 Allegretto",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Kimi 会员 Allegretto: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "SuperGrok Heavy",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "SuperGrok Heavy: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "SuperGrok",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "SuperGrok: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "GitHub Copilot Max",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "GitHub Copilot Max: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "GitHub Copilot Pro+",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "GitHub Copilot Pro+: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "GitHub Copilot Pro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "GitHub Copilot Pro: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "GLM Coding Plan Lite",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "GLM Coding Plan Lite: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "GLM Coding Plan Pro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "GLM Coding Plan Pro: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "GLM Coding Plan Max",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "GLM Coding Plan Max: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Hy Token Plan Lite",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Hy Token Plan Lite: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Hy Token Plan Max",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Hy Token Plan Max: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "MiMo Token Plan Lite",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "MiMo Token Plan Lite: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "MiMo Token Plan Max",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "MiMo Token Plan Max: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Qwen Token Plan Lite",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Qwen Token Plan Lite: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Qwen Token Plan Standard",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Qwen Token Plan Standard: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Qwen Token Plan Pro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Qwen Token Plan Pro: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "WorkBuddy 高级版",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "WorkBuddy 高级版: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "WorkBuddy 标准版",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "WorkBuddy 标准版: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "WorkBuddy 旗舰版",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "WorkBuddy 旗舰版: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Hy Token Plan Standard",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Hy Token Plan Standard: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Hy Token Plan Pro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Hy Token Plan Pro: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "OpenCode Go",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "OpenCode Go: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Kimi Andante",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Kimi Andante: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Factory Droid Pro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Factory Droid Pro: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Trae Pro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Trae Pro: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Cursor Pro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Cursor Pro: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Kimi Moderato",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Kimi Moderato: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Kimi Allegro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Kimi Allegro: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "MiMo Token Plan Standard",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "MiMo Token Plan Standard: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "MiMo Token Plan Pro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "MiMo Token Plan Pro: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Cursor Pro+",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Cursor Pro+: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Cursor Ultra",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Cursor Ultra: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Windsurf Pro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Windsurf Pro: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Ollama Pro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Ollama Pro: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "火山方舟 Coding Plan Lite",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "火山方舟 Coding Plan Lite: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "火山方舟 Coding Plan Pro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "火山方舟 Coding Plan Pro: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Command Code GOAT",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Command Code GOAT: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "R4 Coder Code Lite",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "R4 Coder Code Lite: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Poe Premium",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Poe Premium: 最近核验日期 2026-09-01 距今 27 天（>21），待复核"
+      ],
       "url_status": 200
     }
   ]
