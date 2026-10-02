@@ -120,7 +120,7 @@ PARSERS = [
 # 数据哨兵阈值（模块级常量，供单测断言）
 MIN_ROWS = 800
 SENTINEL_FIELDS = [
-    "gdpvalNormalized", "terminalbenchHard", "terminalbenchV40", "scicode",
+    "gdpvalNormalized", "terminalbenchHard", "terminalBench40", "scicode",
     "lcr", "omniscience", "ifbench", "hle", "briefcase",
     "omniscienceAccuracy", "omniscienceNonHallucination",
 ]
@@ -211,8 +211,8 @@ def build_cols(rows):
         ("GDPval-AA", "model", "gdpvalNormalized"),
         ("AA-Briefcase", "model", "briefcase", "elo"),
         ("Terminal-Bench Hard", "model", "terminalbenchHard"),
-        ("Terminal-Bench v2.1", "model", "terminalbenchV21"),
-        ("Terminal-Bench v4.0", "model", "terminalbenchV40"),
+        ("Terminal-Bench v2.1", "model", "terminalBench21"),
+        ("Terminal-Bench v4.0", "model", "terminalBench40"),
         ("tau2-Bench Telecom", "model", "tau2"),
         ("tau3-Banking", "model", "tauBanking"),
         ("LCR", "model", "lcr"),

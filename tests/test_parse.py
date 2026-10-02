@@ -7,6 +7,7 @@ exercise the importable helpers directly.
 """
 import os
 import sys
+import pytest
 
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _SCRIPTS = os.path.join(_REPO, "scripts")
@@ -86,12 +87,9 @@ def test_run_sentinel_disappeared_column():
     # one sentinel field entirely None -> below FIELD_RATE_MIN
     rows = [_sentinel_row(f"M{i}") for i in range(900)]
     for r in rows:
-        r["model"]["gpqa"] = None
-    try:
+        r["model"]["terminalBench40"] = None
+    with pytest.raises(AssertionError, match="字段哨兵触发"):
         parse_aa.run_sentinel(rows)
-        assert False, "expected AssertionError for disappeared column"
-    except AssertionError:
-        pass
 
 
 # ---- extract_via_rsc() ----
