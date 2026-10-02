@@ -548,6 +548,87 @@
       "vision": true,
       "auto_added": "2026-09-11",
       "openrouter": "deepseek/deepseek-v4.1-flash"
+    },
+    {
+      "slug": "claude-opus-5.5",
+      "creator": "Anthropic",
+      "aa": "claude-opus-5-5",
+      "livebench": [
+        "claude-opus-5-5-max-effort",
+        "claude-opus-5-5-xhigh-effort"
+      ],
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": "claude-opus-5-5",
+      "vision": true,
+      "auto_added": "2026-10-02",
+      "openrouter": "anthropic/claude-opus-5.5"
+    },
+    {
+      "slug": "claude-sonnet-5.5",
+      "creator": "Anthropic",
+      "aa": "claude-sonnet-5-5",
+      "livebench": [
+        "claude-sonnet-5-5-max-effort",
+        "claude-sonnet-5-5-xhigh-effort"
+      ],
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-10-02",
+      "openrouter": "anthropic/claude-sonnet-5.5"
+    },
+    {
+      "slug": "gpt-6-luna",
+      "creator": "OpenAI",
+      "aa": "gpt-6-luna",
+      "livebench": "gpt-6-luna-max",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-10-02",
+      "openrouter": "openai/gpt-6-luna"
+    },
+    {
+      "slug": "gpt-6-sol",
+      "creator": "OpenAI",
+      "aa": "gpt-6-sol",
+      "livebench": "gpt-6-sol-max",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": "gpt-6-sol",
+      "vision": true,
+      "auto_added": "2026-10-02",
+      "openrouter": "openai/gpt-6-sol"
+    },
+    {
+      "slug": "gpt-6.1-sol",
+      "creator": "OpenAI",
+      "aa": "gpt-6-1-sol",
+      "livebench": [
+        "gpt-6.1-sol-max",
+        "gpt-6.1-sol-xhigh"
+      ],
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-10-02",
+      "openrouter": "openai/gpt-6.1-sol"
+    },
+    {
+      "slug": "grok-4.7",
+      "creator": "xAI",
+      "aa": "grok-4-7",
+      "livebench": "grok-4.7-xhigh",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": "grok-4.7",
+      "vision": true,
+      "auto_added": "2026-10-02",
+      "openrouter": "x-ai/grok-4.7"
     }
   ]
 }

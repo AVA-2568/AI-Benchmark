@@ -11,7 +11,9 @@
   },
   "missing_aliases": {
     "aa": [],
-    "eqbench": [],
+    "eqbench": [
+      "deepseek-v4.1-flash -> deepseek-v4.1-flash"
+    ],
     "deepswe": [],
     "livebench": []
   },
