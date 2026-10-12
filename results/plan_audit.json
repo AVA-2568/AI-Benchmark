@@ -1,11 +1,11 @@
 {
-  "run_date": "2026-10-05T07:50:04.208000+00:00",
+  "run_date": "2026-10-12T08:12:09.017617+00:00",
   "max_age_days": 21,
   "online": true,
   "summary": {
     "plans": 48,
-    "pass": 3,
-    "warn": 45,
+    "pass": 0,
+    "warn": 48,
     "fail": 0
   },
   "coverage": {
@@ -1086,7 +1086,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "ChatGPT Pro 20x: 最近核验日期 2026-09-01 距今 34 天（>21），待复核",
+        "ChatGPT Pro 20x: 最近核验日期 2026-09-01 距今 41 天（>21），待复核",
         "ChatGPT Pro 20x: 官方页 HTTP 403（https://chatgpt.com/pricing）"
       ],
       "url_status": 403
@@ -1096,7 +1096,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "ChatGPT Pro 5x: 最近核验日期 2026-08-27 距今 39 天（>21），待复核",
+        "ChatGPT Pro 5x: 最近核验日期 2026-08-27 距今 46 天（>21），待复核",
         "ChatGPT Pro 5x: 官方页 HTTP 403（https://chatgpt.com/pricing）"
       ],
       "url_status": 403
@@ -1106,30 +1106,36 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "ChatGPT Plus: 最近核验日期 2026-09-01 距今 34 天（>21），待复核",
+        "ChatGPT Plus: 最近核验日期 2026-09-01 距今 41 天（>21），待复核",
         "ChatGPT Plus: 官方页 HTTP 403（https://chatgpt.com/pricing）"
       ],
       "url_status": 403
     },
     {
       "name": "Claude Max 20x",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Claude Max 20x: 最近核验日期 2026-09-14 距今 28 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Claude Max 5x",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Claude Max 5x: 最近核验日期 2026-09-14 距今 28 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
       "name": "Claude Pro",
-      "status": "pass",
+      "status": "warn",
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "Claude Pro: 最近核验日期 2026-09-14 距今 28 天（>21），待复核"
+      ],
       "url_status": 200
     },
     {
@@ -1137,7 +1143,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "MiniMax Max Token Plan: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "MiniMax Max Token Plan: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1146,7 +1152,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "MiniMax Ultra Token Plan: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "MiniMax Ultra Token Plan: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1155,7 +1161,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "MiniMax Plus Token Plan: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "MiniMax Plus Token Plan: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1164,7 +1170,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Kimi 会员 Allegretto: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Kimi 会员 Allegretto: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1173,7 +1179,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "SuperGrok Heavy: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "SuperGrok Heavy: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1182,7 +1188,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "SuperGrok: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "SuperGrok: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1191,7 +1197,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "GitHub Copilot Max: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "GitHub Copilot Max: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1200,7 +1206,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "GitHub Copilot Pro+: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "GitHub Copilot Pro+: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1209,7 +1215,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "GitHub Copilot Pro: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "GitHub Copilot Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1218,7 +1224,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "GLM Coding Plan Lite: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "GLM Coding Plan Lite: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1227,7 +1233,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "GLM Coding Plan Pro: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "GLM Coding Plan Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1236,7 +1242,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "GLM Coding Plan Max: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "GLM Coding Plan Max: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1245,7 +1251,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Hy Token Plan Lite: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Hy Token Plan Lite: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1254,7 +1260,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Hy Token Plan Max: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Hy Token Plan Max: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1263,7 +1269,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "MiMo Token Plan Lite: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "MiMo Token Plan Lite: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1272,7 +1278,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "MiMo Token Plan Max: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "MiMo Token Plan Max: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1281,7 +1287,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Qwen Token Plan Lite: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Qwen Token Plan Lite: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1290,7 +1296,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Qwen Token Plan Standard: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Qwen Token Plan Standard: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1299,7 +1305,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Qwen Token Plan Pro: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Qwen Token Plan Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1308,7 +1314,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "WorkBuddy 高级版: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "WorkBuddy 高级版: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1317,7 +1323,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "WorkBuddy 标准版: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "WorkBuddy 标准版: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1326,7 +1332,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "WorkBuddy 旗舰版: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "WorkBuddy 旗舰版: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1335,7 +1341,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Hy Token Plan Standard: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Hy Token Plan Standard: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1344,7 +1350,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Hy Token Plan Pro: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Hy Token Plan Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1353,7 +1359,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "OpenCode Go: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "OpenCode Go: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1362,7 +1368,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Kimi Andante: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Kimi Andante: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1371,7 +1377,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Factory Droid Pro: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Factory Droid Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1380,7 +1386,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Trae Pro: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Trae Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1389,7 +1395,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Cursor Pro: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Cursor Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1398,7 +1404,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Kimi Moderato: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Kimi Moderato: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1407,7 +1413,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Kimi Allegro: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Kimi Allegro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1416,7 +1422,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "MiMo Token Plan Standard: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "MiMo Token Plan Standard: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1425,7 +1431,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "MiMo Token Plan Pro: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "MiMo Token Plan Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1434,7 +1440,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Cursor Pro+: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Cursor Pro+: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1443,7 +1449,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Cursor Ultra: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Cursor Ultra: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1452,7 +1458,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Windsurf Pro: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Windsurf Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1461,7 +1467,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Ollama Pro: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Ollama Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1470,17 +1476,16 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "火山方舟 Coding Plan Lite: 最近核验日期 2026-09-01 距今 34 天（>21），待复核",
-        "火山方舟 Coding Plan Lite: 官方页不可达（TimeoutError: The read operation timed out）"
+        "火山方舟 Coding Plan Lite: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "火山方舟 Coding Plan Pro",
       "status": "warn",
       "errors": [],
       "warnings": [
-        "火山方舟 Coding Plan Pro: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "火山方舟 Coding Plan Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1489,7 +1494,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Command Code GOAT: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Command Code GOAT: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1498,7 +1503,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "R4 Coder Code Lite: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "R4 Coder Code Lite: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     },
@@ -1507,7 +1512,7 @@
       "status": "warn",
       "errors": [],
       "warnings": [
-        "Poe Premium: 最近核验日期 2026-09-01 距今 34 天（>21），待复核"
+        "Poe Premium: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
       ],
       "url_status": 200
     }
