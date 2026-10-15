@@ -11,7 +11,7 @@
 - **国际**：OpenAI（GPT-6/5.6/5.5/5.4/5.2）、Anthropic（Claude Fable 5 / Opus 5 / Opus 4.x / Sonnet）、Google（Gemini 3.x）、xAI（Grok 4.x/Build）、Meta（Muse Spark）、Thinking Machines（Inkling）
 - **国内**：DeepSeek（V4）、Kimi（K3/K2.6/K2.7）、Qwen（3.8/3.7/3.6）、GLM（5.3/5.2）、MiniMax（M3）、Xiaomi（MiMo）、Tencent（Hy）
 
-**为什么是精选而非全量**：AA 的 1000+ 模型里 90% 是重复变体（同一模型不同推理档）、长尾小厂、已弃用条目。精选池让覆盖率更高（核心指标覆盖 28–50/50，其中 LCR/HLE/Omniscience 全覆盖，DeepSWE 28/50 最低）、填补更少、分数更「实」。
+**为什么是精选而非全量**：AA 的 1000+ 模型里 90% 是重复变体（同一模型不同推理档）、长尾小厂、已弃用条目。精选池让覆盖率更高（核心指标覆盖 34–54/60，其中 LCR/HLE/Omniscience 全覆盖，淘汰停更无人维护的 DeepSWE，全面接入 LiveBench 2.0 实测）、填补更少、分数更「实」。
 
 ### 数据源（6 个，全部公开可抓）
 
@@ -132,18 +132,17 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 
 | 领域分类 (权重) | 核心主基准 (Major) | 关键辅助基准 (Minors) | 子权重分配 | 来源与评估重点 |
 |---|---|---|---|---|
-| **创意文学与小说创作** (25%) | **LiveBench StoryGen** | | 55% | 故事生成与长篇叙事创作 (LiveBench) |
-| | | **LiveBench Language** | 45% | 字词组织、语感拼句与文字修辞 (LiveBench) |
-| **专业案头与深度研究** (20%) | **AA-Briefcase** | | 50% | 真实多周知识工作项目（数千源文件、多关联任务）的 rubric + 两两对比评分 (AA)。2026-09 同步自 AA v4.3：取代 GDPval-AA——两者 r=0.973 高度冗余，Briefcase 覆盖 100%（GDPval 92%）且为私有 held-out 测试集，抗污染 |
-| | | **LiveBench Data Analysis** | 25% | 商业数据表合并、转换与定量信息提取 (LiveBench) |
-| | | **LiveBench Summarize** | 25% | 长文核心要点提炼与摘要 (LiveBench) |
-| **严格指令与格式约束** (20%) | **LiveBench IF** | | 60% | 多重格式规则与负向约束遵循 (LiveBench) |
-| | | **LiveBench Simplify** | 40% | 文本通俗化表达与精准改写约束 (LiveBench) |
-| **事实抗伪与超长文本** (20%) | **Omniscience Index** | | 50% | 事实性与未知边界防幻觉拒答得分 (AA) |
-| | | **LCR** | 30% | 1M 超长文本跨文档精确检索 (AA) |
-| | | **Omniscience Non-Halluc.** | 20% | AA 官方抗幻觉率 (1 - Hallucination Rate) (AA) |
-| **人际心智与人文社科** (15%) | **LiveBench Theory of Mind** | | 60% | 心智理论测试，评估社交认知与意图推断 (LiveBench) |
-| | | **CritPt** | 40% | Critical Point 前沿物理学与复杂系统深度推理 (AA) |
+| **创意文学与小说创作** (25%) | **EQ-Bench Creative Writing** | | 60% | 创意写作 Elo（文笔质感、人物塑造与情感表现力） |
+| | | **LiveBench Design** | 40% | LiveBench 2.0 版面设计、视觉排版与文档表现规范 |
+| **专业案头与深度研究** (25%) | **AA-Briefcase** | | 40% | 真实多周专业案头项目（数千源文件、复杂工作交付） |
+| | | **LiveBench Research** | 35% | LiveBench 2.0 深度研究、学术综述与行业分析 |
+| | | **LiveBench Data Analysis** | 25% | LiveBench 2.0 商业表格合并、数据转换与定量分析 |
+| **严格指令与长文本遵循** (20%) | **IFBench** | | 50% | AA 官方严格格式规则与负向约束遵循 (指哪打哪) |
+| | | **LCR** | 50% | AA 官方 1M 超长文本跨文档精确检索与推理 (AA) |
+| **事实抗伪与真实性** (15%) | **Omniscience Index** | | 60% | 事实性与未知边界防幻觉得分 (AA) |
+| | | **Omniscience Non-Halluc.** | 40% | AA 官方抗幻觉率 (1 - Hallucination Rate) (AA) |
+| **人际心智与人文社科** (15%) | **LiveBench Reasoning** | | 60% | LiveBench 2.0 复杂心智、逻辑与人文多步推理 |
+| | | **CritPt** | 40% | Critical Point 前沿复杂系统推理 (AA) |
 
 全局权重之和 = 1.00。
 
@@ -177,11 +176,11 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 
 | 指标 | 锚点 [lo, hi] | 说明 |
 |---|---|---|
-| LiveBench 各分类（含 Data Analysis）/ DeepSWE | [0, 100] | 已是 0–100 百分比 |
-| LCR / HLE / tau3-Banking / Omniscience Non-Halluc. / CritPt / SciCode / Terminal-Bench v4.0 | [0, 1] | 0–1 比例，×100 隐含 |
+| LiveBench 2.0 各分类（Coding / Long-Horizon / Browser / Reasoning / Data Analysis / Research / Design） | [0, 100] | 官方 0–100 百分比 |
+| LCR / HLE / tau3-Banking / IFBench / Omniscience Non-Halluc. / CritPt / SciCode / Terminal-Bench v4.0 | [0, 1] | 0–1 比例，×100 映射到 0–100 分 |
 | Omniscience Index | [-50, 50] | 净得分实际可达范围（全对/全错几乎不可能，0=中性） |
-| EQ-Bench Creative Writing | [1400, 2200] | Elo 实际分布约 1438~2105，下限收紧到 1400 避免分数被压到 45 分以上 |
-| AA-Briefcase | [400, 1700] | Elo 实际分布约 459~1662（AA v4.3 重锚后），与 EQ-Bench 同为 Elo 制固定锚点 |
+| EQ-Bench Creative Writing | [1400, 2200] | Elo 实际分布约 1438~2105，下限设为 1400 |
+| AA-Briefcase | [400, 1700] | Elo 实际分布约 459~1662（AA v4.3 重锚后） |
 
 > 与旧版 min-max 的区别：min-max 用「样本最高=100、最低=0」动态锚点，把名次差当能力差（离群值敏感、样本小不稳定、二次归一化抹掉难度）；固定锚点保留绝对难度与稳定性。Omniscience Index 用 [-50,50] 而非官方 [-100,100]：后者把实际样本（约 -19~43）压缩到 40-72 的窄区间、且让负分模型虚高到 40 分，[-50,50] 更贴合实际可达范围，负分模型正确压到 <50 分。
 

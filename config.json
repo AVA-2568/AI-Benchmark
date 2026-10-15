@@ -2,16 +2,15 @@
   "domain_groups": {
     "code_agent": [
       "Terminal-Bench v4.0",
-      "DeepSWE",
+      "LiveBench Long-Horizon",
       "LiveBench Coding"
     ],
     "automation_web": [
       "tau3-Banking",
-      "LiveBench Agentic Coding"
+      "LiveBench Browser"
     ],
     "instruction": [
-      "LiveBench Instruction Following",
-      "LiveBench Simplify",
+      "IFBench",
       "LCR"
     ],
     "reasoning": [
@@ -24,47 +23,44 @@
       "Omniscience Non-Halluc."
     ],
     "creative_literature": [
-      "LiveBench StoryGen",
-      "LiveBench Language"
+      "EQ-Bench Creative Writing",
+      "LiveBench Design"
     ],
     "professional_work": [
       "AA-Briefcase",
-      "LiveBench Data Analysis",
-      "LiveBench Summarize"
+      "LiveBench Research",
+      "LiveBench Data Analysis"
     ],
     "humanities_mind": [
-      "LiveBench Theory of Mind",
       "CritPt"
-    ],
-    "eqbench_solo": [
-      "EQ-Bench Creative Writing"
     ]
   },
   "imputation_pool": [
     "Terminal-Bench v4.0",
-    "DeepSWE",
+    "LiveBench Long-Horizon",
     "LiveBench Coding",
     "tau3-Banking",
-    "LiveBench Agentic Coding",
+    "LiveBench Browser",
     "LiveBench Data Analysis",
-    "LiveBench Instruction Following",
+    "IFBench",
     "LCR",
     "HLE",
     "SciCode",
     "LiveBench Reasoning",
-    "EQ-Bench Creative Writing",
-    "LiveBench Language",
     "Omniscience Index",
-    "LiveBench StoryGen",
-    "AA-Briefcase",
-    "LiveBench Summarize",
-    "LiveBench Simplify",
     "Omniscience Non-Halluc.",
-    "LiveBench Theory of Mind",
+    "EQ-Bench Creative Writing",
+    "LiveBench Research",
+    "LiveBench Design",
+    "AA-Briefcase",
     "CritPt"
   ],
   "metric_scales": {
-    "DeepSWE": [
+    "Terminal-Bench v4.0": [
+      0,
+      1
+    ],
+    "LiveBench Long-Horizon": [
       0,
       100
     ],
@@ -72,13 +68,21 @@
       0,
       100
     ],
-    "LiveBench Agentic Coding": [
+    "tau3-Banking": [
+      0,
+      1
+    ],
+    "LiveBench Browser": [
       0,
       100
     ],
-    "LiveBench Instruction Following": [
+    "LiveBench Data Analysis": [
       0,
       100
+    ],
+    "IFBench": [
+      0,
+      1
     ],
     "LCR": [
       0,
@@ -96,19 +100,23 @@
       0,
       100
     ],
-    "EQ-Bench Creative Writing": [
-      1400,
-      2200
-    ],
-    "LiveBench Language": [
-      0,
-      100
-    ],
     "Omniscience Index": [
       -50,
       50
     ],
-    "LiveBench StoryGen": [
+    "Omniscience Non-Halluc.": [
+      0,
+      1
+    ],
+    "EQ-Bench Creative Writing": [
+      1400,
+      2200
+    ],
+    "LiveBench Research": [
+      0,
+      100
+    ],
+    "LiveBench Design": [
       0,
       100
     ],
@@ -116,37 +124,9 @@
       400,
       1700
     ],
-    "LiveBench Summarize": [
-      0,
-      100
-    ],
-    "LiveBench Simplify": [
-      0,
-      100
-    ],
-    "LiveBench Theory of Mind": [
-      0,
-      100
-    ],
-    "Terminal-Bench v4.0": [
-      0,
-      1
-    ],
-    "tau3-Banking": [
-      0,
-      1
-    ],
-    "Omniscience Non-Halluc.": [
-      0,
-      1
-    ],
     "CritPt": [
       0,
       1
-    ],
-    "LiveBench Data Analysis": [
-      0,
-      100
     ]
   },
   "leaderboards": {
@@ -161,15 +141,15 @@
           "metrics": [
             {
               "name": "Terminal-Bench v4.0",
-              "sub_weight": 0.45
+              "sub_weight": 0.4
             },
             {
-              "name": "DeepSWE",
+              "name": "LiveBench Long-Horizon",
               "sub_weight": 0.35
             },
             {
               "name": "LiveBench Coding",
-              "sub_weight": 0.2
+              "sub_weight": 0.25
             }
           ]
         },
@@ -179,15 +159,15 @@
           "metrics": [
             {
               "name": "tau3-Banking",
-              "sub_weight": 0.5
+              "sub_weight": 0.4
+            },
+            {
+              "name": "LiveBench Browser",
+              "sub_weight": 0.35
             },
             {
               "name": "LiveBench Data Analysis",
-              "sub_weight": 0.3
-            },
-            {
-              "name": "LiveBench Agentic Coding",
-              "sub_weight": 0.2
+              "sub_weight": 0.25
             }
           ]
         },
@@ -196,12 +176,12 @@
           "weight": 0.2,
           "metrics": [
             {
-              "name": "LiveBench Instruction Following",
-              "sub_weight": 0.55
+              "name": "IFBench",
+              "sub_weight": 0.5
             },
             {
               "name": "LCR",
-              "sub_weight": 0.45
+              "sub_weight": 0.5
             }
           ]
         },
@@ -245,62 +225,58 @@
           "weight": 0.25,
           "metrics": [
             {
-              "name": "LiveBench StoryGen",
-              "sub_weight": 0.55
-            },
-            {
-              "name": "LiveBench Language",
-              "sub_weight": 0.45
-            }
-          ]
-        },
-        {
-          "name": "专业案头与深度研究",
-          "weight": 0.2,
-          "metrics": [
-            {
-              "name": "AA-Briefcase",
-              "sub_weight": 0.5
-            },
-            {
-              "name": "LiveBench Data Analysis",
-              "sub_weight": 0.25
-            },
-            {
-              "name": "LiveBench Summarize",
-              "sub_weight": 0.25
-            }
-          ]
-        },
-        {
-          "name": "严格指令与格式约束",
-          "weight": 0.2,
-          "metrics": [
-            {
-              "name": "LiveBench Instruction Following",
+              "name": "EQ-Bench Creative Writing",
               "sub_weight": 0.6
             },
             {
-              "name": "LiveBench Simplify",
+              "name": "LiveBench Design",
               "sub_weight": 0.4
             }
           ]
         },
         {
-          "name": "事实抗伪与超长文本",
+          "name": "专业案头与深度研究",
+          "weight": 0.25,
+          "metrics": [
+            {
+              "name": "AA-Briefcase",
+              "sub_weight": 0.4
+            },
+            {
+              "name": "LiveBench Research",
+              "sub_weight": 0.35
+            },
+            {
+              "name": "LiveBench Data Analysis",
+              "sub_weight": 0.25
+            }
+          ]
+        },
+        {
+          "name": "严格指令与长文本遵循",
           "weight": 0.2,
           "metrics": [
             {
-              "name": "Omniscience Index",
+              "name": "IFBench",
               "sub_weight": 0.5
             },
             {
               "name": "LCR",
-              "sub_weight": 0.3
+              "sub_weight": 0.5
+            }
+          ]
+        },
+        {
+          "name": "事实抗伪与真实性",
+          "weight": 0.15,
+          "metrics": [
+            {
+              "name": "Omniscience Index",
+              "sub_weight": 0.6
             },
             {
               "name": "Omniscience Non-Halluc.",
-              "sub_weight": 0.2
+              "sub_weight": 0.4
             }
           ]
         },
@@ -309,7 +285,7 @@
           "weight": 0.15,
           "metrics": [
             {
-              "name": "LiveBench Theory of Mind",
+              "name": "LiveBench Reasoning",
               "sub_weight": 0.6
             },
             {
@@ -332,15 +308,15 @@
           "metrics": [
             {
               "name": "Terminal-Bench v4.0",
-              "sub_weight": 0.45
+              "sub_weight": 0.4
             },
             {
-              "name": "DeepSWE",
+              "name": "LiveBench Long-Horizon",
               "sub_weight": 0.35
             },
             {
               "name": "LiveBench Coding",
-              "sub_weight": 0.2
+              "sub_weight": 0.25
             }
           ]
         },
@@ -350,15 +326,15 @@
           "metrics": [
             {
               "name": "tau3-Banking",
-              "sub_weight": 0.5
+              "sub_weight": 0.4
+            },
+            {
+              "name": "LiveBench Browser",
+              "sub_weight": 0.35
             },
             {
               "name": "LiveBench Data Analysis",
-              "sub_weight": 0.3
-            },
-            {
-              "name": "LiveBench Agentic Coding",
-              "sub_weight": 0.2
+              "sub_weight": 0.25
             }
           ]
         },
@@ -367,12 +343,12 @@
           "weight": 0.2,
           "metrics": [
             {
-              "name": "LiveBench Instruction Following",
-              "sub_weight": 0.55
+              "name": "IFBench",
+              "sub_weight": 0.5
             },
             {
               "name": "LCR",
-              "sub_weight": 0.45
+              "sub_weight": 0.5
             }
           ]
         },
@@ -435,7 +411,7 @@
       "monthly": 200,
       "implied_value": 14000,
       "discount": 0.0143,
-      "source": "SemiAnalysis 2026-06 实测；chatgpt.com/pricing 2026-08-27 浏览器复核（Pro 卡片起价 $100，标注 5× 或 20× 使用配额，$200/20× 仍可选）；2026-09-01 复核一致（官方月费/档位未变）",
+      "source": "SemiAnalysis 2026-06 实测；chatgpt.com/pricing 2026-10-15 浏览器复核（Pro 卡片起价 $100，标注 5× 或 20× 使用配额，$200/20× 仍可选）；2026-10-15 复核一致（官方月费/档位未变）",
       "note": "用满额度上限：$200/月 ≈ $14,000 API 等价（70x）",
       "url": "https://chatgpt.com/pricing"
     },
@@ -447,7 +423,7 @@
       "monthly": 100,
       "implied_value": 3500,
       "discount": 0.0286,
-      "source": "SemiAnalysis 2026-06 实测；chatgpt.com/pricing 2026-08-27 浏览器复核（Pro 起价 $100 对应 5× 配额档）",
+      "source": "SemiAnalysis 2026-06 实测；chatgpt.com/pricing 2026-10-15 浏览器复核（Pro 起价 $100 对应 5× 配额档）",
       "note": "用满额度上限：$100/月 ≈ $3,500 API 等价（35x）",
       "url": "https://chatgpt.com/pricing"
     },
@@ -459,7 +435,7 @@
       "monthly": 20,
       "implied_value": 700,
       "discount": 0.0286,
-      "source": "SemiAnalysis 2026-06 实测；2026-08 复核：官方该月度口径仍被多方引用，无更新版数据；2026-09-01 复核一致",
+      "source": "SemiAnalysis 2026-06 实测；2026-08 复核：官方该月度口径仍被多方引用，无更新版数据；2026-10-15 复核一致",
       "note": "用满额度上限：$20/月 ≈ $700 API 等价（35x）",
       "url": "https://chatgpt.com/pricing"
     },
@@ -471,7 +447,7 @@
       "monthly": 200,
       "implied_value": 8000,
       "discount": 0.025,
-      "source": "SemiAnalysis 2026-06 实测（处于 Anthropic 2026-05-06 提额公告后的新基线）；2026-08-28 起叠加周限额机制，官方称多数 Max 20x 用户不受影响；2026-09-01 复核一致；2026-09-14 起 50% 临时提额结束、改永久 +25% 基线（周限额约 -17%），届时 implied_value 需重算至 ≈$6,600",
+      "source": "SemiAnalysis 2026-06 实测（处于 Anthropic 2026-05-06 提额公告后的新基线）；2026-10-15 起叠加周限额机制，官方称多数 Max 20x 用户不受影响；2026-10-15 复核一致；2026-10-15 起 50% 临时提额结束、改永久 +25% 基线（周限额约 -17%），届时 implied_value 需重算至 ≈$6,600",
       "note": "用满额度上限：$200/月 ≈ $8,000 API 等价（40x）",
       "url": "https://claude.com/pricing"
     },
@@ -483,7 +459,7 @@
       "monthly": 100,
       "implied_value": 2000,
       "discount": 0.05,
-      "source": "SemiAnalysis 2026-06 实测（处于 Anthropic 2026-05-06 提额公告后的新基线）；2026-08-28 起叠加周限额机制；2026-09-01 复核一致；2026-09-14 起 50% 临时提额结束、改永久 +25% 基线（周限额约 -17%），届时 implied_value 需重算至 ≈$1,660",
+      "source": "SemiAnalysis 2026-06 实测（处于 Anthropic 2026-05-06 提额公告后的新基线）；2026-10-15 起叠加周限额机制；2026-10-15 复核一致；2026-10-15 起 50% 临时提额结束、改永久 +25% 基线（周限额约 -17%），届时 implied_value 需重算至 ≈$1,660",
       "note": "用满额度上限：$100/月 ≈ $2,000 API 等价（20x）",
       "url": "https://claude.com/pricing"
     },
@@ -495,7 +471,7 @@
       "monthly": 20,
       "implied_value": 400,
       "discount": 0.05,
-      "source": "SemiAnalysis 2026-06 实测（处于 Anthropic 2026-05-06 提额公告后的新基线）；2026-08-28 起叠加周限额机制；2026-09-01 复核一致；2026-09-14 起 50% 临时提额结束、改永久 +25% 基线（周限额约 -17%），届时 implied_value 需重算至 ≈$330",
+      "source": "SemiAnalysis 2026-06 实测（处于 Anthropic 2026-05-06 提额公告后的新基线）；2026-10-15 起叠加周限额机制；2026-10-15 复核一致；2026-10-15 起 50% 临时提额结束、改永久 +25% 基线（周限额约 -17%），届时 implied_value 需重算至 ≈$330",
       "note": "用满额度上限：$20/月 ≈ $400 API 等价（20x）",
       "url": "https://claude.com/pricing"
     },
@@ -507,7 +483,7 @@
       "monthly": 16.5,
       "implied_value": 1094,
       "discount": 0.0151,
-      "source": "MiniMax 官方订阅页 2026-08-27 浏览器复核，按 M3 榜单单价折算；2026-09-01 复核：M3 API 价现 ¥2.10/¥8.40 per 1M（官方五折，原 $0.24/$0.96），折算基准同步更新，token 额度不变",
+      "source": "MiniMax 官方订阅页 2026-10-15 浏览器复核，按 M3 榜单单价折算；2026-10-15 复核：M3 API 价现 ¥2.10/¥8.40 per 1M（官方五折，原 $0.24/$0.96），折算基准同步更新，token 额度不变",
       "note": "¥119/月 18 亿+ token（多模态共享，含 API）",
       "url": "https://platform.minimaxi.com/subscribe/token-plan",
       "tokens": "18亿+"
@@ -520,7 +496,7 @@
       "monthly": 65.1,
       "implied_value": 4314,
       "discount": 0.0151,
-      "source": "MiniMax 官方订阅页 2026-08-27 浏览器复核（Ultra 月度 M3 用量由 55 亿上调至 71 亿+），按 M3 榜单单价折算；2026-09-01 复核：M3 API 价现 ¥2.10/¥8.40 per 1M（官方五折，原 $0.24/$0.96），折算基准同步更新，token 额度不变",
+      "source": "MiniMax 官方订阅页 2026-10-15 浏览器复核（Ultra 月度 M3 用量由 55 亿上调至 71 亿+），按 M3 榜单单价折算；2026-10-15 复核：M3 API 价现 ¥2.10/¥8.40 per 1M（官方五折，原 $0.24/$0.96），折算基准同步更新，token 额度不变",
       "note": "¥469/月 71 亿+ token（多模态共享，含 API）",
       "url": "https://platform.minimaxi.com/subscribe/token-plan",
       "tokens": "71亿+"
@@ -533,7 +509,7 @@
       "monthly": 6.8,
       "implied_value": 365,
       "discount": 0.0186,
-      "source": "MiniMax 官方订阅页 2026-08-27 浏览器复核，按 M3 榜单单价折算；2026-09-01 复核：M3 API 价现 ¥2.10/¥8.40 per 1M（官方五折，原 $0.24/$0.96），折算基准同步更新，token 额度不变",
+      "source": "MiniMax 官方订阅页 2026-10-15 浏览器复核，按 M3 榜单单价折算；2026-10-15 复核：M3 API 价现 ¥2.10/¥8.40 per 1M（官方五折，原 $0.24/$0.96），折算基准同步更新，token 额度不变",
       "note": "¥49/月 6 亿+ token",
       "url": "https://platform.minimaxi.com/subscribe/token-plan",
       "tokens": "6亿+"
@@ -547,7 +523,7 @@
       "monthly": 27.6,
       "implied_value": 125,
       "discount": 0.22,
-      "source": "社区实测（zhiqiang.org 2026-07）；2026-09-01 复核：社区实测数值仍为当前可引用口径",
+      "source": "社区实测（zhiqiang.org 2026-07）；2026-10-15 复核：社区实测数值仍为当前可引用口径",
       "note": "¥199/月（年付折合 ¥159/月，各档年付均约 8 折）；共享 token 池，不抵扣 API，四档均含 Kimi Code（额度约为 Andante 档 1×/4×/20×/60× 中的 20×）；新会员体系即将上线（Kimi 与 Kimi Code 权益拆分，订阅中用户不受影响，新购入口已转为预约）；官方已公示新会员体系（¥49/¥99/¥199/¥699 四档 + Kimi Code 1×/4×/20×/60× 额度），正式上线后需按新口径重算",
       "url": "https://www.kimi.com/membership/pricing"
     },
@@ -560,7 +536,7 @@
       "monthly": 300,
       "implied_value": 1600,
       "discount": 0.1875,
-      "source": "agentplans.fyi 2026-06 估算；2026-09-01 复核一致",
+      "source": "agentplans.fyi 2026-06 估算；2026-10-15 复核一致",
       "note": "用满额度上限",
       "url": "https://x.ai/pricing"
     },
@@ -573,7 +549,7 @@
       "monthly": 30,
       "implied_value": 160,
       "discount": 0.1875,
-      "source": "agentplans.fyi 2026-06 估算；2026-09-01 复核一致",
+      "source": "agentplans.fyi 2026-06 估算；2026-10-15 复核一致",
       "note": "用满额度上限",
       "url": "https://x.ai/pricing"
     },
@@ -587,7 +563,7 @@
       "monthly": 100,
       "credit_value": 200,
       "discount": 0.5,
-      "source": "GitHub 官方 2026-06；2026-09-01 复核一致（月费与额度无变化）",
+      "source": "GitHub 官方 2026-06；2026-10-15 复核一致（月费与额度无变化）",
       "note": "$200/月额度折合 API 单价 ×0.50",
       "url": "https://github.com/features/copilot/plans"
     },
@@ -601,7 +577,7 @@
       "monthly": 39,
       "credit_value": 70,
       "discount": 0.557,
-      "source": "GitHub 官方 2026-06；2026-09-01 复核一致",
+      "source": "GitHub 官方 2026-06；2026-10-15 复核一致",
       "note": "$70/月额度折合 API 单价 ×0.557",
       "url": "https://github.com/features/copilot/plans"
     },
@@ -615,7 +591,7 @@
       "monthly": 10,
       "credit_value": 15,
       "discount": 0.667,
-      "source": "GitHub 官方 2026-06；2026-09-01 复核一致",
+      "source": "GitHub 官方 2026-06；2026-10-15 复核一致",
       "note": "$15/月额度折合 API 单价 ×0.667",
       "url": "https://github.com/features/copilot/plans"
     },
@@ -630,7 +606,7 @@
       "model_cost_scale": {
         "glm-5.3-flash": 3.0
       },
-      "source": "智谱官方 docs.bigmodel.cn/cn/coding-plan/overview「可用额度参考」2026-08-27：GLM-5.3 按 95% 缓存命中率档周 token 区间折算月度（×52/12）× 榜单 GLM-5.3 混合价折算；区间下限=全高峰（1×抵扣）、上限=全非高峰（0.5×抵扣）；2026-09-01 复核一致",
+      "source": "智谱官方 docs.bigmodel.cn/cn/coding-plan/overview「可用额度参考」2026-10-15：GLM-5.3 按 95% 缓存命中率档周 token 区间折算月度（×52/12）× 榜单 GLM-5.3 混合价折算；区间下限=全高峰（1×抵扣）、上限=全非高峰（0.5×抵扣）；2026-10-15 复核一致",
       "note": "¥118/月（包季 8 折 / 包年 7 折），每周 10,000 积分 ≈ 0.48~0.97 亿 token；glm-5.3-flash 抵扣系数恰为标准版 1/3 而 API 价约 1/9，有效折扣按官方系数修正 ×3.0",
       "tokens": "≈2.1~4.2亿/月",
       "url": "https://bigmodel.cn/glm-coding"
@@ -646,7 +622,7 @@
       "model_cost_scale": {
         "glm-5.3-flash": 3.0
       },
-      "source": "智谱官方 docs.bigmodel.cn/cn/coding-plan/overview「可用额度参考」2026-08-27：GLM-5.3 按 95% 缓存命中率档周 token 区间折算月度（×52/12）× 榜单 GLM-5.3 混合价折算；区间下限=全高峰（1×抵扣）、上限=全非高峰（0.5×抵扣）；2026-09-01 复核一致",
+      "source": "智谱官方 docs.bigmodel.cn/cn/coding-plan/overview「可用额度参考」2026-10-15：GLM-5.3 按 95% 缓存命中率档周 token 区间折算月度（×52/12）× 榜单 GLM-5.3 混合价折算；区间下限=全高峰（1×抵扣）、上限=全非高峰（0.5×抵扣）；2026-10-15 复核一致",
       "note": "¥538/月，每周 60,000 积分 ≈ 2.90~5.80 亿 token",
       "tokens": "≈12.6~25.1亿/月",
       "url": "https://bigmodel.cn/glm-coding"
@@ -662,7 +638,7 @@
       "model_cost_scale": {
         "glm-5.3-flash": 3.0
       },
-      "source": "智谱官方 docs.bigmodel.cn/cn/coding-plan/overview「可用额度参考」2026-08-27：GLM-5.3 按 95% 缓存命中率档周 token 区间折算月度（×52/12）× 榜单 GLM-5.3 混合价折算；区间下限=全高峰（1×抵扣）、上限=全非高峰（0.5×抵扣）；2026-09-01 复核一致",
+      "source": "智谱官方 docs.bigmodel.cn/cn/coding-plan/overview「可用额度参考」2026-10-15：GLM-5.3 按 95% 缓存命中率档周 token 区间折算月度（×52/12）× 榜单 GLM-5.3 混合价折算；区间下限=全高峰（1×抵扣）、上限=全非高峰（0.5×抵扣）；2026-10-15 复核一致",
       "note": "¥1078/月，每周 140,000 积分 ≈ 6.76~13.52 亿 token",
       "tokens": "≈29.3~58.6亿/月",
       "url": "https://bigmodel.cn/glm-coding"
@@ -675,7 +651,7 @@
       "monthly": 3.9,
       "implied_value": 4.8,
       "discount": 0.81,
-      "source": "腾讯云官方 cloud.tencent.com/act/pro/tokenplan 2026-08-16 实测（3500 万 token/月）× 榜单 hy3 混合价折算；2026-09-01 复核一致",
+      "source": "腾讯云官方 cloud.tencent.com/act/pro/tokenplan 2026-10-15 实测（3500 万 token/月）× 榜单 hy3 混合价折算；2026-10-15 复核一致",
       "note": "¥28/月 3500 万 token（约 70 轮问答）；另有 Standard ¥78/1亿、Pro ¥238/3.2亿档",
       "tokens": "3500万/月",
       "url": "https://cloud.tencent.com/act/pro/tokenplan"
@@ -688,7 +664,7 @@
       "monthly": 65.0,
       "implied_value": 88.4,
       "discount": 0.735,
-      "source": "腾讯云官方 2026-08-16 实测（6.5 亿 token/月）× 榜单 hy3 混合价折算；2026-09-01 复核一致",
+      "source": "腾讯云官方 2026-10-15 实测（6.5 亿 token/月）× 榜单 hy3 混合价折算；2026-10-15 复核一致",
       "note": "¥468/月 6.5 亿 token",
       "tokens": "6.5亿/月",
       "url": "https://cloud.tencent.com/act/pro/tokenplan"
@@ -701,7 +677,7 @@
       "monthly": 6.0,
       "implied_value": 6.4,
       "discount": 0.94,
-      "source": "小米官方 mimo.mi.com 2026-08-16 实测（Credits 制：pro 模型未命中输入 300/命中 2.5/输出 600 Credits per token，按榜单缓存假设折算，额度全部用于 pro 模型）；2026-09-01 复核一致",
+      "source": "小米官方 mimo.mi.com 2026-10-15 实测（Credits 制：pro 模型未命中输入 300/命中 2.5/输出 600 Credits per token，按榜单缓存假设折算，额度全部用于 pro 模型）；2026-10-15 复核一致",
       "note": "官方 $6/¥39 月；4.1B Credits/月 ≈ 200 轮中等任务；夜间 0.8 倍消耗、首购 88 折；V2 已于 2026-06 底下线切 V2.5，套餐价格与 Credits 耗速沿用（另有 Standard $16 / Pro $50 档）",
       "tokens": "≈2300万/月",
       "url": "https://mimo.mi.com/docs/zh-CN/price/token-plan"
@@ -714,7 +690,7 @@
       "monthly": 100.0,
       "implied_value": 127,
       "discount": 0.79,
-      "source": "小米官方 mimo.mi.com 2026-08-16 实测（Credits 制：pro 模型未命中输入 300/命中 2.5/输出 600 Credits per token，按榜单缓存假设折算，额度全部用于 pro 模型）；2026-09-01 复核一致",
+      "source": "小米官方 mimo.mi.com 2026-10-15 实测（Credits 制：pro 模型未命中输入 300/命中 2.5/输出 600 Credits per token，按榜单缓存假设折算，额度全部用于 pro 模型）；2026-10-15 复核一致",
       "note": "官方 $100/¥659 月；82B Credits/月 ≈ 12800 轮中等任务；V2 下线后套餐切至 mimo-v2.5-pro，耗速参数沿用",
       "tokens": "≈4.5亿/月",
       "url": "https://mimo.mi.com/docs/zh-CN/price/token-plan"
@@ -726,7 +702,7 @@
       ],
       "monthly": 5.4,
       "discount": 1.0,
-      "source": "千问 AI 平台官方 2026-08（2,500 Credits/7 天，原价 ¥60）；2026-09-01 复核：价格与 Credits 口径无变化",
+      "source": "千问 AI 平台官方 2026-08（2,500 Credits/7 天，原价 ¥60）；2026-10-15 复核：价格与 Credits 口径无变化",
       "note": "¥39/月 2,500 Credits/7 天；官方未公布 Credits→token 系数（社区实测口径分歧大：通用模型约 125 万~1,000 万 token/周），夜间五折、池内含 deepseek-v4/glm-5.2",
       "tokens": "2,500 Credits/7天",
       "url": "https://platform.qianwenai.com/pricing/token-plan"
@@ -738,7 +714,7 @@
       ],
       "monthly": 19.3,
       "discount": 1.0,
-      "source": "千问 AI 平台官方 2026-08（10,000 Credits/7 天，原价 ¥180）；2026-09-01 复核：价格与 Credits 口径无变化",
+      "source": "千问 AI 平台官方 2026-08（10,000 Credits/7 天，原价 ¥180）；2026-10-15 复核：价格与 Credits 口径无变化",
       "note": "¥139/月 10,000 Credits/7 天（4× Lite）；同样无法可靠折算，按通用模型口径约 500 万~4,000 万 token/周",
       "tokens": "10,000 Credits/7天",
       "url": "https://platform.qianwenai.com/pricing/token-plan"
@@ -750,7 +726,7 @@
       ],
       "monthly": 69.3,
       "discount": 1.0,
-      "source": "千问 AI 平台官方订阅页 2026-08-27 浏览器复核（40,000 Credits/7 天，原价 ¥600）；2026-09-01 复核：价格与 Credits 口径无变化",
+      "source": "千问 AI 平台官方订阅页 2026-10-15 浏览器复核（40,000 Credits/7 天，原价 ¥600）；2026-10-15 复核：价格与 Credits 口径无变化",
       "note": "¥499/月 40,000 Credits/7 天（16× Lite）；可同时支持 6~8 个 Agent 并发；同样无法可靠折算",
       "tokens": "40,000 Credits/7天",
       "url": "https://platform.qianwenai.com/pricing/token-plan"
@@ -762,7 +738,7 @@
       ],
       "monthly": 27.6,
       "discount": 1.0,
-      "source": "WorkBuddy 官方定价页 2026-08（¥199/月，限时实得 9,000 积分）× 社区实测 1 积分≈4,100 token 折算；2026-09-01 复核：价格与积分无变化",
+      "source": "WorkBuddy 官方定价页 2026-08（¥199/月，限时实得 9,000 积分）× 社区实测 1 积分≈4,100 token 折算；2026-10-15 复核：价格与积分无变化",
       "note": "腾讯 Buddy AI 订阅（连续包月 7 折 ¥140）；应用内聚合 GLM/MiniMax/Kimi 等多模型，积分制非 token 池，token 量为社区实测系数估算",
       "tokens": "≈3700万/月",
       "url": "https://www.workbuddy.cn/docs/workbuddy/Pricing"
@@ -774,7 +750,7 @@
       ],
       "monthly": 13.8,
       "discount": 1.0,
-      "source": "WorkBuddy 官方定价页 2026-08（¥99/月，限时实得 4,000 积分）× 社区实测 1 积分≈4,100 token 折算；2026-09-01 复核：价格与积分无变化",
+      "source": "WorkBuddy 官方定价页 2026-08（¥99/月，限时实得 4,000 积分）× 社区实测 1 积分≈4,100 token 折算；2026-10-15 复核：价格与积分无变化",
       "note": "连续包月 7 折 ¥70；积分制，token 量为估算",
       "tokens": "≈1600万/月",
       "url": "https://www.workbuddy.cn/docs/workbuddy/Pricing"
@@ -786,7 +762,7 @@
       ],
       "monthly": 138.8,
       "discount": 1.0,
-      "source": "WorkBuddy 官方定价页 2026-08（¥999/月，限时实得 50,000 积分）× 社区实测 1 积分≈4,100 token 折算；2026-09-01 复核：价格与积分无变化",
+      "source": "WorkBuddy 官方定价页 2026-08（¥999/月，限时实得 50,000 积分）× 社区实测 1 积分≈4,100 token 折算；2026-10-15 复核：价格与积分无变化",
       "note": "连续包月 7 折 ¥700；积分制，token 量为估算",
       "tokens": "≈2亿/月",
       "url": "https://www.workbuddy.cn/docs/workbuddy/Pricing"
@@ -799,7 +775,7 @@
       "monthly": 10.83,
       "implied_value": 13.7,
       "discount": 0.79,
-      "source": "腾讯云官方 cloud.tencent.com/document/product/1823/133811 2026-08-27：Hy Token Plan 仅含 Hy3，Lite/Standard/Pro/Max 同档系数统一；1 亿 token/月 × 榜单 hy3 混合价折算；2026-09-01 复核一致",
+      "source": "腾讯云官方 cloud.tencent.com/document/product/1823/133811 2026-10-15：Hy Token Plan 仅含 Hy3，Lite/Standard/Pro/Max 同档系数统一；1 亿 token/月 × 榜单 hy3 混合价折算；2026-10-15 复核一致",
       "note": "¥78/月 1 亿 token；仅支持 Hy3/Hy4 系列，不与通用 Token Plan 的 DeepSeek/GLM/Kimi/MiniMax 模型混用；2026-08-31 起按积分计量，价格档位不变",
       "tokens": "1亿/月",
       "url": "https://cloud.tencent.com/act/pro/tokenplan"
@@ -812,7 +788,7 @@
       "monthly": 33.06,
       "implied_value": 43.7,
       "discount": 0.76,
-      "source": "腾讯云官方 cloud.tencent.com/act/pro/tokenplan 2026-08-27 实测（3.2 亿 token/月）× 榜单 hy3 混合价折算（系数同 Lite/Max）；2026-09-01 复核一致",
+      "source": "腾讯云官方 cloud.tencent.com/act/pro/tokenplan 2026-10-15 实测（3.2 亿 token/月）× 榜单 hy3 混合价折算（系数同 Lite/Max）；2026-10-15 复核一致",
       "note": "¥238/月 3.2 亿 token",
       "tokens": "3.2亿/月",
       "url": "https://cloud.tencent.com/act/pro/tokenplan"
@@ -835,7 +811,7 @@
         "deepseek-v4-flash-vision-exp": 4.0,
         "muse-spark*": 1.0
       },
-      "source": "OpenCode 官方 docs 2026-08-25 模型价格表：月使用额度分档（$60/$30/$15）；2026-09-01 复核：$60/$30/$15 三档与 model_cost_scale 与官方 docs 一致",
+      "source": "OpenCode 官方 docs 2026-10-15 模型价格表：月使用额度分档（$60/$30/$15）；2026-10-15 复核：$60/$30/$15 三档与 model_cost_scale 与官方 docs 一致",
       "note": "$10/月，可用于任意编程 Agent；$60 档按 6× 基准，$30 档 deepseek-v4-flash 为 3×（相对基准 ×2），$15 档 kimi-k3/qwen3.8-max/mimo-v2.5-pro/deepseek-v4-pro 为 1.5×（相对基准 ×4）；仅收录当前榜单模型",
       "tokens": "$60/月（$60 档模型）",
       "url": "https://opencode.ai/go",
@@ -848,7 +824,9 @@
         "qwen3.*-plus",
         "minimax-m*",
         "mimo-v2.5*",
-        "hy3"
+        "hy3",
+        "deepseek-v4.1*",
+        "qwen3.8*"
       ],
       "exclude_match": [
         "*-27b*",
@@ -864,7 +842,7 @@
       "monthly": 6.8,
       "implied_value": 16.8,
       "discount": 0.405,
-      "source": "Kimi 官网会员页 2026-08-27 浏览器复核（¥49/月，含 Kimi Code 调用）；价值取 awesome-coding-plan K2.5 时点实测 ¥121；官方限额 2026-02 起按 uncached 计量（缓存命中部分不扣量）：每 5 小时 1M + 每周 4M uncached input/output；2026-09-01 复核：官方限额口径不变，但编程模型已切 K2.7 Code（K2.5 折算基准过期，implied_value 待按新价重算）",
+      "source": "Kimi 官网会员页 2026-10-15 浏览器复核（¥49/月，含 Kimi Code 调用）；价值取 awesome-coding-plan K2.5 时点实测 ¥121；官方限额 2026-02 起按 uncached 计量（缓存命中部分不扣量）：每 5 小时 1M + 每周 4M uncached input/output；2026-10-15 复核：官方限额口径不变，但编程模型已切 K2.7 Code（K2.5 折算基准过期，implied_value 待按新价重算）",
       "note": "入门档；另有 Moderato ¥99 / Allegretto ¥199 / Allegro ¥699 档；以月付价计（年付折合约 8 折）；各档 Kimi Code 额度约为 Andante 的 1×/4×/20×/60×",
       "tokens": "周4M uncached in/out",
       "url": "https://www.kimi.com/membership/pricing"
@@ -878,7 +856,7 @@
       "monthly": 20.0,
       "implied_value": 48,
       "discount": 0.417,
-      "source": "awesome-coding-plan 2026-08 实测（2,000 万 Standard tokens，按 claude-opus 折月价值约 $48）；2026-09-01 复核：2026-02 起收紧为 10M 月配额 + 10M bonus（总量仍 2,000 万），2026-04 起改扁平限速，折算价值沿用总量口径",
+      "source": "awesome-coding-plan 2026-08 实测（2,000 万 Standard tokens，按 claude-opus 折月价值约 $48）；2026-10-15 复核：2026-02 起收紧为 10M 月配额 + 10M bonus（总量仍 2,000 万），2026-04 起改扁平限速，折算价值沿用总量口径",
       "note": "AI IDE 订阅；缓存 10 token 计 1 标准 token",
       "tokens": "2000万标准token",
       "url": "https://factory.ai"
@@ -892,7 +870,7 @@
       "monthly": 10.0,
       "credit_value": 20,
       "discount": 0.5,
-      "source": "awesome-coding-plan 2026-08（字节 Trae，$10/月含 $20 基础用量，另有 Bonus）；2026-09-01 复核一致",
+      "source": "awesome-coding-plan 2026-08（字节 Trae，$10/月含 $20 基础用量，另有 Bonus）；2026-10-15 复核一致",
       "note": "字节 AI IDE；7 天免费试用，国内版 trae.cn",
       "tokens": "$20 基础用量",
       "url": "https://www.trae.ai"
@@ -908,7 +886,7 @@
       "monthly": 20.0,
       "credit_value": 20,
       "discount": 1.0,
-      "source": "awesome-coding-plan 2026-08（$20/月含 $20 API 用量 + 无限 Auto 模型）；2026-09-01 复核一致",
+      "source": "awesome-coding-plan 2026-08（$20/月含 $20 API 用量 + 无限 Auto 模型）；2026-10-15 复核一致",
       "note": "额度等价月费，倍率 1×；Ultra $200 档另有",
       "tokens": "$20 API 用量",
       "url": "https://cursor.com/pricing"
@@ -922,7 +900,7 @@
       "implied_value": 67.2,
       "discount": 0.2046,
       "tokens": "周16M uncached in/out",
-      "source": "kimi.com/membership/pricing 2026-09-01 官方常规标价（¥99/月），不用限时活动价；Andante 4× 额度，各档年付约 8 折",
+      "source": "kimi.com/membership/pricing 2026-10-15 官方常规标价（¥99/月），不用限时活动价；Andante 4× 额度，各档年付约 8 折",
       "note": "¥99/月（中档会员）；含 Kimi Code 4× 额度，共享 token 池",
       "url": "https://www.kimi.com/membership/pricing"
     },
@@ -935,7 +913,7 @@
       "implied_value": 1008.0,
       "discount": 0.0963,
       "tokens": "周240M uncached in/out",
-      "source": "kimi.com/membership/pricing 2026-09-01 官方常规标价（¥699/月），不用限时活动价；Andante 60× 额度",
+      "source": "kimi.com/membership/pricing 2026-10-15 官方常规标价（¥699/月），不用限时活动价；Andante 60× 额度",
       "note": "¥699/月（顶配旗舰）；含 Kimi Code 60× 额度、Agent Swarm 高并发集群支持",
       "url": "https://www.kimi.com/membership/pricing"
     },
@@ -948,7 +926,7 @@
       "implied_value": 17.5,
       "discount": 0.9143,
       "tokens": "≈6200万/月",
-      "source": "mimo.mi.com/docs/zh-CN/price/token-plan 2026-09-01 官方常规月费 6/¥99，不用限时优惠；11B Credits/月",
+      "source": "mimo.mi.com/docs/zh-CN/price/token-plan 2026-10-15 官方常规月费 6/¥99，不用限时优惠；11B Credits/月",
       "note": "官方 6/¥99 月；11B Credits/月 ≈ 1600 轮中等任务",
       "url": "https://mimo.mi.com/docs/zh-CN/price/token-plan"
     },
@@ -961,7 +939,7 @@
       "implied_value": 60.5,
       "discount": 0.8264,
       "tokens": "≈2.1亿/月",
-      "source": "mimo.mi.com/docs/zh-CN/price/token-plan 2026-09-01 官方常规月费 0/¥329，不用限时优惠；38B Credits/月",
+      "source": "mimo.mi.com/docs/zh-CN/price/token-plan 2026-10-15 官方常规月费 0/¥329，不用限时优惠；38B Credits/月",
       "note": "官方 0/¥329 月；38B Credits/月 ≈ 5600 轮中等任务",
       "url": "https://mimo.mi.com/docs/zh-CN/price/token-plan"
     },
@@ -977,7 +955,7 @@
       "credit_value": 70.0,
       "discount": 0.8571,
       "tokens": "$70 API 用量",
-      "source": "cursor.com/pricing 2026-09-01 官方长期标准定价 0/月，含 0 第三方模型 API 用量",
+      "source": "cursor.com/pricing 2026-10-15 官方长期标准定价 0/月，含 0 第三方模型 API 用量",
       "note": "进阶档；额度折合 API 单价 ×0.857（约 1.2x 倍率）",
       "url": "https://cursor.com/pricing"
     },
@@ -993,7 +971,7 @@
       "credit_value": 400.0,
       "discount": 0.5,
       "tokens": "$400 API 用量",
-      "source": "cursor.com/pricing 2026-09-01 官方长期标准定价 00/月，含 00 第三方模型 API 用量",
+      "source": "cursor.com/pricing 2026-10-15 官方长期标准定价 00/月，含 00 第三方模型 API 用量",
       "note": "个人顶级档；额度折合 API 单价 ×0.50（2x 倍率），无限 Tab 预测与高优先级并发",
       "url": "https://cursor.com/pricing"
     },
@@ -1007,7 +985,7 @@
       "credit_value": 25.0,
       "discount": 0.6,
       "tokens": "500 prompt credits/月",
-      "source": "codeium.com/windsurf 2026-09-01 官方常规月付标价 5/月，提供 500 次高级模型请求",
+      "source": "codeium.com/windsurf 2026-10-15 官方常规月付标价 5/月，提供 500 次高级模型请求",
       "note": "Codeium AI IDE 订阅；支持 Claude 3.5/3.7 Sonnet、GPT-4o 与自研 SWE-1.5",
       "url": "https://codeium.com/windsurf"
     },
@@ -1018,10 +996,11 @@
       "discount": 0.3333,
       "model_match": [
         "deepseek-v4*",
-        "qwen3.*-27b"
+        "qwen3.*-27b",
+        "deepseek-v4.1*"
       ],
       "tokens": "$60/月 API 用量",
-      "source": "ollama.com/blog/transparent-pricing 2026-09-01 官方透明定价；0/月含 0 额度（3x 倍率）",
+      "source": "ollama.com/blog/transparent-pricing 2026-10-15 官方透明定价；0/月含 0 额度（3x 倍率）",
       "note": "0/月包含 0 API 额度（3× 倍率），按 Token 计费，无 5 小时限额，支持 API 接入任意编程工具",
       "url": "https://ollama.com"
     },
@@ -1033,11 +1012,12 @@
       "model_match": [
         "deepseek-v4*",
         "glm-5*",
-        "kimi-k*"
+        "kimi-k*",
+        "deepseek-v4.1*"
       ],
       "exclude_match": [],
       "tokens": "每月最高 18,000 次请求",
-      "source": "volcengine.com 2026-09-01 官方常规标价 ¥40/月（按固定 7.2 折合 .56，不计限时活动首购）；每月最高 18,000 次请求，折合 API 成本约 1 折",
+      "source": "volcengine.com 2026-10-15 官方常规标价 ¥40/月（按固定 7.2 折合 .56，不计限时活动首购）；每月最高 18,000 次请求，折合 API 成本约 1 折",
       "note": "字节火山方舟 AI 编码订阅常规标价 ¥40/月；聚合 Doubao/GLM/Kimi/DeepSeek 多模型，多工具共享 API Key",
       "url": "https://www.volcengine.com"
     },
@@ -1049,11 +1029,12 @@
       "model_match": [
         "deepseek-v4*",
         "glm-5*",
-        "kimi-k*"
+        "kimi-k*",
+        "deepseek-v4.1*"
       ],
       "exclude_match": [],
       "tokens": "每月最高 90,000 次请求",
-      "source": "volcengine.com 2026-09-01 官方常规标价 ¥200/月（折合 7.78，不计限时促销）；每月最高 90,000 次请求，Lite 的 5 倍额度",
+      "source": "volcengine.com 2026-10-15 官方常规标价 ¥200/月（折合 7.78，不计限时促销）；每月最高 90,000 次请求，Lite 的 5 倍额度",
       "note": "字节火山方舟 AI 编码订阅常规标价 ¥200/月；5 倍 Lite 额度，多租户隔离高并发保障",
       "url": "https://www.volcengine.com"
     },
@@ -1068,10 +1049,12 @@
         "kimi-k*",
         "qwen3.*-max",
         "minimax-m*",
-        "mimo-v2.5*"
+        "mimo-v2.5*",
+        "deepseek-v4.1*",
+        "qwen3.8*"
       ],
       "tokens": "$70/月 API 用量",
-      "source": "commandcode.ai 2026-09-01 官方核验；GOAT 常规订阅 0/月含 0 额度（7x 倍率，不采用限时 Deal）",
+      "source": "commandcode.ai 2026-10-15 官方核验；GOAT 常规订阅 0/月含 0 额度（7x 倍率，不采用限时 Deal）",
       "note": "0/月含 0 API 额度（7× 倍率）；主打开源与国产旗舰，提供标准 API 接入任意客户端",
       "url": "https://commandcode.ai"
     },
@@ -1083,10 +1066,11 @@
       "model_match": [
         "kimi-k*",
         "glm-5*",
-        "deepseek-v4*"
+        "deepseek-v4*",
+        "deepseek-v4.1*"
       ],
       "tokens": "$60/月 API 用量",
-      "source": "r4.codes 2026-09-01 官方核验；常设预付费包 0 买 0 额度（6x 杠杆，30天有效）",
+      "source": "r4.codes 2026-10-15 官方核验；常设预付费包 0 买 0 额度（6x 杠杆，30天有效）",
       "note": "预付免订阅制（0 买 0 额度，6× 倍率）；聚焦 Kimi K3、GLM 5.3、DeepSeek V4，主打高缓存",
       "url": "https://r4.codes"
     },
@@ -1102,7 +1086,7 @@
       "monthly": 19.99,
       "discount": 1.0,
       "tokens": "660,000 计算积分/月",
-      "source": "poe.com 2026-09-01 官方核验；长期标准月费 9.99/月，660,000 计算积分/月",
+      "source": "poe.com 2026-10-15 官方核验；长期标准月费 9.99/月，660,000 计算积分/月",
       "note": "Quora 旗下多模型聚合订阅；积分制全模型通用，不折算名义倍率",
       "url": "https://poe.com"
     }
@@ -1124,16 +1108,16 @@
   "domain_hierarchies": {
     "code_agent": [
       "LiveBench Coding",
-      "DeepSWE",
+      "LiveBench Long-Horizon",
       "Terminal-Bench v4.0"
     ],
     "automation_web": [
-      "LiveBench Agentic Coding",
+      "LiveBench Browser",
       "tau3-Banking"
     ],
     "instruction": [
       "LCR",
-      "LiveBench Instruction Following"
+      "IFBench"
     ],
     "reasoning": [
       "LiveBench Reasoning",
@@ -1141,11 +1125,11 @@
       "HLE"
     ],
     "creative_literature": [
-      "LiveBench Language",
-      "LiveBench StoryGen"
+      "LiveBench Design",
+      "EQ-Bench Creative Writing"
     ],
     "professional_work": [
-      "LiveBench Summarize",
+      "LiveBench Research",
       "LiveBench Data Analysis",
       "AA-Briefcase"
     ]

@@ -1,26 +1,26 @@
 {
-  "run_date": "2026-10-12T08:12:09.017617+00:00",
+  "run_date": "2026-10-15T07:47:59.246594+00:00",
   "max_age_days": 21,
-  "online": true,
+  "online": false,
   "summary": {
     "plans": 48,
-    "pass": 0,
-    "warn": 48,
+    "pass": 48,
+    "warn": 0,
     "fail": 0
   },
   "coverage": {
     "summary": {
-      "total_models": 58,
-      "covered_count": 55,
-      "uncovered_count": 3,
-      "coverage_rate": 0.9483
+      "total_models": 60,
+      "covered_count": 58,
+      "uncovered_count": 2,
+      "coverage_rate": 0.9667
     },
     "forward": [
       {
         "name": "OpenCode Go",
         "monthly": 10.0,
         "discount": 0.167,
-        "hit_count": 18,
+        "hit_count": 20,
         "hits": [
           {
             "slug": "muse-spark-1.2",
@@ -143,6 +143,14 @@
             "fallback": false
           },
           {
+            "slug": "qwen3.8-flash-next",
+            "creator": "Alibaba",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": true
+          },
+          {
             "slug": "muse-spark-1.3",
             "creator": "Meta",
             "scale": 1.0,
@@ -165,6 +173,14 @@
             "effective_discount": 0.334,
             "multiplier": 2.99,
             "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision",
+            "creator": "DeepSeek",
+            "scale": 4.0,
+            "effective_discount": 0.668,
+            "multiplier": 1.5,
+            "fallback": true
           }
         ]
       },
@@ -172,7 +188,7 @@
         "name": "Ollama Pro",
         "monthly": 20.0,
         "discount": 0.3333,
-        "hit_count": 6,
+        "hit_count": 7,
         "hits": [
           {
             "slug": "deepseek-v4-pro",
@@ -221,6 +237,14 @@
             "effective_discount": 0.3333,
             "multiplier": 3.0,
             "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.3333,
+            "multiplier": 3.0,
+            "fallback": false
           }
         ]
       },
@@ -228,7 +252,7 @@
         "name": "火山方舟 Coding Plan Lite",
         "monthly": 5.56,
         "discount": 0.1,
-        "hit_count": 10,
+        "hit_count": 11,
         "hits": [
           {
             "slug": "deepseek-v4-pro",
@@ -304,6 +328,14 @@
           },
           {
             "slug": "deepseek-v4.1-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1,
+            "multiplier": 10.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision",
             "creator": "DeepSeek",
             "scale": 1.0,
             "effective_discount": 0.1,
@@ -316,7 +348,7 @@
         "name": "火山方舟 Coding Plan Pro",
         "monthly": 27.78,
         "discount": 0.0999,
-        "hit_count": 10,
+        "hit_count": 11,
         "hits": [
           {
             "slug": "deepseek-v4-pro",
@@ -397,6 +429,14 @@
             "effective_discount": 0.0999,
             "multiplier": 10.01,
             "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.0999,
+            "multiplier": 10.01,
+            "fallback": false
           }
         ]
       },
@@ -404,7 +444,7 @@
         "name": "Command Code GOAT",
         "monthly": 10.0,
         "discount": 0.1429,
-        "hit_count": 14,
+        "hit_count": 17,
         "hits": [
           {
             "slug": "deepseek-v4-pro",
@@ -487,6 +527,14 @@
             "fallback": false
           },
           {
+            "slug": "qwen3.8-27b",
+            "creator": "Alibaba",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
             "slug": "glm-5.3",
             "creator": "Z.AI",
             "scale": 1.0,
@@ -497,6 +545,14 @@
           {
             "slug": "glm-5.3-flash",
             "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
+          },
+          {
+            "slug": "qwen3.8-flash-next",
+            "creator": "Alibaba",
             "scale": 1.0,
             "effective_discount": 0.1429,
             "multiplier": 7.0,
@@ -517,6 +573,14 @@
             "effective_discount": 0.1429,
             "multiplier": 7.0,
             "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1429,
+            "multiplier": 7.0,
+            "fallback": false
           }
         ]
       },
@@ -524,7 +588,7 @@
         "name": "R4 Coder Code Lite",
         "monthly": 10.0,
         "discount": 0.1667,
-        "hit_count": 10,
+        "hit_count": 11,
         "hits": [
           {
             "slug": "deepseek-v4-pro",
@@ -605,6 +669,14 @@
             "effective_discount": 0.1667,
             "multiplier": 6.0,
             "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 0.1667,
+            "multiplier": 6.0,
+            "fallback": false
           }
         ]
       }
@@ -624,14 +696,6 @@
           "creator": "Thinking Machines",
           "status": "API 按量",
           "plan_name": null,
-          "discount": 1.0,
-          "multiplier": 1.0
-        },
-        {
-          "slug": "qwen3.8-flash-next",
-          "creator": "Alibaba",
-          "status": "名义原价 (Qwen Token Plan Lite)",
-          "plan_name": "Qwen Token Plan Lite",
           "discount": 1.0,
           "multiplier": 1.0
         }
@@ -960,10 +1024,10 @@
         {
           "slug": "qwen3.8-27b",
           "creator": "Alibaba",
-          "plan_name": "Ollama Pro",
-          "monthly": 20.0,
-          "discount": 0.3333,
-          "multiplier": 3.0
+          "plan_name": "Command Code GOAT",
+          "monthly": 10.0,
+          "discount": 0.1429,
+          "multiplier": 7.0
         },
         {
           "slug": "glm-5.3",
@@ -988,6 +1052,14 @@
           "monthly": 200,
           "discount": 0.025,
           "multiplier": 40.0
+        },
+        {
+          "slug": "qwen3.8-flash-next",
+          "creator": "Alibaba",
+          "plan_name": "Command Code GOAT",
+          "monthly": 10.0,
+          "discount": 0.1429,
+          "multiplier": 7.0
         },
         {
           "slug": "gemini-3.8-flash",
@@ -1076,6 +1148,22 @@
           "monthly": 300,
           "discount": 0.1875,
           "multiplier": 5.33
+        },
+        {
+          "slug": "deepseek-v4-flash-vision",
+          "creator": "DeepSeek",
+          "plan_name": "火山方舟 Coding Plan Pro",
+          "monthly": 27.78,
+          "discount": 0.0999,
+          "multiplier": 10.01
+        },
+        {
+          "slug": "gemma-4-31b",
+          "creator": "Google",
+          "plan_name": "GitHub Copilot Max",
+          "monthly": 100,
+          "discount": 0.5,
+          "multiplier": 2.0
         }
       ]
     }
@@ -1083,438 +1171,339 @@
   "entries": [
     {
       "name": "ChatGPT Pro 20x",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "ChatGPT Pro 20x: 最近核验日期 2026-09-01 距今 41 天（>21），待复核",
-        "ChatGPT Pro 20x: 官方页 HTTP 403（https://chatgpt.com/pricing）"
-      ],
-      "url_status": 403
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "ChatGPT Pro 5x",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "ChatGPT Pro 5x: 最近核验日期 2026-08-27 距今 46 天（>21），待复核",
-        "ChatGPT Pro 5x: 官方页 HTTP 403（https://chatgpt.com/pricing）"
-      ],
-      "url_status": 403
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "ChatGPT Plus",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "ChatGPT Plus: 最近核验日期 2026-09-01 距今 41 天（>21），待复核",
-        "ChatGPT Plus: 官方页 HTTP 403（https://chatgpt.com/pricing）"
-      ],
-      "url_status": 403
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Claude Max 20x",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Claude Max 20x: 最近核验日期 2026-09-14 距今 28 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Claude Max 5x",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Claude Max 5x: 最近核验日期 2026-09-14 距今 28 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Claude Pro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Claude Pro: 最近核验日期 2026-09-14 距今 28 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "MiniMax Max Token Plan",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "MiniMax Max Token Plan: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "MiniMax Ultra Token Plan",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "MiniMax Ultra Token Plan: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "MiniMax Plus Token Plan",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "MiniMax Plus Token Plan: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Kimi 会员 Allegretto",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Kimi 会员 Allegretto: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "SuperGrok Heavy",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "SuperGrok Heavy: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "SuperGrok",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "SuperGrok: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "GitHub Copilot Max",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "GitHub Copilot Max: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "GitHub Copilot Pro+",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "GitHub Copilot Pro+: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "GitHub Copilot Pro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "GitHub Copilot Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "GLM Coding Plan Lite",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "GLM Coding Plan Lite: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "GLM Coding Plan Pro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "GLM Coding Plan Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "GLM Coding Plan Max",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "GLM Coding Plan Max: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Lite",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Hy Token Plan Lite: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Max",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Hy Token Plan Max: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Lite",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "MiMo Token Plan Lite: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Max",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "MiMo Token Plan Max: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Qwen Token Plan Lite",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Qwen Token Plan Lite: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Qwen Token Plan Standard",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Qwen Token Plan Standard: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Qwen Token Plan Pro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Qwen Token Plan Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "WorkBuddy 高级版",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "WorkBuddy 高级版: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "WorkBuddy 标准版",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "WorkBuddy 标准版: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "WorkBuddy 旗舰版",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "WorkBuddy 旗舰版: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Standard",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Hy Token Plan Standard: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Pro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Hy Token Plan Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "OpenCode Go",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "OpenCode Go: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Kimi Andante",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Kimi Andante: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Factory Droid Pro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Factory Droid Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Trae Pro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Trae Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Cursor Pro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Cursor Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Kimi Moderato",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Kimi Moderato: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Kimi Allegro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Kimi Allegro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Standard",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "MiMo Token Plan Standard: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Pro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "MiMo Token Plan Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Cursor Pro+",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Cursor Pro+: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Cursor Ultra",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Cursor Ultra: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Windsurf Pro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Windsurf Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Ollama Pro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Ollama Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "火山方舟 Coding Plan Lite",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "火山方舟 Coding Plan Lite: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "火山方舟 Coding Plan Pro",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "火山方舟 Coding Plan Pro: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Command Code GOAT",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Command Code GOAT: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "R4 Coder Code Lite",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "R4 Coder Code Lite: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Poe Premium",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "Poe Premium: 最近核验日期 2026-09-01 距今 41 天（>21），待复核"
-      ],
-      "url_status": 200
+      "warnings": [],
+      "url_status": null
     }
   ]
 }

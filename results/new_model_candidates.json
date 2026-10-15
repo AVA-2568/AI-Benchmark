@@ -1,26 +1,29 @@
 {
   "new_models": {
     "livebench.csv": [
-      "nemotron-3-ultra-550b-a55b",
-      "ox-alpha-max",
-      "smaug-agentic",
-      "smaug-flash",
-      "smaug-mini"
+      "claude-haiku-4.5",
+      "claude-haiku-5.5",
+      "gemini-4-argon",
+      "mimo-v2.6-pro",
+      "mistral-large-4",
+      "muse-wonder-1.0",
+      "nemotron-lightning-3.5",
+      "nemotron-ultra-3",
+      "qwen3.8-flash",
+      "smaug-flash"
     ],
     "deepswe.csv": []
   },
   "missing_aliases": {
     "aa": [],
-    "eqbench": [
-      "deepseek-v4.1-flash -> deepseek-v4.1-flash"
-    ],
+    "eqbench": [],
     "deepswe": [],
     "livebench": []
   },
   "deferred": [
     {
-      "name": "nemotron-3-ultra-550b-a55b",
-      "slug": "nemotron-3-ultra-550b-a55b",
+      "name": "claude-haiku-4.5",
+      "slug": "claude-haiku-4.5",
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,
@@ -29,8 +32,8 @@
       }
     },
     {
-      "name": "ox-alpha-max",
-      "slug": "ox-alpha",
+      "name": "claude-haiku-5.5",
+      "slug": "claude-haiku-5.5",
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,
@@ -39,8 +42,68 @@
       }
     },
     {
-      "name": "smaug-agentic",
-      "slug": "smaug-agentic",
+      "name": "gemini-4-argon",
+      "slug": "gemini-4-argon",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
+      "name": "mimo-v2.6-pro",
+      "slug": "mimo-v2.6-pro",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
+      "name": "mistral-large-4",
+      "slug": "mistral-large-4",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
+      "name": "muse-wonder-1.0",
+      "slug": "muse-wonder-1.0",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
+      "name": "nemotron-lightning-3.5",
+      "slug": "nemotron-lightning-3.5",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
+      "name": "nemotron-ultra-3",
+      "slug": "nemotron-ultra-3",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
+      "name": "qwen3.8-flash",
+      "slug": "qwen3.8-flash",
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,
@@ -51,16 +114,6 @@
     {
       "name": "smaug-flash",
       "slug": "smaug-flash",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "smaug-mini",
-      "slug": "smaug-mini",
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,

@@ -135,17 +135,13 @@ def build_merged():
 
     # 指标名（与 config.json imputation_pool 一致）
     cols = [
-        "Terminal-Bench v4.0", "DeepSWE", "LiveBench Coding",
-        "tau3-Banking", "LiveBench Agentic Coding", "LiveBench Data Analysis",
-        "LiveBench Instruction Following", "LCR",
-        "HLE", "SciCode", "LiveBench Reasoning",
-        "EQ-Bench Creative Writing", "LiveBench Language", "Omniscience Index",
-        # 文本榜五维指标
-        "LiveBench StoryGen",
-        "AA-Briefcase", "LiveBench Summarize",
-        "LiveBench Simplify",
-        "Omniscience Non-Halluc.",
-        "LiveBench Theory of Mind", "CritPt",
+        "Terminal-Bench v4.0", "LiveBench Long-Horizon", "LiveBench Coding",
+        "tau3-Banking", "LiveBench Browser", "LiveBench Data Analysis",
+        "IFBench", "LCR", "HLE", "SciCode", "LiveBench Reasoning",
+        "Omniscience Index", "Omniscience Non-Halluc.",
+        "EQ-Bench Creative Writing",
+        "LiveBench Research", "LiveBench Design",
+        "AA-Briefcase", "CritPt",
     ]
 
     out_rows = []
@@ -153,25 +149,16 @@ def build_merged():
         slug = m["slug"]
         row = {"Model": slug, "Creator": m["creator"], "Vision": m.get("vision", False)}
 
-        # LiveBench
+        # LiveBench 2.0
         lb_row, lb_name = _pick_max(lb, m.get("livebench"))
         if lb_row:
             row["LiveBench Coding"] = _num(lb_row.get("Coding"))
-            row["LiveBench Agentic Coding"] = _num(lb_row.get("Agentic Coding"))
+            row["LiveBench Long-Horizon"] = _num(lb_row.get("Long-Horizon"))
+            row["LiveBench Browser"] = _num(lb_row.get("Browser"))
             row["LiveBench Data Analysis"] = _num(lb_row.get("Data Analysis"))
-            row["LiveBench Instruction Following"] = _num(lb_row.get("IF"))
-            row["LiveBench Language"] = _num(lb_row.get("Language"))
             row["LiveBench Reasoning"] = _num(lb_row.get("Reasoning"))
-            # 细分任务列
-            row["LiveBench StoryGen"] = _num(lb_row.get("LiveBench StoryGen"))
-            row["LiveBench Summarize"] = _num(lb_row.get("LiveBench Summarize"))
-            row["LiveBench Simplify"] = _num(lb_row.get("LiveBench Simplify"))
-            row["LiveBench Theory of Mind"] = _num(lb_row.get("LiveBench Theory of Mind"))
-
-        # DeepSWE
-        ds_row, _ = _pick_max(ds, m.get("deepswe"))
-        if ds_row:
-            row["DeepSWE"] = _num(ds_row.get("Pass@1"))
+            row["LiveBench Research"] = _num(lb_row.get("Research"))
+            row["LiveBench Design"] = _num(lb_row.get("Design"))
 
         # EQ-Bench
         eq_row, _ = _pick_max(eq, m.get("eqbench"))
@@ -183,6 +170,7 @@ def build_merged():
         if aa_row:
             row["Terminal-Bench v4.0"] = _num(aa_row.get("Terminal-Bench v4.0"))
             row["tau3-Banking"] = _num(aa_row.get("tau3-Banking"))
+            row["IFBench"] = _num(aa_row.get("IFBench"))
             row["LCR"] = _num(aa_row.get("LCR"))
             row["Omniscience Index"] = _num(aa_row.get("Omniscience Index"))
             row["Omniscience Non-Halluc."] = _num(aa_row.get("Omniscience Non-Halluc."))
