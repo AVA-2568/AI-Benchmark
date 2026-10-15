@@ -120,7 +120,7 @@ PARSERS = [
 # 数据哨兵阈值（模块级常量，供单测断言）
 MIN_ROWS = 800
 SENTINEL_FIELDS = [
-    "gdpvalNormalized", "terminalbenchHard", "terminalbenchV40", "scicode",
+    "gdpvalNormalized", "terminalbenchHard", "terminalBench40", "scicode",
     "lcr", "omniscience", "ifbench", "hle", "briefcase",
     "omniscienceAccuracy", "omniscienceNonHallucination",
 ]
@@ -133,12 +133,15 @@ KNOWN_PERF = {"medianOutputTokensPerSecond", "percentile05OutputTokensPerSec"}
 
 
 def get(row, spec):
-    """按 spec 路径（如 ("Model","model","slug")）从嵌套 dict 取值。"""
+    """按 spec 路径（如 ("Model","model","slug")）从嵌套 dict 取值，支持 tuple 备选键。"""
     cur = row
     for p in spec[1:]:
         if not isinstance(cur, dict):
             return None
-        cur = cur.get(p)
+        if isinstance(p, (tuple, list)):
+            cur = next((cur.get(k) for k in p if cur.get(k) is not None), None)
+        else:
+            cur = cur.get(p)
     return cur
 
 
@@ -211,8 +214,8 @@ def build_cols(rows):
         ("GDPval-AA", "model", "gdpvalNormalized"),
         ("AA-Briefcase", "model", "briefcase", "elo"),
         ("Terminal-Bench Hard", "model", "terminalbenchHard"),
-        ("Terminal-Bench v2.1", "model", "terminalbenchV21"),
-        ("Terminal-Bench v4.0", "model", "terminalbenchV40"),
+        ("Terminal-Bench v2.1", "model", ("terminalBench21", "terminalbenchV21")),
+        ("Terminal-Bench v4.0", "model", "terminalBench40"),
         ("tau2-Bench Telecom", "model", "tau2"),
         ("tau3-Banking", "model", "tauBanking"),
         ("LCR", "model", "lcr"),

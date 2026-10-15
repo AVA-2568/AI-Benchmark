@@ -719,6 +719,57 @@
       "vision": true,
       "auto_added": "2026-10-15",
       "openrouter": "google/gemma-4-31b-it"
+    },
+    {
+      "slug": "claude-haiku-5.5",
+      "creator": "Anthropic",
+      "aa": "claude-haiku-5-5",
+      "livebench": [
+        "claude-haiku-5-5-max-effort",
+        "claude-haiku-5-5-xhigh-effort",
+        "claude-haiku-5.5"
+      ],
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": false,
+      "auto_added": "2026-10-15"
+    },
+    {
+      "slug": "gemini-4-argon",
+      "creator": "Google",
+      "aa": "gemini-4-argon",
+      "livebench": "gemini-4-argon",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": false,
+      "auto_added": "2026-10-15"
+    },
+    {
+      "slug": "mimo-v2.6-pro",
+      "creator": "Xiaomi",
+      "aa": "mimo-v2-6-pro",
+      "livebench": "mimo-v2.6-pro",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": false,
+      "auto_added": "2026-10-15"
+    },
+    {
+      "slug": "mistral-large-4",
+      "creator": "Mistral",
+      "aa": "mistral-large-4",
+      "livebench": [
+        "mistral-large-4",
+        "mistral-large-4-high"
+      ],
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": false,
+      "auto_added": "2026-10-15"
     }
   ]
 }

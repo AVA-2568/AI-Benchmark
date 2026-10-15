@@ -2,13 +2,6 @@
   "new_models": {
     "livebench.csv": [
       "claude-haiku-4.5",
-      "claude-haiku-5-5-max-effort",
-      "claude-haiku-5-5-xhigh-effort",
-      "claude-haiku-5.5",
-      "gemini-4-argon",
-      "mimo-v2.6-pro",
-      "mistral-large-4",
-      "mistral-large-4-high",
       "muse-wonder-1.0",
       "muse-wonder-1.0-max",
       "nemotron-3-ultra-550b-a55b",
@@ -32,46 +25,6 @@
     {
       "name": "claude-haiku-4.5",
       "slug": "claude-haiku-4.5",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "claude-haiku-5-5-max-effort",
-      "slug": "claude-haiku-5.5",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "gemini-4-argon",
-      "slug": "gemini-4-argon",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "mimo-v2.6-pro",
-      "slug": "mimo-v2.6-pro",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "mistral-large-4",
-      "slug": "mistral-large-4",
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,

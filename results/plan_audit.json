@@ -1,5 +1,5 @@
 {
-  "run_date": "2026-10-15T08:08:15.615520+00:00",
+  "run_date": "2026-10-15T10:47:28.793003+00:00",
   "max_age_days": 21,
   "online": false,
   "summary": {
@@ -10,10 +10,10 @@
   },
   "coverage": {
     "summary": {
-      "total_models": 60,
-      "covered_count": 58,
-      "uncovered_count": 2,
-      "coverage_rate": 0.9667
+      "total_models": 64,
+      "covered_count": 61,
+      "uncovered_count": 3,
+      "coverage_rate": 0.9531
     },
     "forward": [
       {
@@ -698,6 +698,14 @@
           "plan_name": null,
           "discount": 1.0,
           "multiplier": 1.0
+        },
+        {
+          "slug": "mistral-large-4",
+          "creator": "Mistral",
+          "status": "API 按量",
+          "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
         }
       ],
       "covered": [
@@ -1164,6 +1172,30 @@
           "monthly": 100,
           "discount": 0.5,
           "multiplier": 2.0
+        },
+        {
+          "slug": "claude-haiku-5.5",
+          "creator": "Anthropic",
+          "plan_name": "Claude Max 20x",
+          "monthly": 200,
+          "discount": 0.025,
+          "multiplier": 40.0
+        },
+        {
+          "slug": "gemini-4-argon",
+          "creator": "Google",
+          "plan_name": "GitHub Copilot Max",
+          "monthly": 100,
+          "discount": 0.5,
+          "multiplier": 2.0
+        },
+        {
+          "slug": "mimo-v2.6-pro",
+          "creator": "Xiaomi",
+          "plan_name": "MiMo Token Plan Max",
+          "monthly": 100.0,
+          "discount": 0.79,
+          "multiplier": 1.27
         }
       ]
     }
