@@ -137,7 +137,7 @@ def build_merged():
     cols = [
         "Terminal-Bench v4.0", "LiveBench Long-Horizon", "LiveBench Coding",
         "tau3-Banking", "LiveBench Browser", "LiveBench Data Analysis",
-        "IFBench", "LCR", "HLE", "SciCode", "LiveBench Reasoning",
+        "LCR", "HLE", "SciCode", "LiveBench Reasoning",
         "Omniscience Index", "Omniscience Non-Halluc.",
         "EQ-Bench Creative Writing",
         "LiveBench Research", "LiveBench Design",
@@ -170,7 +170,6 @@ def build_merged():
         if aa_row:
             row["Terminal-Bench v4.0"] = _num(aa_row.get("Terminal-Bench v4.0"))
             row["tau3-Banking"] = _num(aa_row.get("tau3-Banking"))
-            row["IFBench"] = _num(aa_row.get("IFBench"))
             row["LCR"] = _num(aa_row.get("LCR"))
             row["Omniscience Index"] = _num(aa_row.get("Omniscience Index"))
             row["Omniscience Non-Halluc."] = _num(aa_row.get("Omniscience Non-Halluc."))

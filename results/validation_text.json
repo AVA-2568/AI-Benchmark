@@ -1,37 +1,32 @@
 {
   "EQ-Bench Creative Writing": {
-    "mae": 87.8974,
-    "pct_over10": 11.4,
+    "mae": 125.8659,
+    "pct_over10": 25.7,
     "n": 35
   },
   "LiveBench Design": {
-    "mae": 3.5124,
-    "pct_over10": 11.8,
-    "n": 34
+    "mae": 4.2078,
+    "pct_over10": 24.1,
+    "n": 58
   },
   "AA-Briefcase": {
-    "mae": 135.8211,
-    "pct_over10": 40.4,
+    "mae": 202.7468,
+    "pct_over10": 63.8,
     "n": 47
   },
   "LiveBench Research": {
-    "mae": 8.8152,
-    "pct_over10": 50.0,
-    "n": 34
+    "mae": 8.9536,
+    "pct_over10": 51.7,
+    "n": 58
   },
   "LiveBench Data Analysis": {
-    "mae": 5.0654,
-    "pct_over10": 17.6,
-    "n": 34
-  },
-  "IFBench": {
-    "mae": 0.0747,
-    "pct_over10": 42.3,
-    "n": 26
+    "mae": 4.3784,
+    "pct_over10": 15.5,
+    "n": 58
   },
   "LCR": {
-    "mae": 0.0248,
-    "pct_over10": 5.6,
+    "mae": 0.0244,
+    "pct_over10": 3.7,
     "n": 54
   },
   "Omniscience Index": {
@@ -45,9 +40,9 @@
     "n": 54
   },
   "LiveBench Reasoning": {
-    "mae": 2.6042,
-    "pct_over10": 5.9,
-    "n": 34
+    "mae": 3.227,
+    "pct_over10": 6.9,
+    "n": 58
   },
   "CritPt": {
     "mae": 0.0705,

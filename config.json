@@ -10,7 +10,6 @@
       "LiveBench Browser"
     ],
     "instruction": [
-      "IFBench",
       "LCR"
     ],
     "reasoning": [
@@ -42,7 +41,6 @@
     "tau3-Banking",
     "LiveBench Browser",
     "LiveBench Data Analysis",
-    "IFBench",
     "LCR",
     "HLE",
     "SciCode",
@@ -79,10 +77,6 @@
     "LiveBench Data Analysis": [
       0,
       100
-    ],
-    "IFBench": [
-      0,
-      1
     ],
     "LCR": [
       0,
@@ -176,12 +170,8 @@
           "weight": 0.2,
           "metrics": [
             {
-              "name": "IFBench",
-              "sub_weight": 0.5
-            },
-            {
               "name": "LCR",
-              "sub_weight": 0.5
+              "sub_weight": 1.0
             }
           ]
         },
@@ -257,12 +247,8 @@
           "weight": 0.2,
           "metrics": [
             {
-              "name": "IFBench",
-              "sub_weight": 0.5
-            },
-            {
               "name": "LCR",
-              "sub_weight": 0.5
+              "sub_weight": 1.0
             }
           ]
         },
@@ -343,12 +329,8 @@
           "weight": 0.2,
           "metrics": [
             {
-              "name": "IFBench",
-              "sub_weight": 0.5
-            },
-            {
               "name": "LCR",
-              "sub_weight": 0.5
+              "sub_weight": 1.0
             }
           ]
         },
@@ -1116,8 +1098,7 @@
       "tau3-Banking"
     ],
     "instruction": [
-      "LCR",
-      "IFBench"
+      "LCR"
     ],
     "reasoning": [
       "LiveBench Reasoning",

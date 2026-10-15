@@ -2,15 +2,23 @@
   "new_models": {
     "livebench.csv": [
       "claude-haiku-4.5",
+      "claude-haiku-5-5-max-effort",
+      "claude-haiku-5-5-xhigh-effort",
       "claude-haiku-5.5",
       "gemini-4-argon",
       "mimo-v2.6-pro",
       "mistral-large-4",
+      "mistral-large-4-high",
       "muse-wonder-1.0",
+      "muse-wonder-1.0-max",
+      "nemotron-3-ultra-550b-a55b",
       "nemotron-lightning-3.5",
       "nemotron-ultra-3",
+      "ox-alpha-max",
       "qwen3.8-flash",
-      "smaug-flash"
+      "smaug-agentic",
+      "smaug-flash",
+      "smaug-mini"
     ],
     "deepswe.csv": []
   },
@@ -32,7 +40,7 @@
       }
     },
     {
-      "name": "claude-haiku-5.5",
+      "name": "claude-haiku-5-5-max-effort",
       "slug": "claude-haiku-5.5",
       "reason": "insufficient_confirmation",
       "sources": {
@@ -82,6 +90,26 @@
       }
     },
     {
+      "name": "muse-wonder-1.0-max",
+      "slug": "muse-wonder-1.0-max",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
+      "name": "nemotron-3-ultra-550b-a55b",
+      "slug": "nemotron-3-ultra-550b-a55b",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
       "name": "nemotron-lightning-3.5",
       "slug": "nemotron-lightning-3.5",
       "reason": "insufficient_confirmation",
@@ -102,6 +130,16 @@
       }
     },
     {
+      "name": "ox-alpha-max",
+      "slug": "ox-alpha",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
       "name": "qwen3.8-flash",
       "slug": "qwen3.8-flash",
       "reason": "insufficient_confirmation",
@@ -112,8 +150,28 @@
       }
     },
     {
+      "name": "smaug-agentic",
+      "slug": "smaug-agentic",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
       "name": "smaug-flash",
       "slug": "smaug-flash",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
+      "name": "smaug-mini",
+      "slug": "smaug-mini",
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,
