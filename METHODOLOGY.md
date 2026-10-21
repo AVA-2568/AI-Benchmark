@@ -58,6 +58,18 @@
 
 **分模型成本修正 `model_cost_scale`**：积分/Credits 制套餐对不同模型的抵扣密度可能不同——套餐折扣以旗舰锚点折出，对积分系数不同的衍生模型会系统性偏差。典型案例：智谱 GLM Coding Plan 的积分以 GLM-5.3 标准版标定（In 690/Cached 170/Out 2400 积分每 M token），而 glm-5.3-flash 的积分系数恰为标准版 1/3（230/56/800），但 flash 的 API 牌价约为标准版 1/9~1/10，导致直接沿用标准版折扣时 flash 的 effective 价格系统性虚低约 3 倍。config 在 plan 上以 `model_cost_scale` 给出经官方积分系数核实的乘数（如 `{"glm-5.3-flash": 3.0}`）。**乘数在套餐选择之前应用**：`_plan_for` 按修正后的实付折扣比较、选出对「这个模型」实付最优的套餐并返回带修正折扣的副本——不存在「选择用名义、实付用修正」的分离（旧语义会让 kimi-k3 选中名义 6× 但 $15 档实付 1.5× 的 OpenCode Go，比固定 4.5× 的 Kimi 会员贵 3 倍）。其他厂商（OpenAI / Anthropic / xAI / Copilot）未公布分模型配额，属不可修黑盒，维持锚点折扣。
 
+### 套餐-模型精确白名单与排除机制（映射表）
+
+为避免套餐不包含的模型（或同厂商中未开放给该套餐的模型）错误享受套餐倍率优惠，系统对所有套餐实施**白名单（`model_match`）+ 排除黑名单（`exclude_match`）精准映射**：
+
+1. **跨厂商聚合与 AI IDE 严禁粗粒度厂商匹配**：GitHub Copilot、Cursor、Windsurf、Trae、Factory Droid、Poe、OpenCode Go、火山方舟等聚合套餐，全部移除 `creator_match`，必须以 `model_match` 显式列出实际支持的模型模式（如 Copilot 仅匹配 `claude-sonnet*`、`gemini-3.*-flash`、`gemini-3.1-pro`、`gpt-5/6` 旗舰，排除未集成/开源模型如 `gemini-4-argon`、`gemma*`、`claude-opus*`）。
+2. **第一方订阅排除非目标模型**：ChatGPT（Plus/Pro）与 Claude（Pro/Max）通过 `exclude_match` 明确排除 API 端专用微型模型（`*-nano`、`*-codex`）以及轻量/实验模型（如 `claude-haiku-5.5`、`claude-fable*`），防止跑满几十倍杠杆折算在廉价模型上产生数万分的虚高畸变。
+3. **判定算法统一对齐（`_plan_matches`）**：
+   - 若模型命中 `exclude_match`，一票否决；
+   - 若套餐定义了 `model_match`，模型必须命中 `model_match`（定义了 `creator_match` 时还须满足厂商归属），未命中则坚决判定不匹配，严禁被 `creator_match` 旁路；
+   - 若套餐未定义 `model_match`，才按 `creator_match` 判定。
+4. **未收录模型正确定价**：未收录于任何有效折扣套餐的模型（如 Google 的 Gemini 4 Argon、Gemma 4 31B、Gemini 3.5 Flash Lite，Anthropic 的 Claude Haiku 5.5、Claude Fable，OpenAI 的 Nano/Codex，Meta 的 Muse Spark 1.1，Thinking Machines 的 Inkling，Mistral 的 Mistral Large 4），在性价比榜与透视表中统一明确归为 `API 按量`（倍率 1×、Effective $/1M 等于混合价），真实反映无订阅时的实际调用成本。
+
 ### 套餐数据自动核验
 
 套餐是性价比榜的地基，且口径随官方调价漂移。`scripts/verify_plans.py` 做三层检查，人只在告警时介入：

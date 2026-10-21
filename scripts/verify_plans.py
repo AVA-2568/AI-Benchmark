@@ -45,9 +45,9 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 if BASE not in sys.path:
     sys.path.insert(0, BASE)
 try:
-    from pipeline.scoring import _match_pattern, _resolve_scale, _plan_for
+    from pipeline.scoring import _match_pattern, _resolve_scale, _plan_for, _plan_matches
 except ImportError:
-    from scripts.pipeline.scoring import _match_pattern, _resolve_scale, _plan_for
+    from scripts.pipeline.scoring import _match_pattern, _resolve_scale, _plan_for, _plan_matches
 
 REPO_ROOT = os.path.dirname(BASE)
 CONFIG = os.path.join(REPO_ROOT, "config.json")
@@ -343,10 +343,7 @@ def build_coverage_matrix(plans, registry_models=None):
         hits = []
         for m in model_list:
             slug, creator = m["slug"], m["creator"]
-            if _match_pattern(slug, ex_match):
-                continue
-            matched = (creator in c_match) or _match_pattern(slug, m_match)
-            if not matched:
+            if not _plan_matches(p, creator, slug):
                 continue
             scale, eff_discount, fallback = resolve_plan_model_scale(p, slug)
             hits.append({

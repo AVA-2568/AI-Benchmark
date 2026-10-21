@@ -1,21 +1,853 @@
 {
-  "run_date": "2026-10-19T07:03:33.178737+00:00",
+  "run_date": "2026-10-21T03:05:06.801513+00:00",
   "max_age_days": 21,
-  "online": true,
+  "online": false,
   "summary": {
     "plans": 48,
-    "pass": 45,
-    "warn": 3,
+    "pass": 48,
+    "warn": 0,
     "fail": 0
   },
   "coverage": {
     "summary": {
       "total_models": 64,
-      "covered_count": 61,
-      "uncovered_count": 3,
-      "coverage_rate": 0.9531
+      "covered_count": 53,
+      "uncovered_count": 11,
+      "coverage_rate": 0.8281
     },
     "forward": [
+      {
+        "name": "GitHub Copilot Max",
+        "monthly": 100,
+        "discount": 0.5,
+        "hit_count": 17,
+        "hits": [
+          {
+            "slug": "claude-sonnet-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.5",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.4",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.1-pro",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.5-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.6-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.7-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.8-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.1-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "GitHub Copilot Pro+",
+        "monthly": 39,
+        "discount": 0.557,
+        "hit_count": 17,
+        "hits": [
+          {
+            "slug": "claude-sonnet-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.5",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.4",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.1-pro",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.5-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.6-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.7-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.8-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.1-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "GitHub Copilot Pro",
+        "monthly": 10,
+        "discount": 0.667,
+        "hit_count": 17,
+        "hits": [
+          {
+            "slug": "claude-sonnet-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.5",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.4",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.1-pro",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.5-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.6-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.7-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.8-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.1-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "Hy Token Plan Lite",
+        "monthly": 3.9,
+        "discount": 0.81,
+        "hit_count": 1,
+        "hits": [
+          {
+            "slug": "hy3",
+            "creator": "Tencent",
+            "scale": 1.0,
+            "effective_discount": 0.81,
+            "multiplier": 1.23,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "Hy Token Plan Max",
+        "monthly": 65.0,
+        "discount": 0.735,
+        "hit_count": 1,
+        "hits": [
+          {
+            "slug": "hy3",
+            "creator": "Tencent",
+            "scale": 1.0,
+            "effective_discount": 0.735,
+            "multiplier": 1.36,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "WorkBuddy 高级版",
+        "monthly": 27.6,
+        "discount": 1.0,
+        "hit_count": 13,
+        "hits": [
+          {
+            "slug": "deepseek-v4-pro",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k3",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.6",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.7-code",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.2",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "minimax-m3",
+            "creator": "MiniMax",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "hy3",
+            "creator": "Tencent",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3-flash",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision-exp",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4.1-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "WorkBuddy 标准版",
+        "monthly": 13.8,
+        "discount": 1.0,
+        "hit_count": 13,
+        "hits": [
+          {
+            "slug": "deepseek-v4-pro",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k3",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.6",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.7-code",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.2",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "minimax-m3",
+            "creator": "MiniMax",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "hy3",
+            "creator": "Tencent",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3-flash",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision-exp",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4.1-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "WorkBuddy 旗舰版",
+        "monthly": 138.8,
+        "discount": 1.0,
+        "hit_count": 13,
+        "hits": [
+          {
+            "slug": "deepseek-v4-pro",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k3",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.6",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "kimi-k2.7-code",
+            "creator": "Moonshot AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.2",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "minimax-m3",
+            "creator": "MiniMax",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "hy3",
+            "creator": "Tencent",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "glm-5.3-flash",
+            "creator": "Z.AI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision-exp",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4.1-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "Hy Token Plan Standard",
+        "monthly": 10.83,
+        "discount": 0.79,
+        "hit_count": 1,
+        "hits": [
+          {
+            "slug": "hy3",
+            "creator": "Tencent",
+            "scale": 1.0,
+            "effective_discount": 0.79,
+            "multiplier": 1.27,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "Hy Token Plan Pro",
+        "monthly": 33.06,
+        "discount": 0.76,
+        "hit_count": 1,
+        "hits": [
+          {
+            "slug": "hy3",
+            "creator": "Tencent",
+            "scale": 1.0,
+            "effective_discount": 0.76,
+            "multiplier": 1.32,
+            "fallback": false
+          }
+        ]
+      },
       {
         "name": "OpenCode Go",
         "monthly": 10.0,
@@ -181,6 +1013,1038 @@
             "effective_discount": 0.668,
             "multiplier": 1.5,
             "fallback": true
+          }
+        ]
+      },
+      {
+        "name": "Factory Droid Pro",
+        "monthly": 20.0,
+        "discount": 0.417,
+        "hit_count": 18,
+        "hits": [
+          {
+            "slug": "claude-opus-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.8",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.7",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.5",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.4",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.1-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "Trae Pro",
+        "monthly": 10.0,
+        "discount": 0.5,
+        "hit_count": 12,
+        "hits": [
+          {
+            "slug": "claude-sonnet-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.5",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.4",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.1-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "Cursor Pro",
+        "monthly": 20.0,
+        "discount": 1.0,
+        "hit_count": 27,
+        "hits": [
+          {
+            "slug": "claude-opus-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.8",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.7",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.5",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.4",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.1-pro",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.5-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.6-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.7-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.6",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.5",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.3",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.8-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.1-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.7",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "Cursor Pro+",
+        "monthly": 60.0,
+        "discount": 0.8571,
+        "hit_count": 27,
+        "hits": [
+          {
+            "slug": "claude-opus-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.8",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.7",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.5",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.4",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.1-pro",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.5-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.6-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.7-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.6",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.5",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.3",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.8-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.1-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.7",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "Cursor Ultra",
+        "monthly": 200.0,
+        "discount": 0.5,
+        "hit_count": 27,
+        "hits": [
+          {
+            "slug": "claude-opus-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.8",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.7",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.5",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.4",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.1-pro",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.5-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.6-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.7-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.6",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.5",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.3",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.8-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.1-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.7",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          }
+        ]
+      },
+      {
+        "name": "Windsurf Pro",
+        "monthly": 15.0,
+        "discount": 0.6,
+        "hit_count": 12,
+        "hits": [
+          {
+            "slug": "claude-sonnet-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.5",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.4",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.1-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
           }
         ]
       },
@@ -679,10 +2543,306 @@
             "fallback": false
           }
         ]
+      },
+      {
+        "name": "Poe Premium",
+        "monthly": 19.99,
+        "discount": 1.0,
+        "hit_count": 32,
+        "hits": [
+          {
+            "slug": "claude-opus-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.8",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.7",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-4.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-4.6",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.5",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-5.4",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.1-pro",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.5-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.6-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.7-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.6",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.5",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.3",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-pro",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.8-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision-exp",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4.1-flash",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-opus-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "claude-sonnet-5.5",
+            "creator": "Anthropic",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-luna",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.1-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "grok-4.7",
+            "creator": "xAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "deepseek-v4-flash-vision",
+            "creator": "DeepSeek",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          }
+        ]
       }
     ],
     "reverse": {
       "uncovered": [
+        {
+          "slug": "claude-fable-5",
+          "creator": "Anthropic",
+          "status": "API 按量",
+          "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
+        },
+        {
+          "slug": "gpt-5.4-nano",
+          "creator": "OpenAI",
+          "status": "API 按量",
+          "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
+        },
+        {
+          "slug": "gpt-5.2-codex",
+          "creator": "OpenAI",
+          "status": "API 按量",
+          "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
+        },
+        {
+          "slug": "gemini-3.5-flash-lite",
+          "creator": "Google",
+          "status": "API 按量",
+          "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
+        },
         {
           "slug": "muse-spark-1.1",
           "creator": "Meta",
@@ -700,6 +2860,38 @@
           "multiplier": 1.0
         },
         {
+          "slug": "claude-fable-5.1",
+          "creator": "Anthropic",
+          "status": "API 按量",
+          "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
+        },
+        {
+          "slug": "gemma-4-31b",
+          "creator": "Google",
+          "status": "API 按量",
+          "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
+        },
+        {
+          "slug": "claude-haiku-5.5",
+          "creator": "Anthropic",
+          "status": "API 按量",
+          "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
+        },
+        {
+          "slug": "gemini-4-argon",
+          "creator": "Google",
+          "status": "API 按量",
+          "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
+        },
+        {
           "slug": "mistral-large-4",
           "creator": "Mistral",
           "status": "API 按量",
@@ -709,14 +2901,6 @@
         }
       ],
       "covered": [
-        {
-          "slug": "claude-fable-5",
-          "creator": "Anthropic",
-          "plan_name": "Claude Max 20x",
-          "monthly": 200,
-          "discount": 0.025,
-          "multiplier": 40.0
-        },
         {
           "slug": "claude-opus-5",
           "creator": "Anthropic",
@@ -822,23 +3006,7 @@
           "multiplier": 69.93
         },
         {
-          "slug": "gpt-5.4-nano",
-          "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
-          "monthly": 200,
-          "discount": 0.0143,
-          "multiplier": 69.93
-        },
-        {
           "slug": "gpt-5.2",
-          "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
-          "monthly": 200,
-          "discount": 0.0143,
-          "multiplier": 69.93
-        },
-        {
-          "slug": "gpt-5.2-codex",
           "creator": "OpenAI",
           "plan_name": "ChatGPT Pro 20x",
           "monthly": 200,
@@ -871,14 +3039,6 @@
         },
         {
           "slug": "gemini-3.7-flash",
-          "creator": "Google",
-          "plan_name": "GitHub Copilot Max",
-          "monthly": 100,
-          "discount": 0.5,
-          "multiplier": 2.0
-        },
-        {
-          "slug": "gemini-3.5-flash-lite",
           "creator": "Google",
           "plan_name": "GitHub Copilot Max",
           "monthly": 100,
@@ -1054,14 +3214,6 @@
           "multiplier": 11.49
         },
         {
-          "slug": "claude-fable-5.1",
-          "creator": "Anthropic",
-          "plan_name": "Claude Max 20x",
-          "monthly": 200,
-          "discount": 0.025,
-          "multiplier": 40.0
-        },
-        {
           "slug": "qwen3.8-flash-next",
           "creator": "Alibaba",
           "plan_name": "Command Code GOAT",
@@ -1166,30 +3318,6 @@
           "multiplier": 10.01
         },
         {
-          "slug": "gemma-4-31b",
-          "creator": "Google",
-          "plan_name": "GitHub Copilot Max",
-          "monthly": 100,
-          "discount": 0.5,
-          "multiplier": 2.0
-        },
-        {
-          "slug": "claude-haiku-5.5",
-          "creator": "Anthropic",
-          "plan_name": "Claude Max 20x",
-          "monthly": 200,
-          "discount": 0.025,
-          "multiplier": 40.0
-        },
-        {
-          "slug": "gemini-4-argon",
-          "creator": "Google",
-          "plan_name": "GitHub Copilot Max",
-          "monthly": 100,
-          "discount": 0.5,
-          "multiplier": 2.0
-        },
-        {
           "slug": "mimo-v2.6-pro",
           "creator": "Xiaomi",
           "plan_name": "MiMo Token Plan Max",
@@ -1203,345 +3331,339 @@
   "entries": [
     {
       "name": "ChatGPT Pro 20x",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "ChatGPT Pro 20x: 官方页 HTTP 403（https://chatgpt.com/pricing）"
-      ],
-      "url_status": 403
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "ChatGPT Pro 5x",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "ChatGPT Pro 5x: 官方页 HTTP 403（https://chatgpt.com/pricing）"
-      ],
-      "url_status": 403
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "ChatGPT Plus",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "ChatGPT Plus: 官方页 HTTP 403（https://chatgpt.com/pricing）"
-      ],
-      "url_status": 403
+      "warnings": [],
+      "url_status": null
     },
     {
       "name": "Claude Max 20x",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Claude Max 5x",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Claude Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiniMax Max Token Plan",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiniMax Ultra Token Plan",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiniMax Plus Token Plan",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Kimi 会员 Allegretto",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "SuperGrok Heavy",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "SuperGrok",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GitHub Copilot Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GitHub Copilot Pro+",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GitHub Copilot Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GLM Coding Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GLM Coding Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GLM Coding Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Qwen Token Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Qwen Token Plan Standard",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Qwen Token Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "WorkBuddy 高级版",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "WorkBuddy 标准版",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "WorkBuddy 旗舰版",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Standard",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "OpenCode Go",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Kimi Andante",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Factory Droid Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Trae Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Cursor Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Kimi Moderato",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Kimi Allegro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Standard",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Cursor Pro+",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Cursor Ultra",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Windsurf Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Ollama Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "火山方舟 Coding Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "火山方舟 Coding Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Command Code GOAT",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "R4 Coder Code Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Poe Premium",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     }
   ]
 }

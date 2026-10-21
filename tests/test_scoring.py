@@ -513,3 +513,18 @@ def test_plan_for_wildcard_and_exclude():
 
 
 
+
+def test_plan_matches_strict_whitelist():
+    from pipeline.scoring import _plan_matches
+    # 既有 creator 又有 model_match 时，不在 model_match 的同厂商模型必须为 False
+    plan = {
+        "name": "Test IDE",
+        "creator_match": ["Google"],
+        "model_match": ["gemini-3.*-flash"],
+        "exclude_match": ["*-lite"],
+    }
+    assert _plan_matches(plan, "Google", "gemini-3.8-flash") is True
+    assert _plan_matches(plan, "Google", "gemini-4-argon") is False
+    assert _plan_matches(plan, "Google", "gemini-3.5-flash-lite") is False
+    assert _plan_matches(plan, "Anthropic", "claude-sonnet-5.5") is False
+

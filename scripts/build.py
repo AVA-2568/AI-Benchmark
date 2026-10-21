@@ -23,6 +23,7 @@ REPO_ROOT = os.path.dirname(BASE)
 sys.path.insert(0, BASE)
 
 from pipeline.config import plan_params  # noqa: E402
+from pipeline.scoring import _plan_matches  # noqa: E402
 from url_guard import assert_safe_url  # noqa: E402
 from plot_frontier import render as render_frontier  # noqa: E402
 
@@ -283,11 +284,8 @@ def _plans_block(plans, rows, fx_rate):
     entries = []
     credit_entries = []
     for p in plans:
-        creators = {c.strip() for c in p.get("creator_match") or []}
-        models = {m.strip() for m in p.get("model_match") or []}
         best = next((r for r in rows
-                     if (r.get("Creator") or "").strip() in creators
-                     or (r.get("Model") or "").strip() in models), None)
+                     if _plan_matches(p, r.get("Creator"), r.get("Model"))), None)
         if best is None:
             continue
         try:

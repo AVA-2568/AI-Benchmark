@@ -16,6 +16,11 @@
 模块被 import 时不会自动执行，便于对纯解析/哨兵函数做单测。
 """
 import re, json, csv, os, sys
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 OUT = os.path.dirname(os.path.abspath(__file__))
 RSC_PATH = os.path.join(OUT, "aa_providers.rsc")

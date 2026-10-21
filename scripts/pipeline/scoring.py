@@ -63,6 +63,31 @@ def _resolve_scale(model: Optional[str], scale_map: Optional[Dict[str, Any]]) ->
     return None
 
 
+def _plan_matches(plan: Dict[str, Any], creator: Optional[str], model: Optional[str]) -> bool:
+    """Check if a plan matches a given creator and model.
+
+    Rules:
+    1. If model matches exclude_match, reject (one-vote veto).
+    2. If model_match is non-empty:
+       model MUST match model_match (fnmatch supported).
+       If creator_match is ALSO specified, creator MUST also be in creator_match.
+       If model does not match model_match, reject (prevents creator_match bypass).
+    3. If model_match is empty or omitted:
+       Matches if creator is in creator_match.
+    """
+    if model and _match_pattern(model, plan.get("exclude_match")):
+        return False
+    mm = plan.get("model_match")
+    cm = plan.get("creator_match")
+    if mm:
+        if not model or not _match_pattern(model, mm):
+            return False
+        if cm and creator not in cm:
+            return False
+        return True
+    return bool(creator and cm and creator in cm)
+
+
 def _plan_for(plans, creator, model=None):
     """Best (lowest-effective-discount) matching subscription plan, else None.
 
@@ -88,12 +113,7 @@ def _plan_for(plans, creator, model=None):
     best_d = None
     nominal = None
     for p in plans or []:
-        if model and _match_pattern(model, p.get("exclude_match")):
-            continue
-        matched = creator in (p.get("creator_match") or [])
-        if not matched and model and p.get("model_match"):
-            matched = _match_pattern(model, p["model_match"])
-        if not matched:
+        if not _plan_matches(p, creator, model):
             continue
         d = float(p.get("discount") or 1.0)
         if d >= 1.0:

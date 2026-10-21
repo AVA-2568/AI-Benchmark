@@ -138,10 +138,14 @@ def test_coverage_matrix_bidirectional_pivot():
     assert opencode_hits["muse-spark-1.3"]["scale"] == 1.0
     assert abs(opencode_hits["muse-spark-1.3"]["effective_discount"] - 0.167) < 1e-4
 
-    # 反向透视：高亮专栏必须精准识别未覆盖模型（muse-spark-1.1, inkling）
+    # 反向透视：高亮专栏必须精准识别未覆盖模型（muse-spark-1.1, inkling, gemini-4-argon 等）
     uncovered_slugs = {u["slug"] for u in matrix["reverse"]["uncovered"]}
     assert "muse-spark-1.1" in uncovered_slugs
     assert "inkling" in uncovered_slugs
+    assert "gemini-4-argon" in uncovered_slugs
+    assert "gemma-4-31b" in uncovered_slugs
+    assert "claude-haiku-5.5" in uncovered_slugs
+    assert "gpt-5.4-nano" in uncovered_slugs
 
     # audit 字典完整包含 coverage 字段且原有结构毫发无损
     import datetime
@@ -154,4 +158,40 @@ def test_coverage_matrix_bidirectional_pivot():
 
 
 
+
+
+def test_plans_strict_mappings():
+    """验证多模型聚合 IDE 与第一方套餐的模型映射约束，杜绝冒领优惠。"""
+    plans = _load()
+    by_name = {p["name"]: p for p in plans}
+
+    # 1. 聚合 IDE 不得使用泛滥的 creator_match
+    for name in ["GitHub Copilot Max", "Cursor Ultra", "Windsurf Pro", "Trae Pro", "Factory Droid Pro", "Poe Premium"]:
+        p = by_name[name]
+        assert not p.get("creator_match"), f"{name} 不应有宽泛 creator_match"
+        assert p.get("model_match"), f"{name} 必须有明确 model_match 白名单"
+
+    # 2. 关键模型防冒领断言
+    from pipeline.scoring import _plan_matches
+    copilot = by_name["GitHub Copilot Max"]
+    assert _plan_matches(copilot, "Google", "gemini-4-argon") is False
+    assert _plan_matches(copilot, "Google", "gemma-4-31b") is False
+    assert _plan_matches(copilot, "Anthropic", "claude-opus-5.5") is False
+    assert _plan_matches(copilot, "Google", "gemini-3.8-flash") is True
+    assert _plan_matches(copilot, "Anthropic", "claude-sonnet-5.5") is True
+
+    cursor = by_name["Cursor Ultra"]
+    assert _plan_matches(cursor, "Google", "gemini-4-argon") is False
+    assert _plan_matches(cursor, "Google", "gemma-4-31b") is False
+    assert _plan_matches(cursor, "Anthropic", "claude-opus-5.5") is True
+
+    claude_max = by_name["Claude Max 20x"]
+    assert _plan_matches(claude_max, "Anthropic", "claude-haiku-5.5") is False
+    assert _plan_matches(claude_max, "Anthropic", "claude-fable-5.1") is False
+    assert _plan_matches(claude_max, "Anthropic", "claude-opus-5.5") is True
+
+    chatgpt = by_name["ChatGPT Pro 20x"]
+    assert _plan_matches(chatgpt, "OpenAI", "gpt-5.4-nano") is False
+    assert _plan_matches(chatgpt, "OpenAI", "gpt-5.2-codex") is False
+    assert _plan_matches(chatgpt, "OpenAI", "gpt-6.1-sol") is True
 
