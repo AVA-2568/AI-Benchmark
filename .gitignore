@@ -19,3 +19,5 @@ tests/__pycache__/
 # golden 临时目录
 tests/fixtures/_golden_tmp/
 results/.mimosa/
+.pytest_tmp/
+.zcodeignore

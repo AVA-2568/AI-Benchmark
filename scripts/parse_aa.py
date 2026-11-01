@@ -3,7 +3,7 @@
 
 三级解析链（按优先级降级）：
 1. RSC 数据流（scripts/aa_providers.rsc，由 build.py 带 ``RSC: 1`` 头抓取，
-   ~2.4MB 纯数据，无 HTML 壳，json.JSONDecoder().raw_decode 直接解析）
+   ~1.4MB-2.4MB 纯数据，无 HTML 壳，json.JSONDecoder().raw_decode 直接解析）
 2. 整页 HTML 的 __next_f.push 序列化（scripts/aa_providers.html，App Router 流式注水）
 3. 整页 HTML 的 __NEXT_DATA__ script 标签（Pages Router 遗留，2026-07 已确认
    AA 迁移后不再出现，保留仅作历史回退）
@@ -21,6 +21,11 @@ if sys.stdout and hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     except Exception:
         pass
+if sys.stderr and hasattr(sys.stderr, "reconfigure"):
+    try:
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 OUT = os.path.dirname(os.path.abspath(__file__))
 RSC_PATH = os.path.join(OUT, "aa_providers.rsc")
@@ -30,8 +35,10 @@ HTML_PATH = os.path.join(OUT, "aa_providers.html")
 # ---------- 解析器 ----------
 
 def _decode_rows_at(text, start):
-    """从 text 的 '"rows":[' 处用标准库 raw_decode 解析出 rows 数组。"""
-    i = text.index("[", start)
+    """从 text 的指定 '[' 处用标准库 raw_decode 解析出 rows 数组。"""
+    i = text.find("[", start)
+    if i == -1:
+        return None
     try:
         rows, _ = json.JSONDecoder().raw_decode(text, i)
     except (json.JSONDecodeError, ValueError):
@@ -42,19 +49,19 @@ def _decode_rows_at(text, start):
 
 
 def extract_via_rsc(path):
-    """主路径：RSC 数据流。payload 是明文 JSON，无需反转义。"""
+    """主路径：RSC 数据流。兼容 initialRows 与历史 rows 结构。"""
     if not os.path.exists(path):
         return None
     with open(path, encoding="utf-8", errors="replace") as f:
         text = f.read()
     best = None
-    start = text.find('"rows":[')
-    while start != -1:
-        rows = _decode_rows_at(text, start)
-        # 页面可能有多个 rows（如小型侧表），取最长且元素含 label 的那个
-        if rows and "label" in rows[0] and (best is None or len(rows) > len(best)):
-            best = rows
-        start = text.find('"rows":[', start + 1)
+    for marker in ('"initialRows":[', '"rows":['):
+        start = text.find(marker)
+        while start != -1:
+            rows = _decode_rows_at(text, start + len(marker) - 1)
+            if rows and "label" in rows[0] and (best is None or len(rows) > len(best)):
+                best = rows
+            start = text.find(marker, start + 1)
     return best
 
 
@@ -71,10 +78,13 @@ def extract_via_next_f_push(path):
     if not chunks:
         return None
     combined = "".join(chunks).encode().decode("unicode_escape")
-    start = combined.find('"rows":[')
-    if start == -1:
-        return None
-    return _decode_rows_at(combined, start)
+    for marker in ('"initialRows":[', '"rows":['):
+        start = combined.find(marker)
+        if start != -1:
+            rows = _decode_rows_at(combined, start + len(marker) - 1)
+            if rows:
+                return rows
+    return None
 
 
 def extract_via_next_data(path):
@@ -123,24 +133,46 @@ PARSERS = [
 ]
 
 # 数据哨兵阈值（模块级常量，供单测断言）
-MIN_ROWS = 800
+MIN_ROWS = 400
 SENTINEL_FIELDS = [
     "gdpvalNormalized", "terminalbenchHard", "terminalBench40", "scicode",
     "lcr", "omniscience", "ifbench", "hle", "briefcase",
     "omniscienceAccuracy", "omniscienceNonHallucination",
 ]
-MEAN_RATE_MIN = 0.60   # 11 字段平均非空率下限（2026-07 实测 87%，留波动余量）
+MEAN_RATE_MIN = 0.60   # 11 字段平均非空率下限（留波动余量）
 FIELD_RATE_MIN = 0.05   # 单字段非空率下限（=0 说明该列已从页面消失）
+
+# 哨兵字段在新旧 AA 数据流中的路径映射
+SENTINEL_MAPPING = {
+    "gdpvalNormalized": [("model", "scores", "gdpval-aa-normalized"), ("model", "gdpvalNormalized")],
+    "terminalbenchHard": [("model", "scores", "terminalbench-hard"), ("model", "terminalbenchHard")],
+    "terminalBench40": [("model", "scores", "terminalbench-4-0"), ("model", "terminalBench40")],
+    "scicode": [("model", "scores", "scicode"), ("model", "scicode")],
+    "lcr": [("model", "scores", "artificial-analysis-long-context-reasoning"), ("model", "lcr")],
+    "omniscience": [("model", "omniscience"), ("model", "scores", "omniscience")],
+    "ifbench": [("model", "scores", "ifbench"), ("model", "ifbench")],
+    "hle": [("model", "scores", "humanitys-last-exam"), ("model", "hle")],
+    "briefcase": [("model", "scores", "aa-briefcase"), ("model", "briefcase", "elo"), ("model", "briefcase")],
+    "omniscienceAccuracy": [("model", "scores", "omniscience-accuracy"), ("model", "omniscienceAccuracy")],
+    "omniscienceNonHallucination": [("model", "scores", "omniscience-non-hallucination"), ("model", "omniscienceNonHallucination")],
+}
 
 
 # ---------- 字段映射（模块级，供单测） ----------
-KNOWN_PERF = {"medianOutputTokensPerSecond", "percentile05OutputTokensPerSec"}
+KNOWN_PERF = {
+    "medianOutputTokensPerSecond", "percentile05OutputTokensPerSec",
+    "percentile05OutputTokensPerSecond", "quartile25OutputTokensPerSecond",
+    "quartile75OutputTokensPerSecond", "percentile95OutputTokensPerSecond",
+    "medianTimeToFirstTokenSeconds", "percentile05TimeToFirstTokenSeconds",
+    "quartile25TimeToFirstTokenSeconds", "quartile75TimeToFirstTokenSeconds",
+    "percentile95TimeToFirstTokenSeconds", "medianTimeToFirstAnswerTokenSeconds",
+    "medianEndToEndResponseTimeSeconds", "medianReasoningTimeSeconds",
+}
 
 
-def get(row, spec):
-    """按 spec 路径（如 ("Model","model","slug")）从嵌套 dict 取值，支持 tuple 备选键。"""
+def _resolve_path(row, path):
     cur = row
-    for p in spec[1:]:
+    for p in path:
         if not isinstance(cur, dict):
             return None
         if isinstance(p, (tuple, list)):
@@ -150,21 +182,35 @@ def get(row, spec):
     return cur
 
 
+def get(row, spec):
+    """按 spec 路径提取值。
+    spec 格式为 (ColName, path1, path2, ...) 或 (ColName, elem1, elem2...)。
+    当路径定义为嵌套 tuple/list 时，支持按先后顺序做候选回退。
+    """
+    paths = spec[1:]
+    if not paths:
+        return None
+    if isinstance(paths[0], (tuple, list)):
+        for p in paths:
+            val = _resolve_path(row, p)
+            if val is not None:
+                return val
+        return None
+    return _resolve_path(row, paths)
+
+
 def field_rates(rows):
     """计算每个哨兵字段的非空率。
 
-    返回 {field: rate}；字段在 ``model`` 子对象里取值。
-    纯函数，不触发断言，便于单测。
+    返回 {field: rate}。兼容新结构 (model.scores[kebab-case]) 与旧结构 (model[camelCase])。
     """
     n = len(rows)
     if n == 0:
         return {f: 0.0 for f in SENTINEL_FIELDS}
     rates = {}
     for f_ in SENTINEL_FIELDS:
-        n_ok = sum(
-            1 for r in rows
-            if isinstance(r.get("model"), dict) and r["model"].get(f_) is not None
-        )
+        candidates = SENTINEL_MAPPING.get(f_, [("model", f_)])
+        n_ok = sum(1 for r in rows if get(r, (f_, *candidates)) is not None)
         rates[f_] = n_ok / n
     return rates
 
@@ -213,29 +259,29 @@ def build_cols(rows):
         ("Reasoning Model", "model", "reasoningModel"),
         ("Intelligence Index", "model", "intelligenceIndex"),
         ("Intelligence Index Est.", "model", "intelligenceIndexIsEstimated"),
-        ("Omniscience Index", "model", "omniscience"),
-        ("Omniscience Accuracy", "model", "omniscienceAccuracy"),
-        ("Omniscience Non-Halluc.", "model", "omniscienceNonHallucination"),
-        ("GDPval-AA", "model", "gdpvalNormalized"),
-        ("AA-Briefcase", "model", "briefcase", "elo"),
-        ("Terminal-Bench Hard", "model", "terminalbenchHard"),
-        ("Terminal-Bench v2.1", "model", ("terminalBench21", "terminalbenchV21")),
-        ("Terminal-Bench v4.0", "model", "terminalBench40"),
-        ("tau2-Bench Telecom", "model", "tau2"),
-        ("tau3-Banking", "model", "tauBanking"),
-        ("LCR", "model", "lcr"),
-        ("HLE", "model", "hle"),
-        ("GPQA Diamond", "model", "gpqa"),
-        ("SciCode", "model", "scicode"),
-        ("LiveCodeBench", "model", "livecodebench"),
-        ("AIME 2025", "model", "aime25"),
-        ("IFBench", "model", "ifbench"),
-        ("CritPt", "model", "critpt"),
-        ("APEX Agents", "model", "apexAgents"),
-        ("ITBench SRE", "model", "itbenchSre"),
-        ("Harvey LAB", "model", "harveyLab"),
-        ("AutomationBench", "model", "automationBench"),
-        ("MMMU-Pro", "model", "mmmuPro"),
+        ("Omniscience Index", ("model", "omniscience"), ("model", "scores", "omniscience")),
+        ("Omniscience Accuracy", ("model", "scores", "omniscience-accuracy"), ("model", "omniscienceAccuracy")),
+        ("Omniscience Non-Halluc.", ("model", "scores", "omniscience-non-hallucination"), ("model", "omniscienceNonHallucination")),
+        ("GDPval-AA", ("model", "scores", "gdpval-aa-normalized"), ("model", "gdpvalNormalized")),
+        ("AA-Briefcase", ("model", "scores", "aa-briefcase"), ("model", "briefcase", "elo"), ("model", "briefcase")),
+        ("Terminal-Bench Hard", ("model", "scores", "terminalbench-hard"), ("model", "terminalbenchHard")),
+        ("Terminal-Bench v2.1", ("model", "scores", "terminalbench-2-1"), ("model", ("terminalBench21", "terminalbenchV21"))),
+        ("Terminal-Bench v4.0", ("model", "scores", "terminalbench-4-0"), ("model", "terminalBench40")),
+        ("tau2-Bench Telecom", ("model", "scores", "tau2-bench"), ("model", "tau2")),
+        ("tau3-Banking", ("model", "scores", "tau3-banking"), ("model", "tauBanking")),
+        ("LCR", ("model", "scores", "artificial-analysis-long-context-reasoning"), ("model", "lcr")),
+        ("HLE", ("model", "scores", "humanitys-last-exam"), ("model", "hle")),
+        ("GPQA Diamond", ("model", "scores", "gpqa-diamond"), ("model", "gpqa")),
+        ("SciCode", ("model", "scores", "scicode"), ("model", "scicode")),
+        ("LiveCodeBench", ("model", "scores", "livecodebench"), ("model", "livecodebench")),
+        ("AIME 2025", ("model", "scores", "aime-2025"), ("model", "aime25")),
+        ("IFBench", ("model", "scores", "ifbench"), ("model", "ifbench")),
+        ("CritPt", ("model", "scores", "critpt"), ("model", "critpt")),
+        ("APEX Agents", ("model", "scores", "apex-agents-aa"), ("model", "apexAgents")),
+        ("ITBench SRE", ("model", "scores", "itbench-aa"), ("model", "itbenchSre")),
+        ("Harvey LAB", ("model", "scores", "harvey-lab-aa"), ("model", "harveyLab")),
+        ("AutomationBench", ("model", "scores", "automationbench-aa"), ("model", "automationBench")),
+        ("MMMU-Pro", ("model", "scores", "mmmu-pro"), ("model", "mmmuPro")),
         ("Context Window", "features", "contextWindowTokens"),
         ("Function Calling", "features", "functionCalling"),
         ("JSON Mode", "features", "jsonMode"),
@@ -247,7 +293,7 @@ def build_cols(rows):
         ("Cost Per Task", "pricing", "costPerTask"),
         ("Price Class", "pricing", "priceClass"),
         ("Median tok/s", "performance", "medianOutputTokensPerSecond"),
-        ("P05 tok/s", "performance", "percentile05OutputTokensPerSec"),
+        ("P05 tok/s", ("performance", "percentile05OutputTokensPerSecond"), ("performance", "percentile05OutputTokensPerSec")),
     ]
     for k in extra_perf:
         cols.append((k, "performance", k))

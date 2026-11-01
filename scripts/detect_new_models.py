@@ -31,6 +31,17 @@ merge.py 以 registry 为白名单，registry 维护不当会静默丢数据。�
   ``auto_add_exclude``（fnmatch 通配）永久排除指定模式；未入池候选连同
   原因写入候选 JSON，全程可追溯。
 """
+import sys
+if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+if sys.stderr and hasattr(sys.stderr, 'reconfigure'):
+    try:
+        sys.stderr.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 import argparse
 import csv
 import datetime

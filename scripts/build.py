@@ -8,6 +8,17 @@
 
 可在本地运行，也可由 GitHub Actions 调用。
 """
+import sys
+if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+if sys.stderr and hasattr(sys.stderr, 'reconfigure'):
+    try:
+        sys.stderr.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 import argparse
 import datetime
 import csv
@@ -112,8 +123,11 @@ def fetch_data(allow_stale=False, offline=False):
 
 
 def run(script, *args):
+    env = os.environ.copy()
+    env['PYTHONIOENCODING'] = 'utf-8'
+    env['PYTHONUTF8'] = '1'
     subprocess.run([sys.executable, os.path.join(BASE, script), *args],
-                   cwd=BASE, check=True)
+                   cwd=BASE, check=True, env=env)
 
 
 def _count(path):

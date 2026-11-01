@@ -1,17 +1,18 @@
 {
   "new_models": {
     "livebench.csv": [
-      "claude-haiku-4.5",
       "muse-wonder-1.0",
       "muse-wonder-1.0-max",
       "nemotron-3-ultra-550b-a55b",
-      "nemotron-lightning-3.5",
-      "nemotron-ultra-3",
+      "nemotron-3.5-lightning-30b-a3b",
+      "nemotron-super-vl-3.5",
+      "nemotron-super-vl-3.5-nvfp4",
       "ox-alpha-max",
-      "qwen3.8-flash",
       "smaug-agentic",
       "smaug-flash",
-      "smaug-mini"
+      "smaug-mini",
+      "smaug-nemotron-3.5-nvfp4",
+      "step-5-preview"
     ],
     "deepswe.csv": []
   },
@@ -22,16 +23,6 @@
     "livebench": []
   },
   "deferred": [
-    {
-      "name": "claude-haiku-4.5",
-      "slug": "claude-haiku-4.5",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
     {
       "name": "muse-wonder-1.0",
       "slug": "muse-wonder-1.0",
@@ -63,8 +54,8 @@
       }
     },
     {
-      "name": "nemotron-lightning-3.5",
-      "slug": "nemotron-lightning-3.5",
+      "name": "nemotron-3.5-lightning-30b-a3b",
+      "slug": "nemotron-3.5-lightning-30b-a3b",
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,
@@ -73,8 +64,18 @@
       }
     },
     {
-      "name": "nemotron-ultra-3",
-      "slug": "nemotron-ultra-3",
+      "name": "nemotron-super-vl-3.5",
+      "slug": "nemotron-super-vl-3.5",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
+      "name": "nemotron-super-vl-3.5-nvfp4",
+      "slug": "nemotron-super-vl-3.5-nvfp4",
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,
@@ -85,16 +86,6 @@
     {
       "name": "ox-alpha-max",
       "slug": "ox-alpha",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "qwen3.8-flash",
-      "slug": "qwen3.8-flash",
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,
@@ -125,6 +116,26 @@
     {
       "name": "smaug-mini",
       "slug": "smaug-mini",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
+      "name": "smaug-nemotron-3.5-nvfp4",
+      "slug": "smaug-nemotron-3.5-nvfp4",
+      "reason": "insufficient_confirmation",
+      "sources": {
+        "livebench": true,
+        "deepswe": false,
+        "aa": false
+      }
+    },
+    {
+      "name": "step-5-preview",
+      "slug": "step-5-preview",
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,

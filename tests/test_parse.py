@@ -144,3 +144,37 @@ def test_build_cols_detects_extra_perf():
     assert extra == ["weirdNew"]
     # extra perf column appended with its raw key as both label and path
     assert ("weirdNew", "performance", "weirdNew") in cols
+
+# ---- 新结构 (initialRows 与 model.scores) 支持测试 ----
+
+def test_get_nested_fallback():
+    # 测试嵌套路径候选回退
+    row_new = {"label": "M1", "model": {"scores": {"humanitys-last-exam": 0.85}}}
+    row_old = {"label": "M2", "model": {"hle": 0.80}}
+    spec = ("HLE", ("model", "scores", "humanitys-last-exam"), ("model", "hle"))
+    assert parse_aa.get(row_new, spec) == 0.85
+    assert parse_aa.get(row_old, spec) == 0.80
+
+
+def test_field_rates_scores_dict():
+    # 测试在新版 scores 字典结构下的全覆盖率计算
+    new_scores = {
+        "gdpval-aa-normalized": 1200.0,
+        "terminalbench-hard": 0.5,
+        "terminalbench-4-0": 0.6,
+        "scicode": 0.7,
+        "artificial-analysis-long-context-reasoning": 0.8,
+        "ifbench": 0.6,
+        "humanitys-last-exam": 0.9,
+        "aa-briefcase": 1500.0,
+        "omniscience-accuracy": 0.85,
+        "omniscience-non-hallucination": 0.90,
+    }
+    rows = [{
+        "label": f"M{i}",
+        "model": {"slug": f"m{i}", "omniscience": 25.0, "scores": new_scores}
+    } for i in range(500)]
+    rates = parse_aa.field_rates(rows)
+    assert set(rates) == set(parse_aa.SENTINEL_FIELDS)
+    assert all(abs(v - 1.0) < 1e-9 for v in rates.values())
+    assert parse_aa.run_sentinel(rows) is not None

@@ -591,14 +591,18 @@
     {
       "slug": "deepseek-v4.1-flash",
       "creator": "DeepSeek",
-      "aa": "deepseek-v4-1-flash",
+      "aa": [
+        "deepseek-v4-1-flash",
+        "deepseek-v4-1-flash-1017"
+      ],
       "livebench": [
         "deepseek-v4.1-flash",
-        "deepseek-v4.1-flash-max"
+        "deepseek-v4.1-flash-max",
+        "deepseek-v4.1-flash-1017"
       ],
       "deepswe": null,
       "swebench": null,
-      "eqbench": null,
+      "eqbench": "deepseek-v4.1-flash",
       "vision": true,
       "auto_added": "2026-09-11",
       "openrouter": "deepseek/deepseek-v4.1-flash"
@@ -732,7 +736,7 @@
       "deepswe": null,
       "swebench": null,
       "eqbench": null,
-      "vision": false,
+      "vision": true,
       "auto_added": "2026-10-15"
     },
     {
@@ -742,8 +746,8 @@
       "livebench": "gemini-4-argon",
       "deepswe": null,
       "swebench": null,
-      "eqbench": null,
-      "vision": false,
+      "eqbench": "gemini-4-argon",
+      "vision": true,
       "auto_added": "2026-10-15"
     },
     {
@@ -754,7 +758,7 @@
       "deepswe": null,
       "swebench": null,
       "eqbench": null,
-      "vision": false,
+      "vision": true,
       "auto_added": "2026-10-15"
     },
     {
@@ -763,13 +767,62 @@
       "aa": "mistral-large-4",
       "livebench": [
         "mistral-large-4",
-        "mistral-large-4-high"
+        "mistral-large-4-high",
+        "mistral-large-4-0"
       ],
       "deepswe": null,
       "swebench": null,
       "eqbench": null,
-      "vision": false,
+      "vision": true,
       "auto_added": "2026-10-15"
+    },
+    {
+      "slug": "gpt-6.1-terra",
+      "creator": "OpenAI",
+      "aa": "gpt-6-1-terra",
+      "livebench": "gpt-6.1-terra",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-11-01",
+      "openrouter": "openai/gpt-6.1-terra"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "creator": "Moonshot AI",
+      "aa": "kimi-k3-1-pro",
+      "livebench": "kimi-k3.1-pro",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": "kimi-k3.1-pro",
+      "vision": true,
+      "auto_added": "2026-11-01",
+      "openrouter": "moonshotai/kimi-k3.1-pro"
+    },
+    {
+      "slug": "minimax-m3.1-flash",
+      "creator": "MiniMax",
+      "aa": "minimax-m3-1-flash",
+      "livebench": "minimax-m3.1-flash",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-11-01",
+      "openrouter": "minimax/minimax-m3.1-flash"
+    },
+    {
+      "slug": "muse-spark-open",
+      "creator": "Meta",
+      "aa": "muse-spark-open",
+      "livebench": "muse-spark-open",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-11-01",
+      "openrouter": "meta/muse-spark-open"
     }
   ]
 }

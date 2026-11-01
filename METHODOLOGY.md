@@ -17,10 +17,10 @@
 
 | 源 | 提供指标 | 维护方 | 抓取方式 |
 |---|---|---|---|
-| LiveBench | Coding / Agentic Coding / Instruction Following / Language | Abacus.AI + 学界 | `table_<release>.csv` + `categories_<release>.json` |
+| LiveBench | Coding / Long-Horizon / Browser / Reasoning / Data Analysis / Research / Design | Abacus.AI + 学界 | `data/<release>/table.csv`（LiveBench 2.0 优先 + 1.0 补充回退） |
 | DeepSWE | Pass@1（长程工程 agent） | Datacurve | `/artifacts/v1.1/leaderboard-live.json`（JSON API，每模型取最高 pass_rate 档） |
 | EQ-Bench | Creative Writing Elo | 独立 | `creative_writing.js` 内嵌 CSV |
-| Artificial Analysis (Intelligence Index v4.3) | Terminal-Bench v4.0 / AA-Briefcase / tau3-Banking / LCR / Omniscience Index / HLE / CritPt / SciCode | 独立评测机构 | RSC 流（三级解析链） |
+| Artificial Analysis | Terminal-Bench v4.0 / AA-Briefcase / tau3-Banking / LCR / Omniscience Index / HLE / CritPt / SciCode | 独立评测机构 | RSC 流（三级解析链，兼容 initialRows 与 scores 体系） |
 | Frankfurter | USD→CNY 汇率（ECB 官方） | 开源 | v2 rates API（备源 open.er-api.com） |
 
 ### 人民币价格
