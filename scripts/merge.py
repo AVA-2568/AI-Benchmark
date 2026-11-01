@@ -6,7 +6,7 @@
 多个匹配时取分数最高者。缺失值留空，交由评分阶段的岭回归填补。
 
 数据源：
-- AA (scripts/aa_providers.csv)         -> Terminal-Bench v4.0 / tau3-Banking / LCR / Omniscience / HLE / SciCode / CritPt / 成本列
+- AA (scripts/aa_providers.csv)         -> Terminal-Bench v4.0 / AutomationBench / LCR / Omniscience / HLE / SciCode / CritPt / 成本列
     （同一 Model Slug 有多 Provider 行时：分数各行一致，定价取官方行，
     见 _pick_aa_row；视觉变体是独立 slug，不会混入）
 - LiveBench (scripts/.cache/livebench.csv) -> Coding / Agentic Coding / IF / Language / Reasoning / Data Analysis / StoryGen / Summarize / Simplify / Theory of Mind
@@ -147,7 +147,7 @@ def build_merged():
     # 指标名（与 config.json imputation_pool 一致）
     cols = [
         "Terminal-Bench v4.0", "LiveBench Long-Horizon", "LiveBench Coding",
-        "tau3-Banking", "LiveBench Browser", "LiveBench Data Analysis",
+        "AutomationBench", "LiveBench Browser", "LiveBench Data Analysis",
         "LCR", "HLE", "SciCode", "LiveBench Reasoning",
         "Omniscience Index", "Omniscience Non-Halluc.",
         "EQ-Bench Creative Writing",
@@ -180,7 +180,7 @@ def build_merged():
         aa_row, _ = _pick_aa_row(aa_rows, m.get("aa"), m.get("creator"))
         if aa_row:
             row["Terminal-Bench v4.0"] = _num(aa_row.get("Terminal-Bench v4.0"))
-            row["tau3-Banking"] = _num(aa_row.get("tau3-Banking"))
+            row["AutomationBench"] = _num(aa_row.get("AutomationBench"))
             row["LCR"] = _num(aa_row.get("LCR"))
             row["Omniscience Index"] = _num(aa_row.get("Omniscience Index"))
             row["Omniscience Non-Halluc."] = _num(aa_row.get("Omniscience Non-Halluc."))

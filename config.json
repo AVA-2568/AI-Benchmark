@@ -6,7 +6,7 @@
       "LiveBench Coding"
     ],
     "automation_web": [
-      "tau3-Banking",
+      "AutomationBench",
       "LiveBench Browser"
     ],
     "instruction": [
@@ -38,7 +38,7 @@
     "Terminal-Bench v4.0",
     "LiveBench Long-Horizon",
     "LiveBench Coding",
-    "tau3-Banking",
+    "AutomationBench",
     "LiveBench Browser",
     "LiveBench Data Analysis",
     "LCR",
@@ -66,7 +66,7 @@
       0,
       100
     ],
-    "tau3-Banking": [
+    "AutomationBench": [
       0,
       1
     ],
@@ -152,7 +152,7 @@
           "weight": 0.15,
           "metrics": [
             {
-              "name": "tau3-Banking",
+              "name": "AutomationBench",
               "sub_weight": 0.4
             },
             {
@@ -311,7 +311,7 @@
           "weight": 0.15,
           "metrics": [
             {
-              "name": "tau3-Banking",
+              "name": "AutomationBench",
               "sub_weight": 0.4
             },
             {
@@ -1227,6 +1227,7 @@
     }
   ],
   "score_threshold": 0,
+  "max_imputed_ratio": 0.45,
   "ridge_alpha": 0.1,
   "imputation_min_samples": 4,
   "standardize_features": true,
@@ -1248,7 +1249,7 @@
     ],
     "automation_web": [
       "LiveBench Browser",
-      "tau3-Banking"
+      "AutomationBench"
     ],
     "instruction": [
       "LCR"

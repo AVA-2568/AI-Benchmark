@@ -6,7 +6,7 @@
 
 ### 模型池：主流旗舰精选
 
-榜单只收录**国际 + 国内主流厂商旗舰**模型（当前 50 个，随新模型自动入池增长），而非全量长尾。模型池定义在 [`scripts/model_registry.json`](scripts/model_registry.json)：
+榜单严格执行**高真值准入门槛治理**，只收录国际 + 国内主流在售前沿旗舰（当前 30 个当季核心模型，拒绝过度回归推断，实测真值率达 95%+），全量下架已弃用或实测缺失率 >50% 的历史退役条目。模型池定义在 [`scripts/model_registry.json`](scripts/model_registry.json)：
 
 - **国际**：OpenAI（GPT-6/5.6/5.5/5.4/5.2）、Anthropic（Claude Fable 5 / Opus 5 / Opus 4.x / Sonnet）、Google（Gemini 3.x）、xAI（Grok 4.x/Build）、Meta（Muse Spark）、Thinking Machines（Inkling）
 - **国内**：DeepSeek（V4）、Kimi（K3/K2.6/K2.7）、Qwen（3.8/3.7/3.6）、GLM（5.3/5.2）、MiniMax（M3）、Xiaomi（MiMo）、Tencent（Hy）
@@ -20,7 +20,7 @@
 | LiveBench | Coding / Long-Horizon / Browser / Reasoning / Data Analysis / Research / Design | Abacus.AI + 学界 | `data/<release>/table.csv`（LiveBench 2.0 优先 + 1.0 补充回退） |
 | DeepSWE | Pass@1（长程工程 agent） | Datacurve | `/artifacts/v1.1/leaderboard-live.json`（JSON API，每模型取最高 pass_rate 档） |
 | EQ-Bench | Creative Writing Elo | 独立 | `creative_writing.js` 内嵌 CSV |
-| Artificial Analysis | Terminal-Bench v4.0 / AA-Briefcase / tau3-Banking / LCR / Omniscience Index / HLE / CritPt / SciCode | 独立评测机构 | RSC 流（三级解析链，兼容 initialRows 与 scores 体系） |
+| Artificial Analysis | Terminal-Bench v4.0 / AA-Briefcase / AutomationBench / LCR / Omniscience Index / HLE / CritPt / SciCode | 独立评测机构 | RSC 流（三级解析链，兼容 initialRows 与 scores 体系） |
 | Frankfurter | USD→CNY 汇率（ECB 官方） | 开源 | v2 rates API（备源 open.er-api.com） |
 
 ### 人民币价格
@@ -116,7 +116,7 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 | **代码与 Agent** (35%) | **Terminal-Bench v4.0** | | 45% | AA 官方统一测试 harness 评测真实终端操作与命令行 Agent，杜绝多平台 scaffold 干扰。v4.0 在 AA v4.3 中取代 v2.1：v2.1 已饱和（精选池 24/39 模型挤在 ≥0.78），v4.0 区分度显著更高（标准差 0.165 vs 0.117），两者 r=0.709 |
 | | | **DeepSWE v1.1** | 35% | 官方主表 Software Engineering（真实 GitHub Issue 修复） |
 | | | **LiveBench Coding** | 20% | 独立防污染算法与严谨代码生成 |
-| **业务自动化与 Web** (15%) | **tau3-Banking** | | 50% | AA 官方银行与金融真实业务智能体交互测试（Agentic Tool Use & Banking Workflows） |
+| **业务自动化与 Web** (15%) | **AutomationBench** | | 50% | AA 官方企业级多步骤复杂业务自动化与工作流基准（Enterprise Automation Workflows） |
 | | | **LiveBench Data Analysis** | 30% | 复杂多表关联、数据转换与事件时间线分析 |
 | | | **LiveBench Agentic** | 20% | 多步工具与智能体指令合成 |
 | **指令遵循与长上下文** (20%) | **LiveBench IF** | | 55% | 严格多约束与负向规则遵循（指哪打哪） |
@@ -188,7 +188,7 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 | 指标 | 锚点 [lo, hi] | 说明 |
 |---|---|---|
 | LiveBench 2.0 各分类（Coding / Long-Horizon / Browser / Reasoning / Data Analysis / Research / Design） | [0, 100] | 官方 0–100 百分比 |
-| LCR / HLE / tau3-Banking / IFBench / Omniscience Non-Halluc. / CritPt / SciCode / Terminal-Bench v4.0 | [0, 1] | 0–1 比例，×100 映射到 0–100 分 |
+| LCR / HLE / AutomationBench / IFBench / Omniscience Non-Halluc. / CritPt / SciCode / Terminal-Bench v4.0 | [0, 1] | 0–1 比例，×100 映射到 0–100 分 |
 | Omniscience Index | [-50, 50] | 净得分实际可达范围（全对/全错几乎不可能，0=中性） |
 | EQ-Bench Creative Writing | [1400, 2200] | Elo 实际分布约 1438~2105，下限设为 1400 |
 | AA-Briefcase | [400, 1700] | Elo 实际分布约 459~1662（AA v4.3 重锚后） |
@@ -217,7 +217,7 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 | 域 | 成员 | 说明 |
 |---|---|---|
 | `code_agent` | Terminal-Bench v4.0 / DeepSWE / LiveBench Coding | 通用榜代码与 Agent |
-| `automation_web` | tau3-Banking / LiveBench Agentic Coding | 通用榜业务自动化 |
+| `automation_web` | AutomationBench / LiveBench Agentic Coding | 通用榜业务自动化 |
 | `instruction` | LiveBench IF / LiveBench Simplify / LCR | 两榜共用：指令遵循语义 |
 | `reasoning` | HLE / SciCode / LiveBench Reasoning | 通用榜科学与推理 |
 | `factuality` | Omniscience Index / Omniscience Non-Halluc. | 两榜共用：事实抗伪。Omniscience 当前全覆盖（50/50），该域回归实际只服务 Non-Halluc 缺失行；Omniscience LOO-MAE 偏高（≈14.7）仅作诚实披露，不影响任何行分数 |

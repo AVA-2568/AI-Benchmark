@@ -207,7 +207,8 @@ def _weighted_total(glob, nrm, imputed_set, discount):
 
 def score_board(rows, board, engine, cost, cache_multiplier, score_threshold,
                 plans=None, cache_price_fallback=None, scales=None,
-                fx_rate=None, imputed_weight_discount=1.0):
+                fx_rate=None, imputed_weight_discount=1.0,
+                max_imputed_ratio=None):
     """Score one leaderboard. Returns (scored_rows, headers).
 
     ``engine`` provides stats / cur / raw / imputation_quality and
@@ -318,6 +319,15 @@ def score_board(rows, board, engine, cost, cache_multiplier, score_threshold,
     out = [r for r in out
            if r["Weighted Total"] is not None
            and r["Weighted Total"] >= score_threshold]
+
+    if max_imputed_ratio is not None:
+        filtered = []
+        for r in out:
+            imp = r.get("Imputed")
+            imp_cnt = len([x for x in imp.split(",") if x.strip()]) if imp else 0
+            if (imp_cnt / len(metrics)) <= max_imputed_ratio:
+                filtered.append(r)
+        out = filtered
 
     for idx, row in enumerate(out, 1):
         row["Rank"] = idx

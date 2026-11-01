@@ -139,7 +139,8 @@ def run_pipeline(rows, cfg, results_dir, fx_rate=None):
             rows, board, engine, cost, cache_multiplier, score_threshold,
             plans=plans, cache_price_fallback=cache_price_fallback,
             scales=scales, fx_rate=fx_rate,
-            imputed_weight_discount=cfg.get("imputed_weight_discount", 1.0))
+            imputed_weight_discount=cfg.get("imputed_weight_discount", 1.0),
+            max_imputed_ratio=board.get("max_imputed_ratio", cfg.get("max_imputed_ratio")))
         out_csv = os.path.join(results_dir, board["output_csv"])
         write_scored_csv(out, headers, out_csv)
         print(f"[{bkey}] >={score_threshold} score: {len(out)} rows")

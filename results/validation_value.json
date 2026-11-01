@@ -14,14 +14,14 @@
     "pct_over10": 20.0,
     "n": 65
   },
-  "tau3-Banking": {
-    "mae": 0.0975,
-    "pct_over10": 77.8,
-    "n": 18
+  "AutomationBench": {
+    "mae": 0.1208,
+    "pct_over10": 75.0,
+    "n": 32
   },
   "LiveBench Browser": {
-    "mae": 9.6939,
-    "pct_over10": 56.9,
+    "mae": 8.6931,
+    "pct_over10": 47.7,
     "n": 65
   },
   "LiveBench Data Analysis": {
