@@ -105,7 +105,7 @@
 | # | Model | Creator | Vision | Score | API $/1M | 套餐 | 月费 | 倍率 | 套餐内 $/1M | 套餐内 ¥/1M | Value |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | claude-opus-5.5 | Anthropic | 👁️ | 77.7 | 3.493 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.087 | 0.579 | 893.47 |
-| 2 | claude-fable-5.1 | Anthropic | 👁️ | 76.4 | 8.541 | API 按量 | - | 1× | 8.541 | 56.856 | 8.94 |
+| 2 | claude-fable-5.1 | Anthropic | 👁️ | 76.4 | 8.541 | API 按量 | - | 1× | 8.541 | 56.855 | 8.94 |
 | 3 | gpt-6-astra | OpenAI | 👁️ | 75.5 | 9.115 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.13 | 0.865 | 580.95 |
 | 4 | gpt-6.1-sol | OpenAI | 👁️ | 74.2 | 1.746 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.025 | 0.166 | 2967.83 |
 | 5 | gemini-4-argon | Google | 👁️ | 73.9 | 3.493 | API 按量 | - | 1× | 3.493 | 23.252 | 21.15 |
