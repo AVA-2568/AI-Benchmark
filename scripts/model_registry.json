@@ -480,7 +480,7 @@
       "livebench": "qwen3.8-27b",
       "deepswe": null,
       "swebench": null,
-      "eqbench": null,
+      "eqbench": "Qwen/Qwen3.8-27B",
       "vision": true
     },
     {
@@ -719,7 +719,7 @@
       "livebench": "gemma-4-31b",
       "deepswe": null,
       "swebench": null,
-      "eqbench": null,
+      "eqbench": "google/gemma-4-31B-it",
       "vision": true,
       "auto_added": "2026-10-15",
       "openrouter": "google/gemma-4-31b-it"
@@ -823,6 +823,72 @@
       "vision": true,
       "auto_added": "2026-11-01",
       "openrouter": "meta/muse-spark-open"
+    },
+    {
+      "slug": "muse-wonder-1.0",
+      "creator": "Meta",
+      "aa": "muse-wonder",
+      "livebench": [
+        "muse-wonder-1.0",
+        "muse-wonder-1.0-max"
+      ],
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": "muse-wonder",
+      "vision": true,
+      "auto_added": "2026-11-02",
+      "openrouter": "meta/muse-wonder"
+    },
+    {
+      "slug": "nemotron-3-ultra-550b-a55b",
+      "creator": "NVIDIA",
+      "aa": "nvidia-nemotron-3-ultra-550b-a55b",
+      "livebench": "nemotron-3-ultra-550b-a55b",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-NVFP4",
+      "vision": false,
+      "auto_added": "2026-11-02",
+      "openrouter": "nvidia/nemotron-3-ultra-550b-a55b"
+    },
+    {
+      "slug": "nemotron-3.5-lightning-30b-a3b",
+      "creator": "NVIDIA",
+      "aa": "nemotron-3-5-lightning",
+      "livebench": "nemotron-3.5-lightning-30b-a3b",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4",
+      "vision": false,
+      "auto_added": "2026-11-02",
+      "openrouter": "nvidia/nemotron-3.5-lightning"
+    },
+    {
+      "slug": "nemotron-super-vl-3.5",
+      "creator": "NVIDIA",
+      "aa": "nemotron-3-5-super-vl",
+      "livebench": [
+        "nemotron-super-vl-3.5",
+        "nemotron-super-vl-3.5-nvfp4"
+      ],
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-11-02",
+      "openrouter": "nvidia/nemotron-3.5-super-vl"
+    },
+    {
+      "slug": "step-5-preview",
+      "creator": "StepFun",
+      "aa": "step-5",
+      "livebench": "step-5-preview",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-11-02",
+      "openrouter": "stepfun/step-5-preview"
     }
   ]
 }

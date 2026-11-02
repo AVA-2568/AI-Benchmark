@@ -66,15 +66,19 @@ NEW_MODEL_SOURCES = {
     "deepswe.csv": "deepswe",
 }
 
+# 实验版与预览版同物异名后缀（在部分源带而在别源不带，如 LiveBench deepseek-v4-flash-vision-exp
+# vs AA deepseek-v4-flash-vision，LiveBench step-5-preview vs AA step-5）：别名匹配时归一化掉。
+EXP_SUFFIXES = ("-exp", "-preview")
+
+# 厂商前缀：AA 经常带厂商前缀（如 nvidia-nemotron-*），而 LiveBench 往往省略厂商前缀。
+KNOWN_VENDOR_PREFIXES = ("nvidia-",)
+
 
 def _norm_candidates(slug):
-    """slug 的规范化候选（小写 + 点/连字符互换 + 去实验版后缀）。
+    """slug 的规范化候选（小写 + 点/连字符互换 + 同物异名后缀剥离 + 次要版本号剥离 + 厂商前缀容错）。
 
     registry 用点号（qwen3.8-max），AA 用连字符（qwen3-8-max）；
     DeepSWE/EQ-Bench 两者都有。互换覆盖所有情况。
-
-    实验版后缀（-exp）是同物异名：LiveBench deepseek-v4-flash-vision-exp
-    vs AA deepseek-v4-flash-vision，去后缀后才能命中同一模型。
     """
     s = slug.lower()
     base = s
@@ -82,10 +86,39 @@ def _norm_candidates(slug):
         if base.endswith(suf) and len(base) > len(suf):
             base = base[:-len(suf)]
             break
-    out = [s, s.replace(".", "-"), s.replace("-", ".")]
-    if base != s:
-        out += [base, base.replace(".", "-"), base.replace("-", ".")]
-    return out
+
+    # 剥离尾部次要版本号（.0 或 -1.0 等）：如 muse-wonder-1.0 -> muse-wonder
+    nobase = re.sub(r"[-.]1\.0$", "", base)
+    nobase = re.sub(r"[-.]0$", "", nobase)
+
+    bases = {s, base, nobase}
+
+    # 针对类似 nemotron-super-vl-3.5 vs nemotron-3-5-super-vl 的版本位置调换
+    swapped = set()
+    for b in list(bases):
+        m = re.match(r"^([a-z]+)-([a-z]+(?:-[a-z]+)*)-(\d+(?:[.-]\d+)*)$", b)
+        if m:
+            prefix, name, ver = m.groups()
+            swapped.add(f"{prefix}-{ver}-{name}")
+    bases.update(swapped)
+
+    out = set()
+    for b in bases:
+        out.add(b)
+        out.add(b.replace(".", "-"))
+        out.add(b.replace("-", "."))
+        for kp in KNOWN_VENDOR_PREFIXES:
+            if b.startswith(kp):
+                stripped = b[len(kp):]
+                out.add(stripped)
+                out.add(stripped.replace(".", "-"))
+                out.add(stripped.replace("-", "."))
+            else:
+                prefixed = kp + b
+                out.add(prefixed)
+                out.add(prefixed.replace(".", "-"))
+                out.add(prefixed.replace("-", "."))
+    return sorted(out, key=lambda x: (len(x), x))
 
 
 def load_registry(registry_path=REGISTRY):
@@ -147,9 +180,10 @@ def detect_missing_aliases(registry=None, cache_dir=CACHE, aa_csv=AA_CSV):
             return set()
         return {n.lower() for n in _read_col(path, col)}
 
+    raw_eqbench = _read_col(os.path.join(cache_dir, "eqbench.csv"), "model") if os.path.exists(os.path.join(cache_dir, "eqbench.csv")) else []
     src = {
         "aa": _names(aa_csv, "Model Slug"),
-        "eqbench": _names(os.path.join(cache_dir, "eqbench.csv"), "model"),
+        "eqbench": {n.lower() for n in raw_eqbench},
         "deepswe": _names(os.path.join(cache_dir, "deepswe.csv"), "model"),
         "livebench": _names(os.path.join(cache_dir, "livebench.csv"), "model"),
     }
@@ -157,16 +191,30 @@ def detect_missing_aliases(registry=None, cache_dir=CACHE, aa_csv=AA_CSV):
     out = {k: [] for k in src}
     for m in registry:
         slug = m["slug"]
-        # 精确匹配源：aa / eqbench / deepswe（规范化 slug 命中）
-        for field in ("aa", "eqbench", "deepswe"):
+        # 精确匹配源：aa / deepswe
+        for field in ("aa", "deepswe"):
             if m.get(field) is None:
                 for c in _norm_candidates(slug):
                     if c in src[field]:
                         out[field].append(f"{slug} -> {c}")
                         break
+        # eqbench：支持精确匹配与命名空间/后缀容错
+        if m.get("eqbench") is None:
+            hit = None
+            for c in _norm_candidates(slug):
+                if c in src["eqbench"]:
+                    hit = c
+                    break
+                # 支持带组织前缀（如 Qwen/Qwen3.8-27B）或 -it 后缀的匹配
+                match = next((eq for eq in raw_eqbench
+                              if eq.split("/")[-1].lower().replace("-it", "").replace("-instruct", "") == c), None)
+                if match:
+                    hit = match
+                    break
+            if hit:
+                out["eqbench"].append(f"{slug} -> {hit}")
+
         # livebench：effort 后缀不固定，用前缀匹配（保守，只提示）。
-        # 候选须与其它源一致地覆盖点/连字符两种写法——只用 replace(".", "-")
-        # 会让「源名带点号」的模型（glm-5.3）整类漏报。
         if m.get("livebench") is None:
             hit = None
             for c in _norm_candidates(slug):
@@ -199,17 +247,14 @@ def _safe_path(path):
     return p
 
 
-# slug 派生时剥离的确定性 effort 后缀（LiveBench 命名习惯，无歧义）
+# slug 派生时剥离的确定性 effort 后缀与量化精度变体（LiveBench 命名习惯，无歧义）
 STRIP_SUFFIXES = (
     "-high-effort", "-xhigh-effort", "-max-effort",
     "-medium-effort", "-low-effort",
     "-thinking-auto-high", "-thinking-auto-medium", "-thinking-auto-low",
     "-xhigh", "-high", "-medium", "-low",
+    "-nvfp4", "-fp4", "-fp8", "-bf16",
 )
-
-# 实验版后缀（同模型在别源不带，如 LiveBench deepseek-v4-flash-vision-exp
-# vs AA deepseek-v4-flash-vision）：AA/DeepSWE 别名匹配时归一化掉。
-EXP_SUFFIXES = ("-exp",)
 
 # AA Creator 名 -> registry 惯用名
 CREATOR_FIXUPS = {"Z AI": "Z.AI", "Kimi": "Moonshot AI", "SpaceXAI": "xAI"}
@@ -219,8 +264,9 @@ PREFIX_CREATORS = {
     "deepseek": "DeepSeek", "kimi": "Moonshot AI", "moonshot": "Moonshot AI",
     "qwen": "Alibaba", "minimax": "MiniMax", "mimo": "Xiaomi",
     "claude": "Anthropic", "gemini": "Google", "glm": "Z.AI",
-    "gpt": "OpenAI", "grok": "xAI", "llama": "Meta",
+    "gpt": "OpenAI", "grok": "xAI", "llama": "Meta", "muse": "Meta",
     "longcat": "LongCat", "ernie": "Baidu", "hunyuan": "Tencent",
+    "step": "StepFun", "nemotron": "NVIDIA", "ox": "Ox AI",
 }
 
 
@@ -239,7 +285,8 @@ def derive_slug(name):
     """源模型名 -> registry slug：小写 + 剥离 effort 后缀 + 版本点号规范化。
 
     裸 ``-max`` 有歧义（qwen3.8-max 的 max 是型号名，gpt-5.6-luna-max 的
-    max 是档位），仅当前面不是版本数字时才剥离。
+    max 是档位）。仅当前面是单一厂商前缀紧跟版本数字时（如 qwen3.8-max）才保留，
+    包含产品名的复合词（如 muse-wonder-1.0-max）一律剥离档位后缀。
 
     版本号一律收敛为点号（slug 规范见 registry note）：``claude-fable-5-1``
     -> ``claude-fable-5.1``，``qwen3-8-max`` -> ``qwen3.8-max``。非纯数字
@@ -254,7 +301,7 @@ def derive_slug(name):
                 s = s[:-len(suf)]
                 changed = True
                 break
-    if s.endswith("-max") and not re.search(r"\d+(\.\d+)?-max$", s):
+    if s.endswith("-max") and not re.match(r"^[a-z]+\d+([.-]\d+)?-max$", s):
         s = s[:-len("-max")]
     s = _DATE_ISO.sub("", s)
     s = _DATE_COMPACT.sub("", s)
@@ -270,23 +317,36 @@ def _prefix_creator(slug):
 
 
 def _load_source_names(cache_dir=CACHE, aa_csv=AA_CSV):
-    """各源模型名集合；AA 额外保留整行以提取 Creator。"""
+    """各源模型名集合；AA 额外保留整行以提取 Creator，同时索引 Model Slug 和 Host API ID。"""
     def _set(path):
         if not os.path.exists(path):
             return set()
         return {n.lower() for n in _read_col(path, "model")}
 
     aa_idx = {}
+    aa_host_idx = {}
     if os.path.exists(aa_csv):
         with open(aa_csv, encoding="utf-8-sig", newline="") as f:
-            aa_idx = {(r.get("Model Slug") or "").strip(): r
-                      for r in csv.DictReader(f)
-                      if (r.get("Model Slug") or "").strip()}
+            for r in csv.DictReader(f):
+                ms = (r.get("Model Slug") or "").strip().lower()
+                hid = (r.get("Host API ID") or "").strip().lower()
+                if ms and ms not in aa_idx:
+                    aa_idx[ms] = r
+                if hid:
+                    short_hid = hid.split("/")[-1]
+                    if hid not in aa_host_idx:
+                        aa_host_idx[hid] = r
+                    if short_hid not in aa_host_idx:
+                        aa_host_idx[short_hid] = r
+
+    raw_eq = _read_col(os.path.join(cache_dir, "eqbench.csv"), "model") if os.path.exists(os.path.join(cache_dir, "eqbench.csv")) else []
     return {
         "livebench": _set(os.path.join(cache_dir, "livebench.csv")),
         "deepswe": _set(os.path.join(cache_dir, "deepswe.csv")),
         "eqbench": _set(os.path.join(cache_dir, "eqbench.csv")),
+        "eqbench_raw": raw_eq,
         "aa": aa_idx,
+        "aa_host": aa_host_idx,
     }
 
 
@@ -328,6 +388,7 @@ def auto_add_candidates(registry_path=REGISTRY, cache_dir=CACHE,
     原子替换，无新增时不写文件。
     """
     registry_path = _safe_path(registry_path)
+    cache_dir = _safe_path(cache_dir)
     aa_csv = _safe_path(aa_csv)
     with open(registry_path, encoding="utf-8") as f:
         doc = json.load(f)
@@ -360,10 +421,26 @@ def auto_add_candidates(registry_path=REGISTRY, cache_dir=CACHE,
         ds_alias = (_pick_alias(ds_names, slug)
                     or next((c for c in _norm_candidates(slug)
                              if c in src["deepswe"]), None))
-        aa_alias = next((c for c in _norm_candidates(slug)
-                         if c in src["aa"]), None)
+
+        aa_alias = None
+        for c in _norm_candidates(slug):
+            if c in src["aa"]:
+                aa_alias = (src["aa"][c].get("Model Slug") or "").strip()
+                break
+            if c in src.get("aa_host", {}):
+                aa_alias = (src["aa_host"][c].get("Model Slug") or "").strip()
+                break
+
         eq_alias = next((c for c in _norm_candidates(slug)
                          if c in src["eqbench"]), None)
+        if not eq_alias and "eqbench_raw" in src:
+            for c in _norm_candidates(slug):
+                match = next((eq for eq in src["eqbench_raw"]
+                              if eq.split("/")[-1].lower().replace("-it", "").replace("-instruct", "") == c
+                              or eq.split("/")[-1].lower().startswith(c)), None)
+                if match:
+                    eq_alias = match
+                    break
 
         confirmed = sum([in_lb, ds_alias is not None, aa_alias is not None])
         if confirmed < 2:
@@ -377,8 +454,8 @@ def auto_add_candidates(registry_path=REGISTRY, cache_dir=CACHE,
             continue
 
         creator = None
-        if aa_alias:
-            raw = (src["aa"][aa_alias].get("Creator") or "").strip()
+        if aa_alias and aa_alias.lower() in src["aa"]:
+            raw = (src["aa"][aa_alias.lower()].get("Creator") or "").strip()
             creator = CREATOR_FIXUPS.get(raw) or (raw or None)
         entry = {
             "slug": slug,

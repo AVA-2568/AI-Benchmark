@@ -218,9 +218,14 @@ def _run_auto_add(tmp_path, registry_doc, lb, ds, aa_rows=(), eq=()):
     aa = tmp_path / "aa.csv"
     with open(str(aa), "w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["Model Slug", "Creator", "LCR"])
-        for slug, creator in aa_rows:
-            w.writerow([slug, creator, "0.5"])
+        w.writerow(["Model Slug", "Host API ID", "Creator", "LCR"])
+        for row in aa_rows:
+            if len(row) == 2:
+                slug, creator = row
+                hid = slug
+            else:
+                slug, hid, creator = row
+            w.writerow([slug, hid, creator, "0.5"])
     added, deferred = dnm.auto_add_candidates(
         registry_path=str(reg), cache_dir=str(cache), aa_csv=str(aa),
         today="2026-08-25")
@@ -372,3 +377,47 @@ def test_auto_add_exp_suffix_same_model(tmp_path):
     assert e["livebench"] == "deepseek-v4-flash-vision-exp"
     assert e["aa"] == "deepseek-v4-flash-vision"
     assert e["creator"] == "DeepSeek"
+
+
+def test_auto_add_secondary_version_stripped_matches_aa(tmp_path):
+    """次要版本号 .0：LiveBench 带 1.0/-max、AA 不带版本号也应归组并双源确认入池。"""
+    reg, added, deferred = _run_auto_add(
+        tmp_path, {"models": []},
+        lb=["muse-wonder-1.0", "muse-wonder-1.0-max"], ds=[],
+        aa_rows=[("muse-wonder", "Meta")],
+        eq=["muse-wonder"])
+    assert deferred == []
+    assert len(added) == 1
+    e = added[0]
+    assert e["slug"] == "muse-wonder-1.0"
+    assert sorted(e["livebench"]) == ["muse-wonder-1.0", "muse-wonder-1.0-max"]
+    assert e["aa"] == "muse-wonder"
+    assert e["eqbench"] == "muse-wonder"
+    assert e["creator"] == "Meta"
+
+
+def test_auto_add_preview_suffix_and_host_id_matches_aa(tmp_path):
+    """-preview 后缀剥离与 AA Host API ID 匹配：如 step-5-preview。"""
+    reg, added, deferred = _run_auto_add(
+        tmp_path, {"models": []},
+        lb=["step-5-preview"], ds=[],
+        aa_rows=[("step-5", "step-5-preview", "StepFun")])
+    assert deferred == []
+    assert len(added) == 1
+    e = added[0]
+    assert e["slug"] == "step-5-preview"
+    assert e["aa"] == "step-5"
+    assert e["creator"] == "StepFun"
+
+
+def test_missing_aliases_eqbench_namespace_detected(tmp_path):
+    """registry eqbench=null 但 EQ-Bench 源有组织前缀 Qwen/Qwen3.8-27B → 报漏配。"""
+    reg = [
+        {"slug": "qwen3.8-27b", "aa": "qwen3-8-27b", "livebench": "qwen3.8-27b",
+         "deepswe": None, "swebench": None, "eqbench": None},
+    ]
+    cache = tmp_path / "cache"
+    cache.mkdir(exist_ok=True)
+    _write_cache(str(cache), "eqbench.csv", ["Qwen/Qwen3.8-27B"])
+    got = dnm.detect_missing_aliases(reg, cache_dir=str(cache), aa_csv=str(tmp_path / "nope"))
+    assert got["eqbench"] == ["qwen3.8-27b -> Qwen/Qwen3.8-27B"]

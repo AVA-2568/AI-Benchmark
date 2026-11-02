@@ -195,3 +195,35 @@ def test_plans_strict_mappings():
     assert _plan_matches(chatgpt, "OpenAI", "gpt-5.2-codex") is False
     assert _plan_matches(chatgpt, "OpenAI", "gpt-6.1-sol") is True
 
+
+
+def test_plans_updated_mappings_and_scale_accuracy():
+    """验证 2026-11-02 扩容后新模型与关键聚合套餐的精准映射与 scale 校准。"""
+    plans = _load()
+    by_name = {p["name"]: p for p in plans}
+    from pipeline.scoring import _plan_matches
+    from verify_plans import resolve_plan_model_scale
+
+    # 1. OpenCode Go 对 mimo-v2 系列支持并赋予 4.0 scale
+    opencode = by_name["OpenCode Go"]
+    assert _plan_matches(opencode, "Xiaomi", "mimo-v2.6-pro") is True
+    scale, eff_d, _ = resolve_plan_model_scale(opencode, "mimo-v2.6-pro")
+    assert scale == 4.0
+    assert abs(eff_d - round(0.167 * 4.0, 6)) < 1e-4
+
+    # 2. OpenCode Go 对 deepseek-v4-flash-vision 与 qwen3.8-flash-next 的精确 scale
+    scale_vision, _, _ = resolve_plan_model_scale(opencode, "deepseek-v4-flash-vision")
+    assert scale_vision == 4.0
+    scale_qwen_flash, _, _ = resolve_plan_model_scale(opencode, "qwen3.8-flash-next")
+    assert scale_qwen_flash == 2.0
+
+    # 3. Command Code GOAT 对 mimo-v2 系列支持
+    goat = by_name["Command Code GOAT"]
+    assert _plan_matches(goat, "Xiaomi", "mimo-v2.6-pro") is True
+
+    # 4. 聚合 IDE 严防未收录模型套利
+    for ide_name in ["GitHub Copilot Max", "Cursor Ultra", "Windsurf Pro", "Trae Pro", "Factory Droid Pro"]:
+        ide = by_name[ide_name]
+        assert _plan_matches(ide, "StepFun", "step-5-preview") is False
+        assert _plan_matches(ide, "NVIDIA", "nemotron-3-ultra-550b-a55b") is False
+        assert _plan_matches(ide, "Meta", "muse-wonder-1.0") is False

@@ -1,5 +1,6 @@
 import os
 import sys
+import tempfile
 from pathlib import Path
 import pytest
 
@@ -14,8 +15,9 @@ if sys.stderr and hasattr(sys.stderr, "reconfigure"):
     except Exception:
         pass
 
-# 环境特定可写临时根目录（沙箱白名单目录）
-_WRITABLE_ROOT = Path(r"C:\Users\pc\.codex\visualizations\2026\11\01\01a19569-1ec9-7ab2-9db7-3adcac9c686c\pytest_tmp")
+# 环境特定可写临时根目录（沙箱白名单目录，优先使用系统/沙箱通用可写临时目录）
+_WRITABLE_ROOT = Path(tempfile.gettempdir()) / "pytest_tmp"
+
 
 @pytest.fixture
 def tmp_path(request):

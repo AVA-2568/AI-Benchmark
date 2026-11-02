@@ -1,18 +1,11 @@
 {
   "new_models": {
     "livebench.csv": [
-      "muse-wonder-1.0",
-      "muse-wonder-1.0-max",
-      "nemotron-3-ultra-550b-a55b",
-      "nemotron-3.5-lightning-30b-a3b",
-      "nemotron-super-vl-3.5",
-      "nemotron-super-vl-3.5-nvfp4",
       "ox-alpha-max",
       "smaug-agentic",
       "smaug-flash",
       "smaug-mini",
-      "smaug-nemotron-3.5-nvfp4",
-      "step-5-preview"
+      "smaug-nemotron-3.5-nvfp4"
     ],
     "deepswe.csv": []
   },
@@ -23,66 +16,6 @@
     "livebench": []
   },
   "deferred": [
-    {
-      "name": "muse-wonder-1.0",
-      "slug": "muse-wonder-1.0",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "muse-wonder-1.0-max",
-      "slug": "muse-wonder-1.0-max",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "nemotron-3-ultra-550b-a55b",
-      "slug": "nemotron-3-ultra-550b-a55b",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "nemotron-3.5-lightning-30b-a3b",
-      "slug": "nemotron-3.5-lightning-30b-a3b",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "nemotron-super-vl-3.5",
-      "slug": "nemotron-super-vl-3.5",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "nemotron-super-vl-3.5-nvfp4",
-      "slug": "nemotron-super-vl-3.5-nvfp4",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
     {
       "name": "ox-alpha-max",
       "slug": "ox-alpha",
@@ -125,17 +58,7 @@
     },
     {
       "name": "smaug-nemotron-3.5-nvfp4",
-      "slug": "smaug-nemotron-3.5-nvfp4",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "step-5-preview",
-      "slug": "step-5-preview",
+      "slug": "smaug-nemotron-3.5",
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,
