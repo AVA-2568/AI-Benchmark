@@ -1,11 +1,11 @@
 {
-  "run_date": "2026-11-02T08:32:08.501735+00:00",
+  "run_date": "2026-11-09T08:48:03.142660+00:00",
   "max_age_days": 21,
   "online": true,
   "summary": {
     "plans": 48,
-    "pass": 45,
-    "warn": 3,
+    "pass": 48,
+    "warn": 0,
     "fail": 0
   },
   "coverage": {
@@ -3603,30 +3603,24 @@
   "entries": [
     {
       "name": "ChatGPT Pro 20x",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "ChatGPT Pro 20x: 官方页 HTTP 403（https://chatgpt.com/pricing）"
-      ],
-      "url_status": 403
+      "warnings": [],
+      "url_status": 200
     },
     {
       "name": "ChatGPT Pro 5x",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "ChatGPT Pro 5x: 官方页 HTTP 403（https://chatgpt.com/pricing）"
-      ],
-      "url_status": 403
+      "warnings": [],
+      "url_status": 200
     },
     {
       "name": "ChatGPT Plus",
-      "status": "warn",
+      "status": "pass",
       "errors": [],
-      "warnings": [
-        "ChatGPT Plus: 官方页 HTTP 403（https://chatgpt.com/pricing）"
-      ],
-      "url_status": 403
+      "warnings": [],
+      "url_status": 200
     },
     {
       "name": "Claude Max 20x",
