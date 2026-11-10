@@ -889,6 +889,18 @@
       "vision": true,
       "auto_added": "2026-11-02",
       "openrouter": "stepfun/step-5-preview"
+    },
+    {
+      "slug": "claude-fable-5.2",
+      "creator": "Anthropic",
+      "aa": "claude-fable-5-2",
+      "livebench": "claude-fable-5.2",
+      "deepswe": null,
+      "swebench": null,
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-11-10",
+      "openrouter": "anthropic/claude-fable-5.2"
     }
   ]
 }
