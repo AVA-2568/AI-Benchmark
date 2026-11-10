@@ -1,4 +1,17 @@
+#!/usr/bin/env python3
+"""Scoring CLI: rank merged models by custom weights (multi-leaderboard).
+
+The algorithm now lives in ``pipeline`` (imported below) so it is
+implemented exactly once. This module is the thin CLI wrapper:
+load config -> read merged CSV -> load FX rate -> run the shared pipeline.
+
+Pure helpers are re-exported for import-safety / unit tests.
+"""
+import csv
+import json
+import os
 import sys
+
 if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
     try:
         sys.stdout.reconfigure(encoding='utf-8')
@@ -9,18 +22,6 @@ if sys.stderr and hasattr(sys.stderr, 'reconfigure'):
         sys.stderr.reconfigure(encoding='utf-8')
     except Exception:
         pass
-#!/usr/bin/env python3
-"""Scoring CLI: rank merged models by custom weights (multi-leaderboard).
-
-The algorithm now lives in ``pipeline`` (imported below) so it is
-implemented exactly once. This module is the thin CLI wrapper:
-load config -> read merged CSV -> load FX rate -> run the shared pipeline.
-
-Pure helpers are re-exported for import-safety / unit tests.
-"""
-import json
-import os
-import sys
 
 _BASE = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(_BASE)
@@ -41,6 +42,19 @@ from pipeline import (  # noqa: E402
 )
 
 from pipeline import run_pipeline  # noqa: E402
+
+# 这些名字是给测试与外部调用方的稳定入口（实现仍在 pipeline 内），
+# 显式声明 __all__ 以免被当成无用导入清理掉
+__all__ = [
+    "ConfigError",
+    "board_weights",
+    "fmt_val",
+    "load_config",
+    "norm",
+    "to_float",
+    "validate_config",
+    "run_pipeline",
+]
 
 
 def _load_fx():
@@ -74,8 +88,8 @@ def main():
     else:
         print("!! fx.json missing, CNY 价格列将为空")
 
-    import csv
-    rows = list(csv.DictReader(open(SRC, encoding="utf-8-sig")))
+    with open(SRC, encoding="utf-8-sig", newline="") as f:
+        rows = list(csv.DictReader(f))
     run_pipeline(rows, cfg, RESULTS_DIR, fx_rate=fx_rate)
 
 

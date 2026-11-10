@@ -1231,7 +1231,8 @@
     }
   ],
   "score_threshold": 0,
-  "max_imputed_ratio": 0.45,
+  "max_imputed_ratio": 0.6,
+  "max_missing_per_domain": 1,
   "ridge_alpha": 0.1,
   "imputation_min_samples": 4,
   "standardize_features": true,

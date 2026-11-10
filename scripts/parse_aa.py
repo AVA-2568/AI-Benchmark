@@ -15,7 +15,11 @@
 （``python parse_aa.py`` / ``build.py`` 子进程）时触发；
 模块被 import 时不会自动执行，便于对纯解析/哨兵函数做单测。
 """
-import re, json, csv, os, sys
+import re
+import json
+import csv
+import os
+import sys
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
     try:
         sys.stdout.reconfigure(encoding="utf-8")

@@ -1,4 +1,9 @@
-"""Unit tests for detect_new_models (new-model + alias-missing discovery)."""
+"""Unit tests for detect_new_models (new-model + alias-missing discovery).
+
+DeepSWE 已于 2026-11 退役（docs/adr/0002-retire-deepswe.md）：新模型扫描
+只剩 LiveBench 一个信号源，入池确认门槛变为「LiveBench 出现 + AA 精确
+匹配」。因此本文件的确认样例一律用 livebench + AA 构造。
+"""
 import csv
 import json
 import os
@@ -34,17 +39,24 @@ def _write_aa(path, slugs):
             w.writerow([s, "0.5"])
 
 
+# ---- 退役范围 ----
+
+def test_deepswe_not_a_scan_source():
+    """DeepSWE 退役后不得再出现在新模型扫描源里。"""
+    assert "deepswe.csv" not in dnm.NEW_MODEL_SOURCES
+    assert list(dnm.NEW_MODEL_SOURCES) == ["livebench.csv"]
+
+
 # ---- load_whitelists ----
 
 def test_load_whitelists_split_by_source(tmp_path):
     reg = tmp_path / "reg.json"
     _write_registry(str(reg), [
         {"slug": "a", "aa": "a-1", "livebench": ["a-high", "a"],
-         "deepswe": None, "swebench": None, "eqbench": "a"},
+         "eqbench": "a"},
     ])
     wl = dnm.load_whitelists(str(reg))
     assert wl["livebench"] == {"a-high", "a"}
-    assert wl["deepswe"] == set()
 
 
 # ---- detect_new_models ----
@@ -53,33 +65,27 @@ def test_new_models_flags_only_uncovered(tmp_path):
     reg = tmp_path / "reg.json"
     _write_registry(str(reg), [
         {"slug": "gemini-3.7-flash", "aa": "gemini-3-7-flash",
-         "livebench": "gemini-3.7-flash-high", "deepswe": "gemini-3.7-flash",
-         "swebench": None, "eqbench": "gemini-3.7-flash"},
+         "livebench": "gemini-3.7-flash-high", "eqbench": "gemini-3.7-flash"},
     ])
     cache = tmp_path / "cache"
     cache.mkdir(exist_ok=True)
     _write_cache(str(cache), "livebench.csv",
                  ["gemini-3.7-flash-high", "some-new-model-high"])
-    _write_cache(str(cache), "deepswe.csv",
-                 ["gemini-3.7-flash", "another-new-model"])
 
     got = dnm.detect_new_models(dnm.load_whitelists(str(reg)),
                                 cache_dir=str(cache))
     assert got["livebench.csv"] == ["some-new-model-high"]
-    assert got["deepswe.csv"] == ["another-new-model"]
 
 
 def test_new_models_no_cross_source_confusion(tmp_path):
     """livebench 源里的名字只匹配 livebench 别名，不被 eqbench 别名误判覆盖。"""
     reg = tmp_path / "reg.json"
     _write_registry(str(reg), [
-        {"slug": "x", "aa": None, "livebench": "x-high", "deepswe": None,
-         "swebench": None, "eqbench": "x"},
+        {"slug": "x", "aa": None, "livebench": "x-high", "eqbench": "x"},
     ])
     cache = tmp_path / "cache"
     cache.mkdir(exist_ok=True)
     _write_cache(str(cache), "livebench.csv", ["x"])
-    _write_cache(str(cache), "deepswe.csv", [])
 
     got = dnm.detect_new_models(dnm.load_whitelists(str(reg)),
                                 cache_dir=str(cache))
@@ -89,13 +95,11 @@ def test_new_models_no_cross_source_confusion(tmp_path):
 def test_new_models_case_insensitive(tmp_path):
     reg = tmp_path / "reg.json"
     _write_registry(str(reg), [
-        {"slug": "x", "aa": None, "livebench": "X-High", "deepswe": None,
-         "swebench": None, "eqbench": None},
+        {"slug": "x", "aa": None, "livebench": "X-High", "eqbench": None},
     ])
     cache = tmp_path / "cache"
     cache.mkdir(exist_ok=True)
     _write_cache(str(cache), "livebench.csv", ["x-high"])
-    _write_cache(str(cache), "deepswe.csv", [])
 
     got = dnm.detect_new_models(dnm.load_whitelists(str(reg)),
                                 cache_dir=str(cache))
@@ -107,7 +111,7 @@ def test_new_models_missing_cache(tmp_path):
     _write_registry(str(reg), [])
     got = dnm.detect_new_models(dnm.load_whitelists(str(reg)),
                                 cache_dir=str(tmp_path / "nope"))
-    assert got == {"livebench.csv": [], "deepswe.csv": []}
+    assert got == {"livebench.csv": []}
 
 
 # ---- detect_missing_aliases ----
@@ -116,7 +120,7 @@ def test_missing_aliases_aa_detected(tmp_path):
     """registry aa=null 但 AA 源有连字符 slug → 报漏配。"""
     reg = [
         {"slug": "qwen3.8-max", "aa": None, "livebench": "qwen3.8-max",
-         "deepswe": "qwen3.8-max", "swebench": None, "eqbench": None},
+         "eqbench": None},
     ]
     aa = tmp_path / "aa.csv"
     _write_aa(str(aa), ["qwen3-8-max"])
@@ -129,10 +133,8 @@ def test_missing_aliases_aa_detected(tmp_path):
 def test_missing_aliases_no_false_positive(tmp_path):
     """字段已配（值在源里）→ 不报漏配；字段 null 但源里也没有 → 不报。"""
     reg = [
-        {"slug": "a", "aa": "a-1", "livebench": None, "deepswe": None,
-         "swebench": None, "eqbench": None},
-        {"slug": "b", "aa": None, "livebench": None, "deepswe": None,
-         "swebench": None, "eqbench": None},
+        {"slug": "a", "aa": "a-1", "livebench": None, "eqbench": None},
+        {"slug": "b", "aa": None, "livebench": None, "eqbench": None},
     ]
     aa = tmp_path / "aa.csv"
     _write_aa(str(aa), ["a-1"])  # 只有 a，没有 b
@@ -150,7 +152,7 @@ def test_missing_aliases_livebench_dotted_name(tmp_path):
     """
     reg = [
         {"slug": "glm-5.3", "aa": "glm-5-3", "livebench": None,
-         "deepswe": "glm-5.3", "swebench": None, "eqbench": None},
+         "eqbench": None},
     ]
     cache = tmp_path / "cache"
     cache.mkdir(exist_ok=True)
@@ -205,14 +207,13 @@ def test_derive_slug_strips_release_date():
 
 # ---- auto_add_candidates ----
 
-def _run_auto_add(tmp_path, registry_doc, lb, ds, aa_rows=(), eq=()):
+def _run_auto_add(tmp_path, registry_doc, lb, aa_rows=(), eq=()):
     reg = tmp_path / "reg.json"
     with open(str(reg), "w", encoding="utf-8") as f:
         json.dump(registry_doc, f)
     cache = tmp_path / "cache"
     cache.mkdir(exist_ok=True)
     _write_cache(str(cache), "livebench.csv", lb)
-    _write_cache(str(cache), "deepswe.csv", ds)
     if eq:
         _write_cache(str(cache), "eqbench.csv", eq)
     aa = tmp_path / "aa.csv"
@@ -238,25 +239,27 @@ def _load_models(path):
 
 
 def test_auto_add_two_source_confirmed(tmp_path):
-    """livebench + deepswe 双源出现 -> 入池，别名/日期齐全。"""
+    """livebench + AA 双源出现 -> 入池，别名/日期齐全。"""
     reg, added, deferred = _run_auto_add(
         tmp_path, {"models": []},
-        lb=["new-model-a"], ds=["new-model-a"])
+        lb=["new-model-a"], aa_rows=[("new-model-a", "Z AI")])
     assert deferred == []
     assert len(added) == 1
     e = added[0]
     assert e["slug"] == "new-model-a"
     assert e["livebench"] == "new-model-a"
-    assert e["deepswe"] == "new-model-a"
-    assert e["aa"] is None and e["swebench"] is None
+    assert e["aa"] == "new-model-a"
+    assert e["creator"] == "Z.AI"
     assert e["auto_added"] == "2026-08-25"
     assert len(_load_models(reg)) == 1
+    # 退役源的字段不得再写回 registry
+    assert "deepswe" not in e
 
 
 def test_auto_add_idempotent(tmp_path):
     reg, added, _ = _run_auto_add(
         tmp_path, {"models": []},
-        lb=["new-model-a"], ds=["new-model-a"])
+        lb=["new-model-a"], aa_rows=[("new-model-a", "Z AI")])
     assert len(added) == 1
     added2, deferred2 = dnm.auto_add_candidates(
         registry_path=reg,
@@ -268,13 +271,11 @@ def test_auto_add_idempotent(tmp_path):
 def test_auto_add_single_source_deferred(tmp_path):
     """仅 livebench 单源孤立 -> 不入池，注明原因，registry 不变。"""
     reg, added, deferred = _run_auto_add(
-        tmp_path, {"models": []},
-        lb=["solo-model"], ds=[])
+        tmp_path, {"models": []}, lb=["solo-model"])
     assert added == []
     assert len(deferred) == 1
     assert deferred[0]["reason"] == "insufficient_confirmation"
-    assert deferred[0]["sources"] == {
-        "livebench": True, "deepswe": False, "aa": False}
+    assert deferred[0]["sources"] == {"livebench": True, "aa": False}
     assert _load_models(reg) == []
 
 
@@ -282,23 +283,22 @@ def test_auto_add_creator_from_aa_with_fixup(tmp_path):
     """AA 命中时取其 Creator，并应用 AA->registry 名称修正表。"""
     reg, added, deferred = _run_auto_add(
         tmp_path, {"models": []},
-        lb=["some-model"], ds=["some-model"],
-        aa_rows=[("some-model", "Z AI")])
+        lb=["some-model"], aa_rows=[("some-model", "Z AI")])
     assert deferred == []
     assert added[0]["creator"] == "Z.AI"
     assert added[0]["aa"] == "some-model"
 
 
 def test_auto_add_creator_prefix_fallback(tmp_path):
-    """无 AA 数据时按 slug 前缀推断 creator，匹配不上则 Unknown。"""
+    """AA 行存在但 Creator 为空时，按 slug 前缀推断；匹配不上则 Unknown。"""
     reg, added, _ = _run_auto_add(
         tmp_path, {"models": []},
-        lb=["kimi-k4"], ds=["kimi-k4"])
+        lb=["kimi-k4"], aa_rows=[("kimi-k4", "")])
     assert added[0]["creator"] == "Moonshot AI"
 
     reg, added, _ = _run_auto_add(
         tmp_path, {"models": []},
-        lb=["mystery-9b"], ds=["mystery-9b"])
+        lb=["mystery-9b"], aa_rows=[("mystery-9b", "")])
     assert added[0]["creator"] == "Unknown"
 
 
@@ -307,7 +307,7 @@ def test_auto_add_exclude_pattern(tmp_path):
     reg, added, deferred = _run_auto_add(
         tmp_path,
         {"models": [], "auto_add_exclude": ["smaug-*"]},
-        lb=["smaug-agentic"], ds=["smaug-agentic"])
+        lb=["smaug-agentic"], aa_rows=[("smaug-agentic", "Unknown")])
     assert added == []
     assert deferred[0]["reason"] == "excluded_by_pattern:smaug-*"
     assert _load_models(reg) == []
@@ -317,11 +317,11 @@ def test_auto_add_livebench_alias_keeps_suffix(tmp_path):
     """slug 剥离 effort 后缀，但 livebench 别名保留源内原名以对齐数据。"""
     reg, added, deferred = _run_auto_add(
         tmp_path, {"models": []},
-        lb=["ox-alpha-max"], ds=["ox-alpha"])
+        lb=["ox-alpha-max"], aa_rows=[("ox-alpha", "Ox AI")])
     assert deferred == []
     assert added[0]["slug"] == "ox-alpha"
     assert added[0]["livebench"] == "ox-alpha-max"
-    assert added[0]["deepswe"] == "ox-alpha"
+    assert added[0]["aa"] == "ox-alpha"
 
 
 def test_auto_add_dotted_version_from_dashed_source(tmp_path):
@@ -332,7 +332,7 @@ def test_auto_add_dotted_version_from_dashed_source(tmp_path):
     """
     reg, added, deferred = _run_auto_add(
         tmp_path, {"models": []},
-        lb=["claude-fable-5-1-max-effort"], ds=[],
+        lb=["claude-fable-5-1-max-effort"],
         aa_rows=[("claude-fable-5-1", "Anthropic")])
     assert deferred == []
     assert len(added) == 1
@@ -341,21 +341,19 @@ def test_auto_add_dotted_version_from_dashed_source(tmp_path):
     assert e["livebench"] == "claude-fable-5-1-max-effort"
     assert e["aa"] == "claude-fable-5-1"
     assert e["creator"] == "Anthropic"
-    assert e["deepswe"] is None
 
 
 def test_auto_add_groups_dash_and_dot_variants(tmp_path):
     """同一模型的连字符/点号两种写法归为一组，不产生两个条目。"""
     reg, added, deferred = _run_auto_add(
         tmp_path, {"models": []},
-        lb=["glm-5-4-max-effort"], ds=["glm-5.4"],
+        lb=["glm-5-4-max-effort", "glm-5.4"],
         aa_rows=[("glm-5-4", "Z AI")])
     assert deferred == []
     assert len(added) == 1
     e = added[0]
     assert e["slug"] == "glm-5.4"
-    assert e["livebench"] == "glm-5-4-max-effort"
-    assert e["deepswe"] == "glm-5.4"  # 优先取与 slug 一致的写法
+    assert sorted(e["livebench"]) == ["glm-5-4-max-effort", "glm-5.4"]
     assert e["aa"] == "glm-5-4"
     assert e["eqbench"] is None
 
@@ -368,7 +366,7 @@ def test_auto_add_exp_suffix_same_model(tmp_path):
     """
     reg, added, deferred = _run_auto_add(
         tmp_path, {"models": []},
-        lb=["deepseek-v4-flash-vision-exp"], ds=[],
+        lb=["deepseek-v4-flash-vision-exp"],
         aa_rows=[("deepseek-v4-flash-vision", "DeepSeek")])
     assert deferred == []
     assert len(added) == 1
@@ -383,7 +381,7 @@ def test_auto_add_secondary_version_stripped_matches_aa(tmp_path):
     """次要版本号 .0：LiveBench 带 1.0/-max、AA 不带版本号也应归组并双源确认入池。"""
     reg, added, deferred = _run_auto_add(
         tmp_path, {"models": []},
-        lb=["muse-wonder-1.0", "muse-wonder-1.0-max"], ds=[],
+        lb=["muse-wonder-1.0", "muse-wonder-1.0-max"],
         aa_rows=[("muse-wonder", "Meta")],
         eq=["muse-wonder"])
     assert deferred == []
@@ -400,8 +398,7 @@ def test_auto_add_preview_suffix_and_host_id_matches_aa(tmp_path):
     """-preview 后缀剥离与 AA Host API ID 匹配：如 step-5-preview。"""
     reg, added, deferred = _run_auto_add(
         tmp_path, {"models": []},
-        lb=["step-5-preview"], ds=[],
-        aa_rows=[("step-5", "step-5-preview", "StepFun")])
+        lb=["step-5-preview"], aa_rows=[("step-5", "step-5-preview", "StepFun")])
     assert deferred == []
     assert len(added) == 1
     e = added[0]
@@ -414,7 +411,7 @@ def test_missing_aliases_eqbench_namespace_detected(tmp_path):
     """registry eqbench=null 但 EQ-Bench 源有组织前缀 Qwen/Qwen3.8-27B → 报漏配。"""
     reg = [
         {"slug": "qwen3.8-27b", "aa": "qwen3-8-27b", "livebench": "qwen3.8-27b",
-         "deepswe": None, "swebench": None, "eqbench": None},
+         "eqbench": None},
     ]
     cache = tmp_path / "cache"
     cache.mkdir(exist_ok=True)

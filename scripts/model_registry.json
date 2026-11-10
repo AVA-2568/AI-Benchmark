@@ -1,5 +1,5 @@
 {
-  "note": "主流旗舰模型注册表：统一 slug + 各源别名。slug 规范=全小写、连字符分词、版本号保留点(如 claude-opus-4.8)。每个模型取各源最高推理档。aa=AA Model Slug(max档)；livebench=LiveBench CSV rawName(可列表,多个时取最高分)；deepswe/eqbench=各源 leaderboard 模型名；swebench=遗留字段（SWE-bench 已饱和停用，不再抓取，仅存量条目保留）；terminalbench=Terminal-Bench 独立实测别名（有实测的模型才有）；openrouter=OpenRouter 模型 ID。null 表示该源未评测。",
+  "note": "主流旗舰模型注册表：统一 slug + 各源别名。slug 规范=全小写、连字符分词、版本号保留点(如 claude-opus-4.8)。每个模型取各源最高推理档。aa=AA Model Slug(max档)；livebench=LiveBench CSV rawName(可列表,多个时取最高分)；eqbench=EQ-Bench leaderboard 模型名；swebench/terminalbench=历史遗留字段（对应源已停用，不参与抓取与评分，仅存量条目保留）；openrouter=OpenRouter 模型 ID。null 表示该源未评测。",
   "models": [
     {
       "slug": "claude-fable-5",
@@ -9,8 +9,6 @@
         "claude-fable-5",
         "claude-fable-5-max-effort"
       ],
-      "deepswe": "claude-fable-5",
-      "swebench": null,
       "eqbench": "claude-fable-5",
       "vision": true
     },
@@ -22,8 +20,6 @@
         "claude-opus-5",
         "claude-opus-5-max-effort"
       ],
-      "deepswe": "claude-opus-5",
-      "swebench": null,
       "eqbench": "claude-opus-5",
       "vision": true
     },
@@ -35,8 +31,6 @@
         "claude-opus-4.8",
         "claude-opus-4-8-max-effort"
       ],
-      "deepswe": "claude-opus-4.8",
-      "swebench": null,
       "eqbench": "claude-opus-4-8",
       "vision": true
     },
@@ -45,8 +39,6 @@
       "creator": "Anthropic",
       "aa": "claude-opus-4-7",
       "livebench": "claude-opus-4-7-xhigh-effort",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "claude-opus-4-7",
       "vision": true
     },
@@ -55,8 +47,6 @@
       "creator": "Anthropic",
       "aa": "claude-opus-4-6-adaptive",
       "livebench": "claude-opus-4-6-thinking-auto-high-effort",
-      "deepswe": null,
-      "swebench": "Claude 4.6 Opus",
       "eqbench": "claude-opus-4-6",
       "vision": true
     },
@@ -65,8 +55,6 @@
       "creator": "Anthropic",
       "aa": "claude-opus-4-5-thinking",
       "livebench": "claude-opus-4-5-20251101-thinking-64k-high-effort",
-      "deepswe": null,
-      "swebench": "Claude 4.5 Opus high",
       "eqbench": "claude-opus-4-5-20251101",
       "vision": true
     },
@@ -78,8 +66,6 @@
         "claude-sonnet-5",
         "claude-sonnet-5-xhigh-effort"
       ],
-      "deepswe": "claude-sonnet-5",
-      "swebench": null,
       "eqbench": "claude-sonnet-5",
       "vision": true
     },
@@ -91,8 +77,6 @@
         "claude-sonnet-4.6",
         "claude-sonnet-4-6-thinking-auto-medium-effort"
       ],
-      "deepswe": "claude-sonnet-4.6",
-      "swebench": null,
       "eqbench": "claude-sonnet-4-6",
       "vision": true
     },
@@ -104,8 +88,6 @@
         "gpt-5.6-sol",
         "gpt-5.6-sol-max"
       ],
-      "deepswe": "gpt-5.6-sol",
-      "swebench": null,
       "eqbench": "gpt-5.6-sol",
       "vision": true
     },
@@ -117,8 +99,6 @@
         "gpt-5.6-terra",
         "gpt-5.6-terra-max"
       ],
-      "deepswe": "gpt-5.6-terra",
-      "swebench": null,
       "eqbench": "gpt-5.6-terra",
       "vision": true
     },
@@ -130,8 +110,6 @@
         "gpt-5.6-luna",
         "gpt-5.6-luna-max"
       ],
-      "deepswe": "gpt-5.6-luna",
-      "swebench": null,
       "eqbench": "gpt-5.6-luna",
       "vision": true
     },
@@ -143,8 +121,6 @@
         "gpt-5.5",
         "gpt-5.5-xhigh"
       ],
-      "deepswe": "gpt-5.5",
-      "swebench": null,
       "eqbench": "gpt-5.5",
       "vision": true
     },
@@ -153,8 +129,6 @@
       "creator": "OpenAI",
       "aa": "gpt-5-4",
       "livebench": "gpt-5.4-xhigh",
-      "deepswe": "gpt-5.4",
-      "swebench": null,
       "eqbench": "gpt-5.4",
       "vision": true
     },
@@ -163,8 +137,6 @@
       "creator": "OpenAI",
       "aa": "gpt-5-4-mini",
       "livebench": "gpt-5.4-mini-xhigh",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "gpt-5.4-mini",
       "vision": true
     },
@@ -173,8 +145,6 @@
       "creator": "OpenAI",
       "aa": "gpt-5-4-nano",
       "livebench": "gpt-5.4-nano-xhigh",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "gpt-5.4-nano",
       "vision": true
     },
@@ -183,8 +153,6 @@
       "creator": "OpenAI",
       "aa": "gpt-5-2",
       "livebench": "gpt-5.2-2025-12-11-high",
-      "deepswe": null,
-      "swebench": "GPT 5.2 high",
       "eqbench": "gpt-5.2",
       "vision": true
     },
@@ -193,8 +161,6 @@
       "creator": "OpenAI",
       "aa": "gpt-5-2-codex",
       "livebench": "gpt-5.2-codex",
-      "deepswe": null,
-      "swebench": "GPT 5.2 Codex",
       "eqbench": "gpt-5.2-codex",
       "vision": true
     },
@@ -206,8 +172,6 @@
         "gemini-3.1-pro",
         "gemini-3.1-pro-preview-high"
       ],
-      "deepswe": "gemini-3.1-pro-preview",
-      "swebench": null,
       "eqbench": "gemini-3.1-pro-preview",
       "vision": true
     },
@@ -216,8 +180,6 @@
       "creator": "Google",
       "aa": "gemini-3-5-flash",
       "livebench": "gemini-3.5-flash-high",
-      "deepswe": "gemini-3.5-flash",
-      "swebench": null,
       "eqbench": "gemini-3.5-flash",
       "vision": true
     },
@@ -226,8 +188,6 @@
       "creator": "Google",
       "aa": "gemini-3-6-flash",
       "livebench": "gemini-3.6-flash-high",
-      "deepswe": "gemini-3.6-flash",
-      "swebench": null,
       "eqbench": "gemini-3.6-flash",
       "vision": true
     },
@@ -239,8 +199,6 @@
         "gemini-3.7-flash",
         "gemini-3.7-flash-high"
       ],
-      "deepswe": "gemini-3.7-flash",
-      "swebench": null,
       "eqbench": "gemini-3.7-flash",
       "vision": true,
       "terminalbench": [
@@ -253,8 +211,6 @@
       "creator": "Google",
       "aa": "gemini-3-5-flash-lite",
       "livebench": "gemini-3.5-flash-lite-high",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "gemini-3.5-flash-lite",
       "vision": true
     },
@@ -266,8 +222,6 @@
         "grok-4.6",
         "grok-4.6-xhigh"
       ],
-      "deepswe": "grok-4.6",
-      "swebench": null,
       "eqbench": "grok-4.6",
       "vision": true
     },
@@ -276,8 +230,6 @@
       "creator": "xAI",
       "aa": "grok-4-5",
       "livebench": "grok-4.5",
-      "deepswe": "grok-4.5",
-      "swebench": null,
       "eqbench": "grok-4.5",
       "vision": true
     },
@@ -286,8 +238,6 @@
       "creator": "xAI",
       "aa": "grok-4-3",
       "livebench": "grok-4.3",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "grok-4.3",
       "vision": true
     },
@@ -296,8 +246,6 @@
       "creator": "xAI",
       "aa": "grok-build-0-1-06-16",
       "livebench": "grok-build-0.1",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true
     },
@@ -309,8 +257,6 @@
         "muse-spark-1.2",
         "muse-spark-1.2-xhigh"
       ],
-      "deepswe": "muse-spark-1.2",
-      "swebench": null,
       "eqbench": "muse-spark-1.2",
       "vision": true
     },
@@ -319,8 +265,6 @@
       "creator": "Meta",
       "aa": "muse-spark-1-1",
       "livebench": "muse-spark-1.1-xhigh",
-      "deepswe": "muse-spark-1.1",
-      "swebench": null,
       "eqbench": "muse-spark-1.1",
       "vision": true
     },
@@ -332,8 +276,6 @@
         "inkling",
         "inkling-xhigh"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "thinkingmachines/Inkling",
       "vision": true
     },
@@ -345,8 +287,6 @@
         "deepseek-v4-pro-0813",
         "deepseek-v4-pro"
       ],
-      "deepswe": "deepseek-v4-pro",
-      "swebench": null,
       "eqbench": "deepseek-ai/DeepSeek-V4-Pro",
       "vision": false
     },
@@ -358,8 +298,6 @@
         "deepseek-v4-flash-0731",
         "deepseek-v4-flash"
       ],
-      "deepswe": "deepseek-v4-flash",
-      "swebench": null,
       "eqbench": "deepseek-ai/DeepSeek-V4-Flash-0731",
       "vision": false
     },
@@ -368,8 +306,6 @@
       "creator": "Moonshot AI",
       "aa": "kimi-k3",
       "livebench": "kimi-k3",
-      "deepswe": "kimi-k3",
-      "swebench": null,
       "eqbench": "kimi-k3",
       "vision": true
     },
@@ -378,8 +314,6 @@
       "creator": "Moonshot AI",
       "aa": "kimi-k2-6",
       "livebench": "kimi-k2.6-thinking",
-      "deepswe": null,
-      "swebench": "Kimi K2.5 high",
       "eqbench": "moonshotai/Kimi-K2.6",
       "vision": true
     },
@@ -388,8 +322,6 @@
       "creator": "Moonshot AI",
       "aa": "kimi-k2-7-code",
       "livebench": "kimi-k2.7-code",
-      "deepswe": "kimi-k2.7-code",
-      "swebench": null,
       "eqbench": "kimi-k2.7-code",
       "vision": true
     },
@@ -398,8 +330,6 @@
       "creator": "Alibaba",
       "aa": "qwen3-8-max",
       "livebench": "qwen3.8-max",
-      "deepswe": "qwen3.8-max",
-      "swebench": null,
       "eqbench": "Qwen/Qwen3.8-2.4T-A95B",
       "vision": true
     },
@@ -408,8 +338,6 @@
       "creator": "Alibaba",
       "aa": "qwen3-7-max",
       "livebench": "qwen3.7-max",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "qwen3.7-max",
       "vision": false
     },
@@ -418,8 +346,6 @@
       "creator": "Alibaba",
       "aa": "qwen3-6-plus",
       "livebench": "qwen3.6-plus",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true
     },
@@ -428,8 +354,6 @@
       "creator": "Alibaba",
       "aa": "qwen3-6-27b",
       "livebench": "qwen3.6-27b",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true
     },
@@ -438,8 +362,6 @@
       "creator": "Z.AI",
       "aa": "glm-5-2",
       "livebench": "glm-5.2",
-      "deepswe": "glm-5.2",
-      "swebench": null,
       "eqbench": "zai-org/GLM-5.2",
       "vision": false
     },
@@ -448,8 +370,6 @@
       "creator": "MiniMax",
       "aa": "minimax-m3",
       "livebench": "minimax-m3",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true
     },
@@ -458,8 +378,6 @@
       "creator": "Xiaomi",
       "aa": "mimo-v2-5-pro",
       "livebench": null,
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "XiaomiMiMo/MiMo-V2.5-Pro",
       "vision": false
     },
@@ -468,8 +386,6 @@
       "creator": "Tencent",
       "aa": "hy3",
       "livebench": null,
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": false
     },
@@ -478,8 +394,6 @@
       "creator": "Alibaba",
       "aa": "qwen3-8-27b",
       "livebench": "qwen3.8-27b",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "Qwen/Qwen3.8-27B",
       "vision": true
     },
@@ -488,8 +402,6 @@
       "creator": "Z.AI",
       "aa": "glm-5-3",
       "livebench": "glm-5.3",
-      "deepswe": "glm-5.3",
-      "swebench": null,
       "eqbench": "GLM-5.3",
       "vision": false
     },
@@ -498,8 +410,6 @@
       "creator": "Z.AI",
       "aa": "glm-5-3-flash",
       "livebench": "glm-5.3-flash",
-      "deepswe": "glm-5.3-flash",
-      "swebench": null,
       "eqbench": null,
       "auto_added": "2026-08-27",
       "vision": true
@@ -512,8 +422,6 @@
         "claude-fable-5.1",
         "claude-fable-5-1-max-effort"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "claude-fable-5-1",
       "auto_added": "2026-09-02",
       "vision": true
@@ -523,8 +431,6 @@
       "creator": "Alibaba",
       "aa": "qwen3-8-flash-next",
       "livebench": "qwen3.8-flash-next",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "auto_added": "2026-09-02",
       "vision": true
@@ -537,8 +443,6 @@
         "gemini-3.8-flash",
         "gemini-3.8-flash-high"
       ],
-      "deepswe": "gemini-3.8-flash",
-      "swebench": null,
       "eqbench": "gemini-3.8-flash",
       "vision": true,
       "auto_added": "2026-09-03",
@@ -555,8 +459,6 @@
         "gpt-6-astra",
         "gpt-6-astra-max"
       ],
-      "deepswe": "gpt-6-astra",
-      "swebench": null,
       "eqbench": "gpt-6-astra",
       "vision": true,
       "auto_added": "2026-09-04"
@@ -569,8 +471,6 @@
         "muse-spark-1.3",
         "muse-spark-1.3-xhigh"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "muse-spark-1.3",
       "vision": true,
       "auto_added": "2026-09-06",
@@ -581,8 +481,6 @@
       "creator": "DeepSeek",
       "aa": "deepseek-v4-flash-vision",
       "livebench": "deepseek-v4-flash-vision-exp",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-09-09",
@@ -600,8 +498,6 @@
         "deepseek-v4.1-flash-max",
         "deepseek-v4.1-flash-1017"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "deepseek-v4.1-flash",
       "vision": true,
       "auto_added": "2026-09-11",
@@ -616,8 +512,6 @@
         "claude-opus-5-5-max-effort",
         "claude-opus-5-5-xhigh-effort"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "claude-opus-5-5",
       "vision": true,
       "auto_added": "2026-10-02",
@@ -632,8 +526,6 @@
         "claude-sonnet-5-5-max-effort",
         "claude-sonnet-5-5-xhigh-effort"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-10-02",
@@ -647,8 +539,6 @@
         "gpt-6-luna",
         "gpt-6-luna-max"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-10-02",
@@ -662,8 +552,6 @@
         "gpt-6-sol",
         "gpt-6-sol-max"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "gpt-6-sol",
       "vision": true,
       "auto_added": "2026-10-02",
@@ -678,8 +566,6 @@
         "gpt-6.1-sol-max",
         "gpt-6.1-sol-xhigh"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-10-02",
@@ -693,8 +579,6 @@
         "grok-4.7",
         "grok-4.7-xhigh"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "grok-4.7",
       "vision": true,
       "auto_added": "2026-10-02",
@@ -705,8 +589,6 @@
       "creator": "DeepSeek",
       "aa": "deepseek-v4-flash-vision",
       "livebench": "deepseek-v4-flash-vision",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-10-15",
@@ -717,8 +599,6 @@
       "creator": "Google",
       "aa": "gemma-4-31b",
       "livebench": "gemma-4-31b",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "google/gemma-4-31B-it",
       "vision": true,
       "auto_added": "2026-10-15",
@@ -733,8 +613,6 @@
         "claude-haiku-5-5-xhigh-effort",
         "claude-haiku-5.5"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-10-15"
@@ -744,8 +622,6 @@
       "creator": "Google",
       "aa": "gemini-4-argon",
       "livebench": "gemini-4-argon",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "gemini-4-argon",
       "vision": true,
       "auto_added": "2026-10-15"
@@ -755,8 +631,6 @@
       "creator": "Xiaomi",
       "aa": "mimo-v2-6-pro",
       "livebench": "mimo-v2.6-pro",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-10-15"
@@ -770,8 +644,6 @@
         "mistral-large-4-high",
         "mistral-large-4-0"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-10-15"
@@ -781,8 +653,6 @@
       "creator": "OpenAI",
       "aa": "gpt-6-1-terra",
       "livebench": "gpt-6.1-terra",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-11-01",
@@ -793,8 +663,6 @@
       "creator": "Moonshot AI",
       "aa": "kimi-k3-1-pro",
       "livebench": "kimi-k3.1-pro",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "kimi-k3.1-pro",
       "vision": true,
       "auto_added": "2026-11-01",
@@ -805,8 +673,6 @@
       "creator": "MiniMax",
       "aa": "minimax-m3-1-flash",
       "livebench": "minimax-m3.1-flash",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-11-01",
@@ -817,8 +683,6 @@
       "creator": "Meta",
       "aa": "muse-spark-open",
       "livebench": "muse-spark-open",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-11-01",
@@ -832,8 +696,6 @@
         "muse-wonder-1.0",
         "muse-wonder-1.0-max"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "muse-wonder",
       "vision": true,
       "auto_added": "2026-11-02",
@@ -844,8 +706,6 @@
       "creator": "NVIDIA",
       "aa": "nvidia-nemotron-3-ultra-550b-a55b",
       "livebench": "nemotron-3-ultra-550b-a55b",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-NVFP4",
       "vision": false,
       "auto_added": "2026-11-02",
@@ -856,8 +716,6 @@
       "creator": "NVIDIA",
       "aa": "nemotron-3-5-lightning",
       "livebench": "nemotron-3.5-lightning-30b-a3b",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4",
       "vision": false,
       "auto_added": "2026-11-02",
@@ -871,8 +729,6 @@
         "nemotron-super-vl-3.5",
         "nemotron-super-vl-3.5-nvfp4"
       ],
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-11-02",
@@ -883,8 +739,6 @@
       "creator": "StepFun",
       "aa": "step-5",
       "livebench": "step-5-preview",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-11-02",
@@ -895,8 +749,6 @@
       "creator": "Anthropic",
       "aa": "claude-fable-5-2",
       "livebench": "claude-fable-5.2",
-      "deepswe": null,
-      "swebench": null,
       "eqbench": null,
       "vision": true,
       "auto_added": "2026-11-10",

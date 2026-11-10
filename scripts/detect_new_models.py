@@ -13,16 +13,17 @@ merge.py 以 registry 为白名单，registry 维护不当会静默丢数据。�
 不视为失败（新模型上线是正常事件，不应阻塞榜单刷新）。
 
 关于扫描范围：
-- 新模型只扫 LiveBench + DeepSWE（前沿模型评测源，命名规范、几乎无长尾
-  噪音）。EQ-Bench / SWE-bench / AA 含大量 open-weights 长尾与旧模型，
-  不纳入新模型扫描。
-- 别名漏配检测覆盖 aa / eqbench / deepswe / livebench 四个源：这里用
-  registry 的 slug 做确定性反向匹配，不存在长尾噪音问题。
+- 新模型只扫 LiveBench（前沿模型评测源，命名规范、几乎无长尾噪音）。
+  EQ-Bench / AA 含大量 open-weights 长尾与旧模型，不纳入新模型扫描；
+  AA 只作为确认信号（按 Model Slug / Host API ID 精确匹配）。
+- 别名漏配检测覆盖 aa / eqbench / livebench 三个源：这里用 registry 的
+  slug 做确定性反向匹配，不存在长尾噪音问题。
 
 自动入池的确认门槛与可维护性：
-- **双源确认**：候选需在 ≥2 个独立信号出现才自动入池（livebench /
-  deepswe / aa 三者任二）。单源孤立条目（LiveBench 特评项、内部实验名等）
-  只留在候选清单并标注原因，不入池——避免错误模型污染榜单。
+- **双源确认**：候选需在 LiveBench 出现，且能在 AA 匹配到同一模型才自动
+  入池。只有 LiveBench 单源信号的条目（特评项、内部实验名等）留在候选
+  清单并标注原因，不入池——避免错误模型污染榜单。DeepSWE 已于 2026-11
+  退役，不再作为确认信号（docs/adr/0002-retire-deepswe.md）。
 - **确定性 slug/别名**：slug 由源名剥离 effort 后缀、再规范化版本分隔符
   派生（``claude-fable-5-1`` → ``claude-fable-5.1``）；各源别名只取源数据
   里真实存在的名字，不做模糊猜测。同一模型的点/连字符两种写法按规范化
@@ -61,9 +62,9 @@ OUT = os.path.join(RESULTS, "new_model_candidates.json")
 AA_CSV = os.path.join(BASE, "aa_providers.csv")
 
 # 新模型扫描源：{缓存文件名: registry 中对应的别名字段}
+# 只有 LiveBench：命名规范、几乎无长尾噪音，适合作为「新模型出现」的信号源
 NEW_MODEL_SOURCES = {
     "livebench.csv": "livebench",
-    "deepswe.csv": "deepswe",
 }
 
 # 实验版与预览版同物异名后缀（在部分源带而在别源不带，如 LiveBench deepseek-v4-flash-vision-exp
@@ -129,9 +130,8 @@ def load_registry(registry_path=REGISTRY):
 def load_whitelists(registry_path=REGISTRY):
     """按源字段分别收集别名 → {源字段: 小写别名集合}。
 
-    各源命名风格不同（LiveBench 带 -high/-max 后缀、DeepSWE 无后缀、
-    AA 用连字符），若混成一个集合，A 源的模型名可能被 B 源的别名
-    误判为已覆盖，故按源分开匹配。
+    各源命名风格不同（LiveBench 带 -high/-max 后缀、AA 用连字符），若混成
+    一个集合，A 源的模型名可能被 B 源的别名误判为已覆盖，故按源分开匹配。
     """
     models = load_registry(registry_path)
     wl = {key: set() for key in NEW_MODEL_SOURCES.values()}
@@ -184,20 +184,18 @@ def detect_missing_aliases(registry=None, cache_dir=CACHE, aa_csv=AA_CSV):
     src = {
         "aa": _names(aa_csv, "Model Slug"),
         "eqbench": {n.lower() for n in raw_eqbench},
-        "deepswe": _names(os.path.join(cache_dir, "deepswe.csv"), "model"),
         "livebench": _names(os.path.join(cache_dir, "livebench.csv"), "model"),
     }
 
     out = {k: [] for k in src}
     for m in registry:
         slug = m["slug"]
-        # 精确匹配源：aa / deepswe
-        for field in ("aa", "deepswe"):
-            if m.get(field) is None:
-                for c in _norm_candidates(slug):
-                    if c in src[field]:
-                        out[field].append(f"{slug} -> {c}")
-                        break
+        # aa：精确匹配（AA 用连字符写版本号，靠 _norm_candidates 覆盖点号写法）
+        if m.get("aa") is None:
+            for c in _norm_candidates(slug):
+                if c in src["aa"]:
+                    out["aa"].append(f"{slug} -> {c}")
+                    break
         # eqbench：支持精确匹配与命名空间/后缀容错
         if m.get("eqbench") is None:
             hit = None
@@ -342,7 +340,6 @@ def _load_source_names(cache_dir=CACHE, aa_csv=AA_CSV):
     raw_eq = _read_col(os.path.join(cache_dir, "eqbench.csv"), "model") if os.path.exists(os.path.join(cache_dir, "eqbench.csv")) else []
     return {
         "livebench": _set(os.path.join(cache_dir, "livebench.csv")),
-        "deepswe": _set(os.path.join(cache_dir, "deepswe.csv")),
         "eqbench": _set(os.path.join(cache_dir, "eqbench.csv")),
         "eqbench_raw": raw_eq,
         "aa": aa_idx,
@@ -350,22 +347,12 @@ def _load_source_names(cache_dir=CACHE, aa_csv=AA_CSV):
     }
 
 
-def _pick_alias(names, slug):
-    """同组内选别名：优先与 slug 完全一致的写法，否则取字典序首个。
-
-    ``names`` 已排序，结果确定。
-    """
-    if not names:
-        return None
-    return next((n for n in names if n.lower() == slug), names[0])
-
-
 def _group_by_slug(cands):
-    """候选名按规范化 slug 归组：{slug: {"livebench": [...], "deepswe": [...]}}。
+    """候选名按规范化 slug 归组：{slug: {"livebench": [...]}}。
 
-    同一模型在不同源的分隔符可能不同（LiveBench ``claude-fable-5-1-max-effort``
-    vs DeepSWE ``claude-fable-5.1``），按 slug 归组才不会拆成两个条目，也
-    不会因「slug 写了点号、源里是连字符」而把别名落空。
+    同一模型在源内可能有多种写法（``claude-fable-5-1-max-effort`` /
+    ``claude-fable-5.1``），按 slug 归组才不会拆成两个条目，也不会因
+    「slug 写了点号、源里是连字符」而把别名落空。
     """
     groups = {}
     for fname, key in NEW_MODEL_SOURCES.items():
@@ -404,8 +391,8 @@ def auto_add_candidates(registry_path=REGISTRY, cache_dir=CACHE,
     added, deferred = [], []
     for slug in sorted(groups):
         group = groups[slug]
-        lb_names, ds_names = group["livebench"], group["deepswe"]
-        names = sorted(set(lb_names) | set(ds_names))
+        lb_names = group["livebench"]
+        names = sorted(set(lb_names))
         rec = {"name": names[0], "slug": slug}
         pat = next((p for p in exclude
                     if fnmatch(slug, p)
@@ -418,9 +405,6 @@ def auto_add_candidates(registry_path=REGISTRY, cache_dir=CACHE,
             continue
 
         in_lb = bool(lb_names)
-        ds_alias = (_pick_alias(ds_names, slug)
-                    or next((c for c in _norm_candidates(slug)
-                             if c in src["deepswe"]), None))
 
         aa_alias = None
         for c in _norm_candidates(slug):
@@ -442,13 +426,12 @@ def auto_add_candidates(registry_path=REGISTRY, cache_dir=CACHE,
                     eq_alias = match
                     break
 
-        confirmed = sum([in_lb, ds_alias is not None, aa_alias is not None])
+        confirmed = sum([in_lb, aa_alias is not None])
         if confirmed < 2:
             deferred.append({
                 **rec,
                 "reason": "insufficient_confirmation",
                 "sources": {"livebench": in_lb,
-                            "deepswe": ds_alias is not None,
                             "aa": aa_alias is not None},
             })
             continue
@@ -464,8 +447,6 @@ def auto_add_candidates(registry_path=REGISTRY, cache_dir=CACHE,
             # 保留源内真实名字（含 effort 后缀），否则 merge 按别名查不到数据
             "livebench": (lb_names[0] if len(lb_names) == 1
                           else (lb_names or None)),
-            "deepswe": ds_alias,
-            "swebench": None,
             "eqbench": eq_alias,
             "vision": False,
             "auto_added": today,
@@ -522,7 +503,7 @@ def main(argv=None):
         print(f"自动入池 {len(added)} 个新模型：")
         for e in added:
             alias = ", ".join(f"{k}={e[k]}" for k in
-                              ("aa", "livebench", "deepswe", "eqbench")
+                              ("aa", "livebench", "eqbench")
                               if e[k])
             print(f"    [{e['slug']}] creator={e['creator']}; {alias}")
     for d in deferred:

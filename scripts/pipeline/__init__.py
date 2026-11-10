@@ -82,7 +82,7 @@ def _creator_cache_price_mean(rows):
 
 
 def run_pipeline(rows, cfg, results_dir, fx_rate=None):
-    """Full scoring run: impute -> validate -> score both boards.
+    """Full scoring run: impute -> validate -> score every board.
 
     Prints the same diagnostics as the legacy script and writes one
     CSV + one validation JSON per leaderboard. Returns the validation
@@ -140,7 +140,10 @@ def run_pipeline(rows, cfg, results_dir, fx_rate=None):
             plans=plans, cache_price_fallback=cache_price_fallback,
             scales=scales, fx_rate=fx_rate,
             imputed_weight_discount=cfg.get("imputed_weight_discount", 1.0),
-            max_imputed_ratio=board.get("max_imputed_ratio", cfg.get("max_imputed_ratio")))
+            max_imputed_ratio=board.get("max_imputed_ratio",
+                                        cfg.get("max_imputed_ratio")),
+            max_missing_per_domain=board.get("max_missing_per_domain",
+                                             cfg.get("max_missing_per_domain")))
         out_csv = os.path.join(results_dir, board["output_csv"])
         write_scored_csv(out, headers, out_csv)
         print(f"[{bkey}] >={score_threshold} score: {len(out)} rows")

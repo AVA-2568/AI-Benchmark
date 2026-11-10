@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""一键构建：抓取 AA leaderboard -> 解析 -> 去重 -> 评分 -> 刷新 README。
+"""一键构建：抓取多源 -> 解析 -> 新模型检测 -> 合并 -> 评分 -> 刷新 README。
+
+数据源：Artificial Analysis（终端/长上下文/科学）、LiveBench 2.0（编码/
+长程 agent/推理）、EQ-Bench（创意写作）、Frankfurter（汇率）、OpenRouter
+（视觉模态）。DeepSWE 已于 2026-11 退役（上游停更，且不再进入任何榜单
+权重），详见 docs/adr/0002-retire-deepswe.md。
 
 抓取策略（与 parse_aa.py 的三级解析链配套）：
 1. 主路径：带 ``RSC: 1`` 头请求同一 URL，拿 RSC 数据流（~2.4MB 纯数据）
@@ -26,7 +31,6 @@ import hashlib
 import json
 import os
 import subprocess
-import sys
 import urllib.request
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -152,6 +156,60 @@ def _load_config():
 
 def _fmt_usd(v):
     return f"${float(v):g}"
+
+
+# README 头部每个榜单的固定文案：(标题, 描述)。变化的结论部分由
+# hero_block() 从 scored CSV 渲染，文案本身不随数据变化。
+_HERO_COPY = {
+    "general": ("干重活与写代码（通用榜）",
+                "看编程、智能体、复杂逻辑与长上下文能力"),
+    "text": ("写文章与专业案头（文本榜）",
+             "看创意写作、文风质感、长文阅读与日常问答"),
+    "value": ("算钱包与真实花销（性价比榜）",
+              "看折算真实订阅套餐与 API 折扣后的到手单价"),
+}
+
+
+def _read_csv_rows(path):
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        return list(csv.DictReader(f))
+
+
+def registry_size():
+    """精选池规模（registry 是唯一权威来源，README 不得手写）。"""
+    with open(os.path.join(BASE, "model_registry.json"), encoding="utf-8") as f:
+        return len(json.load(f)["models"])
+
+
+def hero_block(cfg, results_dir=None):
+    """README 头部的三榜结论（marker 渲染，禁止手写）。
+
+    结论全部取自与 SNAPSHOT 同源的 scored CSV 与 model_registry。旧版
+    这些句子是手写的，2026-11 维护时发现三榜第一名、分数、最低等效价、
+    池规模四项全部过期——手写结论必然落后于自动榜单，故改为渲染。
+    见 docs/adr/0001-generated-hero-block.md。
+    """
+    results_dir = results_dir or os.path.join(REPO_ROOT, "results")
+    keys = list(cfg["leaderboards"])
+    lines = [f"精选 {registry_size()} 个主流旗舰大模型，"
+             f"针对三大真实需求提供三张榜单："]
+    for i, bkey in enumerate(keys):
+        board = cfg["leaderboards"][bkey]
+        title, desc = _HERO_COPY.get(bkey, (bkey, ""))
+        rows = _read_csv_rows(os.path.join(results_dir, board["output_csv"]))
+        if bkey == "value":
+            eff = [float(r["Effective $/1M"]) for r in rows
+                   if (r.get("Effective $/1M") or "").strip()]
+            tail = (f"订阅折算后最低约 ${min(eff):g}/M" if eff
+                    else "订阅折算后到手单价")
+        elif rows:
+            top = rows[0]
+            tail = f"当前 {top['Model']} 第一，{top['Weighted Total']} 分"
+        else:
+            tail = "榜单为空"
+        sep = "。" if i == len(keys) - 1 else "；"
+        lines.append(f"- **{title}**：{desc}（{tail}）{sep}")
+    return "\n".join(lines)
 
 
 def _board_blocks(bkey, board, n_models, today):
@@ -376,6 +434,11 @@ def update_readme():
     readme = os.path.join(REPO_ROOT, "README.md")
     txt = open(readme, encoding="utf-8").read()
 
+    # 头部结论：与 SNAPSHOT 同源渲染，避免手写数字漂移
+    if not _has_markers(txt, "HERO"):
+        raise BuildError("README marker missing for hero block")
+    txt = _replace_block(txt, "HERO", hero_block(cfg))
+
     counts = {}
     for bkey, board in cfg["leaderboards"].items():
         snapshot_md, top15_md, n_out = _board_blocks(
@@ -406,8 +469,11 @@ def update_readme():
     svg = os.path.join(REPO_ROOT, "results", "value_frontier.svg")
     frontier = render_frontier(value_rows, svg, fx)
     print(f"frontier chart: {len(frontier)} models on the best-choice edge")
+    # 前沿序列本身也是结论（旧版手写的 8 个模型早已换了两代），
+    # 与图片同块渲染，避免继续漂移
     txt = _replace_block(
         txt, "FRONTIER",
+        _frontier_line(frontier) + "\n\n"
         "![能力-成本前沿：给定每 1M token 预算时的最优模型]"
         "(results/value_frontier.svg)")
 
@@ -454,6 +520,17 @@ def _replace_block(txt, name, content):
     return txt[:s + len(start)] + "\n" + content + "\n" + txt[e:]
 
 
+def _frontier_line(frontier):
+    """前沿序列的文字描述（与图同源，禁止手写）。"""
+    if not frontier:
+        return "当前没有可计算前沿的模型（缺有效价格）。"
+    names = [f[2] for f in frontier]
+    if len(names) == 1:
+        return f"当前前沿只有 {names[0]} 一个可选项。"
+    return ("当前前沿自左向右依次是 " + "、".join(names[:-1])
+            + f"，终点是 {names[-1]}。")
+
+
 def _read_last_parser():
     """Read the parser name recorded by parse_aa.py (best-effort)."""
     path = os.path.join(BASE, ".last_parser")
@@ -463,7 +540,26 @@ def _read_last_parser():
         return fh.read().strip() or None
 
 
-def _write_manifest(stale, parser=None):
+def _algorithm_version():
+    """算法版本 = pipeline 包源码摘要前 12 位。
+
+    旧实现写死 ``"e5b76d2"``：它不对应任何 commit（2026-11 维护时 HEAD
+    已是 d412d11），manifest 因此无法说明榜单出自哪版算法。改为对真正
+    参与评分的 ``pipeline/*.py`` 取摘要——算法不变则值不变，改算法必然变。
+    见 docs/adr/0003-manifest-algorithm-version.md。
+    """
+    digest = hashlib.sha256()
+    pkg = os.path.join(BASE, "pipeline")
+    for name in sorted(os.listdir(pkg)):
+        if not name.endswith(".py"):
+            continue
+        with open(os.path.join(pkg, name), "rb") as fh:
+            digest.update(name.encode("utf-8"))
+            digest.update(fh.read())
+    return digest.hexdigest()[:12]
+
+
+def _write_manifest(stale, parser=None, offline=False):
     config_path = os.path.join(REPO_ROOT, "config.json")
     merged_csv = os.path.join(BASE, "merged.csv")
     manifest = {
@@ -473,9 +569,12 @@ def _write_manifest(stale, parser=None):
         "parser": parser,
         "input_sha256": _sha256(merged_csv) if os.path.exists(merged_csv) else None,
         "config_sha256": _sha256(config_path),
-        "algorithm_version": "e5b76d2",
+        "algorithm_version": _algorithm_version(),
         "models": _count(merged_csv),
         "stale": stale,
+        # offline 与 stale 是两件事：offline 表示本次没联网（只是复算缓存），
+        # stale 表示输入可能是旧的。只有 stale 才禁止刷新 README。
+        "offline": offline,
     }
     os.makedirs(os.path.dirname(MANIFEST), exist_ok=True)
     tmp = MANIFEST + ".tmp"
@@ -509,7 +608,8 @@ def main(argv=None):
             print("stale input: skipping README update")
         else:
             update_readme()
-        _write_manifest(stale=stale, parser=_read_last_parser())
+        _write_manifest(stale=stale, parser=_read_last_parser(),
+                        offline=args.offline)
     except (BuildError, subprocess.CalledProcessError) as exc:
         print(f"BUILD FAILED: {exc}", file=sys.stderr)
         return 1

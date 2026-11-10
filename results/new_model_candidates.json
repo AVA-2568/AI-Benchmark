@@ -1,58 +1,22 @@
 {
   "new_models": {
     "livebench.csv": [
-      "ox-alpha-max",
-      "smaug-agentic",
-      "smaug-flash",
-      "smaug-mini",
+      "claude-fable-5.2",
       "smaug-nemotron-3.5-nvfp4"
-    ],
-    "deepswe.csv": []
+    ]
   },
   "missing_aliases": {
     "aa": [],
     "eqbench": [],
-    "deepswe": [],
     "livebench": []
   },
   "deferred": [
     {
-      "name": "ox-alpha-max",
-      "slug": "ox-alpha",
+      "name": "claude-fable-5.2",
+      "slug": "claude-fable-5.2",
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "smaug-agentic",
-      "slug": "smaug-agentic",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "smaug-flash",
-      "slug": "smaug-flash",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
-        "aa": false
-      }
-    },
-    {
-      "name": "smaug-mini",
-      "slug": "smaug-mini",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "deepswe": false,
         "aa": false
       }
     },
@@ -62,7 +26,6 @@
       "reason": "insufficient_confirmation",
       "sources": {
         "livebench": true,
-        "deepswe": false,
         "aa": false
       }
     }

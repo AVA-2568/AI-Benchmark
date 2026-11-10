@@ -2,16 +2,18 @@
 """跨源合并：model_registry.json + 各源 CSV -> merged.csv（统一宽表）。
 
 行 = 注册表里的模型（统一 slug），列 = config.imputation_pool 的
-11 个指标 + Model/Creator。各源分数通过别名匹配；livebench 别名可为列表，
+17 个指标 + Model/Creator。各源分数通过别名匹配；livebench 别名可为列表，
 多个匹配时取分数最高者。缺失值留空，交由评分阶段的岭回归填补。
 
 数据源：
 - AA (scripts/aa_providers.csv)         -> Terminal-Bench v4.0 / AutomationBench / LCR / Omniscience / HLE / SciCode / CritPt / 成本列
     （同一 Model Slug 有多 Provider 行时：分数各行一致，定价取官方行，
     见 _pick_aa_row；视觉变体是独立 slug，不会混入）
-- LiveBench (scripts/.cache/livebench.csv) -> Coding / Agentic Coding / IF / Language / Reasoning / Data Analysis / StoryGen / Summarize / Simplify / Theory of Mind
-- DeepSWE   (scripts/.cache/deepswe.csv)   -> Pass@1
+- LiveBench (scripts/.cache/livebench.csv) -> Coding / Long-Horizon / Browser / Data Analysis / Reasoning / Research / Design
 - EQ-Bench  (scripts/.cache/eqbench.csv)   -> Elo
+
+DeepSWE 于 2026-11 退役：上游停更、不在任何榜单权重内，抓取与合并均已
+移除（docs/adr/0002-retire-deepswe.md）。
 """
 import sys
 if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
@@ -28,7 +30,6 @@ import csv
 import json
 import os
 import re
-import sys
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(BASE)
@@ -67,16 +68,55 @@ def load_registry():
         return json.load(f)["models"]
 
 
-def _pick_max(idx, alias):
-    """别名可为字符串或列表；返回匹配到的最高分（按指定列）。"""
+def _row_score(row):
+    """行内数值列的均值（忽略 model/release 等非数值列），用于跨档位比较。"""
+    vals = []
+    for k, v in row.items():
+        if k in ("model", "release"):
+            continue
+        try:
+            vals.append(float(v))
+        except (TypeError, ValueError):
+            continue
+    return sum(vals) / len(vals) if vals else None
+
+
+def _release_key(value):
+    """release 标识归一为纯数字用于排序（20261106 / 2026-11-06 / 2026_11_06 等价）。"""
+    return re.sub(r"\D", "", value or "")
+
+
+def _pick_best_row(idx, alias):
+    """别名可为字符串或列表；返回**最新 release 里综合分最高**的行及其别名。
+
+    优先级（见 ADR-0005）：
+    1. release 新的行优先——源站每次 release 会重测/重命名，同一模型在
+       不同 release 里可能叫法不同（旧口径带 `-max-effort` 后缀），混用
+       会得到互相矛盾的分数；
+    2. 同一 release 内多档（`-max` / `-xhigh`）取行内数值列均值最高者；
+       源里只公布 `-high` 的就是该模型的最高档；
+    3. 同分按别名顺序取先出现者（确定性）。
+
+    旧实现直接返回别名列表里第一个命中的行，既不看 release 也不看分数，
+    是 2026-11 维护时 claude-haiku-5.5 出现三行矛盾数据的直接原因。
+    """
     if alias is None:
         return None, None
     alist = alias if isinstance(alias, list) else [alias]
-    best, best_val = None, None
-    for a in alist:
-        if a in idx:
-            return idx[a], a
-    return None, None
+    best = None            # (release, score, order, row, alias)
+    for order, a in enumerate(alist):
+        row = idx.get(a)
+        if row is None:
+            continue
+        score = _row_score(row)
+        if score is None:
+            continue
+        cand = (_release_key(row.get("release")), score, -order, row, a)
+        if best is None or cand[:3] > best[:3]:
+            best = cand
+    if best is None:
+        return None, None
+    return best[3], best[4]
 
 
 def _norm_token(s):
@@ -134,7 +174,6 @@ def build_merged():
     # ---- 各源索引 ----
     aa_rows = _read_csv(AA_CSV)
     lb = _alias_index(_read_csv(os.path.join(CACHE, "livebench.csv")), "model")
-    ds = _alias_index(_read_csv(os.path.join(CACHE, "deepswe.csv")), "model")
     eq = _alias_index(_read_csv(os.path.join(CACHE, "eqbench.csv")), "model")
 
     # 官方发布技术报告核定的权威指标补充（声明式配置，便于自动化及模型维护）
@@ -161,7 +200,7 @@ def build_merged():
         row = {"Model": slug, "Creator": m["creator"], "Vision": m.get("vision", False)}
 
         # LiveBench 2.0
-        lb_row, lb_name = _pick_max(lb, m.get("livebench"))
+        lb_row, lb_name = _pick_best_row(lb, m.get("livebench"))
         if lb_row:
             row["LiveBench Coding"] = _num(lb_row.get("Coding"))
             row["LiveBench Long-Horizon"] = _num(lb_row.get("Long-Horizon"))
@@ -172,7 +211,7 @@ def build_merged():
             row["LiveBench Design"] = _num(lb_row.get("Design"))
 
         # EQ-Bench
-        eq_row, _ = _pick_max(eq, m.get("eqbench"))
+        eq_row, _ = _pick_best_row(eq, m.get("eqbench"))
         if eq_row:
             row["EQ-Bench Creative Writing"] = _num(eq_row.get("Elo"))
 

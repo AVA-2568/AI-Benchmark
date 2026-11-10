@@ -148,7 +148,7 @@ def find_openrouter_match(registry_entry, or_models):
 
     # 别名
     aliases = []
-    for k in ["aa", "deepswe", "eqbench"]:
+    for k in ["aa", "eqbench"]:
         v = registry_entry.get(k)
         if v and isinstance(v, str):
             aliases.append(v)

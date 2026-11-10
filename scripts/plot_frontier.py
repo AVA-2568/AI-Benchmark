@@ -31,7 +31,7 @@ def pareto_frontier(points):
     out = []
     best = float("-inf")
     for pt in pts:
-        price, score = pt[0], pt[1]
+        score = pt[1]
         if score > best:
             out.append(pt)
             best = score

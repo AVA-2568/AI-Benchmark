@@ -2,10 +2,9 @@
 from __future__ import annotations
 
 import fnmatch
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Optional
 
 from .config import board_weights, to_float
-from .models import ScoredModel
 
 
 def norm(v, lo, hi):
@@ -205,10 +204,32 @@ def _weighted_total(glob, nrm, imputed_set, discount):
     return sum(w[m] * nrm[m] for m in nrm) / ws if ws else 0.0
 
 
+def _domain_ok(raw, i, board, max_missing):
+    """该行是否满足「每个领域最多缺 N 个基准值」的上榜门槛。
+
+    领域按榜单自己的 categories 划分（如通用榜「代码与 Agent」= Terminal-Bench
+    + LiveBench Long-Horizon + LiveBench Coding）。缺 1 个基准可由域内岭回归
+    回测；缺 2 个说明该领域纸面证据不足，整行不上榜。单基准域必须实测。
+    见 ADR-0006。
+    """
+    if max_missing is None:
+        return True
+    for cat in board.get("categories") or []:
+        metrics = [m["name"] for m in cat.get("metrics") or []]
+        if not metrics:
+            continue
+        need = max(1, len(metrics) - max_missing)
+        have = sum(1 for m in metrics
+                   if raw.get(m) is not None and raw[m][i] is not None)
+        if have < need:
+            return False
+    return True
+
+
 def score_board(rows, board, engine, cost, cache_multiplier, score_threshold,
                 plans=None, cache_price_fallback=None, scales=None,
                 fx_rate=None, imputed_weight_discount=1.0,
-                max_imputed_ratio=None):
+                max_imputed_ratio=None, max_missing_per_domain=None):
     """Score one leaderboard. Returns (scored_rows, headers).
 
     ``engine`` provides stats / cur / raw / imputation_quality and
@@ -272,6 +293,8 @@ def score_board(rows, board, engine, cost, cache_multiplier, score_threshold,
         low_set = {m.split("(low)")[0] for m in imputed if m.endswith("(low)")}
 
         out.append({
+            # 内部字段：是否满足域内缺失门槛（不写入 CSV）
+            "_domain_ok": _domain_ok(raw, i, board, max_missing_per_domain),
             "Model": r.get("Model"),
             "Creator": r.get("Creator"),
             "Vision": "Yes" if has_vision else "No",
@@ -319,6 +342,11 @@ def score_board(rows, board, engine, cost, cache_multiplier, score_threshold,
     out = [r for r in out
            if r["Weighted Total"] is not None
            and r["Weighted Total"] >= score_threshold]
+
+    # 上榜硬门槛：每个领域最多缺 1 个基准值（3 基准域至少 2 个实测，
+    # 单基准域必须实测）；缺的那个值由域内岭回归回测。
+    if max_missing_per_domain is not None:
+        out = [r for r in out if r.get("_domain_ok", True)]
 
     if max_imputed_ratio is not None:
         filtered = []

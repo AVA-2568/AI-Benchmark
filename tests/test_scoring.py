@@ -4,6 +4,7 @@
 engine (mimics the attributes the real ``ImputationEngine``
 exposes) so the test does not depend on imputation numerics.
 """
+import json
 import os
 import sys
 
@@ -528,3 +529,46 @@ def test_plan_matches_strict_whitelist():
     assert _plan_matches(plan, "Google", "gemini-3.5-flash-lite") is False
     assert _plan_matches(plan, "Anthropic", "claude-sonnet-5.5") is False
 
+
+
+# ---- 上榜门槛：每域最多缺 1 个基准值 ----
+
+def test_domain_ok_allows_one_missing_metric():
+    """3 基准域缺 1 个可回测；缺 2 个整行不上榜。"""
+    from pipeline.scoring import _domain_ok
+    board = {"categories": [{"weight": 1.0, "metrics": [
+        {"name": "A", "sub_weight": 0.4},
+        {"name": "B", "sub_weight": 0.3},
+        {"name": "C", "sub_weight": 0.3}]}]}
+    raw = {"A": [1.0, 1.0, None], "B": [2.0, None, None], "C": [3.0, 3.0, None]}
+    assert _domain_ok(raw, 0, board, 1) is True    # 3/3
+    assert _domain_ok(raw, 1, board, 1) is True    # 2/3
+    assert _domain_ok(raw, 2, board, 1) is False   # 0/3
+    assert _domain_ok(raw, 2, board, None) is True  # 门槛关闭
+
+
+def test_domain_ok_single_metric_domain_must_be_real():
+    """单基准域没有“缺一个”的余地：不实测即出局。"""
+    from pipeline.scoring import _domain_ok
+    board = {"categories": [{"weight": 1.0, "metrics": [
+        {"name": "LCR", "sub_weight": 1.0}]}]}
+    assert _domain_ok({"LCR": [0.9]}, 0, board, 1) is True
+    assert _domain_ok({"LCR": [None]}, 0, board, 1) is False
+
+
+def test_two_metric_domain_needs_one_real():
+    from pipeline.scoring import _domain_ok
+    board = {"categories": [{"weight": 1.0, "metrics": [
+        {"name": "EQ", "sub_weight": 0.6},
+        {"name": "DESIGN", "sub_weight": 0.4}]}]}
+    assert _domain_ok({"EQ": [1500.0], "DESIGN": [None]}, 0, board, 1) is True
+    assert _domain_ok({"EQ": [None], "DESIGN": [None]}, 0, board, 1) is False
+
+
+def test_every_board_domain_has_at_least_one_metric():
+    """config 里的域必须都有指标，否则门槛形同虚设。"""
+    cfg = json.load(open(os.path.join(_REPO, "config.json"), encoding="utf-8"))
+    for board in cfg["leaderboards"].values():
+        for cat in board["categories"]:
+            assert cat["metrics"], cat.get("name")
+    assert cfg["max_missing_per_domain"] == 1

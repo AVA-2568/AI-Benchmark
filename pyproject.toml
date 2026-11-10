@@ -1,0 +1,17 @@
+# 只有 lint 配置：本项目不是可安装包，脚本靠 scripts/ 目录直接运行。
+# 用法：pip install ruff && ruff check .
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = ["scripts/.cache", "results", ".pytest_tmp", ".mimosa", ".zcode"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+# E501：中文注释与 markdown 表格字符串按字符计长没有意义，不做行长约束
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# 入口脚本必须先注入 sys.path / 重配 stdout 再导入本地模块
+"scripts/*.py" = ["E402"]
+"tests/*.py" = ["E402"]

@@ -1,56 +1,56 @@
 {
   "Terminal-Bench v4.0": {
-    "mae": 0.1567,
-    "pct_over10": 89.2,
+    "mae": 0.0664,
+    "pct_over10": 67.6,
     "n": 37
   },
   "LiveBench Long-Horizon": {
-    "mae": 9.2277,
-    "pct_over10": 67.6,
-    "n": 71
+    "mae": 8.1143,
+    "pct_over10": 72.4,
+    "n": 29
   },
   "LiveBench Coding": {
-    "mae": 5.9105,
-    "pct_over10": 28.2,
-    "n": 71
+    "mae": 8.3447,
+    "pct_over10": 44.8,
+    "n": 29
   },
   "AutomationBench": {
-    "mae": 0.1312,
-    "pct_over10": 81.1,
+    "mae": 0.1079,
+    "pct_over10": 75.7,
     "n": 37
   },
   "LiveBench Browser": {
-    "mae": 8.8208,
-    "pct_over10": 45.1,
-    "n": 71
+    "mae": 15.525,
+    "pct_over10": 72.4,
+    "n": 29
   },
   "LiveBench Data Analysis": {
-    "mae": 5.7003,
-    "pct_over10": 25.4,
-    "n": 71
+    "mae": 6.9501,
+    "pct_over10": 37.9,
+    "n": 29
   },
   "LCR": {
-    "mae": 0.0333,
+    "mae": 0.0337,
     "pct_over10": 8.3,
     "n": 36
   },
   "HLE": {
-    "mae": 0.0326,
-    "pct_over10": 30.6,
+    "mae": 0.0208,
+    "pct_over10": 13.9,
     "n": 36
   },
   "SciCode": {
-    "mae": 0.0257,
-    "pct_over10": 8.3,
+    "mae": 0.0199,
+    "pct_over10": 2.8,
     "n": 36
   },
   "LiveBench Reasoning": {
-    "mae": 3.1875,
-    "pct_over10": 9.9,
-    "n": 71
+    "mae": 2.6056,
+    "pct_over10": 3.4,
+    "n": 29
   },
   "Omniscience Index": {
-    "mae": 17.0261,
+    "mae": 16.4444,
     "pct_over10": 87.5,
     "n": 32
   }

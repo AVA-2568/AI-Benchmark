@@ -336,9 +336,6 @@ def build_coverage_matrix(plans, registry_models=None):
         p_name = p.get("name") or "?"
         p_monthly = p.get("monthly")
         p_discount = float(p.get("discount") or 1.0)
-        ex_match = p.get("exclude_match") or []
-        m_match = p.get("model_match") or []
-        c_match = p.get("creator_match") or []
 
         hits = []
         for m in model_list:

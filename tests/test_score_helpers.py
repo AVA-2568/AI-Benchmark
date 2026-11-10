@@ -177,8 +177,9 @@ def test_main_fails_on_stale_without_flag():
 def test_main_succeeds_fresh_and_records_stale_false():
     calls = {}
 
-    def fake_write(stale, parser=None):
+    def fake_write(stale, parser=None, offline=False):
         calls["stale"] = stale
+        calls["offline"] = offline
 
     with mock.patch.object(build_mod, "fetch_data", return_value=(True, False)), \
          mock.patch.object(build_mod, "run"), \
@@ -186,6 +187,23 @@ def test_main_succeeds_fresh_and_records_stale_false():
          mock.patch.object(build_mod, "_write_manifest", side_effect=fake_write):
         assert build_mod.main([]) == 0
     assert calls["stale"] is False
+    assert calls["offline"] is False
+
+
+def test_main_records_offline_flag():
+    """--offline 复算缓存不应被误读为「本次联网抓取」。"""
+    calls = {}
+
+    def fake_write(stale, parser=None, offline=False):
+        calls["stale"] = stale
+        calls["offline"] = offline
+
+    with mock.patch.object(build_mod, "fetch_data", return_value=(True, True)), \
+         mock.patch.object(build_mod, "run"), \
+         mock.patch.object(build_mod, "update_readme"), \
+         mock.patch.object(build_mod, "_write_manifest", side_effect=fake_write):
+        assert build_mod.main(["--offline"]) == 0
+    assert calls["offline"] is True
 
 
 def test_main_skips_readme_on_stale():

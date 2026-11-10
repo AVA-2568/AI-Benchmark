@@ -5,10 +5,11 @@
 其余为该源的分数列）。抓取失败时回退到已存在的缓存文件。
 
 - LiveBench:  动态定位最新 release 的 table.csv，聚合 7 分类（2.0 优先 + 1.0 历史补充）
-- DeepSWE:    JSON API，提取 model + Pass@1%（每模型取最高档）
 - EQ-Bench:   creative_writing.js，提取 model + Elo
 
 SWE-bench 已饱和停用（前沿厂商停止报告），不再抓取。
+DeepSWE 上游停更且已退出所有榜单权重（2026-11 退役），不再抓取——
+见 docs/adr/0002-retire-deepswe.md。
 
 所有源均为公开网页/文件，无需登录，可被 GitHub Actions 调用。
 """
@@ -71,6 +72,11 @@ def _livebench_release(html):
 
     优先匹配 LiveBench 2.0 (v2) release（形如 "20261025" 或 "2026-10-25"）。
     """
+    return _livebench_releases(html)[-1]
+
+
+def _livebench_releases(html):
+    """main.js 里声明的全部 2.0 release 标识，升序返回（旧 -> 新）。"""
     m = re.search(r'src="\./static/js/main\.([a-f0-9]+)\.js"', html)
     if not m:
         raise RuntimeError("livebench main.js hash not found")
@@ -80,144 +86,103 @@ def _livebench_release(html):
     # 1. 优先匹配 LiveBench 2.0 (v2) release（包含 8 位数字如 20261025）
     v2_candidates = re.findall(r'"(202\d{5})"', js)
     if v2_candidates:
-        return sorted(set(v2_candidates))[-1]
+        return sorted(set(v2_candidates))
 
     # 2. 匹配带短横线的日期
     v2_dates = re.findall(r'"(202\d-\d{2}-\d{2})"', js)
     if v2_dates:
-        return sorted(set(v2_dates))[-1]
+        return sorted(set(v2_dates))
 
     raise RuntimeError("livebench release list not found")
 
 
-def fetch_livebench():
-    """抓取 LiveBench 官方数据：LiveBench 2.0 (最新前沿) + LiveBench 1.0 (历史经典补充)。
+# 只取最新 release：2026-11 起上游每个 release 只含当季子集（30~55 个模型），
+# 且已取消 v1 补充口径。缺失的模型不进抓取结果——是否上榜由 registry 的
+# 双源确认规则决定，缺的指标走分域回归填补。
+LB_RELEASES_KEEP = 1
 
-    - 2.0 最新前沿版: 涵盖 Claude 5.5 / GPT-6.1 / Gemini 4 等当季旗舰。
-    - 1.0 最终版 (2026-06-25): 涵盖历史经典模型。
-    两者合并以 2.0 优先，1.0 补充未包含的历史模型，实现极高真值覆盖。
+LB_COLUMNS = [
+    ("Long-Horizon", ("long_agentic", "long_horizon")),
+    ("Reasoning", ("reasoning",)),
+    ("Coding", ("coding",)),
+    ("Browser", ("browser",)),
+    ("Data Analysis", ("data_analysis",)),
+    ("Research", ("research",)),
+    ("Design", ("design", "design_layout")),
+]
+
+
+def _parse_lb_table(text, release):
+    """解析 data/<release>/table.csv -> {model: row}。
+
+    源站对不存在的路径返回 200 + HTML（GitHub Pages 404 页），因此必须
+    校验表头，否则错误页会被静默当成"零行数据"吃掉。
+    """
+    first = text.lstrip().splitlines()[0] if text.strip() else ""
+    if not first.lower().startswith("model"):
+        raise RuntimeError(
+            f"livebench {release} table.csv is not CSV (head={first[:40]!r})")
+    rows = {}
+    for r in csv.DictReader(text.splitlines()):
+        name = (r.get("model") or "").strip()
+        if not name:
+            continue
+        row = {"model": name, "release": release}
+        for label, keys in LB_COLUMNS:
+            for k in keys:
+                if r.get(k) not in (None, ""):
+                    row[label] = r[k]
+                    break
+        rows[name] = row
+    if not rows:
+        raise RuntimeError(f"livebench {release} table.csv has no model rows")
+    return rows
+
+
+def fetch_livebench():
+    """抓 LiveBench 2.0 **最新 release**（``LB_RELEASES_KEEP`` 默认 1）。
+
+    背景（2026-11 修正）：LiveBench 1.0 补充口径已下线（所有
+    table_2026_06_25.csv 均 404），旧实现把 1.0 与 2.0 两代命名合进
+    一张表又不记录来源版本，导致同一模型出现多行、分数互相矛盾
+    （如 claude-haiku-5.5 三行、Coding 77.6/91.4 并存）。
+
+    现在的口径：
+    - 只抓 2.0 最新 release；该表一行一个模型、无 effort 后缀。
+    - 每行带 ``release`` 列，merge 在别名冲突时优先最新（见 ADR-0005）。
+    - 最新 release 未覆盖的模型不会出现在本表里；它是否仍上榜由 registry
+      的双源确认规则决定，缺失的指标走分域回归填补。
     """
     html = _get("https://livebench.ai/").decode("utf-8", errors="replace")
-    rel = _livebench_release(html)
-    rel_u = rel.replace("-", "_")
+    releases = _livebench_releases(html)[-LB_RELEASES_KEEP:]
 
-    # 1. 抓取 2.0 数据（新路径 data/<release>/table.csv 优先，旧路径 table_<rel>.csv 回退）
-    urls_to_try = [
-        f"https://livebench.ai/data/{rel}/table.csv",
-        f"https://livebench.ai/table_{rel_u}.csv",
-        f"https://livebench.ai/table_{rel}.csv",
-    ]
-    v2_csv_text = None
-    used_url = None
-    for u in urls_to_try:
-        try:
-            v2_csv_text = _get(u).decode("utf-8")
-            used_url = u
-            break
-        except Exception:
-            continue
-
-    if not v2_csv_text:
-        raise RuntimeError(f"failed to fetch livebench 2.0 table from any candidate URLs for release {rel}")
-
-    v2_rows = list(csv.DictReader(v2_csv_text.strip().splitlines()))
     merged_lb = {}
-    for r in v2_rows:
-        m = r.get("model")
-        if not m:
-            continue
-        merged_lb[m] = {
-            "model": m,
-            "Coding": r.get("coding", ""),
-            "Long-Horizon": r.get("long_agentic") or r.get("long_horizon", ""),
-            "Browser": r.get("browser", ""),
-            "Reasoning": r.get("reasoning", ""),
-            "Data Analysis": r.get("data_analysis", ""),
-            "Research": r.get("research", ""),
-            "Design": r.get("design") or r.get("design_layout", ""),
-        }
-
-    # 2. 抓取 1.0 最终版作为历史补充
-    v1_urls = [
-        "https://livebench.ai/v1/table_2026_06_25.csv",
-        "https://livebench.ai/table_2026_06_25.csv",
-    ]
-    for v1_url in v1_urls:
+    fetched = []
+    for rel in releases:  # 升序，后抓到的覆盖先抓到的 => 最新实测胜出
+        url = f"https://livebench.ai/data/{rel}/table.csv"
         try:
-            v1_csv_text = _get(v1_url).decode("utf-8")
-            v1_rows = list(csv.DictReader(v1_csv_text.strip().splitlines()))
-
-            def _avg(row, cols):
-                vals = []
-                for c in cols:
-                    v = row.get(c)
-                    if v:
-                        try:
-                            vals.append(float(v))
-                        except (ValueError, TypeError):
-                            pass
-                return round(sum(vals) / len(vals), 1) if vals else ""
-
-            for r in v1_rows:
-                m = r.get("model")
-                if not m or m in merged_lb:
-                    continue
-                merged_lb[m] = {
-                    "model": m,
-                    "Coding": _avg(r, ["code_generation", "code_completion"]),
-                    "Long-Horizon": _avg(r, ["javascript", "typescript", "python"]),
-                    "Browser": _avg(r, ["javascript", "typescript"]),
-                    "Reasoning": _avg(r, ["zebra_puzzle", "spatial", "logic_with_navigation"]),
-                    "Data Analysis": _avg(r, ["consecutive_events", "tablejoin", "tablereformat"]),
-                    "Research": _avg(r, ["summarize", "connections"]),
-                    "Design": _avg(r, ["story_generation"]),
-                }
-            break
+            text = _get(url).decode("utf-8")
         except Exception as e:
-            print(f"  warning: failed to fetch livebench 1.0 supplement from {v1_url}: {e}")
+            print(f"  warning: livebench release {rel} fetch failed: {e}")
+            continue
+        rows = _parse_lb_table(text, rel)
+        merged_lb.update(rows)
+        fetched.append((rel, len(rows)))
 
-    out_header = ["model", "Long-Horizon", "Reasoning", "Coding",
-                  "Browser", "Data Analysis", "Research", "Design"]
+    if not merged_lb:
+        raise RuntimeError("livebench: no release could be fetched")
+
+    out_header = ["model", "release"] + [c for c, _ in LB_COLUMNS]
     out_rows = []
     for m, d in sorted(merged_lb.items()):
         out_rows.append([d.get(c, "") for c in out_header])
 
     path = _write_csv("livebench.csv", out_header, out_rows)
-    print(f"livebench: 合并 v2+v1 共 {len(out_rows)} 模型 (2.0 release={rel}, url={used_url}) -> {os.path.basename(path)}")
+    detail = ", ".join(f"{r}:{n}" for r, n in fetched)
+    print(f"livebench: {len(out_rows)} 模型 <- release {detail} "
+          f"(各模型取最新一次实测) -> {os.path.basename(path)}")
     return path
 
-
-# ---------- DeepSWE ----------
-
-def fetch_deepswe():
-    """DeepSWE 从 JSON API 抓完整 leaderboard。
-
-    页面改版后 HTML 只渲染 top 17，完整数据在
-    ``/artifacts/v1.1/leaderboard-live.json``（rows = (model, effort) 组合）。
-    每个模型取 pass_rate 最高的档（与旧 HTML 按分数降序取首个一致）。
-    model 名把版本号连字符转点号（claude-opus-4-8 -> claude-opus-4.8、
-    kimi-k2-7-code -> kimi-k2.7-code）以对齐 registry slug。
-    """
-    data = json.loads(_get(
-        "https://deepswe.datacurve.ai/artifacts/v1.1/leaderboard-live.json"
-    ).decode("utf-8"))
-    best = {}
-    for r in data.get("rows") or []:
-        model = r.get("model")
-        pr = r.get("pass_rate")
-        if not model or pr is None:
-            continue
-        pr = float(pr)
-        if model not in best or pr > best[model]:
-            best[model] = pr
-
-    def _normalize(m):
-        return re.sub(r"(\d+)-(\d+)", r"\1.\2", m)
-
-    out = [[_normalize(m), round(pr * 100)] for m, pr in sorted(best.items())]
-    path = _write_csv("deepswe.csv", ["model", "Pass@1"], out)
-    print(f"deepswe: {len(out)} 模型 -> {os.path.basename(path)}")
-    return path
 
 
 # ---------- EQ-Bench ----------
@@ -300,7 +265,6 @@ def fetch_openrouter():
 
 FETCHERS = {
     "livebench": fetch_livebench,
-    "deepswe": fetch_deepswe,
     "eqbench": fetch_eqbench,
     "fx": fetch_fx,
     "openrouter": fetch_openrouter,
