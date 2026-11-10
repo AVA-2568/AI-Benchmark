@@ -2,7 +2,10 @@ name: Update AA leaderboard ranking
 
 on:
   schedule:
-    - cron: "0 6 1 * *"
+    # 每月 1 日与 16 日 06:00 UTC（约 14:00 北京时间），即每 15 天一轮。
+    # 上游 LiveBench/AA 都是按月出新 release，月度节奏会让榜单最多旧一个月；
+    # 改半月可把最长滞后压到 15 天。
+    - cron: "0 6 1,16 * *"
   workflow_dispatch: {}
 permissions:
   contents: write

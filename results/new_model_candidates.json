@@ -1,7 +1,6 @@
 {
   "new_models": {
     "livebench.csv": [
-      "claude-fable-5.2",
       "smaug-nemotron-3.5-nvfp4"
     ]
   },
@@ -11,15 +10,6 @@
     "livebench": []
   },
   "deferred": [
-    {
-      "name": "claude-fable-5.2",
-      "slug": "claude-fable-5.2",
-      "reason": "insufficient_confirmation",
-      "sources": {
-        "livebench": true,
-        "aa": false
-      }
-    },
     {
       "name": "smaug-nemotron-3.5-nvfp4",
       "slug": "smaug-nemotron-3.5",
