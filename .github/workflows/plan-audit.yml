@@ -19,10 +19,10 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -35,24 +35,33 @@ jobs:
 
       - name: Commit audit report
         if: success()
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: plan audit report"
           file_pattern: "results/plan_audit.json"
           commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
 
-      # 同 update.yml：v3 在本仓库解析失败，用 v2；run_attempt==1 防重试重复开 issue
+      # 同 update.yml：换成 actions/github-script（node24），原 dacbd v2 只有 node20
+      # 且已停更；run_attempt==1 防重试重复开 issue
       - name: Alert on failure
         if: failure() && github.run_attempt == 1
-        uses: dacbd/create-issue-action@v2
+        uses: actions/github-script@v8
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          title: "[plan-audit] 套餐数据一致性检查失败"
-          body: |
-            每周套餐审计发现硬伤（算术不自洽 / 档位额度反降 / 必填字段缺失）。
-
-            查看详情：[Actions 运行日志](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-
-            处理方式：本地运行 `python scripts/verify_plans.py --offline` 复现，
-            逐条修复 config.json 后重跑，确认输出 0 fail。
-          labels: "data-audit"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/` +
+              `${context.repo.repo}/actions/runs/${context.runId}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: "[plan-audit] 套餐数据一致性检查失败",
+              body: [
+                "每周套餐审计发现硬伤（算术不自洽 / 档位额度反降 / 必填字段缺失）。",
+                "",
+                `查看详情：[Actions 运行日志](${runUrl})`,
+                "",
+                "处理方式：本地运行 `python scripts/verify_plans.py --offline` 复现，",
+                "逐条修复 config.json 后重跑，确认输出 0 fail。",
+              ].join("\n"),
+              labels: ["data-audit"],
+            });

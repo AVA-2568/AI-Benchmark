@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -34,7 +34,7 @@ jobs:
         run: python scripts/build.py
 
       - name: Commit & push if changed
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: auto-update leaderboard ranking"
           # model_registry.json 必须一起提交：--apply 自动入池的新模型只存在
@@ -42,19 +42,24 @@ jobs:
           file_pattern: "results/*.csv results/*.json results/manifest.json results/*.svg README.md scripts/model_registry.json scripts/official_evals.json"
           commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
 
-      # Revert to dacbd/create-issue-action@v2. peter-evans/create-or-update-
-      # issue-action@v3 cannot be resolved in this repo (likely a private-repo
-      # or allow-list restriction on third-party actions), so the v3 step
-      # fails with "repository not found" and breaks the entire workflow.
-      # Add run_attempt == 1 so workflow retries don't re-open the same
-      # issue every time a retry fails.
+      # 用 actions/github-script 替代原 dacbd/create-issue-action@v2：
+      # 后者最后一次提交停留在 2024-04，只跑 node20，无 Node 24 版本。
+      # （更早的 peter-evans/create-or-update-issue-action@v3 在本仓库解析失败，
+      # 报 repository not found，故不走那条线。）
+      # run_attempt == 1：重试不再重复开 issue。
       - name: Alert on failure
         if: failure() && github.run_attempt == 1
-        uses: dacbd/create-issue-action@v2
+        uses: actions/github-script@v8
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          title: "⚠ 月度排名更新失败"
-          body: |
-            自动排名流水线失败。
-            可能原因：AA 页面结构变更、数据源异常、网络超时。
-            请检查 Actions 日志。
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: "⚠ 月度排名更新失败",
+              body: [
+                "自动排名流水线失败。",
+                "可能原因：AA 页面结构变更、数据源异常、网络超时。",
+                "请检查 Actions 日志。",
+              ].join("\n"),
+            });
