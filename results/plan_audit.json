@@ -1,5 +1,5 @@
 {
-  "run_date": "2026-11-09T08:48:03.142660+00:00",
+  "run_date": "2026-11-11T03:23:41.036241+00:00",
   "max_age_days": 21,
   "online": true,
   "summary": {
@@ -10,10 +10,10 @@
   },
   "coverage": {
     "summary": {
-      "total_models": 73,
+      "total_models": 74,
       "covered_count": 56,
-      "uncovered_count": 17,
-      "coverage_rate": 0.7671
+      "uncovered_count": 18,
+      "coverage_rate": 0.7568
     },
     "forward": [
       {
@@ -3142,6 +3142,14 @@
         {
           "slug": "step-5-preview",
           "creator": "StepFun",
+          "status": "API 按量",
+          "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
+        },
+        {
+          "slug": "claude-fable-5.2",
+          "creator": "Anthropic",
           "status": "API 按量",
           "plan_name": null,
           "discount": 1.0,
