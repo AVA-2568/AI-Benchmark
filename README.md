@@ -1,7 +1,7 @@
 # AI 前沿模型排行 LLM Leaderboard：通用 / 写作 / 性价比三榜
 
 <!--HERO_START-->
-精选 74 个主流旗舰大模型，针对三大真实需求提供三张榜单：
+精选 75 个主流旗舰大模型，针对三大真实需求提供三张榜单：
 - **干重活与写代码（通用榜）**：看编程、智能体、复杂逻辑与长上下文能力（当前 claude-fable-5.2 第一，79.3 分）；
 - **写文章与专业案头（文本榜）**：看创意写作、文风质感、长文阅读与日常问答（当前 claude-fable-5.2 第一，83.5 分）；
 - **算钱包与真实花销（性价比榜）**：看折算真实订阅套餐与 API 折扣后的到手单价（订阅折算后最低约 $0.001/M）。
@@ -36,8 +36,8 @@
 编程、智能体、日常混合使用看这张。权重：代码与 Agent 35%（Terminal-Bench v4.0 40%、LiveBench Long-Horizon 35%、LiveBench Coding 25%）、业务自动化与 Web 15%（AutomationBench 40%、LiveBench Browser 35%、LiveBench Data Analysis 25%）、指令遵循与长上下文 20%（LCR 100%）、终极科学与推理 20%（HLE 60%、SciCode 25%、LiveBench Reasoning 15%）、事实准确性 10%（Omniscience Index 100%）。
 
 <!--SNAPSHOT_GENERAL_START-->
-> 2026-11-10 数据（74 精选模型 -> 24 行；日期为上游抓取实际时点，stale 构建不刷新）。
-> 填补验证：Terminal-Bench v4.0 MAE=0.06 (>10%: 64.9%/37) ; LiveBench Long-Horizon MAE=8.54 (>10%: 73.3%/30) ; LiveBench Coding MAE=8.48 (>10%: 46.7%/30) ; AutomationBench MAE=0.10 (>10%: 73.0%/37) ; LiveBench Browser MAE=14.55 (>10%: 63.3%/30) ; LiveBench Data Analysis MAE=6.83 (>10%: 30.0%/30) ; LCR MAE=0.03 (>10%: 8.3%/36) ; HLE MAE=0.03 (>10%: 19.4%/36) ; SciCode MAE=0.02 (>10%: 5.6%/36) ; LiveBench Reasoning MAE=3.23 (>10%: 3.3%/30) ; Omniscience Index MAE=17.03 (>10%: 87.5%/32)
+> 2026-11-11 数据（75 精选模型 -> 24 行；日期为上游抓取实际时点，stale 构建不刷新）。
+> 填补验证：Terminal-Bench v4.0 MAE=0.06 (>10%: 63.2%/38) ; LiveBench Long-Horizon MAE=8.29 (>10%: 71.0%/31) ; LiveBench Coding MAE=8.31 (>10%: 45.2%/31) ; AutomationBench MAE=0.11 (>10%: 73.7%/38) ; LiveBench Browser MAE=14.12 (>10%: 61.3%/31) ; LiveBench Data Analysis MAE=6.79 (>10%: 32.3%/31) ; LCR MAE=0.03 (>10%: 8.1%/37) ; HLE MAE=0.03 (>10%: 19.4%/36) ; SciCode MAE=0.02 (>10%: 5.6%/36) ; LiveBench Reasoning MAE=3.18 (>10%: 3.2%/31) ; Omniscience Index MAE=17.50 (>10%: 97.0%/33)
 <!--SNAPSHOT_GENERAL_END-->
 
 <!--TOP15_GENERAL_START-->
@@ -71,28 +71,28 @@
 <!--TEXT_FRONTIER_END-->
 
 <!--SNAPSHOT_TEXT_START-->
-> 2026-11-10 数据（74 精选模型 -> 24 行；日期为上游抓取实际时点，stale 构建不刷新）。
-> 填补验证：EQ-Bench Creative Writing MAE=79.14 (>10%: 15.2%/46) ; LiveBench Design MAE=3.49 (>10%: 10.0%/30) ; AA-Briefcase MAE=136.06 (>10%: 45.9%/37) ; LiveBench Research MAE=6.36 (>10%: 23.3%/30) ; LiveBench Data Analysis MAE=6.83 (>10%: 30.0%/30) ; LCR MAE=0.03 (>10%: 8.3%/36) ; Omniscience Index MAE=17.03 (>10%: 87.5%/32) ; Omniscience Non-Halluc. MAE=0.20 (>10%: 90.6%/32) ; LiveBench Reasoning MAE=3.23 (>10%: 3.3%/30) ; CritPt MAE=0.09 (>10%: 81.1%/37)
+> 2026-11-11 数据（75 精选模型 -> 25 行；日期为上游抓取实际时点，stale 构建不刷新）。
+> 填补验证：EQ-Bench Creative Writing MAE=78.71 (>10%: 15.2%/46) ; LiveBench Design MAE=3.42 (>10%: 9.7%/31) ; AA-Briefcase MAE=136.62 (>10%: 44.7%/38) ; LiveBench Research MAE=6.42 (>10%: 22.6%/31) ; LiveBench Data Analysis MAE=6.79 (>10%: 32.3%/31) ; LCR MAE=0.03 (>10%: 8.1%/37) ; Omniscience Index MAE=17.50 (>10%: 97.0%/33) ; Omniscience Non-Halluc. MAE=0.20 (>10%: 90.9%/33) ; LiveBench Reasoning MAE=3.18 (>10%: 3.2%/31) ; CritPt MAE=0.09 (>10%: 81.1%/37)
 <!--SNAPSHOT_TEXT_END-->
 
 <!--TOP15_TEXT_START-->
 | # | Model | Creator | Vision | Score | Imputed |
 |---|---|---|---|---|---|
 | 1 | claude-fable-5.2 | Anthropic | 👁️ | 83.5 | EQ-Bench Creative Writing(reg) |
-| 2 | gpt-6-astra | OpenAI | 👁️ | 82.4 | - |
-| 3 | claude-opus-5.5 | Anthropic | 👁️ | 82.3 | - |
-| 4 | kimi-k3.1-pro | Moonshot AI | 👁️ | 81.7 | - |
-| 5 | gpt-6.1-sol | OpenAI | 👁️ | 79.9 | EQ-Bench Creative Writing(reg) |
-| 6 | claude-sonnet-5.5 | Anthropic | 👁️ | 79.7 | EQ-Bench Creative Writing(reg) |
-| 7 | muse-wonder-1.0 | Meta | 👁️ | 78.9 | - |
-| 8 | gpt-6.1-terra | OpenAI | 👁️ | 77.1 | EQ-Bench Creative Writing(reg) |
+| 2 | gemini-4-carbon | Google | 👁️ | 82.4 | EQ-Bench Creative Writing(reg), CritPt(reg) |
+| 3 | gpt-6-astra | OpenAI | 👁️ | 82.4 | - |
+| 4 | claude-opus-5.5 | Anthropic | 👁️ | 82.3 | - |
+| 5 | kimi-k3.1-pro | Moonshot AI | 👁️ | 81.7 | - |
+| 6 | gpt-6.1-sol | OpenAI | 👁️ | 79.8 | EQ-Bench Creative Writing(reg) |
+| 7 | claude-sonnet-5.5 | Anthropic | 👁️ | 79.7 | EQ-Bench Creative Writing(reg) |
+| 8 | muse-wonder-1.0 | Meta | 👁️ | 78.9 | - |
 | 9 | grok-4.7 | xAI | 👁️ | 77.1 | - |
-| 10 | gemini-4-argon | Google | 👁️ | 75.4 | - |
-| 11 | claude-haiku-5.5 | Anthropic | 👁️ | 74.1 | EQ-Bench Creative Writing(reg) |
-| 12 | qwen3.8-max | Alibaba | 👁️ | 71.4 | - |
-| 13 | mimo-v2.6-pro | Xiaomi | 👁️ | 69.6 | EQ-Bench Creative Writing(reg) |
-| 14 | step-5-preview | StepFun | 👁️ | 69.4 | EQ-Bench Creative Writing(reg) |
-| 15 | glm-5.3-flash | Z.AI | 👁️ | 67.7 | EQ-Bench Creative Writing(reg) |
+| 10 | gpt-6.1-terra | OpenAI | 👁️ | 77.0 | EQ-Bench Creative Writing(reg) |
+| 11 | gemini-4-argon | Google | 👁️ | 75.4 | - |
+| 12 | claude-haiku-5.5 | Anthropic | 👁️ | 74.1 | EQ-Bench Creative Writing(reg) |
+| 13 | qwen3.8-max | Alibaba | 👁️ | 71.4 | - |
+| 14 | mimo-v2.6-pro | Xiaomi | 👁️ | 69.6 | EQ-Bench Creative Writing(reg) |
+| 15 | step-5-preview | StepFun | 👁️ | 69.4 | EQ-Bench Creative Writing(reg) |
 <!--TOP15_TEXT_END-->
 
 [完整排名 CSV](results/text_scored.csv)
@@ -102,22 +102,22 @@
 回答「买哪个套餐最划算」。行序跟通用榜一致——按性价比排会让便宜小模型霸榜，没有决策价值。各列含义：API $/1M 是官方按量混合价（含缓存命中假设）；套餐内 $/1M 是该厂商最优订阅折算后的等效价；倍率是每 1 元月费换到的 API 等价额度，70× 即 $1 月费约换 $70 额度；Value = 综合分 ÷ 套餐内 $/1M。套餐名就是官方购买链接，没有订阅制的厂商按 API 按量计费（1×）。
 
 <!--SNAPSHOT_VALUE_START-->
-> 2026-11-10 数据（74 精选模型 -> 24 行；日期为上游抓取实际时点，stale 构建不刷新）。
-> 填补验证：Terminal-Bench v4.0 MAE=0.06 (>10%: 64.9%/37) ; LiveBench Long-Horizon MAE=8.54 (>10%: 73.3%/30) ; LiveBench Coding MAE=8.48 (>10%: 46.7%/30) ; AutomationBench MAE=0.10 (>10%: 73.0%/37) ; LiveBench Browser MAE=14.55 (>10%: 63.3%/30) ; LiveBench Data Analysis MAE=6.83 (>10%: 30.0%/30) ; LCR MAE=0.03 (>10%: 8.3%/36) ; HLE MAE=0.03 (>10%: 19.4%/36) ; SciCode MAE=0.02 (>10%: 5.6%/36) ; LiveBench Reasoning MAE=3.23 (>10%: 3.3%/30) ; Omniscience Index MAE=17.03 (>10%: 87.5%/32)
+> 2026-11-11 数据（75 精选模型 -> 24 行；日期为上游抓取实际时点，stale 构建不刷新）。
+> 填补验证：Terminal-Bench v4.0 MAE=0.06 (>10%: 63.2%/38) ; LiveBench Long-Horizon MAE=8.29 (>10%: 71.0%/31) ; LiveBench Coding MAE=8.31 (>10%: 45.2%/31) ; AutomationBench MAE=0.11 (>10%: 73.7%/38) ; LiveBench Browser MAE=14.12 (>10%: 61.3%/31) ; LiveBench Data Analysis MAE=6.79 (>10%: 32.3%/31) ; LCR MAE=0.03 (>10%: 8.1%/37) ; HLE MAE=0.03 (>10%: 19.4%/36) ; SciCode MAE=0.02 (>10%: 5.6%/36) ; LiveBench Reasoning MAE=3.18 (>10%: 3.2%/31) ; Omniscience Index MAE=17.50 (>10%: 97.0%/33)
 <!--SNAPSHOT_VALUE_END-->
 
 <!--TOP15_VALUE_START-->
 | # | Model | Creator | Vision | Score | API $/1M | 套餐 | 月费 | 倍率 | 套餐内 $/1M | 套餐内 ¥/1M | Value |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | claude-fable-5.2 | Anthropic | 👁️ | 79.3 | 6.833 | API 按量 | - | 1× | 6.833 | 45.554 | 11.6 |
+| 1 | claude-fable-5.2 | Anthropic | 👁️ | 79.3 | 6.833 | API 按量 | - | 1× | 6.833 | 45.55 | 11.6 |
 | 2 | claude-opus-5.5 | Anthropic | 👁️ | 76.9 | 3.493 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.087 | 0.58 | 884.22 |
 | 3 | gpt-6-astra | OpenAI | 👁️ | 74.7 | 9.115 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.13 | 0.867 | 574.99 |
-| 4 | gemini-4-argon | Google | 👁️ | 73.2 | 3.493 | API 按量 | - | 1× | 3.493 | 23.287 | 20.95 |
+| 4 | gemini-4-argon | Google | 👁️ | 73.2 | 3.493 | API 按量 | - | 1× | 3.493 | 23.285 | 20.95 |
 | 5 | gpt-6.1-sol | OpenAI | 👁️ | 72.6 | 1.746 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.025 | 0.167 | 2903.99 |
 | 6 | claude-sonnet-5.5 | Anthropic | 👁️ | 71.6 | 1.746 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.044 | 0.293 | 1627.93 |
 | 7 | gpt-6.1-terra | OpenAI | 👁️ | 69.5 | 0.873 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.012 | 0.08 | 5792.21 |
 | 8 | kimi-k3.1-pro | Moonshot AI | 👁️ | 68.7 | 1.823 | [Kimi Allegro](https://www.kimi.com/membership/pricing) | $97.08 | 10.4× | 0.176 | 1.173 | 390.6 |
-| 9 | muse-wonder-1.0 | Meta | 👁️ | 65.2 | 3.493 | API 按量 | - | 1× | 3.493 | 23.287 | 18.66 |
+| 9 | muse-wonder-1.0 | Meta | 👁️ | 65.2 | 3.493 | API 按量 | - | 1× | 3.493 | 23.285 | 18.66 |
 | 10 | deepseek-v4.1-flash | DeepSeek | 👁️ | 59.3 | 0.21 | [火山方舟 Coding Plan Pro](https://www.volcengine.com) | $27.78 | 10× | 0.021 | 0.14 | 2824.94 |
 | 11 | grok-4.7 | xAI | 👁️ | 58.9 | 1.452 | [SuperGrok Heavy](https://x.ai/pricing) | $300 | 5.3× | 0.272 | 1.813 | 216.7 |
 | 12 | mimo-v2.6-pro | Xiaomi | 👁️ | 58.4 | 0.17 | [Command Code GOAT](https://commandcode.ai) | $10 | 7× | 0.024 | 0.16 | 2435.11 |
