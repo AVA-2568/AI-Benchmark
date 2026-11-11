@@ -16,6 +16,12 @@ if _SCRIPTS not in sys.path:
 
 import build  # noqa: E402
 
+# scripts/.cache/ 不入库（.gitignore），CI 干净 checkout 下 _read_fx() 返回 None，
+# render() 会因缺汇率直接抛错。前沿只取决于价格的相对次序，而 USD→CNY 是
+# 统一缩放（单调且保号），成员与顺序都不随汇率变化，所以用固定汇率兜底；
+# 本地有缓存时仍走真实汇率。
+_FX_FALLBACK = 7.0
+
 
 def _block(txt, name):
     start, end = f"<!--{name}_START-->", f"<!--{name}_END-->"
@@ -93,7 +99,8 @@ def test_frontier_line_matches_readme(tmp_path):
     cfg = build._load_config()
     rows = build._read_csv_rows(os.path.join(
         _REPO, "results", cfg["leaderboards"]["value"]["output_csv"]))
-    frontier = render(rows, str(tmp_path / "f.svg"), build._read_fx())
+    frontier = render(rows, str(tmp_path / "f.svg"),
+                      build._read_fx() or _FX_FALLBACK)
     with open(os.path.join(_REPO, "README.md"), encoding="utf-8") as f:
         txt = f.read()
     first_line = _block(txt, "FRONTIER").splitlines()[0]
