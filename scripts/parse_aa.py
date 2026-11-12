@@ -162,9 +162,30 @@ SENTINEL_MAPPING = {
 }
 
 
+# AA 新增评分字段：(输出列名, model.scores 下的 key)。
+# 2026-11 巡检发现源里已有 15 个未被固定清单覆盖的基准，全部在此登记；
+# 不登记就会重演「AA 上了新基准、我们永远拉不到」的静默丢数据。
+NEW_SCORE_FIELDS = [
+    ("FrontierCode 2.0", "frontiercode-2-0"),
+    ("FrontierCode", "frontiercode"),
+    ("HLE Diamond", "hle-diamond"),
+    ("Terminal-Bench Science", "terminal-bench-science"),
+    ("CritPt v2 Hard", "critpt-v2-hard"),
+    ("MLCR", "mlcr-aa"),
+    ("GDPval PDF", "gdp-pdf"),
+    ("Enterprise Ops Gym", "enterprise-ops-gym-aa"),
+    ("AA Analyst Agent", "aa-analyst-agent"),
+    ("MKA", "mka"),
+    ("VIALS", "vials-aa"),
+    ("AA-3D", "aa-3d"),
+    ("Code2Video", "code2video-aa"),
+    ("HealthBench", "healthbench"),
+    ("HealthBench Professional", "healthbench-professional"),
+]
+
+
 # ---------- 字段映射（模块级，供单测） ----------
-KNOWN_PERF = {
-    "medianOutputTokensPerSecond", "percentile05OutputTokensPerSec",
+KNOWN_PERF = {    "medianOutputTokensPerSecond", "percentile05OutputTokensPerSec",
     "percentile05OutputTokensPerSecond", "quartile25OutputTokensPerSecond",
     "quartile75OutputTokensPerSecond", "percentile95OutputTokensPerSecond",
     "medianTimeToFirstTokenSeconds", "percentile05TimeToFirstTokenSeconds",
@@ -286,6 +307,12 @@ def build_cols(rows):
         ("Harvey LAB", ("model", "scores", "harvey-lab-aa"), ("model", "harveyLab")),
         ("AutomationBench", ("model", "scores", "automationbench-aa"), ("model", "automationBench")),
         ("MMMU-Pro", ("model", "scores", "mmmu-pro"), ("model", "mmmuPro")),
+    ]
+    # AA 2026-11 新增的评分字段（此前被固定清单静默丢弃）。
+    # 只做「拉取」，是否进池由 config.json 决定——merge.py 只读它认识的列。
+    for col, key in NEW_SCORE_FIELDS:
+        cols.append((col, ("model", "scores", key)))
+    cols += [
         ("Context Window", "features", "contextWindowTokens"),
         ("Function Calling", "features", "functionCalling"),
         ("JSON Mode", "features", "jsonMode"),
@@ -315,6 +342,30 @@ def parse_rows():
     return None, None
 
 
+def score_keys_in(specs):
+    """列定义里引用到的全部 model.scores.* key。"""
+    keys = set()
+    for spec in specs:
+        paths = spec[1:]
+        if paths and isinstance(paths[0], (tuple, list)):
+            plist = [tuple(p) for p in paths]
+        else:
+            plist = [tuple(paths)]
+        for path in plist:
+            for i, seg in enumerate(path):
+                if seg == "scores" and i + 1 < len(path):
+                    keys.add(path[i + 1])
+    return keys
+
+
+def unmapped_score_fields(rows, cols):
+    """源里出现、但没进列定义的评分字段 —— AA 上新基准的早期信号。"""
+    seen = set()
+    for r in rows:
+        seen |= set((r.get("model") or {}).get("scores") or {})
+    return sorted(seen - score_keys_in(cols))
+
+
 def main():
     rows, parser_used = parse_rows()
     if not rows:
@@ -327,6 +378,10 @@ def main():
     run_sentinel(rows)
 
     cols, extra_perf = build_cols(rows)
+    unmapped = unmapped_score_fields(rows, cols)
+    if unmapped:
+        print("!! AA 源里存在未拉取的评分字段（登记到 parse_aa.NEW_SCORE_FIELDS "
+              "才会进 CSV）：" + ", ".join(unmapped))
     csv_path = os.path.join(OUT, "aa_providers.csv")
     with open(csv_path, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)

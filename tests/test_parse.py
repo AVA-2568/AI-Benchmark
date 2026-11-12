@@ -145,6 +145,31 @@ def test_build_cols_detects_extra_perf():
     # extra perf column appended with its raw key as both label and path
     assert ("weirdNew", "performance", "weirdNew") in cols
 
+
+# ---- 新基准漏拉检测（AA 上新基准的早期信号） ----
+
+def test_new_score_fields_are_pulled():
+    """2026-11 AA 新增的评分字段必须进 CSV 列，否则永远拿不到。"""
+    cols, _ = parse_aa.build_cols([{"label": "A", "model": {"scores": {}}}])
+    names = {c[0] for c in cols}
+    for col in ("FrontierCode 2.0", "HLE Diamond", "CritPt v2 Hard",
+                "MLCR", "Terminal-Bench Science"):
+        assert col in names
+
+
+def test_unmapped_score_fields_flags_new_benchmark():
+    """源里出现、列定义没登记的评分字段要被点名。"""
+    rows = [{"model": {"scores": {"humanitys-last-exam": 0.5,
+                                  "brand-new-bench": 0.7}}}]
+    cols, _ = parse_aa.build_cols(rows)
+    assert parse_aa.unmapped_score_fields(rows, cols) == ["brand-new-bench"]
+
+
+def test_unmapped_score_fields_clean_when_all_registered():
+    rows = [{"model": {"scores": {"frontiercode-2-0": 0.3, "hle-diamond": 0.2}}}]
+    cols, _ = parse_aa.build_cols(rows)
+    assert parse_aa.unmapped_score_fields(rows, cols) == []
+
 # ---- 新结构 (initialRows 与 model.scores) 支持测试 ----
 
 def test_get_nested_fallback():

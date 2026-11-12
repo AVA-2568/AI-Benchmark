@@ -204,32 +204,49 @@ def _weighted_total(glob, nrm, imputed_set, discount):
     return sum(w[m] * nrm[m] for m in nrm) / ws if ws else 0.0
 
 
-def _domain_ok(raw, i, board, max_missing):
+def _domain_ok(raw, i, board, max_missing, r2=None, relax_min_r2=None,
+               max_relaxed_domains=1):
     """该行是否满足「每个领域最多缺 N 个基准值」的上榜门槛。
 
     领域按榜单自己的 categories 划分（如通用榜「代码与 Agent」= Terminal-Bench
     + LiveBench Long-Horizon + LiveBench Coding）。缺 1 个基准可由域内岭回归
     回测；缺 2 个说明该领域纸面证据不足，整行不上榜。单基准域必须实测。
     见 ADR-0006。
+
+    ``relax_min_r2``：可选的 R² 门槛放宽（ADR-0007）。当某域恰好再缺 1 个基准
+    时，若该域所有被填补指标在池内的域内回归 R² 都不低于此值，视为「数据未
+    公布但可高置信回测」，放行；每行最多放宽 ``max_relaxed_domains`` 个域。
+    动机：新模型首发时 AA 常晚于 LiveBench 补测 HLE/SciCode，按个数一刀切会
+    把已具备 15/17 实测的一线模型挡在榜外。
     """
     if max_missing is None:
         return True
+    relaxed = 0
     for cat in board.get("categories") or []:
         metrics = [m["name"] for m in cat.get("metrics") or []]
         if not metrics:
             continue
         need = max(1, len(metrics) - max_missing)
-        have = sum(1 for m in metrics
-                   if raw.get(m) is not None and raw[m][i] is not None)
-        if have < need:
-            return False
+        missing = [m for m in metrics
+                   if raw.get(m) is None or raw[m][i] is None]
+        if len(metrics) - len(missing) >= need:
+            continue
+        if (relax_min_r2 is not None and r2 and missing
+                and len(missing) == max_missing + 1
+                and all(r2.get(m, 0.0) >= relax_min_r2 for m in missing)):
+            relaxed += 1
+            if relaxed <= max_relaxed_domains:
+                continue
+        return False
     return True
 
 
 def score_board(rows, board, engine, cost, cache_multiplier, score_threshold,
                 plans=None, cache_price_fallback=None, scales=None,
                 fx_rate=None, imputed_weight_discount=1.0,
-                max_imputed_ratio=None, max_missing_per_domain=None):
+                max_imputed_ratio=None, max_missing_per_domain=None,
+                domain_r2=None, relax_min_r2=None,
+                max_relaxed_domains=1):
     """Score one leaderboard. Returns (scored_rows, headers).
 
     ``engine`` provides stats / cur / raw / imputation_quality and
@@ -294,7 +311,10 @@ def score_board(rows, board, engine, cost, cache_multiplier, score_threshold,
 
         out.append({
             # 内部字段：是否满足域内缺失门槛（不写入 CSV）
-            "_domain_ok": _domain_ok(raw, i, board, max_missing_per_domain),
+            "_domain_ok": _domain_ok(raw, i, board, max_missing_per_domain,
+                                     r2=domain_r2,
+                                     relax_min_r2=relax_min_r2,
+                                     max_relaxed_domains=max_relaxed_domains),
             "Model": r.get("Model"),
             "Creator": r.get("Creator"),
             "Vision": "Yes" if has_vision else "No",

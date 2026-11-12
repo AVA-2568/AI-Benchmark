@@ -753,6 +753,16 @@
       "vision": true,
       "auto_added": "2026-11-10",
       "openrouter": "anthropic/claude-fable-5.2"
+    },
+    {
+      "slug": "gemini-4-carbon",
+      "creator": "Google",
+      "aa": "gemini-4-carbon",
+      "livebench": "gemini-4-carbon",
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-11-12",
+      "openrouter": "google/gemini-4-carbon"
     }
   ]
 }

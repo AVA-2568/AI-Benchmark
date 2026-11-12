@@ -6,14 +6,14 @@
 
 ### 模型池：主流旗舰精选
 
-榜单严格执行**高真值准入门槛治理**，只收录国际 + 国内主流在售前沿旗舰（当前 73 个当季核心模型，拒绝过度回归推断，实测真值率达 95%+），全量下架已弃用或实测缺失率 >50% 的历史退役条目。模型池定义在 [`scripts/model_registry.json`](scripts/model_registry.json)：
+榜单严格执行**高真值准入门槛治理**，只收录国际 + 国内主流在售前沿旗舰（当前 75 个当季核心模型，拒绝过度回归推断，实测真值率达 95%+），全量下架已弃用或实测缺失率 >50% 的历史退役条目。模型池定义在 [`scripts/model_registry.json`](scripts/model_registry.json)：
 
 - **国际**：OpenAI（GPT-6/5.6/5.5/5.4/5.2）、Anthropic（Claude Fable 5 / Opus 5 / Opus 4.x / Sonnet）、Google（Gemini 3.x）、xAI（Grok 4.x/Build）、Meta（Muse Spark）、Thinking Machines（Inkling）
 - **国内**：DeepSeek（V4）、Kimi（K3/K2.6/K2.7）、Qwen（3.8/3.7/3.6）、GLM（5.3/5.2）、MiniMax（M3）、Xiaomi（MiMo）、Tencent（Hy）
 
-**为什么是精选而非全量**：AA 的 1000+ 模型里 90% 是重复变体（同一模型不同推理档）、长尾小厂、已弃用条目。精选池让覆盖率更高（17 个池指标的真值覆盖 29–46/73：LiveBench 系 29/73、AA 系 32–37/73、EQ-Bench 46/73）、填补更少、分数更「实」。停更的 DeepSWE 已淘汰，长程工程位置由 LiveBench 2.0 Long-Horizon 实测承担。
+**为什么是精选而非全量**：AA 的 1000+ 模型里 90% 是重复变体（同一模型不同推理档）、长尾小厂、已弃用条目。精选池让覆盖率更高（17 个池指标的真值覆盖 31–46/75：LiveBench 系 31/75、AA 系 33–38/75、EQ-Bench 46/75）、填补更少、分数更「实」。停更的 DeepSWE 已淘汰，长程工程位置由 LiveBench 2.0 Long-Horizon 实测承担。
 
-> 覆盖率数字随上游 release 变动。2026-11 起 LiveBench 只开放最新 release（33 个模型）且 v1 补充口径下线，因此 LB 系覆盖从 70/73 降到 29/73；落榜模型不是被删，而是**未达上榜门槛**（见「上榜门槛：每个领域最多缺 1 个基准值」）。
+> 覆盖率数字随上游 release 变动。2026-11 起 LiveBench 只开放最新 release（34 个模型）且 v1 补充口径下线，因此 LB 系覆盖从 70/73 降到 31/75；落榜模型不是被删，而是**未达上榜门槛**（见「上榜门槛：每个领域最多缺 1 个基准值」）。
 
 ### 数据源（3 个评测源 + 汇率 + 模态元数据，全部公开可抓）
 
@@ -21,7 +21,7 @@
 |---|---|---|---|
 | LiveBench 2.0 | Coding / Long-Horizon / Browser / Reasoning / Data Analysis / Research / Design | Abacus.AI + 学界 | `data/<release>/table.csv`（**只取最新 release**；一行一模型、无 effort 后缀，行带 `release` 标记） |
 | EQ-Bench | Creative Writing Elo | 独立 | `creative_writing.js` 内嵌 CSV |
-| Artificial Analysis | Terminal-Bench v4.0 / AA-Briefcase / AutomationBench / LCR / Omniscience Index / HLE / CritPt / SciCode + 官方牌价 | 独立评测机构 | RSC 流（三级解析链，兼容 initialRows 与 scores 体系） |
+| Artificial Analysis | Terminal-Bench v4.0 / AA-Briefcase / AutomationBench / LCR / MLCR / Omniscience Index / HLE / CritPt v2 Hard + 官方牌价 | 独立评测机构 | RSC 流（三级解析链，兼容 initialRows 与 scores 体系） |
 | Frankfurter | USD→CNY 汇率（ECB 官方） | 开源 | v2 rates API（备源 open.er-api.com） |
 | OpenRouter | 视觉模态元数据（`vision` 字段） | 开源聚合 | `/api/v1/models`（仅元数据，不参与评分） |
 
@@ -116,15 +116,18 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 
 本仓库维护**三个榜单**（通用榜 / 文本榜 / 性价比榜），共用同一次抓取、合并与缺失值填补，仅评分权重不同。性价比榜与通用榜同权重、同名次（`rank_by: "score"`，按综合分排序，避免便宜小模型霸榜），每行展示官方 API 混合价、最优订阅套餐的月费 / 倍率 / 套餐内等效价与购买链接；`Value = 综合分 ÷ 套餐内 $/1M` 仅作参考列。配套的「套餐购买指南」按套餐维度汇总：每个套餐取其覆盖厂商在通用榜上的最强模型，`套餐内 Value = 最强模型综合分 ÷ (Blended $/1M × 折扣)`，按该值降序——同时反映套餐可用的模型上限与折算价格（详见「订阅套餐与倍率」一节）。
 
-### 上榜门槛：每个领域最多缺 1 个基准值
+### 上榜门槛：每个领域最多缺 1 个基准值（高 R² 域可再放宽 1 个）
 
 每个领域由 2–3 个基准值构成（如「代码与 Agent」= Terminal-Bench v4.0 + LiveBench Long-Horizon + LiveBench Coding，来自 AA 与 LiveBench 两个源）。数据缺口的容忍度按**领域内缺失的基准值个数**计算，而不是按数据源个数：
 
 - **域内缺 1 个** → 可回测：由同域其他基准的岭回归填补，仍上榜。
 - **域内缺 2 个**（或单基准域缺这唯一一个）→ 该行不上榜。纸面证据不足时，补出来的是「猜」不是「测」。
-- 参数 `max_missing_per_domain = 1`（`config.json`），逐榜按其 `categories` 判定；`max_imputed_ratio`（0.6）作为指标层面的二次保护。
+- **高 R² 例外**：某域恰好缺 2 个时，若这 2 个缺口指标的域内回归 R² 都 ≥ `domain_gate_relax.min_domain_r2`（0.85），视为「上游未公布但可高置信回测」放行；每行最多放宽 `max_relaxed_domains`（1）个域。
+- 参数 `max_missing_per_domain = 1`、`domain_gate_relax`（`config.json`），逐榜按其 `categories` 判定；`max_imputed_ratio`（0.6）作为指标层面的二次保护。
 
-当前效果：73 个池模型中 **24 个达标**，三榜均 24 行；榜内通用榜 100% 为实测值、文本榜按权重 93% 为实测（其余为域内回测）。门槛的作用是把证据不足的模型挡在榜外，而不是靠填补把行数撑满。见 [ADR-0006](docs/adr/0006-per-domain-missing-cap.md)。
+例外条款的由来：新模型首发时 AA 常晚于 LiveBench 补测 HLE，按个数一刀切会把已具备 16/17 实测的一线模型挡在榜外。Gemini 4 Carbon（2026-11-12 入池）即此情形——通用榜 5 个域里只有「终极科学与推理」缺 HLE，而该指标域内 R² 为 0.813。反向验证：放宽规则**只**放行 R² ≥0.85 的域，LB 系（R² 0.51–0.79）与 Omniscience（0.137）仍被原门槛拦下。见 [ADR-0006](docs/adr/0006-per-domain-missing-cap.md)、[ADR-0007](docs/adr/0007-r2-gated-domain-gate-relax.md)。
+
+当前效果：75 个池模型中 **26 个达标**（通用榜 / 文本榜 / 性价比榜均 26 行）；通用榜 24/26 行为全实测，文本榜按权重 93% 为实测（其余为域内回测）。门槛的作用是把证据不足的模型挡在榜外，而不是靠填补把行数撑满。
 
 ### 通用榜 General（五维黄金标尺）
 
@@ -138,9 +141,10 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 | **业务自动化与 Web** (15%) | **AutomationBench** | 40% | AA 官方企业级多步骤复杂业务自动化与工作流基准（AA 已用其取代 tau3-Banking） |
 | | **LiveBench Browser** | 35% | 浏览器操作与 Web 交互型 Agent |
 | | **LiveBench Data Analysis** | 25% | 复杂多表关联、数据转换与事件时间线分析 |
-| **指令遵循与长上下文** (20%) | **LCR** | 100% | 1M 超长文本跨文档检索可靠性（本域现为单指标；LiveBench IF 不在当前填补池内） |
+| **指令遵循与长上下文** (20%) | **LCR** | 55% | 1M 超长文本跨文档检索可靠性（英文口径） |
+| | **MLCR** | 45% | 多语言长上下文检索与推理（AA 2026-11 更新 prompt 与三人评审）；与 LCR 仅 r=0.44，补上非英文长文维度 |
 | **终极科学与推理** (20%) | **HLE (Humanity's Last Exam)** | 60% | 博士级多学科前沿终极考场（彻底淘汰已饱和的 GPQA） |
-| | **SciCode** | 25% | 真实科研级科学计算与算法推理 |
+| | **CritPt v2 Hard** | 25% | 前沿科研批判与复杂系统推理（CritPt v2 困难版）。2026-11 取代 SciCode：AA 已对 SciCode 数据集标注 underReview（独立审计发现疑似错误），且 CritPt v2 在本季 27 个 LiveBench 模型上覆盖 27/27、标准差 0.209（SciCode 为 24/27、0.06） |
 | | **LiveBench Reasoning** | 15% | 防污染复杂多步逻辑推理 |
 | **事实准确性** (10%) | **Omniscience Index** | 100% | 防幻觉与未知边界拒答基准 |
 
@@ -152,9 +156,9 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 |---|---|---|
 | **创意文学与小说创作** (25%) | EQ-Bench Creative Writing 60% / LiveBench Design 40% | 60% / 40% |
 | **专业案头与深度研究** (25%) | AA-Briefcase 40% / LiveBench Research 35% / LiveBench Data Analysis 25% | 40% / 35% / 25% |
-| **严格指令与长文本遵循** (20%) | LCR 100% | 100% |
+| **严格指令与长文本遵循** (20%) | LCR 55% / MLCR 45% | 55% / 45% |
 | **事实抗伪与真实性** (15%) | Omniscience Index 60% / Omniscience Non-Halluc. 40% | 60% / 40% |
-| **人际心智与人文社科** (15%) | LiveBench Reasoning 60% / CritPt 40% | 60% / 40% |
+| **推理与科研判断** (15%) | LiveBench Reasoning 60% / CritPt v2 Hard 40% | 60% / 40% |
 
 ### 多模态（Vision）特性呈现与前沿标识
 
@@ -177,11 +181,12 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 | **专业案头与深度研究** (25%) | **AA-Briefcase** | | 40% | 真实多周专业案头项目（数千源文件、复杂工作交付） |
 | | | **LiveBench Research** | 35% | LiveBench 2.0 深度研究、学术综述与行业分析 |
 | | | **LiveBench Data Analysis** | 25% | LiveBench 2.0 商业表格合并、数据转换与定量分析 |
-| **严格指令与长文本遵循** (20%) | **LCR** | | 100% | AA 官方 1M 超长文本跨文档精确检索与长程格式遵循，90%+ 全池覆盖 |
+| **严格指令与长文本遵循** (20%) | **LCR** | | 55% | AA 官方 1M 超长文本跨文档精确检索与长程格式遵循 |
+| | | **MLCR** | 45% | AA 多语言长上下文检索与推理（2026-11 更新 prompt 与三人评审），与 LCR 互补 |
 | **事实抗伪与真实性** (15%) | **Omniscience Index** | | 60% | 事实性与未知边界防幻觉得分 (AA) |
 | | | **Omniscience Non-Halluc.** | 40% | AA 官方抗幻觉率 (1 - Hallucination Rate) (AA) |
-| **人际心智与人文社科** (15%) | **LiveBench Reasoning** | | 60% | LiveBench 2.0 复杂心智、逻辑与人文多步推理 |
-| | | **CritPt** | 40% | Critical Point 前沿复杂系统推理 (AA) |
+| **推理与科研判断** (15%) | **LiveBench Reasoning** | | 60% | LiveBench 2.0 复杂防污染多步逻辑推理 |
+| | | **CritPt v2 Hard** | 40% | Critical Point v2 困难版：前沿科研批判与复杂系统推理 (AA) |
 
 全局权重之和 = 1.00。
 
@@ -191,7 +196,7 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 
 ### 跨源合并
 
-`merge.py` 读 `model_registry.json` + 各源 CSV，把 5 个源的分数合并成统一宽表（行 = 统一 slug，列 = 10 个指标 + Model/Creator）。LiveBench 别名可为列表（如 `deepseek-v4-pro` 的正式版 `-0813` 与预览版），多个匹配时取分数最高者。缺失值留空，交由评分阶段的岭回归填补。
+`merge.py` 读 `model_registry.json` + 各源 CSV，把 5 个源的分数合并成统一宽表（行 = 统一 slug，列 = 17 个池指标 + Model/Creator）。LiveBench 别名可为列表（如 `deepseek-v4-pro` 的正式版 `-0813` 与预览版），多个匹配时取分数最高者。缺失值留空，交由评分阶段的岭回归填补。
 
 **AA 定价取官方行**：AA 是按（Model Slug × Provider）的宽表，同一模型有 N 个 Provider 行（如 `deepseek-v4-flash` 15 行）。各行评测分数完全一致，但定价是各 Provider 自报的分销价——排行榜展示的必须是模型官方牌价（`Provider` 与 `Creator` 归一化互含，如 DeepSeek 行 0.44/1.32），而非 CSV 末行的分销价（Makora 0.09/0.195）。无官方行的模型（如 hy3 纯第三方分销）回退末行。视觉变体是独立 Model Slug（如 `deepseek-v4-flash-vision`），不会混入对应文本模型的行。
 
@@ -216,7 +221,9 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 | 指标 | 锚点 [lo, hi] | 说明 |
 |---|---|---|
 | LiveBench 2.0 各分类（Coding / Long-Horizon / Browser / Reasoning / Data Analysis / Research / Design） | [0, 100] | 官方 0–100 百分比 |
-| LCR / HLE / AutomationBench / Omniscience Non-Halluc. / CritPt / SciCode / Terminal-Bench v4.0 | [0, 1] | 0–1 比例，×100 映射到 0–100 分 |
+| LCR / HLE / AutomationBench / Omniscience Non-Halluc. / Terminal-Bench v4.0 | [0, 1] | 0–1 比例，×100 映射到 0–100 分 |
+| CritPt v2 Hard | [0, 0.8] | 0–1 比例，按本季实测上界 0.77 取锚；锚在 1.0 会把头部压进 80 分以下、损失区分度 |
+| MLCR | [0, 0.5] | 0–1 比例，按本季实测上界 0.44 取锚 |
 | Omniscience Index | [-50, 50] | 净得分实际可达范围（全对/全错几乎不可能，0=中性） |
 | EQ-Bench Creative Writing | [1400, 2200] | Elo 实际分布约 1438~2105，下限设为 1400 |
 | AA-Briefcase | [400, 1700] | Elo 实际分布约 459~1662（AA v4.3 重锚后） |
@@ -240,18 +247,17 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 
 ### 分域填补池（Domain Groups）
 
-填补在 8 个互不相交的领域分组上进行，**严格禁止跨领域特征污染**（如禁止用文学写作分预测终端代码能力）。各领域池成员在 `config.json` `domain_groups` 中声明；`validate_config` 强制每个池指标恰属一域（重叠声明或漏声明都会构建失败，避免静默退化）。
+填补在 7 个互不相交的领域分组上进行，**严格禁止跨领域特征污染**（如禁止用文学写作分预测终端代码能力）。各领域池成员在 `config.json` `domain_groups` 中声明；`validate_config` 强制每个池指标恰属一域（重叠声明或漏声明都会构建失败，避免静默退化）。
 
 | 域 | 成员（真值覆盖率 n/73） | 说明 |
 |---|---|---|
 | `code_agent` | Terminal-Bench v4.0 (37) / LiveBench Long-Horizon (29) / LiveBench Coding (29) | 通用榜代码与 Agent |
 | `automation_web` | AutomationBench (37) / LiveBench Browser (29) | 通用榜业务自动化 |
-| `instruction` | LCR (36) | 两榜共用：超长上下文检索 |
-| `reasoning` | HLE (36) / SciCode (36) / LiveBench Reasoning (29) | 通用榜科学与推理 |
+| `instruction` | LCR (37) / MLCR (33) | 两榜共用：长上下文检索（英文 + 多语言） |
+| `reasoning` | HLE (36) / CritPt v2 Hard (33) / LiveBench Reasoning (31) | 通用榜科学与推理（SciCode 因 AA 标注 underReview 于 2026-11 下架，见 ADR-0008） |
 | `factuality` | Omniscience Index (32) / Omniscience Non-Halluc. (32) | 两榜共用：事实抗伪。两列只有 32 行真值，其余靠本域回归填补；Omniscience LOO-MAE 偏高（≈16.4）仅作诚实披露，不影响任何行分数 |
 | `creative_literature` | EQ-Bench Creative Writing (46) / LiveBench Design (29) | 文本榜创意文学 |
-| `professional_work` | AA-Briefcase (37) / LiveBench Research (29) / LiveBench Data Analysis (29) | 文本榜专业案头 |
-| `humanities_mind` | CritPt (37) | 文本榜人际心智（单指标域，无层级链，见下） |
+| `professional_work` | AA-Briefcase (38) / LiveBench Research (31) / LiveBench Data Analysis (31) | 文本榜专业案头 |
 
 ### 填补算法：分域多变量岭回归 + 物理层级单调性约束
 
@@ -285,7 +291,7 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 
 ## 模型拟合质量（R²）
 
-用全量训练集拟合后，计算每个指标的训练集 R²（z-score 空间）。R² 越高，该指标的缺失值预测越可信。当前（release 20261106）各指标 R² 约 0.00–0.96，其中 HLE（0.96）、SciCode（0.90）、AA-Briefcase（0.83）、Terminal-Bench v4.0（0.82）最可预测；LCR 与 CritPt 均为 0.00（域内无有效交叉特征）、Omniscience 系（0.16）、LiveBench Data Analysis（0.23）最低——填补可信度请以留一验证 MAE 为准。
+用全量训练集拟合后，计算每个指标的训练集 R²（z-score 空间）。R² 越高，该指标的缺失值预测越可信。当前（release 20261106）各指标 R² 约 0.14–0.84，其中 HLE（0.81）、CritPt v2 Hard（0.82）、Terminal-Bench v4.0（0.84）最可预测；LCR（0.25）与 MLCR（0.22）次之——两者互为依据，比单指标时（R²=0）明显改善；Omniscience 系（0.14）、LiveBench Data Analysis（0.24）最低，填补可信度请以留一验证 MAE 为准。
 
 ## 能力-成本前沿图
 

@@ -187,11 +187,11 @@ def build_merged():
     cols = [
         "Terminal-Bench v4.0", "LiveBench Long-Horizon", "LiveBench Coding",
         "AutomationBench", "LiveBench Browser", "LiveBench Data Analysis",
-        "LCR", "HLE", "SciCode", "LiveBench Reasoning",
+        "LCR", "MLCR", "HLE", "CritPt v2 Hard", "LiveBench Reasoning",
         "Omniscience Index", "Omniscience Non-Halluc.",
         "EQ-Bench Creative Writing",
         "LiveBench Research", "LiveBench Design",
-        "AA-Briefcase", "CritPt",
+        "AA-Briefcase",
     ]
 
     out_rows = []
@@ -221,11 +221,11 @@ def build_merged():
             row["Terminal-Bench v4.0"] = _num(aa_row.get("Terminal-Bench v4.0"))
             row["AutomationBench"] = _num(aa_row.get("AutomationBench"))
             row["LCR"] = _num(aa_row.get("LCR"))
+            row["MLCR"] = _num(aa_row.get("MLCR"))
             row["Omniscience Index"] = _num(aa_row.get("Omniscience Index"))
             row["Omniscience Non-Halluc."] = _num(aa_row.get("Omniscience Non-Halluc."))
             row["HLE"] = _num(aa_row.get("HLE"))
-            row["SciCode"] = _num(aa_row.get("SciCode"))
-            row["CritPt"] = _num(aa_row.get("CritPt"))
+            row["CritPt v2 Hard"] = _num(aa_row.get("CritPt v2 Hard"))
             if aa_row.get("AA-Briefcase"):
                 row["AA-Briefcase"] = _num(aa_row.get("AA-Briefcase"))
             # 成本列（性价比榜用）

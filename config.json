@@ -10,11 +10,12 @@
       "LiveBench Browser"
     ],
     "instruction": [
-      "LCR"
+      "LCR",
+      "MLCR"
     ],
     "reasoning": [
       "HLE",
-      "SciCode",
+      "CritPt v2 Hard",
       "LiveBench Reasoning"
     ],
     "factuality": [
@@ -29,9 +30,6 @@
       "AA-Briefcase",
       "LiveBench Research",
       "LiveBench Data Analysis"
-    ],
-    "humanities_mind": [
-      "CritPt"
     ]
   },
   "imputation_pool": [
@@ -42,16 +40,16 @@
     "LiveBench Browser",
     "LiveBench Data Analysis",
     "LCR",
+    "MLCR",
     "HLE",
-    "SciCode",
+    "CritPt v2 Hard",
     "LiveBench Reasoning",
     "Omniscience Index",
     "Omniscience Non-Halluc.",
     "EQ-Bench Creative Writing",
     "LiveBench Research",
     "LiveBench Design",
-    "AA-Briefcase",
-    "CritPt"
+    "AA-Briefcase"
   ],
   "metric_scales": {
     "Terminal-Bench v4.0": [
@@ -86,9 +84,13 @@
       0,
       1
     ],
-    "SciCode": [
+    "CritPt v2 Hard": [
       0,
-      1
+      0.8
+    ],
+    "MLCR": [
+      0,
+      0.5
     ],
     "LiveBench Reasoning": [
       0,
@@ -117,10 +119,6 @@
     "AA-Briefcase": [
       400,
       1700
-    ],
-    "CritPt": [
-      0,
-      1
     ]
   },
   "leaderboards": {
@@ -171,7 +169,11 @@
           "metrics": [
             {
               "name": "LCR",
-              "sub_weight": 1.0
+              "sub_weight": 0.55
+            },
+            {
+              "name": "MLCR",
+              "sub_weight": 0.45
             }
           ]
         },
@@ -184,7 +186,7 @@
               "sub_weight": 0.6
             },
             {
-              "name": "SciCode",
+              "name": "CritPt v2 Hard",
               "sub_weight": 0.25
             },
             {
@@ -248,7 +250,11 @@
           "metrics": [
             {
               "name": "LCR",
-              "sub_weight": 1.0
+              "sub_weight": 0.55
+            },
+            {
+              "name": "MLCR",
+              "sub_weight": 0.45
             }
           ]
         },
@@ -267,7 +273,7 @@
           ]
         },
         {
-          "name": "人际心智与人文社科",
+          "name": "推理与科研判断",
           "weight": 0.15,
           "metrics": [
             {
@@ -275,7 +281,7 @@
               "sub_weight": 0.6
             },
             {
-              "name": "CritPt",
+              "name": "CritPt v2 Hard",
               "sub_weight": 0.4
             }
           ]
@@ -330,7 +336,11 @@
           "metrics": [
             {
               "name": "LCR",
-              "sub_weight": 1.0
+              "sub_weight": 0.55
+            },
+            {
+              "name": "MLCR",
+              "sub_weight": 0.45
             }
           ]
         },
@@ -343,7 +353,7 @@
               "sub_weight": 0.6
             },
             {
-              "name": "SciCode",
+              "name": "CritPt v2 Hard",
               "sub_weight": 0.25
             },
             {
@@ -1233,6 +1243,10 @@
   "score_threshold": 0,
   "max_imputed_ratio": 0.6,
   "max_missing_per_domain": 1,
+  "domain_gate_relax": {
+    "min_domain_r2": 0.85,
+    "max_relaxed_domains": 1
+  },
   "ridge_alpha": 0.1,
   "imputation_min_samples": 4,
   "standardize_features": true,
@@ -1256,12 +1270,8 @@
       "LiveBench Browser",
       "AutomationBench"
     ],
-    "instruction": [
-      "LCR"
-    ],
     "reasoning": [
       "LiveBench Reasoning",
-      "SciCode",
       "HLE"
     ],
     "creative_literature": [
