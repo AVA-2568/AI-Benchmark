@@ -44,10 +44,14 @@
 - **`credit_value`**：官方随附的 API 额度（如 GitHub Copilot——月费直接买到等额 API 美元）
 - **`implied_value`**：社区实测的订阅额度上限 API 等价（如 SemiAnalysis 2026-06 对 ChatGPT/Claude 各档跑满上限的实测）
 
+`implied_value` 的变动只有两种合法来源：一是有了新实测；二是官方公告改变了额度，按公告比例对旧实测做等比重算。**没有实测、也没有可比的官方换算口径的套餐，一律不折算**——用同价位套餐类比推算会把倍率放大或缩小数倍，比留空更糟。这类套餐要么不纳入 `plans`，要么以 `discount = 1.0` 只作信息展示，并在 README 里写清不能折算的原因。按公告比重的第二条来源必须在 `source` 里写明「等比推算，非新实测」，否则会被误读为最新实测值。档位改名（如 Claude Max 20x → Ultra、ChatGPT Pro 5x/20x → Pro 100/Pro 200）只改 `name`，`implied_value` 的实测依据不随之改变。
+
+套餐的纳入标准是「订阅里能不能用上这个模型」，不是「套餐给不给 API 额度」——ChatGPT / Claude 的消费者订阅本来也不给 API 字节，是靠实测折算的。因此 `credit_value` / `implied_value` 描述的是「用满这份订阅时等价的 API 花费」，与套餐是否直接发放 API 额度无关；但**能否折算取决于有没有实测或官方换算口径**，与能不能用上模型是两件事。
+
 三个派生量：
 
 - **折扣 `discount` = monthly ÷ value**：乘在无折扣混合价上得到套餐内等效价
-- **倍率 `multiplier` = value ÷ monthly**：每 1 元月费换到的 API 等价额度（如 ChatGPT Pro 20x = 70×）。从 value/monthly 直接计算而非 1/discount，避免 3 位小数折扣反算的舍入误差（0.014 → 71×，实际 70×）
+- **倍率 `multiplier` = value ÷ monthly**：每 1 元月费换到的 API 等价额度（如 ChatGPT Pro 200 = 70×）。从 value/monthly 直接计算而非 1/discount，避免 3 位小数折扣反算的舍入误差（0.014 → 71×，实际 70×）
 - **`Blended $/1M`**：无折扣的 per-creator 缓存混合价（`Effective $/1M` = Blended × discount 的基准），用于在任意套餐下重算等效价
 
 **≈Token/月（套餐购买指南列）**：优先用官方公布的 token 池（`plans[].tokens`，如 MiniMax 6 亿/18 亿/71 亿）；其余按 `API 等价价值 ÷ 最强模型官方混合价（Blended $/1M）` 折算——即把额度全部用于该最强模型时的 token 量级，实际使用便宜模型可换到更多。
@@ -56,7 +60,7 @@
 
 1. **implied_value 型**：订阅额度上限的 API 等价（SemiAnalysis 实测 ChatGPT/Claude 等）
 2. **token 池型**：官方公布月 token 额度 × 榜单该厂商最强模型混合价折成 implied_value（MiniMax / GLM / 混元 / MiMo，折算口径随构建快照人工更新）。GLM 直接采用官方「可用额度参考」周 token 区间（GLM-5.3、95% 缓存命中率档；区间下限=全高峰 1×抵扣、上限=全非高峰 0.5×抵扣），×52/12 折月后再乘混合价
-3. **Credit/积分计量型**：千问 Token Plan、WorkBuddy 官方未公布可靠的 Credits→token 系数，使用 `discount = 1.0` 且无 `implied_value`，不折算 API 等价倍率；`_plan_for` 跳过这类套餐的成本折算，它们只出现在套餐购买指南。腾讯云需区分两条产品线：Hy Token Plan 仅含 Hy3，按 token 池折算；通用 Token Plan 的存量模型在同一档位内统一系数，新上架模型才可能按模型区分。OpenCode Go 虽称 Credits/额度制，但官方直接按模型分为 $60/$30/$15 三档，分别对应 6×/3×/1.5×；config 以 $60 档折扣为基准，通过 `model_cost_scale` 对 $30 档乘 2、$15 档乘 4。token 量尽量给估算：WorkBuddy 按官方实得积分 × 社区实测（1 积分 ≈ 4,100 token）；千问仅列官方积分额。
+3. **Credit/积分计量型**：千问 Token Plan、WorkBuddy 官方未公布可靠的 Credits→token 系数，使用 `discount = 1.0` 且无 `implied_value`，不折算 API 等价倍率；`_plan_for` 跳过这类套餐的成本折算，它们只出现在套餐购买指南。腾讯云需区分两条产品线：Hy Token Plan 仅含 Hy3，按 token 池折算；通用 Token Plan 的存量模型在同一档位内统一系数，新上架模型才可能按模型区分。OpenCode Go 虽称 Credits/额度制，但官方直接按模型分为 $60/$30/$15 三档，分别对应 6×/3×/1.5×；config 以 $60 档折扣为基准，通过 `model_cost_scale` 对 $30 档乘 2、$15 档乘 4。token 量尽量给估算：WorkBuddy 按官方实得积分 × 社区实测（1 积分 ≈ 4,100 token）；千问仅列官方积分额。StepFun Step Plan 同为 Credit 制，但官方给出了消费侧换算 $1 ≈ 7M Credits，可直接折出 API 等价（`credit_value` = Credits ÷ 7），故不归入此类；同一套餐的高峰时段扣减翻倍属用量分布问题，倍率按全时段均值口径估算。
 
 国内套餐人民币月费按固定口径 ÷7.2 折算为 USD（与构建时汇率独立，避免历史数据漂移）。
 

@@ -110,13 +110,13 @@
 | # | Model | Creator | Vision | Score | API $/1M | 套餐 | 月费 | 倍率 | 套餐内 $/1M | 套餐内 ¥/1M | Value |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | claude-fable-5.2 | Anthropic | 👁️ | 81.1 | 6.833 | API 按量 | - | 1× | 6.833 | 45.544 | 11.86 |
-| 2 | gpt-6-astra | OpenAI | 👁️ | 76.6 | 9.115 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.13 | 0.866 | 589.01 |
-| 3 | claude-opus-5.5 | Anthropic | 👁️ | 75.2 | 3.493 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.087 | 0.58 | 864.51 |
-| 4 | gemini-4-carbon | Google | 👁️ | 74.2 | 3.493 | API 按量 | - | 1× | 3.493 | 23.282 | 21.25 |
-| 5 | gpt-6.1-sol | OpenAI | 👁️ | 73.7 | 1.746 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.025 | 0.167 | 2946.61 |
-| 6 | claude-sonnet-5.5 | Anthropic | 👁️ | 72.3 | 1.746 | [Claude Max 20x](https://claude.com/pricing) | $200 | 40× | 0.044 | 0.293 | 1643.79 |
-| 7 | gpt-6.1-terra | OpenAI | 👁️ | 69.1 | 0.873 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | 70× | 0.012 | 0.08 | 5755.16 |
-| 8 | gemini-4-argon | Google | 👁️ | 68.7 | 3.493 | API 按量 | - | 1× | 3.493 | 23.282 | 19.67 |
+| 2 | gpt-6-astra | OpenAI | 👁️ | 76.6 | 9.115 | [ChatGPT Pro 200](https://chatgpt.com/pricing) | $200 | 70× | 0.13 | 0.866 | 589.01 |
+| 3 | claude-opus-5.5 | Anthropic | 👁️ | 75.2 | 3.493 | [Claude Ultra](https://claude.com/pricing) | $200 | 33× | 0.106 | 0.707 | 709.55 |
+| 4 | gemini-4-carbon | Google | 👁️ | 74.2 | 3.493 | [Google AI Ultra 20x](https://gemini.google/subscriptions/) | $199.99 | 17.2× | 0.203 | 1.353 | 365.57 |
+| 5 | gpt-6.1-sol | OpenAI | 👁️ | 73.7 | 1.746 | [ChatGPT Pro 200](https://chatgpt.com/pricing) | $200 | 70× | 0.025 | 0.167 | 2946.61 |
+| 6 | claude-sonnet-5.5 | Anthropic | 👁️ | 72.3 | 1.746 | [Claude Ultra](https://claude.com/pricing) | $200 | 33× | 0.053 | 0.353 | 1364.66 |
+| 7 | gpt-6.1-terra | OpenAI | 👁️ | 69.1 | 0.873 | [ChatGPT Pro 200](https://chatgpt.com/pricing) | $200 | 70× | 0.012 | 0.08 | 5755.16 |
+| 8 | gemini-4-argon | Google | 👁️ | 68.7 | 3.493 | [Google AI Ultra 20x](https://gemini.google/subscriptions/) | $199.99 | 17.2× | 0.203 | 1.353 | 338.45 |
 | 9 | kimi-k3.1-pro | Moonshot AI | 👁️ | 67.9 | 1.823 | [Kimi Allegro](https://www.kimi.com/membership/pricing) | $97.08 | 10.4× | 0.176 | 1.173 | 385.97 |
 | 10 | muse-wonder-1.0 | Meta | 👁️ | 62.1 | 3.493 | API 按量 | - | 1× | 3.493 | 23.282 | 17.77 |
 | 11 | claude-haiku-5.5 | Anthropic | 👁️ | 57.2 | 0.091 | API 按量 | - | 1× | 0.091 | 0.607 | 628.13 |
@@ -137,13 +137,19 @@ Imputed 列：`-` 表示全部真实值，`指标(reg)` 是岭回归填补，`�
 各列口径：
 
 - 倍率 = 每 1 元月费换到的 API 等价额度；折扣 = 套餐内单价 ÷ 官方单价
-- ≈Token/月：官方公布了 token 池的直接引用（MiniMax、GLM、混元、MiMo）；没公布的按「API 等价价值 ÷ 最强模型官方混合价」估算，即额度全部用于该模型时的量，实际用便宜模型能换到更多
+- ≈Token/月：官方公布了 token 池的直接引用（MiniMax、GLM、混元、MiMo、StepFun）；没公布的按「API 等价价值 ÷ 最强模型官方混合价」估算，即额度全部用于该模型时的量，实际用便宜模型能换到更多
 
-数据来源与时点：ChatGPT / Claude 倍率来自 SemiAnalysis 2026-06 实测，Copilot 是 GitHub 官方额度，Grok 为 agentplans.fyi 2026-06 估算，Kimi/MiMo 为 2026-09 官方页面实查，国内各家与聚合/Coding Plan 类（火山方舟、Ollama Pro、Command Code、R4 Coder、OpenCode Go、Windsurf、Cursor 等）按 2026-09 官方常规长期标价（不计限时活动）核验。倍率一律按用满额度上限计算，轻度用户实际拿不到这么多。国内套餐标价为人民币，¥/月 按实时汇率折算。
+数据来源与时点：ChatGPT / Claude 倍率来自 SemiAnalysis 2026-06 实测——Claude 三档已按 2026-10 官方「50% 临时提额结束、改永久 +25% 基线」公告比例等比下调 implied_value（2026-11-12 重算，非新实测），ChatGPT 档位名已对齐官方现名 Pro 100 / Pro 200；MiMo、GLM、Kimi 于 2026-11-12 按官方页复核（MiMo 额度改用官方 Credits 口径）；Mistral Pro 与 StepFun Step Plan 四档为 2026-11-12 新增（前者官方直给 $25.5/月 API 额度，后者按官方 $1 ≈ 7M Credits 换算，均不取限时促销、以月付常规价为准）；Google AI 四档与 Meta Muse 两档同为 2026-11-12 新增，官方未公布 token 口径，按同价位实测下限锚定（见下文「纳入标准」一段）；Copilot 是 GitHub 官方额度；Grok 为 agentplans.fyi 2026-06 估算；国内各家与聚合/Coding Plan 类（火山方舟、Ollama Pro、Command Code、R4 Coder、OpenCode Go、Windsurf、Cursor 等）按 2026-11 官方常规长期标价（不计限时活动）核验。倍率一律按用满额度上限计算，轻度用户实际拿不到这么多。国内套餐月费按固定 ÷7.2 口径折成美元入库，展示的 ¥/月 再乘当期汇率，因此与官网页挂牌价存在约 5~8% 偏差（以官方页为准）。
 
 积分制套餐没有倍率。千问 Token Plan、Poe 和 WorkBuddy 官方都没公布 Credits 换 token 的系数，社区两套口径相差 5 到 10 倍，给数字等于编数，所以只列官方积分额度；WorkBuddy 的 token 量按社区实测「1 积分 ≈ 4,100 token」折了个大概，仅供参考。
 
-两个例外。Gemini 官方订阅不含 API 额度，不进表，部分编程模型（如 Gemini Flash / Pro）由 GitHub Copilot 与 Cursor 白名单精准覆盖（Gemini 4 Argon 等未入选模型按 API 原价计费）；DeepSeek 没有自有订阅制，由火山方舟 Coding Plan 等第三方聚合池提供折扣（详见 FAQ）。
+纳入标准是「订阅里能不能用上这个模型」，不要求套餐给 API 额度；但**额度必须有实测或官方硬口径才能折算，没有就如实标 API 按量**。
+
+Google 这一档有社区实测：官方承认 Gemini app 额度「按 API 定价扣减」，社区用单日 45 次调用 4.83M token、对上 API 账单 $2.99、恰好消耗掉 Ultra 5x 的 5 小时额度 6%，反推出 $50/5h，周额度 = 5h × 4；据此 Pro 周 $15、Ultra 5x 周 $200、Ultra 20x 周 $800，折月得 $65 / $860 / $3,440。所以 Google 四档能算：$4.99 的 AI Plus 就能用 Gemini 4 Argon，$19.99 的 AI Pro 起能用 Gemini 4 Carbon。
+
+Meta 反而算不了：官方公布了 Power 500M / Maximum 3B「Muse tokens/周」，但明确不解释 Muse tokens 与 API token 的换算（agent 一步任务算多少 token 官方不给），任何折算都是编数。所以 muse-wonder 仍按 API 原价计。
+
+现在剩 7 个模型按 API 原价计费：muse-wonder、muse-spark-open、Gemma 4 31B 属没有可折算口径或为开源权重；Nemotron（NVIDIA）与 Inkling（Thinking Machines）没有面向消费者的订阅；Claude Fable 与 Haiku 被有意排除——前者不在任何 Claude 订阅内，后者是 API 专用轻量档，套几十倍杠杆会算出虚高 Value。DeepSeek 没有自有订阅制，由火山方舟 Coding Plan 等第三方聚合池提供折扣（详见 FAQ）。
 
 <!--PLANS_GUIDE_START-->
 | # | 套餐 | 月费 | ¥/月 | 倍率 | 折扣 | ≈Token/月 | 最强模型（通用榜） | 模型分 | 套餐内 $/1M | Value |
@@ -154,45 +160,54 @@ Imputed 列：`-` 表示全部真实值，`指标(reg)` 是岭回归填补，`�
 | 4 | [GLM Coding Plan Max](https://bigmodel.cn/glm-coding) | $149.7 | ¥998 | 34.4× | 2.9% | ≈29.3~58.6亿/月 | glm-5.3-flash (#20) | 47.6 | 0.003 | 14787.2 |
 | 5 | [GLM Coding Plan Pro](https://bigmodel.cn/glm-coding) | $74.7 | ¥498 | 29.6× | 3.4% | ≈12.6~25.1亿/月 | glm-5.3-flash (#20) | 47.6 | 0.004 | 12612.6 |
 | 6 | [GLM Coding Plan Lite](https://bigmodel.cn/glm-coding) | $16.4 | ¥109 | 22.4× | 4.5% | ≈2.1~4.2亿/月 | glm-5.3-flash (#20) | 47.6 | 0.005 | 9529.5 |
-| 7 | [Claude Max 20x](https://claude.com/pricing) | $200 | ¥1333 | 40× | 2.5% | ≈23亿 | claude-opus-5.5 (#3) | 75.2 | 0.087 | 861.2 |
-| 8 | [Ollama Pro](https://ollama.com) | $20 | ¥133 | 3× | 33.3% | $60/月 API 用量 | deepseek-v4.1-flash (#12) | 55.5 | 0.07 | 792.9 |
-| 9 | [ChatGPT Pro 20x](https://chatgpt.com/pricing) | $200 | ¥1333 | 70× | 1.4% | ≈15亿 | gpt-6-astra (#2) | 76.6 | 0.13 | 587.7 |
-| 10 | [Claude Max 5x](https://claude.com/pricing) | $100 | ¥667 | 20× | 5.0% | ≈6亿 | claude-opus-5.5 (#3) | 75.2 | 0.175 | 430.6 |
-| 11 | [Claude Pro](https://claude.com/pricing) | $20 | ¥133 | 20× | 5.0% | ≈1亿 | claude-opus-5.5 (#3) | 75.2 | 0.175 | 430.6 |
-| 12 | [MiMo Token Plan Max](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $100 | ¥667 | 1.3× | 79.0% | ≈4.5亿/月 | mimo-v2.6-pro (#14) | 52.1 | 0.134 | 387.9 |
-| 13 | [Kimi Allegro](https://www.kimi.com/membership/pricing) | $97.08 | ¥647 | 10.4× | 9.6% | 周240M uncached in/out | kimi-k3.1-pro (#9) | 67.9 | 0.176 | 386.8 |
-| 14 | [火山方舟 Coding Plan Pro](https://www.volcengine.com) | $27.78 | ¥185 | 10× | 10.0% | 每月最高 90,000 次请求 | kimi-k3.1-pro (#9) | 67.9 | 0.182 | 372.8 |
-| 15 | [火山方舟 Coding Plan Lite](https://www.volcengine.com) | $5.56 | ¥37 | 10× | 10.0% | 每月最高 18,000 次请求 | kimi-k3.1-pro (#9) | 67.9 | 0.182 | 372.5 |
-| 16 | [MiMo Token Plan Pro](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $50 | ¥333 | 1.2× | 82.6% | ≈2.1亿/月 | mimo-v2.6-pro (#14) | 52.1 | 0.14 | 370.9 |
-| 17 | [MiMo Token Plan Standard](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $16 | ¥107 | 1.1× | 91.4% | ≈6200万/月 | mimo-v2.6-pro (#14) | 52.1 | 0.155 | 335.2 |
-| 18 | [MiMo Token Plan Lite](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $6 | ¥40 | 1.1× | 94.0% | ≈2300万/月 | mimo-v2.6-pro (#14) | 52.1 | 0.16 | 326.0 |
-| 19 | [ChatGPT Pro 5x](https://chatgpt.com/pricing) | $100 | ¥667 | 35× | 2.9% | ≈4亿 | gpt-6-astra (#2) | 76.6 | 0.261 | 293.8 |
-| 20 | [ChatGPT Plus](https://chatgpt.com/pricing) | $20 | ¥133 | 35× | 2.9% | ≈0.8亿 | gpt-6-astra (#2) | 76.6 | 0.261 | 293.8 |
-| 21 | [Command Code GOAT](https://commandcode.ai) | $10 | ¥67 | 7× | 14.3% | $70/月 API 用量 | kimi-k3.1-pro (#9) | 67.9 | 0.261 | 260.6 |
-| 22 | [R4 Coder Code Lite](https://r4.codes) | $10 | ¥67 | 6× | 16.7% | $60/月 API 用量 | kimi-k3.1-pro (#9) | 67.9 | 0.304 | 223.4 |
-| 23 | [OpenCode Go](https://opencode.ai/go) | $10 | ¥67 | 6× | 16.7% | $60/月（$60 档模型） | kimi-k3.1-pro (#9) | 67.9 | 0.304 | 223.0 |
-| 24 | [SuperGrok Heavy](https://x.ai/pricing) | $300 | ¥2000 | 5.3× | 18.8% | ≈11亿 | grok-4.7 (#13) | 54.9 | 0.272 | 201.7 |
-| 25 | [SuperGrok](https://x.ai/pricing) | $30 | ¥200 | 5.3× | 18.8% | ≈1亿 | grok-4.7 (#13) | 54.9 | 0.272 | 201.7 |
-| 26 | [Kimi Moderato](https://www.kimi.com/membership/pricing) | $13.75 | ¥92 | 4.9× | 20.5% | 周16M uncached in/out | kimi-k3.1-pro (#9) | 67.9 | 0.373 | 182.0 |
-| 27 | [Kimi 会员 Allegretto](https://www.kimi.com/membership/pricing) | $27.6 | ¥184 | 4.5× | 22.0% | ≈0.7亿 | kimi-k3.1-pro (#9) | 67.9 | 0.401 | 169.3 |
-| 28 | [Kimi Andante](https://www.kimi.com/membership/pricing) | $6.8 | ¥45 | 2.5× | 40.5% | 周4M uncached in/out | kimi-k3.1-pro (#9) | 67.9 | 0.738 | 92.0 |
-| 29 | [Factory Droid Pro](https://factory.ai) | $20 | ¥133 | 2.4× | 41.7% | 2000万标准token | gpt-6-astra (#2) | 76.6 | 3.801 | 20.2 |
-| 30 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | ¥667 | 2× | 50.0% | ≈0.2亿 | gpt-6-astra (#2) | 76.6 | 4.558 | 16.8 |
-| 31 | [Trae Pro](https://www.trae.ai) | $10 | ¥67 | 2× | 50.0% | $20 基础用量 | gpt-6-astra (#2) | 76.6 | 4.558 | 16.8 |
-| 32 | [Cursor Ultra](https://cursor.com/pricing) | $200 | ¥1333 | 2× | 50.0% | $400 API 用量 | gpt-6-astra (#2) | 76.6 | 4.558 | 16.8 |
-| 33 | [GitHub Copilot Pro+](https://github.com/features/copilot/plans) | $39 | ¥260 | 1.8× | 55.7% | ≈8M | gpt-6-astra (#2) | 76.6 | 5.077 | 15.1 |
-| 34 | [Windsurf Pro](https://codeium.com/windsurf) | $15 | ¥100 | 1.7× | 60.0% | 500 prompt credits/月 | gpt-6-astra (#2) | 76.6 | 5.469 | 14.0 |
-| 35 | [GitHub Copilot Pro](https://github.com/features/copilot/plans) | $10 | ¥67 | 1.5× | 66.7% | ≈2M | gpt-6-astra (#2) | 76.6 | 6.08 | 12.6 |
-| 36 | [Cursor Pro+](https://cursor.com/pricing) | $60 | ¥400 | 1.2× | 85.7% | $70 API 用量 | gpt-6-astra (#2) | 76.6 | 7.812 | 9.8 |
+| 7 | [Step Plan Max](https://platform.stepfun.com/step-plan) | $97.08 | ¥647 | 58.9× | 1.7% | 40000M Credits/月 | step-5-preview (#17) | 49.5 | 0.01 | 5135.4 |
+| 8 | [Step Plan Pro](https://platform.stepfun.com/step-plan) | $27.6 | ¥184 | 41.4× | 2.4% | 8000M Credits/月 | step-5-preview (#17) | 49.5 | 0.014 | 3607.5 |
+| 9 | [Step Plan Plus](https://platform.stepfun.com/step-plan) | $13.75 | ¥92 | 16.6× | 6.0% | 1600M Credits/月 | step-5-preview (#17) | 49.5 | 0.034 | 1450.2 |
+| 10 | [Ollama Pro](https://ollama.com) | $20 | ¥133 | 3× | 33.3% | $60/月 API 用量 | deepseek-v4.1-flash (#12) | 55.5 | 0.07 | 792.9 |
+| 11 | [Step Plan Mini](https://platform.stepfun.com/step-plan) | $6.8 | ¥45 | 8.4× | 11.9% | 400M Credits/月 | step-5-preview (#17) | 49.5 | 0.067 | 733.6 |
+| 12 | [Claude Ultra](https://claude.com/pricing) | $200 | ¥1333 | 33× | 3.0% | ≈19亿 | claude-opus-5.5 (#3) | 75.2 | 0.106 | 710.5 |
+| 13 | [ChatGPT Pro 200](https://chatgpt.com/pricing) | $200 | ¥1333 | 70× | 1.4% | ≈15亿 | gpt-6-astra (#2) | 76.6 | 0.13 | 587.7 |
+| 14 | [MiMo Token Plan Max](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $100 | ¥667 | 1.3× | 79.0% | 820亿 Credits/月 | mimo-v2.6-pro (#14) | 52.1 | 0.134 | 387.9 |
+| 15 | [Kimi Allegro](https://www.kimi.com/membership/pricing) | $97.08 | ¥647 | 10.4× | 9.6% | 周240M uncached in/out | kimi-k3.1-pro (#9) | 67.9 | 0.176 | 386.8 |
+| 16 | [火山方舟 Coding Plan Pro](https://www.volcengine.com) | $27.78 | ¥185 | 10× | 10.0% | 每月最高 90,000 次请求 | kimi-k3.1-pro (#9) | 67.9 | 0.182 | 372.8 |
+| 17 | [火山方舟 Coding Plan Lite](https://www.volcengine.com) | $5.56 | ¥37 | 10× | 10.0% | 每月最高 18,000 次请求 | kimi-k3.1-pro (#9) | 67.9 | 0.182 | 372.5 |
+| 18 | [MiMo Token Plan Pro](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $50 | ¥333 | 1.2× | 82.6% | 380亿 Credits/月 | mimo-v2.6-pro (#14) | 52.1 | 0.14 | 370.9 |
+| 19 | [Google AI Ultra 20x](https://gemini.google/subscriptions/) | $199.99 | ¥1333 | 17.2× | 5.8% | ≈10亿 | gemini-4-carbon (#4) | 74.2 | 0.203 | 365.6 |
+| 20 | [Claude Max](https://claude.com/pricing) | $100 | ¥667 | 16.6× | 6.0% | ≈5亿 | claude-opus-5.5 (#3) | 75.2 | 0.21 | 357.6 |
+| 21 | [Claude Pro](https://claude.com/pricing) | $20 | ¥133 | 16.5× | 6.1% | ≈0.9亿 | claude-opus-5.5 (#3) | 75.2 | 0.212 | 355.3 |
+| 22 | [MiMo Token Plan Standard](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $16 | ¥107 | 1.1× | 91.4% | 110亿 Credits/月 | mimo-v2.6-pro (#14) | 52.1 | 0.155 | 335.2 |
+| 23 | [MiMo Token Plan Lite](https://mimo.mi.com/docs/zh-CN/price/token-plan) | $6 | ¥40 | 1.1× | 94.0% | 41亿 Credits/月 | mimo-v2.6-pro (#14) | 52.1 | 0.16 | 326.0 |
+| 24 | [ChatGPT Pro 100](https://chatgpt.com/pricing) | $100 | ¥667 | 35× | 2.9% | ≈4亿 | gpt-6-astra (#2) | 76.6 | 0.261 | 293.8 |
+| 25 | [ChatGPT Plus](https://chatgpt.com/pricing) | $20 | ¥133 | 35× | 2.9% | ≈0.8亿 | gpt-6-astra (#2) | 76.6 | 0.261 | 293.8 |
+| 26 | [Command Code GOAT](https://commandcode.ai) | $10 | ¥67 | 7× | 14.3% | $70/月 API 用量 | kimi-k3.1-pro (#9) | 67.9 | 0.261 | 260.6 |
+| 27 | [R4 Coder Code Lite](https://r4.codes) | $10 | ¥67 | 6× | 16.7% | $60/月 API 用量 | kimi-k3.1-pro (#9) | 67.9 | 0.304 | 223.4 |
+| 28 | [OpenCode Go](https://opencode.ai/go) | $10 | ¥67 | 6× | 16.7% | $60/月（$60 档模型） | kimi-k3.1-pro (#9) | 67.9 | 0.304 | 223.0 |
+| 29 | [SuperGrok Heavy](https://x.ai/pricing) | $300 | ¥2000 | 5.3× | 18.8% | ≈11亿 | grok-4.7 (#13) | 54.9 | 0.272 | 201.7 |
+| 30 | [SuperGrok](https://x.ai/pricing) | $30 | ¥200 | 5.3× | 18.8% | ≈1亿 | grok-4.7 (#13) | 54.9 | 0.272 | 201.7 |
+| 31 | [Mistral Pro](https://mistral.ai/pricing) | $14.99 | ¥100 | 1.7× | 58.8% | ≈0.6亿 | mistral-large-4 (#21) | 47.2 | 0.252 | 187.6 |
+| 32 | [Google AI Ultra 5x](https://gemini.google/subscriptions/) | $99.99 | ¥666 | 8.6× | 11.6% | ≈2亿 | gemini-4-carbon (#4) | 74.2 | 0.406 | 182.7 |
+| 33 | [Kimi Moderato](https://www.kimi.com/membership/pricing) | $13.75 | ¥92 | 4.9× | 20.5% | 周16M uncached in/out | kimi-k3.1-pro (#9) | 67.9 | 0.373 | 182.0 |
+| 34 | [Kimi 会员 Allegretto](https://www.kimi.com/membership/pricing) | $27.6 | ¥184 | 4.5× | 22.0% | ≈0.7亿 | kimi-k3.1-pro (#9) | 67.9 | 0.401 | 169.3 |
+| 35 | [Google AI Plus](https://gemini.google/subscriptions/) | $4.99 | ¥33 | 6.5× | 15.3% | ≈9M | gemini-4-argon (#8) | 68.7 | 0.536 | 128.1 |
+| 36 | [Kimi Andante](https://www.kimi.com/membership/pricing) | $6.8 | ¥45 | 2.5× | 40.5% | 周4M uncached in/out | kimi-k3.1-pro (#9) | 67.9 | 0.738 | 92.0 |
+| 37 | [Google AI Pro](https://gemini.google/subscriptions/) | $19.99 | ¥133 | 3.3× | 30.8% | ≈0.2亿 | gemini-4-carbon (#4) | 74.2 | 1.074 | 69.1 |
+| 38 | [Factory Droid Pro](https://factory.ai) | $20 | ¥133 | 2.4× | 41.7% | 2000万标准token | gpt-6-astra (#2) | 76.6 | 3.801 | 20.2 |
+| 39 | [GitHub Copilot Max](https://github.com/features/copilot/plans) | $100 | ¥667 | 2× | 50.0% | ≈0.2亿 | gpt-6-astra (#2) | 76.6 | 4.558 | 16.8 |
+| 40 | [Trae Pro](https://www.trae.ai) | $10 | ¥67 | 2× | 50.0% | $20 基础用量 | gpt-6-astra (#2) | 76.6 | 4.558 | 16.8 |
+| 41 | [Cursor Ultra](https://cursor.com/pricing) | $200 | ¥1333 | 2× | 50.0% | $400 API 用量 | gpt-6-astra (#2) | 76.6 | 4.558 | 16.8 |
+| 42 | [GitHub Copilot Pro+](https://github.com/features/copilot/plans) | $39 | ¥260 | 1.8× | 55.7% | ≈8M | gpt-6-astra (#2) | 76.6 | 5.077 | 15.1 |
+| 43 | [Windsurf Pro](https://codeium.com/windsurf) | $15 | ¥100 | 1.7× | 60.0% | 500 prompt credits/月 | gpt-6-astra (#2) | 76.6 | 5.469 | 14.0 |
+| 44 | [GitHub Copilot Pro](https://github.com/features/copilot/plans) | $10 | ¥67 | 1.5× | 66.7% | ≈2M | gpt-6-astra (#2) | 76.6 | 6.08 | 12.6 |
+| 45 | [Cursor Pro+](https://cursor.com/pricing) | $60 | ¥400 | 1.2× | 85.7% | $70 API 用量 | gpt-6-astra (#2) | 76.6 | 7.812 | 9.8 |
 | | *—— 以下为积分/任务制套餐（官方未公布 Credits→token 换算，不参与倍率排序）——* | | | | | | | | | |
-| 37 | [Qwen Token Plan Lite](https://platform.qianwenai.com/pricing/token-plan) | $5.4 | ¥36 | - | - | 2,500 Credits/7天 | qwen3.8-max (#15) | 51.1 | 1.261 | 40.5 |
-| 38 | [WorkBuddy 标准版](https://www.workbuddy.cn/docs/workbuddy/Pricing) | $13.8 | ¥92 | - | - | ≈1600万/月 | kimi-k3.1-pro (#9) | 67.9 | 1.823 | 37.2 |
-| 39 | [Qwen Token Plan Standard](https://platform.qianwenai.com/pricing/token-plan) | $19.3 | ¥129 | - | - | 10,000 Credits/7天 | qwen3.8-max (#15) | 51.1 | 1.261 | 40.5 |
-| 40 | [Poe Premium](https://poe.com) | $19.99 | ¥133 | - | - | 660,000 计算积分/月 | gpt-6-astra (#2) | 76.6 | 9.115 | 8.4 |
-| 41 | [Cursor Pro](https://cursor.com/pricing) | $20 | ¥133 | - | - | $20 API 用量 | gpt-6-astra (#2) | 76.6 | 9.115 | 8.4 |
-| 42 | [WorkBuddy 高级版](https://www.workbuddy.cn/docs/workbuddy/Pricing) | $27.6 | ¥184 | - | - | ≈3700万/月 | kimi-k3.1-pro (#9) | 67.9 | 1.823 | 37.2 |
-| 43 | [Qwen Token Plan Pro](https://platform.qianwenai.com/pricing/token-plan) | $69.3 | ¥462 | - | - | 40,000 Credits/7天 | qwen3.8-max (#15) | 51.1 | 1.261 | 40.5 |
-| 44 | [WorkBuddy 旗舰版](https://www.workbuddy.cn/docs/workbuddy/Pricing) | $138.8 | ¥925 | - | - | ≈2亿/月 | kimi-k3.1-pro (#9) | 67.9 | 1.823 | 37.2 |
+| 46 | [Qwen Token Plan Lite](https://platform.qianwenai.com/pricing/token-plan) | $5.4 | ¥36 | - | - | 2,500 Credits/7天 | qwen3.8-max (#15) | 51.1 | 1.261 | 40.5 |
+| 47 | [WorkBuddy 标准版](https://www.workbuddy.cn/docs/workbuddy/Pricing) | $13.8 | ¥92 | - | - | ≈1600万/月 | kimi-k3.1-pro (#9) | 67.9 | 1.823 | 37.2 |
+| 48 | [Qwen Token Plan Standard](https://platform.qianwenai.com/pricing/token-plan) | $19.3 | ¥129 | - | - | 10,000 Credits/7天 | qwen3.8-max (#15) | 51.1 | 1.261 | 40.5 |
+| 49 | [Poe Premium](https://poe.com) | $19.99 | ¥133 | - | - | 660,000 计算积分/月 | gpt-6-astra (#2) | 76.6 | 9.115 | 8.4 |
+| 50 | [Cursor Pro](https://cursor.com/pricing) | $20 | ¥133 | - | - | $20 API 用量 | gpt-6-astra (#2) | 76.6 | 9.115 | 8.4 |
+| 51 | [WorkBuddy 高级版](https://www.workbuddy.cn/docs/workbuddy/Pricing) | $27.6 | ¥184 | - | - | ≈3700万/月 | kimi-k3.1-pro (#9) | 67.9 | 1.823 | 37.2 |
+| 52 | [Qwen Token Plan Pro](https://platform.qianwenai.com/pricing/token-plan) | $69.3 | ¥462 | - | - | 40,000 Credits/7天 | qwen3.8-max (#15) | 51.1 | 1.261 | 40.5 |
+| 53 | [WorkBuddy 旗舰版](https://www.workbuddy.cn/docs/workbuddy/Pricing) | $138.8 | ¥925 | - | - | ≈2亿/月 | kimi-k3.1-pro (#9) | 67.9 | 1.823 | 37.2 |
 <!--PLANS_GUIDE_END-->
 
 ---
@@ -221,19 +236,19 @@ Imputed 列：`-` 表示全部真实值，`指标(reg)` 是岭回归填补，`�
 
 **我是小白或普通用户，写文章、查资料该怎么选？**
 
-直接看文本榜。目前综合表现最好的是 gpt-6-astra 与 claude-fable 系列；预算敏感或日常写材料，国产的 kimi-k3、glm-5.3 以及 gemini-flash 系列在保持高分的同时更具成本优势。
+直接看文本榜。目前综合表现最好的是 claude-fable-5.2 与 gpt-6-astra；预算敏感或日常写材料，国产的 kimi-k3.1、glm-5.3-flash 以及 gemini-flash 系列在保持高分的同时更具成本优势。
 
 **写代码、干复杂任务选 Claude 还是 GPT？**
 
-通用榜上 claude-fable-5.1（70.5）与 gpt-6-astra（69.6）同属第一梯队，差距小于 1 分。关键看实付花销：ChatGPT Pro 20x 搭配 GPT 系折算后约 $0.13/M，Claude Max 20x 搭配 Claude 系约 $0.21/M。如果追求极致工程执行力选 Claude，追求性价比与速度选 GPT。
+通用榜上 claude-fable-5.2（81.1）领先 gpt-6-astra（76.6）4.5 分，是断层第一，但 fable 系列被排除在 Claude 订阅之外，只能按 API 按量 $6.83/M 计。订阅能覆盖的最强档是 claude-opus-5.5（75.2）与 gpt-6-astra（76.6）：Claude Ultra（$200/月）折算后约 $0.106/M，ChatGPT Pro 200（$200/月）约 $0.13/M，Claude 侧反而更便宜。要极致能力直接买 fable 的 API，日常工程执行选 Claude 订阅，要 GPT 生态选 ChatGPT。
 
 **国产模型（DeepSeek、Kimi、GLM、Qwen）现在什么水平？**
 
-通用榜前十有两个国产：glm-5.3 第 7（61.2）、kimi-k3 第 10（59.1）。国产的最大优势在官方套餐折扣：例如 GLM Coding Plan Max 折后约 $0.028/M，单价仅为国际旗舰的十分之一左右。
+通用榜前十只剩一个国产：kimi-k3.1-pro 第 9（67.9）；glm-5.3-flash 第 20（47.6），glm-5.3 本轮未达上榜门槛（缺值超限）。国产的最大优势仍在官方套餐折扣：GLM Coding Plan Max 折后约 $0.003/M，是国际旗舰的百分之一量级。
 
 **套餐“倍率”是什么意思？我怎么拿到这个折扣？**
 
-倍率是“每花 1 元月费能换到的官方 API 等价额度”。例如 ChatGPT Pro 20x 倍率 70×，等于用满额度相当于 1.4 折；GLM Coding Plan Max 倍率 34.4× 相当于 2.9 折。注意这是按用满额度上限测算，轻度偶尔使用的用户实际折扣会更低。
+倍率是“每花 1 元月费能换到的官方 API 等价额度”。例如 ChatGPT Pro 200 倍率 70×，等于用满额度相当于 1.4 折；GLM Coding Plan Max 倍率 34.4× 相当于 2.9 折。注意这是按用满额度上限测算，轻度偶尔使用的用户实际折扣会更低。
 
 **为什么很多免费小模型或旧模型不在榜单里？**
 

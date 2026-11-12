@@ -396,15 +396,15 @@
   },
   "plans": [
     {
-      "name": "ChatGPT Pro 20x",
+      "name": "ChatGPT Pro 200",
       "creator_match": [
         "OpenAI"
       ],
       "monthly": 200,
       "implied_value": 14000,
       "discount": 0.0143,
-      "source": "SemiAnalysis 2026-06 实测；chatgpt.com/pricing 2026-10-15 浏览器复核（Pro 卡片起价 $100，标注 5× 或 20× 使用配额，$200/20× 仍可选）；2026-10-15 复核一致（官方月费/档位未变）；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕。",
-      "note": "用满额度上限：$200/月 ≈ $14,000 API 等价（70x）；排除 API 端专用 nano/codex 模型",
+      "source": "SemiAnalysis 2026-06 实测；chatgpt.com/pricing 2026-10-15 浏览器复核（Pro 卡片起价 $100，标注 5× 或 20× 使用配额，$200/20× 仍可选）；2026-10-15 复核一致（官方月费/档位未变）；2026-10-21 复核一致；2026-11-02 巡检一致，模型映射与倍率核验完毕；2026-11-12 复核：官方定价页 Pro 档位已改为 Pro 100 / Pro 200 / Pro 500 三档（价格数字为 JS 渲染，本次抓取未读到，按档位名与既有 $100/$200 记录对齐改名），倍率沿用 SemiAnalysis 实测；Pro 500 档无可用额度依据，暂不纳入。",
+      "note": "用满额度上限：$200/月 ≈ $14,000 API 等价（70x）；官方档位名 Pro 200；排除 API 端专用 nano/codex 模型",
       "url": "https://chatgpt.com/pricing",
       "exclude_match": [
         "*-nano",
@@ -412,15 +412,15 @@
       ]
     },
     {
-      "name": "ChatGPT Pro 5x",
+      "name": "ChatGPT Pro 100",
       "creator_match": [
         "OpenAI"
       ],
       "monthly": 100,
       "implied_value": 3500,
       "discount": 0.0286,
-      "source": "SemiAnalysis 2026-06 实测；chatgpt.com/pricing 2026-10-15 浏览器复核（Pro 起价 $100 对应 5× 配额档）；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕。",
-      "note": "用满额度上限：$100/月 ≈ $3,500 API 等价（35x）；排除 API 端专用 nano/codex 模型",
+      "source": "SemiAnalysis 2026-06 实测；chatgpt.com/pricing 2026-10-15 浏览器复核（Pro 起价 $100 对应 5× 配额档）；2026-10-21 复核一致；2026-11-12 复核：官方定价页 Pro 档位已改为 Pro 100 / Pro 200 / Pro 500 三档，$100 档对应 Pro 100（价格数字为 JS 渲染，本次抓取未读到，按档位名对齐改名），倍率沿用 SemiAnalysis 实测。",
+      "note": "用满额度上限：$100/月 ≈ $3,500 API 等价（35x）；官方档位名 Pro 100；排除 API 端专用 nano/codex 模型",
       "url": "https://chatgpt.com/pricing",
       "exclude_match": [
         "*-nano",
@@ -444,15 +444,15 @@
       ]
     },
     {
-      "name": "Claude Max 20x",
+      "name": "Claude Ultra",
       "creator_match": [
         "Anthropic"
       ],
       "monthly": 200,
-      "implied_value": 8000,
-      "discount": 0.025,
-      "source": "SemiAnalysis 2026-06 实测（处于 Anthropic 2026-05-06 提额公告后的新基线）；2026-10-15 起叠加周限额机制，官方称多数 Max 20x 用户不受影响；2026-10-15 复核一致；2026-10-15 起 50% 临时提额结束、改永久 +25% 基线（周限额约 -17%），届时 implied_value 需重算至 ≈$6,600；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕。",
-      "note": "用满额度上限：$200/月 ≈ $8,000 API 等价（40x）；高配额仅针对 Opus/Sonnet 旗舰，排除 API 专用轻量 Haiku 与试验 Fable",
+      "implied_value": 6600,
+      "discount": 0.0303,
+      "source": "SemiAnalysis 2026-06 实测（处于 Anthropic 2026-05-06 提额公告后的新基线）；2026-10-15 起叠加周限额机制，50% 临时提额结束、改永久 +25% 基线（周限额约 -17%）；2026-11-12 复核：按该公告比例把 implied_value 由 $8,000 重算为 $6,600（等比推算，非新实测）；官方定价页档位已由 Max 20x 更名为 Ultra（$200/月，10× Pro 用量，含 $200/月 API credits，倍率口径仍以 API 等价实测为准）。",
+      "note": "用满额度上限：$200/月 ≈ $6,600 API 等价（33x，按 2026-10 提额政策后基线重算）；官方现称 Ultra = 10× Pro 用量 + $200/月 API credits；高配额仅针对 Opus/Sonnet 旗舰，排除 API 专用轻量 Haiku 与试验 Fable",
       "url": "https://claude.com/pricing",
       "exclude_match": [
         "claude-haiku*",
@@ -460,15 +460,15 @@
       ]
     },
     {
-      "name": "Claude Max 5x",
+      "name": "Claude Max",
       "creator_match": [
         "Anthropic"
       ],
       "monthly": 100,
-      "implied_value": 2000,
-      "discount": 0.05,
-      "source": "SemiAnalysis 2026-06 实测（处于 Anthropic 2026-05-06 提额公告后的新基线）；2026-10-15 起叠加周限额机制；2026-10-15 复核一致；2026-10-15 起 50% 临时提额结束、改永久 +25% 基线（周限额约 -17%），届时 implied_value 需重算至 ≈$1,660；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕。",
-      "note": "用满额度上限：$100/月 ≈ $2,000 API 等价（20x）；高配额仅针对 Opus/Sonnet 旗舰，排除 API 专用轻量 Haiku 与试验 Fable",
+      "implied_value": 1660,
+      "discount": 0.0602,
+      "source": "SemiAnalysis 2026-06 实测（处于 Anthropic 2026-05-06 提额公告后的新基线）；2026-10-15 起叠加周限额机制；2026-11-12 复核：按 2026-10 提额政策比例把 implied_value 由 $2,000 重算为 $1,660（等比推算，非新实测）；官方定价页档位名称为 Max（$100/月，5× Pro 用量），原 Max 5x 更名。",
+      "note": "用满额度上限：$100/月 ≈ $1,660 API 等价（17x）；官方现称 Max = 5× Pro 用量；高配额仅针对 Opus/Sonnet 旗舰，排除 API 专用轻量 Haiku 与试验 Fable",
       "url": "https://claude.com/pricing",
       "exclude_match": [
         "claude-haiku*",
@@ -481,10 +481,10 @@
         "Anthropic"
       ],
       "monthly": 20,
-      "implied_value": 400,
-      "discount": 0.05,
-      "source": "SemiAnalysis 2026-06 实测（处于 Anthropic 2026-05-06 提额公告后的新基线）；2026-10-15 起叠加周限额机制；2026-10-15 复核一致；2026-10-15 起 50% 临时提额结束、改永久 +25% 基线（周限额约 -17%），届时 implied_value 需重算至 ≈$330；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕。",
-      "note": "用满额度上限：$20/月 ≈ $400 API 等价（20x）；高配额仅针对 Opus/Sonnet 旗舰，排除 API 专用轻量 Haiku 与试验 Fable",
+      "implied_value": 330,
+      "discount": 0.0606,
+      "source": "SemiAnalysis 2026-06 实测（处于 Anthropic 2026-05-06 提额公告后的新基线）；2026-10-15 起叠加周限额机制；2026-11-12 复核：按 2026-10 提额政策比例把 implied_value 由 $400 重算为 $330（等比推算，非新实测）；官方定价页 Pro 仍为 $20/月、1× 基准用量。",
+      "note": "用满额度上限：$20/月 ≈ $330 API 等价（17x）；高配额仅针对 Opus/Sonnet 旗舰，排除 API 专用轻量 Haiku 与试验 Fable",
       "url": "https://claude.com/pricing",
       "exclude_match": [
         "claude-haiku*",
@@ -652,7 +652,7 @@
       "model_cost_scale": {
         "glm-5.3-flash": 3.0
       },
-      "source": "智谱官方 docs.bigmodel.cn/cn/coding-plan/overview「可用额度参考」2026-10-15：GLM-5.3 按 95% 缓存命中率档周 token 区间折算月度（×52/12）× 榜单 GLM-5.3 混合价折算；区间下限=全高峰（1×抵扣）、上限=全非高峰（0.5×抵扣）；2026-10-15 复核一致；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕。",
+      "source": "智谱官方 docs.bigmodel.cn/cn/coding-plan/overview「可用额度参考」2026-10-15：GLM-5.3 按 95% 缓存命中率档周 token 区间折算月度（×52/12）× 榜单 GLM-5.3 混合价折算；区间下限=全高峰（1×抵扣）、上限=全非高峰（0.5×抵扣）；2026-10-15 复核一致；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕；2026-11-12 复核：官方页挂牌 ¥118/月（连续包月 8 折 ¥94.4），折算 USD 16.4 一致；周 10,000 积分口径未变。",
       "note": "¥118/月（包季 8 折 / 包年 7 折），每周 10,000 积分 ≈ 0.48~0.97 亿 token；glm-5.3-flash 抵扣系数恰为标准版 1/3 而 API 价约 1/9，有效折扣按官方系数修正 ×3.0",
       "tokens": "≈2.1~4.2亿/月",
       "url": "https://bigmodel.cn/glm-coding"
@@ -668,7 +668,7 @@
       "model_cost_scale": {
         "glm-5.3-flash": 3.0
       },
-      "source": "智谱官方 docs.bigmodel.cn/cn/coding-plan/overview「可用额度参考」2026-10-15：GLM-5.3 按 95% 缓存命中率档周 token 区间折算月度（×52/12）× 榜单 GLM-5.3 混合价折算；区间下限=全高峰（1×抵扣）、上限=全非高峰（0.5×抵扣）；2026-10-15 复核一致；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕。",
+      "source": "智谱官方 docs.bigmodel.cn/cn/coding-plan/overview「可用额度参考」2026-10-15：GLM-5.3 按 95% 缓存命中率档周 token 区间折算月度（×52/12）× 榜单 GLM-5.3 混合价折算；区间下限=全高峰（1×抵扣）、上限=全非高峰（0.5×抵扣）；2026-10-15 复核一致；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕；2026-11-12 复核：官方页挂牌 ¥538/月（连续包月 ¥430.4），折算 USD 74.7 一致；6× Lite 额度口径未变。",
       "note": "¥538/月，每周 60,000 积分 ≈ 2.90~5.80 亿 token",
       "tokens": "≈12.6~25.1亿/月",
       "url": "https://bigmodel.cn/glm-coding"
@@ -684,7 +684,7 @@
       "model_cost_scale": {
         "glm-5.3-flash": 3.0
       },
-      "source": "智谱官方 docs.bigmodel.cn/cn/coding-plan/overview「可用额度参考」2026-10-15：GLM-5.3 按 95% 缓存命中率档周 token 区间折算月度（×52/12）× 榜单 GLM-5.3 混合价折算；区间下限=全高峰（1×抵扣）、上限=全非高峰（0.5×抵扣）；2026-10-15 复核一致；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕。",
+      "source": "智谱官方 docs.bigmodel.cn/cn/coding-plan/overview「可用额度参考」2026-10-15：GLM-5.3 按 95% 缓存命中率档周 token 区间折算月度（×52/12）× 榜单 GLM-5.3 混合价折算；区间下限=全高峰（1×抵扣）、上限=全非高峰（0.5×抵扣）；2026-10-15 复核一致；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕；2026-11-12 复核：官方页挂牌 ¥1078/月（连续包月 ¥862.4），折算 USD 149.7 一致；14× Lite 额度口径未变。",
       "note": "¥1078/月，每周 140,000 积分 ≈ 6.76~13.52 亿 token",
       "tokens": "≈29.3~58.6亿/月",
       "url": "https://bigmodel.cn/glm-coding"
@@ -729,9 +729,9 @@
       "monthly": 6.0,
       "implied_value": 6.4,
       "discount": 0.94,
-      "source": "小米官方 mimo.mi.com 2026-10-15 实测（Credits 制：pro 模型未命中输入 300/命中 2.5/输出 600 Credits per token，按榜单缓存假设折算，额度全部用于 pro 模型）；2026-10-15 复核一致；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕。",
+      "source": "小米官方 mimo.mi.com 2026-10-15 实测（Credits 制：pro 模型未命中输入 300/命中 2.5/输出 600 Credits per token，按榜单缓存假设折算，额度全部用于 pro 模型）；2026-10-15 复核一致；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕；2026-11-12 复核：官方页个人版月度套餐 4.1B Credits/月、$6/¥39 一致；tokens 列改用官方 Credits 口径。",
       "note": "官方 $6/¥39 月；4.1B Credits/月 ≈ 200 轮中等任务；夜间 0.8 倍消耗、首购 88 折；V2 已于 2026-06 底下线切 V2.5，套餐价格与 Credits 耗速沿用（另有 Standard $16 / Pro $50 档）",
-      "tokens": "≈2300万/月",
+      "tokens": "41亿 Credits/月",
       "url": "https://mimo.mi.com/docs/zh-CN/price/token-plan"
     },
     {
@@ -742,9 +742,9 @@
       "monthly": 100.0,
       "implied_value": 127,
       "discount": 0.79,
-      "source": "小米官方 mimo.mi.com 2026-10-15 实测（Credits 制：pro 模型未命中输入 300/命中 2.5/输出 600 Credits per token，按榜单缓存假设折算，额度全部用于 pro 模型）；2026-10-15 复核一致；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕。",
+      "source": "小米官方 mimo.mi.com 2026-10-15 实测（Credits 制：pro 模型未命中输入 300/命中 2.5/输出 600 Credits per token，按榜单缓存假设折算，额度全部用于 pro 模型）；2026-10-15 复核一致；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕；2026-11-12 复核：官方页 82B Credits/月、$100/¥659 一致；tokens 列改用官方 Credits 口径。",
       "note": "官方 $100/¥659 月；82B Credits/月 ≈ 12800 轮中等任务；V2 下线后套餐切至 mimo-v2.5-pro，耗速参数沿用",
-      "tokens": "≈4.5亿/月",
+      "tokens": "820亿 Credits/月",
       "url": "https://mimo.mi.com/docs/zh-CN/price/token-plan"
     },
     {
@@ -1029,8 +1029,8 @@
       "monthly": 16.0,
       "implied_value": 17.5,
       "discount": 0.9143,
-      "tokens": "≈6200万/月",
-      "source": "mimo.mi.com/docs/zh-CN/price/token-plan 2026-10-15 官方常规月费 6/¥99，不用限时优惠；11B Credits/月；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕。",
+      "tokens": "110亿 Credits/月",
+      "source": "mimo.mi.com/docs/zh-CN/price/token-plan 2026-10-15 官方常规月费 6/¥99，不用限时优惠；11B Credits/月；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕；2026-11-12 复核：官方页 11B Credits/月、$16/¥99 一致；tokens 列改用官方 Credits 口径。",
       "note": "官方 6/¥99 月；11B Credits/月 ≈ 1600 轮中等任务",
       "url": "https://mimo.mi.com/docs/zh-CN/price/token-plan"
     },
@@ -1042,8 +1042,8 @@
       "monthly": 50.0,
       "implied_value": 60.5,
       "discount": 0.8264,
-      "tokens": "≈2.1亿/月",
-      "source": "mimo.mi.com/docs/zh-CN/price/token-plan 2026-10-15 官方常规月费 0/¥329，不用限时优惠；38B Credits/月；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕。",
+      "tokens": "380亿 Credits/月",
+      "source": "mimo.mi.com/docs/zh-CN/price/token-plan 2026-10-15 官方常规月费 0/¥329，不用限时优惠；38B Credits/月；2026-10-21 复核一致（核验月费/额度与模型映射最新状态）；2026-11-02 巡检一致，模型映射与倍率核验完毕；2026-11-12 复核：官方页 38B Credits/月、$50/¥329 一致；tokens 列改用官方 Credits 口径。",
       "note": "官方 0/¥329 月；38B Credits/月 ≈ 5600 轮中等任务",
       "url": "https://mimo.mi.com/docs/zh-CN/price/token-plan"
     },
@@ -1236,6 +1236,136 @@
         "*-mini",
         "*-codex",
         "*-lite",
+        "gemma*"
+      ]
+    },
+    {
+      "name": "Step Plan Mini",
+      "creator_match": [
+        "StepFun"
+      ],
+      "monthly": 6.8,
+      "credit_value": 57.14,
+      "discount": 0.119,
+      "source": "platform.stepfun.com/step-plan 2026-11-12 核验：官方月付 ¥49 / 400M Credits；平台口径 Credit 与金额按 1 元 = 1M Credit 换算、消费侧 $1 ≈ 7M Credits，故 400M Credits ≈ $57.14 API 等价；人民币月费按固定 ÷7.2 折 USD（49/7.2=6.8）。季付 ¥129 / 年付 ¥456 更低，本次取月付常规价、不计促销。",
+      "note": "StepPlan 为 StepFun 开发者订阅（全部旗舰模型 + 智能路由，限官方接入工具内使用）；工作日 09:00-12:00 / 14:00-18:00 为高峰，Step 5 Preview 高峰 Credit 消耗为低谷 2 倍，倍率按全时段均值口径估算",
+      "tokens": "400M Credits/月",
+      "url": "https://platform.stepfun.com/step-plan"
+    },
+    {
+      "name": "Step Plan Plus",
+      "creator_match": [
+        "StepFun"
+      ],
+      "monthly": 13.75,
+      "credit_value": 228.57,
+      "discount": 0.0602,
+      "source": "platform.stepfun.com/step-plan 2026-11-12 核验：官方月付 ¥99 / 1,600M Credits；按 $1 ≈ 7M Credits 折 1,600/7=$228.57 API 等价；人民币月费 ÷7.2 = 13.75。季付 ¥269 / 年付 ¥936 更低，本次取月付常规价。",
+      "note": "1,600M Credits/月；含优先 API 速率与优先技术支持；高峰时段 Step 5 Preview 消耗 2 倍",
+      "tokens": "1600M Credits/月",
+      "url": "https://platform.stepfun.com/step-plan"
+    },
+    {
+      "name": "Step Plan Pro",
+      "creator_match": [
+        "StepFun"
+      ],
+      "monthly": 27.6,
+      "credit_value": 1142.86,
+      "discount": 0.0242,
+      "source": "platform.stepfun.com/step-plan 2026-11-12 核验：官方月付 ¥199 / 8,000M Credits；按 $1 ≈ 7M Credits 折 8,000/7=$1,142.86 API 等价；人民币月费 ÷7.2 = 27.6。季付 ¥539 / 年付 ¥1,860 更低，本次取月付常规价。",
+      "note": "8,000M Credits/月；含优先 API 速率与优先技术支持；高峰时段 Step 5 Preview 消耗 2 倍",
+      "tokens": "8000M Credits/月",
+      "url": "https://platform.stepfun.com/step-plan"
+    },
+    {
+      "name": "Step Plan Max",
+      "creator_match": [
+        "StepFun"
+      ],
+      "monthly": 97.08,
+      "credit_value": 5714.29,
+      "discount": 0.017,
+      "source": "platform.stepfun.com/step-plan 2026-11-12 核验：官方月付 ¥699 / 40,000M Credits；按 $1 ≈ 7M Credits 折 40,000/7=$5,714.29 API 等价；人民币月费 ÷7.2 = 97.08。季付 ¥1,889 / 年付 ¥6,666 更低，本次取月付常规价。",
+      "note": "40,000M Credits/月；含优先 API 速率与优先技术支持；高峰时段 Step 5 Preview 消耗 2 倍",
+      "tokens": "40000M Credits/月",
+      "url": "https://platform.stepfun.com/step-plan"
+    },
+    {
+      "name": "Mistral Pro",
+      "creator_match": [
+        "Mistral"
+      ],
+      "monthly": 14.99,
+      "credit_value": 25.5,
+      "discount": 0.5878,
+      "source": "mistral.ai/pricing 2026-11-12 核验：Pro 档 $14.99/月，官方明列含 $25.5/月 API credits（可直接抵扣 API 用量）；另有学生价 $5.99（需认证，不计入常规口径）。Team $24.99/席/月未公布 API 额度，不纳入。",
+      "note": "官方 API 额度直给型：月费买到的就是等额 API 美元，倍率 1.7×；Pro 同时含 Vibe（原 Le Chat）全功能",
+      "tokens": "",
+      "url": "https://mistral.ai/pricing"
+    },
+    {
+      "name": "Google AI Plus",
+      "creator_match": [
+        "Google"
+      ],
+      "monthly": 4.99,
+      "credit_value": 32.5,
+      "discount": 0.1535,
+      "source": "linux.do 2026-10 社区实测汇总 + O's World 逆向锚点：Google 官方承认 Gemini app 额度「按 API 定价扣减（drawn down as per API pricing）」。实测锚点：单日 45 次调用 4.83M token、API 账单 $2.99，恰好消耗 Ultra 5x 5 小时额度的 6%，反推 $50/5h、周额度 = 5h×4 = $200/周。据此 Pro 档周 $15、Ultra 5x 周 $200、Ultra 20x 周 $800，按月 ×52/12 得 $65 / $860 / $3,440。Plus 档无实测，按官方「Plus 2× Free、Pro 4× Free」倍数取 Pro 之半 = $32.5。2026-11-12 复核。",
+      "note": "官方 2× Free 用量；覆盖 Gemini 4 Argon 与 Flash 系，不含 Gemini 4 Carbon；含 200 Flow Credits / 400GB 存储",
+      "tokens": "",
+      "url": "https://gemini.google/subscriptions/",
+      "model_match": [
+        "gemini-4-argon",
+        "gemini-3.*-flash"
+      ]
+    },
+    {
+      "name": "Google AI Pro",
+      "creator_match": [
+        "Google"
+      ],
+      "monthly": 19.99,
+      "credit_value": 65,
+      "discount": 0.3075,
+      "source": "linux.do 2026-10 社区实测汇总 + O's World 逆向锚点：Google 官方承认 Gemini app 额度「按 API 定价扣减（drawn down as per API pricing）」。实测：单日 45 次调用 4.83M token、API 账单 $2.99 恰好消耗 Ultra 5x 的 5 小时额度 6%，反推 $50/5h，周额度 = 5h×4 = $200/周。据此 Pro 周 $15、Ultra 5x 周 $200、Ultra 20x 周 $800，按月 ×52/12 得 $65 / $860 / $3,440。2026-11-12 复核。",
+      "note": "官方 4× Free 用量；覆盖 Argon + Carbon + Pro/Flash；含 1,000 Flow Credits / 5TB 存储 / Antigravity 入门速率",
+      "tokens": "",
+      "url": "https://gemini.google/subscriptions/",
+      "exclude_match": [
+        "gemma*"
+      ]
+    },
+    {
+      "name": "Google AI Ultra 5x",
+      "creator_match": [
+        "Google"
+      ],
+      "monthly": 99.99,
+      "credit_value": 860,
+      "discount": 0.1163,
+      "source": "linux.do 2026-10 社区实测汇总 + O's World 逆向锚点：Google 官方承认 Gemini app 额度「按 API 定价扣减（drawn down as per API pricing）」。实测：单日 45 次调用 4.83M token、API 账单 $2.99 恰好消耗 Ultra 5x 的 5 小时额度 6%，反推 $50/5h，周额度 = 5h×4 = $200/周。据此 Pro 周 $15、Ultra 5x 周 $200、Ultra 20x 周 $800，按月 ×52/12 得 $65 / $860 / $3,440。2026-11-12 复核。",
+      "note": "官方 5× Pro 用量；Argon/Carbon 最高权限 + Search 内 Carbon；含 10,000 Flow Credits / 20TB 存储",
+      "tokens": "",
+      "url": "https://gemini.google/subscriptions/",
+      "exclude_match": [
+        "gemma*"
+      ]
+    },
+    {
+      "name": "Google AI Ultra 20x",
+      "creator_match": [
+        "Google"
+      ],
+      "monthly": 199.99,
+      "credit_value": 3440,
+      "discount": 0.0581,
+      "source": "linux.do 2026-10 社区实测汇总 + O's World 逆向锚点：Google 官方承认 Gemini app 额度「按 API 定价扣减（drawn down as per API pricing）」。实测：单日 45 次调用 4.83M token、API 账单 $2.99 恰好消耗 Ultra 5x 的 5 小时额度 6%，反推 $50/5h，周额度 = 5h×4 = $200/周。据此 Pro 周 $15、Ultra 5x 周 $200、Ultra 20x 周 $800，按月 ×52/12 得 $65 / $860 / $3,440。2026-11-12 复核。",
+      "note": "官方 20× Pro 用量；与 Ultra 5x 同权益、额度 4 倍；含 25,000 Flow Credits / 20TB 存储",
+      "tokens": "",
+      "url": "https://gemini.google/subscriptions/",
+      "exclude_match": [
         "gemma*"
       ]
     }

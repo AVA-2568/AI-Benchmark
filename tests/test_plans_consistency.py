@@ -138,11 +138,13 @@ def test_coverage_matrix_bidirectional_pivot():
     assert opencode_hits["muse-spark-1.3"]["scale"] == 1.0
     assert abs(opencode_hits["muse-spark-1.3"]["effective_discount"] - 0.167) < 1e-4
 
-    # 反向透视：高亮专栏必须精准识别未覆盖模型（muse-spark-1.1, inkling, gemini-4-argon 等）
+    # 反向透视：高亮专栏必须精准识别未覆盖模型。
+    # Google AI 订阅（有社区实测）已纳入，gemini-4-argon 转为覆盖；
+    # Meta Muse 虽有官方 token 数但无 API 换算口径，按方法论不予折算，仍算未覆盖。
     uncovered_slugs = {u["slug"] for u in matrix["reverse"]["uncovered"]}
-    assert "muse-spark-1.1" in uncovered_slugs
+    assert "gemini-4-argon" not in uncovered_slugs      # Google AI Plus 覆盖
+    assert "muse-spark-1.1" in uncovered_slugs          # Muse 额度不可折算，未纳入
     assert "inkling" in uncovered_slugs
-    assert "gemini-4-argon" in uncovered_slugs
     assert "gemma-4-31b" in uncovered_slugs
     assert "claude-haiku-5.5" in uncovered_slugs
     assert "gpt-5.4-nano" in uncovered_slugs
@@ -185,12 +187,12 @@ def test_plans_strict_mappings():
     assert _plan_matches(cursor, "Google", "gemma-4-31b") is False
     assert _plan_matches(cursor, "Anthropic", "claude-opus-5.5") is True
 
-    claude_max = by_name["Claude Max 20x"]
+    claude_max = by_name["Claude Ultra"]
     assert _plan_matches(claude_max, "Anthropic", "claude-haiku-5.5") is False
-    assert _plan_matches(claude_max, "Anthropic", "claude-fable-5.1") is False
+    assert _plan_matches(claude_max, "Anthropic", "claude-fable-5.2") is False
     assert _plan_matches(claude_max, "Anthropic", "claude-opus-5.5") is True
 
-    chatgpt = by_name["ChatGPT Pro 20x"]
+    chatgpt = by_name["ChatGPT Pro 200"]
     assert _plan_matches(chatgpt, "OpenAI", "gpt-5.4-nano") is False
     assert _plan_matches(chatgpt, "OpenAI", "gpt-5.2-codex") is False
     assert _plan_matches(chatgpt, "OpenAI", "gpt-6.1-sol") is True

@@ -1,19 +1,19 @@
 {
-  "run_date": "2026-11-11T03:23:41.036241+00:00",
+  "run_date": "2026-11-12T04:09:33.873908+00:00",
   "max_age_days": 21,
-  "online": true,
+  "online": false,
   "summary": {
-    "plans": 48,
-    "pass": 48,
+    "plans": 57,
+    "pass": 57,
     "warn": 0,
     "fail": 0
   },
   "coverage": {
     "summary": {
-      "total_models": 74,
-      "covered_count": 56,
-      "uncovered_count": 18,
-      "coverage_rate": 0.7568
+      "total_models": 75,
+      "covered_count": 61,
+      "uncovered_count": 14,
+      "coverage_rate": 0.8133
     },
     "forward": [
       {
@@ -3007,6 +3007,54 @@
             "fallback": false
           }
         ]
+      },
+      {
+        "name": "Google AI Plus",
+        "monthly": 4.99,
+        "discount": 0.1535,
+        "hit_count": 5,
+        "hits": [
+          {
+            "slug": "gemini-3.5-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.1535,
+            "multiplier": 6.51,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.6-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.1535,
+            "multiplier": 6.51,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.7-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.1535,
+            "multiplier": 6.51,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-3.8-flash",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.1535,
+            "multiplier": 6.51,
+            "fallback": false
+          },
+          {
+            "slug": "gemini-4-argon",
+            "creator": "Google",
+            "scale": 1.0,
+            "effective_discount": 0.1535,
+            "multiplier": 6.51,
+            "fallback": false
+          }
+        ]
       }
     ],
     "reverse": {
@@ -3030,14 +3078,6 @@
         {
           "slug": "gpt-5.2-codex",
           "creator": "OpenAI",
-          "status": "API 按量",
-          "plan_name": null,
-          "discount": 1.0,
-          "multiplier": 1.0
-        },
-        {
-          "slug": "gemini-3.5-flash-lite",
-          "creator": "Google",
           "status": "API 按量",
           "plan_name": null,
           "discount": 1.0,
@@ -3084,22 +3124,6 @@
           "multiplier": 1.0
         },
         {
-          "slug": "gemini-4-argon",
-          "creator": "Google",
-          "status": "API 按量",
-          "plan_name": null,
-          "discount": 1.0,
-          "multiplier": 1.0
-        },
-        {
-          "slug": "mistral-large-4",
-          "creator": "Mistral",
-          "status": "API 按量",
-          "plan_name": null,
-          "discount": 1.0,
-          "multiplier": 1.0
-        },
-        {
           "slug": "muse-spark-open",
           "creator": "Meta",
           "status": "API 按量",
@@ -3140,14 +3164,6 @@
           "multiplier": 1.0
         },
         {
-          "slug": "step-5-preview",
-          "creator": "StepFun",
-          "status": "API 按量",
-          "plan_name": null,
-          "discount": 1.0,
-          "multiplier": 1.0
-        },
-        {
           "slug": "claude-fable-5.2",
           "creator": "Anthropic",
           "status": "API 按量",
@@ -3160,63 +3176,63 @@
         {
           "slug": "claude-opus-5",
           "creator": "Anthropic",
-          "plan_name": "Claude Max 20x",
+          "plan_name": "Claude Ultra",
           "monthly": 200,
-          "discount": 0.025,
-          "multiplier": 40.0
+          "discount": 0.0303,
+          "multiplier": 33.0
         },
         {
           "slug": "claude-opus-4.8",
           "creator": "Anthropic",
-          "plan_name": "Claude Max 20x",
+          "plan_name": "Claude Ultra",
           "monthly": 200,
-          "discount": 0.025,
-          "multiplier": 40.0
+          "discount": 0.0303,
+          "multiplier": 33.0
         },
         {
           "slug": "claude-opus-4.7",
           "creator": "Anthropic",
-          "plan_name": "Claude Max 20x",
+          "plan_name": "Claude Ultra",
           "monthly": 200,
-          "discount": 0.025,
-          "multiplier": 40.0
+          "discount": 0.0303,
+          "multiplier": 33.0
         },
         {
           "slug": "claude-opus-4.6",
           "creator": "Anthropic",
-          "plan_name": "Claude Max 20x",
+          "plan_name": "Claude Ultra",
           "monthly": 200,
-          "discount": 0.025,
-          "multiplier": 40.0
+          "discount": 0.0303,
+          "multiplier": 33.0
         },
         {
           "slug": "claude-opus-4.5",
           "creator": "Anthropic",
-          "plan_name": "Claude Max 20x",
+          "plan_name": "Claude Ultra",
           "monthly": 200,
-          "discount": 0.025,
-          "multiplier": 40.0
+          "discount": 0.0303,
+          "multiplier": 33.0
         },
         {
           "slug": "claude-sonnet-5",
           "creator": "Anthropic",
-          "plan_name": "Claude Max 20x",
+          "plan_name": "Claude Ultra",
           "monthly": 200,
-          "discount": 0.025,
-          "multiplier": 40.0
+          "discount": 0.0303,
+          "multiplier": 33.0
         },
         {
           "slug": "claude-sonnet-4.6",
           "creator": "Anthropic",
-          "plan_name": "Claude Max 20x",
+          "plan_name": "Claude Ultra",
           "monthly": 200,
-          "discount": 0.025,
-          "multiplier": 40.0
+          "discount": 0.0303,
+          "multiplier": 33.0
         },
         {
           "slug": "gpt-5.6-sol",
           "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
+          "plan_name": "ChatGPT Pro 200",
           "monthly": 200,
           "discount": 0.0143,
           "multiplier": 69.93
@@ -3224,7 +3240,7 @@
         {
           "slug": "gpt-5.6-terra",
           "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
+          "plan_name": "ChatGPT Pro 200",
           "monthly": 200,
           "discount": 0.0143,
           "multiplier": 69.93
@@ -3232,7 +3248,7 @@
         {
           "slug": "gpt-5.6-luna",
           "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
+          "plan_name": "ChatGPT Pro 200",
           "monthly": 200,
           "discount": 0.0143,
           "multiplier": 69.93
@@ -3240,7 +3256,7 @@
         {
           "slug": "gpt-5.5",
           "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
+          "plan_name": "ChatGPT Pro 200",
           "monthly": 200,
           "discount": 0.0143,
           "multiplier": 69.93
@@ -3248,7 +3264,7 @@
         {
           "slug": "gpt-5.4",
           "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
+          "plan_name": "ChatGPT Pro 200",
           "monthly": 200,
           "discount": 0.0143,
           "multiplier": 69.93
@@ -3256,7 +3272,7 @@
         {
           "slug": "gpt-5.4-mini",
           "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
+          "plan_name": "ChatGPT Pro 200",
           "monthly": 200,
           "discount": 0.0143,
           "multiplier": 69.93
@@ -3264,7 +3280,7 @@
         {
           "slug": "gpt-5.2",
           "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
+          "plan_name": "ChatGPT Pro 200",
           "monthly": 200,
           "discount": 0.0143,
           "multiplier": 69.93
@@ -3272,34 +3288,42 @@
         {
           "slug": "gemini-3.1-pro",
           "creator": "Google",
-          "plan_name": "GitHub Copilot Max",
-          "monthly": 100,
-          "discount": 0.5,
-          "multiplier": 2.0
+          "plan_name": "Google AI Ultra 20x",
+          "monthly": 199.99,
+          "discount": 0.0581,
+          "multiplier": 17.21
         },
         {
           "slug": "gemini-3.5-flash",
           "creator": "Google",
-          "plan_name": "GitHub Copilot Max",
-          "monthly": 100,
-          "discount": 0.5,
-          "multiplier": 2.0
+          "plan_name": "Google AI Ultra 20x",
+          "monthly": 199.99,
+          "discount": 0.0581,
+          "multiplier": 17.21
         },
         {
           "slug": "gemini-3.6-flash",
           "creator": "Google",
-          "plan_name": "GitHub Copilot Max",
-          "monthly": 100,
-          "discount": 0.5,
-          "multiplier": 2.0
+          "plan_name": "Google AI Ultra 20x",
+          "monthly": 199.99,
+          "discount": 0.0581,
+          "multiplier": 17.21
         },
         {
           "slug": "gemini-3.7-flash",
           "creator": "Google",
-          "plan_name": "GitHub Copilot Max",
-          "monthly": 100,
-          "discount": 0.5,
-          "multiplier": 2.0
+          "plan_name": "Google AI Ultra 20x",
+          "monthly": 199.99,
+          "discount": 0.0581,
+          "multiplier": 17.21
+        },
+        {
+          "slug": "gemini-3.5-flash-lite",
+          "creator": "Google",
+          "plan_name": "Google AI Ultra 20x",
+          "monthly": 199.99,
+          "discount": 0.0581,
+          "multiplier": 17.21
         },
         {
           "slug": "grok-4.6",
@@ -3480,15 +3504,15 @@
         {
           "slug": "gemini-3.8-flash",
           "creator": "Google",
-          "plan_name": "GitHub Copilot Max",
-          "monthly": 100,
-          "discount": 0.5,
-          "multiplier": 2.0
+          "plan_name": "Google AI Ultra 20x",
+          "monthly": 199.99,
+          "discount": 0.0581,
+          "multiplier": 17.21
         },
         {
           "slug": "gpt-6-astra",
           "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
+          "plan_name": "ChatGPT Pro 200",
           "monthly": 200,
           "discount": 0.0143,
           "multiplier": 69.93
@@ -3520,23 +3544,23 @@
         {
           "slug": "claude-opus-5.5",
           "creator": "Anthropic",
-          "plan_name": "Claude Max 20x",
+          "plan_name": "Claude Ultra",
           "monthly": 200,
-          "discount": 0.025,
-          "multiplier": 40.0
+          "discount": 0.0303,
+          "multiplier": 33.0
         },
         {
           "slug": "claude-sonnet-5.5",
           "creator": "Anthropic",
-          "plan_name": "Claude Max 20x",
+          "plan_name": "Claude Ultra",
           "monthly": 200,
-          "discount": 0.025,
-          "multiplier": 40.0
+          "discount": 0.0303,
+          "multiplier": 33.0
         },
         {
           "slug": "gpt-6-luna",
           "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
+          "plan_name": "ChatGPT Pro 200",
           "monthly": 200,
           "discount": 0.0143,
           "multiplier": 69.93
@@ -3544,7 +3568,7 @@
         {
           "slug": "gpt-6-sol",
           "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
+          "plan_name": "ChatGPT Pro 200",
           "monthly": 200,
           "discount": 0.0143,
           "multiplier": 69.93
@@ -3552,7 +3576,7 @@
         {
           "slug": "gpt-6.1-sol",
           "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
+          "plan_name": "ChatGPT Pro 200",
           "monthly": 200,
           "discount": 0.0143,
           "multiplier": 69.93
@@ -3574,6 +3598,14 @@
           "multiplier": 10.01
         },
         {
+          "slug": "gemini-4-argon",
+          "creator": "Google",
+          "plan_name": "Google AI Ultra 20x",
+          "monthly": 199.99,
+          "discount": 0.0581,
+          "multiplier": 17.21
+        },
+        {
           "slug": "mimo-v2.6-pro",
           "creator": "Xiaomi",
           "plan_name": "Command Code GOAT",
@@ -3582,9 +3614,17 @@
           "multiplier": 7.0
         },
         {
+          "slug": "mistral-large-4",
+          "creator": "Mistral",
+          "plan_name": "Mistral Pro",
+          "monthly": 14.99,
+          "discount": 0.5878,
+          "multiplier": 1.7
+        },
+        {
           "slug": "gpt-6.1-terra",
           "creator": "OpenAI",
-          "plan_name": "ChatGPT Pro 20x",
+          "plan_name": "ChatGPT Pro 200",
           "monthly": 200,
           "discount": 0.0143,
           "multiplier": 69.93
@@ -3604,346 +3644,425 @@
           "monthly": 16.5,
           "discount": 0.0151,
           "multiplier": 66.23
+        },
+        {
+          "slug": "step-5-preview",
+          "creator": "StepFun",
+          "plan_name": "Step Plan Max",
+          "monthly": 97.08,
+          "discount": 0.017,
+          "multiplier": 58.82
+        },
+        {
+          "slug": "gemini-4-carbon",
+          "creator": "Google",
+          "plan_name": "Google AI Ultra 20x",
+          "monthly": 199.99,
+          "discount": 0.0581,
+          "multiplier": 17.21
         }
       ]
     }
   },
   "entries": [
     {
-      "name": "ChatGPT Pro 20x",
+      "name": "ChatGPT Pro 200",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
-      "name": "ChatGPT Pro 5x",
+      "name": "ChatGPT Pro 100",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "ChatGPT Plus",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
-      "name": "Claude Max 20x",
+      "name": "Claude Ultra",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
-      "name": "Claude Max 5x",
+      "name": "Claude Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Claude Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiniMax Max Token Plan",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiniMax Ultra Token Plan",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiniMax Plus Token Plan",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Kimi 会员 Allegretto",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "SuperGrok Heavy",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "SuperGrok",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GitHub Copilot Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GitHub Copilot Pro+",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GitHub Copilot Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GLM Coding Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GLM Coding Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "GLM Coding Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Qwen Token Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Qwen Token Plan Standard",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Qwen Token Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "WorkBuddy 高级版",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "WorkBuddy 标准版",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "WorkBuddy 旗舰版",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Standard",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Hy Token Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "OpenCode Go",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Kimi Andante",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Factory Droid Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Trae Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Cursor Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Kimi Moderato",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Kimi Allegro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Standard",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "MiMo Token Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Cursor Pro+",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Cursor Ultra",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Windsurf Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Ollama Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "火山方舟 Coding Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "火山方舟 Coding Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Command Code GOAT",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "R4 Coder Code Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
     },
     {
       "name": "Poe Premium",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": 200
+      "url_status": null
+    },
+    {
+      "name": "Step Plan Mini",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Step Plan Plus",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Step Plan Pro",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Step Plan Max",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Mistral Pro",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Google AI Plus",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Google AI Pro",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Google AI Ultra 5x",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
+    },
+    {
+      "name": "Google AI Ultra 20x",
+      "status": "pass",
+      "errors": [],
+      "warnings": [],
+      "url_status": null
     }
   ]
 }
