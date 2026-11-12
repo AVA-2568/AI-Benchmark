@@ -761,7 +761,7 @@
       "livebench": "gemini-4-carbon",
       "eqbench": null,
       "vision": true,
-      "auto_added": "2026-11-12",
+      "auto_added": "2026-11-11",
       "openrouter": "google/gemini-4-carbon"
     }
   ]
