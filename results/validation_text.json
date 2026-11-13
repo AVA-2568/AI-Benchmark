@@ -1,26 +1,26 @@
 {
   "EQ-Bench Creative Writing": {
-    "mae": 78.7153,
+    "mae": 78.739,
     "pct_over10": 15.2,
     "n": 46
   },
   "LiveBench Design": {
-    "mae": 3.4045,
+    "mae": 3.4052,
     "pct_over10": 9.7,
     "n": 31
   },
   "AA-Briefcase": {
-    "mae": 140.4378,
+    "mae": 140.4518,
     "pct_over10": 44.7,
     "n": 38
   },
   "LiveBench Research": {
-    "mae": 6.0236,
+    "mae": 6.0239,
     "pct_over10": 19.4,
     "n": 31
   },
   "LiveBench Data Analysis": {
-    "mae": 6.6861,
+    "mae": 6.6868,
     "pct_over10": 32.3,
     "n": 31
   },

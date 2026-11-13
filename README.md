@@ -1,7 +1,7 @@
 # AI 前沿模型排行 LLM Leaderboard：通用 / 写作 / 性价比三榜
 
 <!--HERO_START-->
-精选 75 个主流旗舰大模型，针对三大真实需求提供三张榜单：
+精选 76 个主流旗舰大模型，针对三大真实需求提供三张榜单：
 - **干重活与写代码（通用榜）**：看编程、智能体、复杂逻辑与长上下文能力（当前 claude-fable-5.2 第一，85.4 分）；
 - **写文章与专业案头（文本榜）**：看创意写作、文风质感、长文阅读与日常问答（当前 claude-fable-5.2 第一，87.4 分）；
 - **算钱包与真实花销（性价比榜）**：看折算真实订阅套餐与 API 折扣后的到手单价（订阅折算后最低约 $0.001/M）。
@@ -37,8 +37,8 @@
 编程、智能体、复杂工作流看这张，**只测工程能力链**，与文本榜零共享指标。权重：代码与终端 Agent 45%（FrontierCode 2.0 40%、LiveBench Coding 30%、Terminal-Bench v4.0 30%）、长程自主与自动化 25%（LiveBench Long-Horizon 40%、AutomationBench 35%、LiveBench Browser 25%）、科学与硬推理 30%（HLE Diamond 40%、CritPt v2 Hard 35%、LiveBench Reasoning 25%）。`Bottleneck` 列给出该行最低的域分——加权总分允许长板补偿短板，但真实 agent 任务是串联的，短板才决定能不能把活干完。
 
 <!--SNAPSHOT_GENERAL_START-->
-> 2026-11-12 数据（75 精选模型 -> 26 行；日期为上游抓取实际时点，stale 构建不刷新）。
-> 填补验证：FrontierCode 2.0 MAE=0.05 (>10%: 69.7%/33) ; LiveBench Coding MAE=6.41 (>10%: 32.3%/31) ; Terminal-Bench v4.0 MAE=0.09 (>10%: 73.7%/38) ; LiveBench Long-Horizon MAE=12.07 (>10%: 80.6%/31) ; AutomationBench MAE=0.11 (>10%: 76.3%/38) ; LiveBench Browser MAE=12.25 (>10%: 64.5%/31) ; HLE Diamond MAE=0.05 (>10%: 68.4%/38) ; CritPt v2 Hard MAE=0.06 (>10%: 48.5%/33) ; LiveBench Reasoning MAE=3.23 (>10%: 6.5%/31)
+> 2026-11-12 数据（76 精选模型 -> 26 行；日期为上游抓取实际时点，stale 构建不刷新）。
+> 填补验证：FrontierCode 2.0 MAE=0.05 (>10%: 69.7%/33) ; LiveBench Coding MAE=6.41 (>10%: 32.3%/31) ; Terminal-Bench v4.0 MAE=0.09 (>10%: 73.7%/38) ; LiveBench Long-Horizon MAE=12.08 (>10%: 80.6%/31) ; AutomationBench MAE=0.11 (>10%: 76.3%/38) ; LiveBench Browser MAE=12.25 (>10%: 64.5%/31) ; HLE Diamond MAE=0.05 (>10%: 68.4%/38) ; CritPt v2 Hard MAE=0.06 (>10%: 48.5%/33) ; LiveBench Reasoning MAE=3.23 (>10%: 6.5%/31)
 <!--SNAPSHOT_GENERAL_END-->
 
 <!--TOP15_GENERAL_START-->
@@ -72,8 +72,8 @@
 <!--TEXT_FRONTIER_END-->
 
 <!--SNAPSHOT_TEXT_START-->
-> 2026-11-12 数据（75 精选模型 -> 26 行；日期为上游抓取实际时点，stale 构建不刷新）。
-> 填补验证：EQ-Bench Creative Writing MAE=78.72 (>10%: 15.2%/46) ; LiveBench Design MAE=3.40 (>10%: 9.7%/31) ; AA-Briefcase MAE=140.44 (>10%: 44.7%/38) ; LiveBench Research MAE=6.02 (>10%: 19.4%/31) ; LiveBench Data Analysis MAE=6.69 (>10%: 32.3%/31) ; MLCR MAE=0.08 (>10%: 78.8%/33) ; LCR MAE=0.03 (>10%: 10.8%/37) ; Omniscience Accuracy MAE=0.12 (>10%: 78.8%/33) ; Omniscience Non-Halluc. MAE=0.19 (>10%: 78.8%/33)
+> 2026-11-12 数据（76 精选模型 -> 26 行；日期为上游抓取实际时点，stale 构建不刷新）。
+> 填补验证：EQ-Bench Creative Writing MAE=78.74 (>10%: 15.2%/46) ; LiveBench Design MAE=3.41 (>10%: 9.7%/31) ; AA-Briefcase MAE=140.45 (>10%: 44.7%/38) ; LiveBench Research MAE=6.02 (>10%: 19.4%/31) ; LiveBench Data Analysis MAE=6.69 (>10%: 32.3%/31) ; MLCR MAE=0.08 (>10%: 78.8%/33) ; LCR MAE=0.03 (>10%: 10.8%/37) ; Omniscience Accuracy MAE=0.12 (>10%: 78.8%/33) ; Omniscience Non-Halluc. MAE=0.19 (>10%: 78.8%/33)
 <!--SNAPSHOT_TEXT_END-->
 
 <!--TOP15_TEXT_START-->
@@ -103,8 +103,8 @@
 回答「买哪个套餐最划算」。行序跟通用榜一致——按性价比排会让便宜小模型霸榜，没有决策价值。各列含义：API $/1M 是官方按量混合价（含缓存命中假设）；套餐内 $/1M 是该厂商最优订阅折算后的等效价；倍率是每 1 元月费换到的 API 等价额度，70× 即 $1 月费约换 $70 额度；Value = 综合分 ÷ 套餐内 $/1M。套餐名就是官方购买链接，没有订阅制的厂商按 API 按量计费（1×）。
 
 <!--SNAPSHOT_VALUE_START-->
-> 2026-11-12 数据（75 精选模型 -> 26 行；日期为上游抓取实际时点，stale 构建不刷新）。
-> 填补验证：FrontierCode 2.0 MAE=0.05 (>10%: 69.7%/33) ; LiveBench Coding MAE=6.41 (>10%: 32.3%/31) ; Terminal-Bench v4.0 MAE=0.09 (>10%: 73.7%/38) ; LiveBench Long-Horizon MAE=12.07 (>10%: 80.6%/31) ; AutomationBench MAE=0.11 (>10%: 76.3%/38) ; LiveBench Browser MAE=12.25 (>10%: 64.5%/31) ; HLE Diamond MAE=0.05 (>10%: 68.4%/38) ; CritPt v2 Hard MAE=0.06 (>10%: 48.5%/33) ; LiveBench Reasoning MAE=3.23 (>10%: 6.5%/31)
+> 2026-11-12 数据（76 精选模型 -> 26 行；日期为上游抓取实际时点，stale 构建不刷新）。
+> 填补验证：FrontierCode 2.0 MAE=0.05 (>10%: 69.7%/33) ; LiveBench Coding MAE=6.41 (>10%: 32.3%/31) ; Terminal-Bench v4.0 MAE=0.09 (>10%: 73.7%/38) ; LiveBench Long-Horizon MAE=12.08 (>10%: 80.6%/31) ; AutomationBench MAE=0.11 (>10%: 76.3%/38) ; LiveBench Browser MAE=12.25 (>10%: 64.5%/31) ; HLE Diamond MAE=0.05 (>10%: 68.4%/38) ; CritPt v2 Hard MAE=0.06 (>10%: 48.5%/33) ; LiveBench Reasoning MAE=3.23 (>10%: 6.5%/31)
 <!--SNAPSHOT_VALUE_END-->
 
 <!--TOP15_VALUE_START-->

@@ -5,7 +5,7 @@
     "n": 33
   },
   "LiveBench Coding": {
-    "mae": 6.4087,
+    "mae": 6.4088,
     "pct_over10": 32.3,
     "n": 31
   },
@@ -15,7 +15,7 @@
     "n": 38
   },
   "LiveBench Long-Horizon": {
-    "mae": 12.075,
+    "mae": 12.0752,
     "pct_over10": 80.6,
     "n": 31
   },
@@ -25,7 +25,7 @@
     "n": 38
   },
   "LiveBench Browser": {
-    "mae": 12.2547,
+    "mae": 12.2548,
     "pct_over10": 64.5,
     "n": 31
   },
@@ -40,7 +40,7 @@
     "n": 33
   },
   "LiveBench Reasoning": {
-    "mae": 3.2264,
+    "mae": 3.2271,
     "pct_over10": 6.5,
     "n": 31
   }

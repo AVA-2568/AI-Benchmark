@@ -763,6 +763,16 @@
       "vision": true,
       "auto_added": "2026-11-11",
       "openrouter": "google/gemini-4-carbon"
+    },
+    {
+      "slug": "gemini-4-hydrogen",
+      "creator": "Google",
+      "aa": "gemini-4-hydrogen",
+      "livebench": "gemini-4-hydrogen",
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-11-13",
+      "openrouter": "google/gemini-4-hydrogen"
     }
   ]
 }
