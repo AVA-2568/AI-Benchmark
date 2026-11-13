@@ -574,70 +574,16 @@ def test_every_board_domain_has_at_least_one_metric():
     assert cfg["max_missing_per_domain"] == 1
 
 
-# ---- 门槛放宽：高 R² 域可再缺 1 个（ADR-0007） ----
+# ---- 门槛无例外：域内缺 2 个一律出局（ADR-0007 已废止） ----
 
-def test_domain_gate_relax_allows_high_r2_gap():
-    """3 基准域缺 2 个，但两个缺口指标的域内 R² 都达标 -> 放行。"""
+def test_domain_gate_has_no_r2_exception():
+    """缺 2 个一律出局，不存在任何 R² 放宽路径；config 也不再有放宽配置。"""
     from pipeline.scoring import _domain_ok
     board = {"categories": [{"weight": 1.0, "metrics": [
-        {"name": "TB", "sub_weight": 0.4},
-        {"name": "HLE", "sub_weight": 0.3},
-        {"name": "SCI", "sub_weight": 0.3}]}]}
-    raw = {"TB": [0.65], "HLE": [None], "SCI": [None]}
-    r2 = {"HLE": 0.92, "SCI": 0.87}
-    assert _domain_ok(raw, 0, board, 1) is False                 # 默认不放宽
-    assert _domain_ok(raw, 0, board, 1, r2=r2, relax_min_r2=0.85) is True
-
-
-def test_domain_gate_relax_rejects_low_r2_gap():
-    """缺口里只要有一个指标回测不可信，仍按原门槛拒绝。"""
-    from pipeline.scoring import _domain_ok
-    board = {"categories": [{"weight": 1.0, "metrics": [
-        {"name": "TB", "sub_weight": 0.4},
-        {"name": "LH", "sub_weight": 0.3},
-        {"name": "CODE", "sub_weight": 0.3}]}]}
-    raw = {"TB": [0.65], "LH": [None], "CODE": [None]}
-    r2 = {"LH": 0.79, "CODE": 0.51}
-    assert _domain_ok(raw, 0, board, 1, r2=r2, relax_min_r2=0.85) is False
-    # 缺 2 个以上不在放宽范围内
-    assert _domain_ok({"TB": [None], "LH": [None], "CODE": [None]}, 0, board, 1,
-                      r2={"TB": 0.9, "LH": 0.9, "CODE": 0.9},
-                      relax_min_r2=0.85) is False
-
-
-def test_domain_gate_relax_caps_relaxed_domains():
-    """每行最多放宽一个域，第二个域再缺 2 个就出局。"""
-    from pipeline.scoring import _domain_ok
-    board = {"categories": [
-        {"weight": 0.5, "metrics": [
-            {"name": "A1", "sub_weight": 0.5}, {"name": "A2", "sub_weight": 0.25},
-            {"name": "A3", "sub_weight": 0.25}]},
-        {"weight": 0.5, "metrics": [
-            {"name": "B1", "sub_weight": 0.5}, {"name": "B2", "sub_weight": 0.25},
-            {"name": "B3", "sub_weight": 0.25}]},
-    ]}
-    raw = {"A1": [1.0], "A2": [None], "A3": [None],
-           "B1": [1.0], "B2": [None], "B3": [None]}
-    r2 = {"A2": 0.9, "A3": 0.9, "B2": 0.9, "B3": 0.9}
-    assert _domain_ok(raw, 0, board, 1, r2=r2, relax_min_r2=0.85) is False
-    assert _domain_ok(raw, 0, board, 1, r2=r2, relax_min_r2=0.85,
-                      max_relaxed_domains=2) is True
-
-
-def test_domain_gate_relax_disabled_by_default():
-    """未配置 relax_min_r2 时行为与原版完全一致。"""
-    from pipeline.scoring import _domain_ok
-    board = {"categories": [{"weight": 1.0, "metrics": [
-        {"name": "A", "sub_weight": 0.5}, {"name": "B", "sub_weight": 0.25},
-        {"name": "C", "sub_weight": 0.25}]}]}
+        {"name": "A", "sub_weight": 0.4},
+        {"name": "B", "sub_weight": 0.3},
+        {"name": "C", "sub_weight": 0.3}]}]}
     raw = {"A": [1.0], "B": [None], "C": [None]}
     assert _domain_ok(raw, 0, board, 1) is False
-    assert _domain_ok(raw, 0, board, 1, r2={"B": 1.0, "C": 1.0}) is False
-
-
-def test_config_domain_gate_relax_threshold():
-    """config 放宽门槛必须在 (0, 1] 内且至少允许一个域。"""
     cfg = json.load(open(os.path.join(_REPO, "config.json"), encoding="utf-8"))
-    relax = cfg["domain_gate_relax"]
-    assert 0 < relax["min_domain_r2"] <= 1
-    assert relax["max_relaxed_domains"] >= 1
+    assert "domain_gate_relax" not in cfg

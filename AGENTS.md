@@ -24,9 +24,11 @@ fetch(多源) -> detect(新模型发现，`--apply` 自动入池) -> merge(跨�
 ## 核心不变量
 - leaderboard 权重总和必须为 1。
 - 每个评分指标必须存在于 imputation_pool，且其固定锚点必须在 metric_scales 中。
-- 基准集合的选取准绳是「**本季 LiveBench 模型的 AA 覆盖率**」（ADR-0008），不是全池覆盖率：池里一半历史条目早已不被上游跟踪，按全池选指标会把真正的前沿模型挡在域外。AA 新增评分字段必须登记到 `parse_aa.NEW_SCORE_FIELDS`，未登记会被 `unmapped_score_fields()` 在解析时点名告警。
-- SciCode 于 2026-11 下架（AA 标注 `underReview`，数据集被独立审计发现疑似错误），科学推理位由 CritPt v2 Hard 承担；长上下文域补 MLCR（与 LCR r=0.44，互补）。
-- 上榜门槛：每个领域最多缺 1 个基准值（`max_missing_per_domain=1`；3 基准域至少 2 个实测，单基准域必须实测），缺的那个值由域内回归回测，缺 2 个则整行不上榜。唯一例外（ADR-0007）：该域两个缺口指标的域内 R² 均 ≥ `domain_gate_relax.min_domain_r2`（0.85）时放行，且每行最多放宽 1 个域——放行依据是「可高置信回测」，不是「多缺一个没事」。
+- **两榜零共享、各自独立**：通用榜（偏编程，3 域）与文本榜（内容生产，4 域）不共享任何评分指标；每榜都同时含 Artificial Analysis 与 LiveBench 2.0 的原始基准（文本榜另用 EQ-Bench）。**不使用单一榜单的结论**——不引用任何上游综合分（AA Intelligence Index / LiveBench 总榜），不拿一张榜的结论定义另一张；指标入池、替换与权重调整必须同时在两榜数据上验证。见 ADR-0009。
+- **基准准绳 = 本季 LiveBench 模型的 AA 覆盖率 + 头部区分度**（ADR-0008 / ADR-0009），不是全池覆盖率，也不是语义贴题：池里一半历史条目早已不被上游跟踪；Terminal-Bench v4.0 / HLE / Omniscience Index 在头部已饱和（Top10 sd 4.4 / 7.2 / 9.1），分别由 AA 已拉取未入池的同构难版 FrontierCode 2.0 / HLE Diamond / Omniscience Accuracy **替换**（不是叠加，池指标数保持 18、不重复计权）。AA 新增评分字段必须登记到 `parse_aa.NEW_SCORE_FIELDS`，未登记会被 `unmapped_score_fields()` 点名告警。
+- **域定义唯一**：`domain_groups` 的 7 个域与两榜 `categories` 一一对应，每个域只服务一个榜；`validate_config` 强制每个池指标恰属一域，回归特征不可能借到另一张榜的指标。`domain_hierarchies` 因新指标难度阶梯未实证而清空，遵循「宁可无约束，不设错约束」。
+- **结果字段**：除 `Weighted Total` 外输出 `Bottleneck`（最低域分）与 `Bottleneck Domain`，暴露加权平均抹平的短板；改这两个字段必须同步测试与 README。
+- 上榜门槛：每个领域最多缺 1 个基准值（`max_missing_per_domain=1`；3 基准域至少 2 个实测，2 基准域至少 1 个实测，单基准域必须实测），缺的那个值由域内回归回测，缺 2 个则整行不上榜，**无例外**（ADR-0007 的 R² 放宽条款从未生效，已废止移除）。
 - 原始值与填补值必须区分。
 - 填补仅用评分指标交叉预测，不得引入任何合成综合分。
 - README 只能替换标记区块；标记缺失时构建失败。头部结论（`HERO`）同样由 `build.hero_block()` 从 scored CSV + registry 渲染，**禁止手写**，`tests/test_readme_hero.py` 会校验一致性。

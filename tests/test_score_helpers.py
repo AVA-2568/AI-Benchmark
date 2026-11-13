@@ -125,7 +125,7 @@ def test_validate_config_bad_global_weights():
 def test_validate_config_metric_not_in_pool():
     cfg = copy.deepcopy(_load_config())
     cfg["imputation_pool"] = [
-        m for m in cfg["imputation_pool"] if m != "HLE"
+        m for m in cfg["imputation_pool"] if m != "FrontierCode 2.0"
     ]
     with pytest.raises(score.ConfigError, match="not in imputation_pool"):
         score.validate_config(cfg)

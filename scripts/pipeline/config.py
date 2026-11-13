@@ -153,17 +153,7 @@ def validate_config(cfg: Dict[str, Any]) -> bool:
         raise ConfigError("ridge_alpha must be > 0")
     if cfg.get("imputation_min_samples", 0) < 3:
         raise ConfigError("imputation_min_samples must be >= 3")
-    relax = cfg.get("domain_gate_relax") or {}
-    if relax:
-        r2_min = relax.get("min_domain_r2")
-        if r2_min is None or not 0 < float(r2_min) <= 1:
-            raise ConfigError(
-                "domain_gate_relax.min_domain_r2 must be in (0, 1]"
-            )
-        if int(relax.get("max_relaxed_domains", 1)) < 1:
-            raise ConfigError(
-                "domain_gate_relax.max_relaxed_domains must be >= 1"
-            )
+    # ADR-0007 放宽条款已废止：域内最多缺 1 个是唯一门槛，无例外。
     if not 0 < imp.get("max_iters", 0):
         raise ConfigError("imputation.max_iters must be > 0")
     if not 0 < imp.get("relative_tolerance", 0):

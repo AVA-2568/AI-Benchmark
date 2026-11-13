@@ -1,7 +1,9 @@
 # ADR-0007：领域门槛对「回测可信」的域再放宽 1 个缺口
 
-- **状态**：已采纳（2026-11-12）
+- **状态**：已废止（2026-11-13 移除；原 2026-11-12 采纳）
 - **影响面**：`config.json`（`domain_gate_relax`）、`scripts/pipeline/scoring.py`、`scripts/pipeline/__init__.py`、`scripts/pipeline/config.py`、`tests/test_scoring.py`、METHODOLOGY
+
+> **废止说明（2026-11-13）**：该例外在本季数据上从未放行任何一行——池内域内回归 R² 最高为 CritPt v2 Hard 0.776，够不到 `min_domain_r2` 0.85；有/无放宽均为 26 行。按「域内只能缺 1 个、回归只在域内」的硬约束，配置、`_domain_ok` 放宽分支、`run_pipeline` 的 r2 传参、`validate_config` 校验与相关测试已全部移除，门槛回到 ADR-0006 的无例外语义。本文保留作历史记录。
 
 ## 背景
 

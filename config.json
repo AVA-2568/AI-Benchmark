@@ -1,28 +1,21 @@
 {
   "domain_groups": {
     "code_agent": [
-      "Terminal-Bench v4.0",
-      "LiveBench Long-Horizon",
-      "LiveBench Coding"
+      "FrontierCode 2.0",
+      "LiveBench Coding",
+      "Terminal-Bench v4.0"
     ],
-    "automation_web": [
+    "long_horizon_automation": [
+      "LiveBench Long-Horizon",
       "AutomationBench",
       "LiveBench Browser"
     ],
-    "instruction": [
-      "LCR",
-      "MLCR"
-    ],
-    "reasoning": [
-      "HLE",
+    "hard_reasoning": [
+      "HLE Diamond",
       "CritPt v2 Hard",
       "LiveBench Reasoning"
     ],
-    "factuality": [
-      "Omniscience Index",
-      "Omniscience Non-Halluc."
-    ],
-    "creative_literature": [
+    "creative_writing": [
       "EQ-Bench Creative Writing",
       "LiveBench Design"
     ],
@@ -30,37 +23,50 @@
       "AA-Briefcase",
       "LiveBench Research",
       "LiveBench Data Analysis"
+    ],
+    "long_context": [
+      "MLCR",
+      "LCR"
+    ],
+    "factuality": [
+      "Omniscience Accuracy",
+      "Omniscience Non-Halluc."
     ]
   },
   "imputation_pool": [
+    "FrontierCode 2.0",
+    "LiveBench Coding",
     "Terminal-Bench v4.0",
     "LiveBench Long-Horizon",
-    "LiveBench Coding",
     "AutomationBench",
     "LiveBench Browser",
-    "LiveBench Data Analysis",
-    "LCR",
-    "MLCR",
-    "HLE",
+    "HLE Diamond",
     "CritPt v2 Hard",
     "LiveBench Reasoning",
-    "Omniscience Index",
-    "Omniscience Non-Halluc.",
     "EQ-Bench Creative Writing",
-    "LiveBench Research",
     "LiveBench Design",
-    "AA-Briefcase"
+    "AA-Briefcase",
+    "LiveBench Research",
+    "LiveBench Data Analysis",
+    "MLCR",
+    "LCR",
+    "Omniscience Accuracy",
+    "Omniscience Non-Halluc."
   ],
   "metric_scales": {
+    "FrontierCode 2.0": [
+      0,
+      0.5
+    ],
+    "LiveBench Coding": [
+      0,
+      100
+    ],
     "Terminal-Bench v4.0": [
       0,
       1
     ],
     "LiveBench Long-Horizon": [
-      0,
-      100
-    ],
-    "LiveBench Coding": [
       0,
       100
     ],
@@ -72,45 +78,21 @@
       0,
       100
     ],
-    "LiveBench Data Analysis": [
+    "HLE Diamond": [
       0,
-      100
-    ],
-    "LCR": [
-      0,
-      1
-    ],
-    "HLE": [
-      0,
-      1
+      0.8
     ],
     "CritPt v2 Hard": [
       0,
       0.8
     ],
-    "MLCR": [
-      0,
-      0.5
-    ],
     "LiveBench Reasoning": [
       0,
       100
     ],
-    "Omniscience Index": [
-      -50,
-      50
-    ],
-    "Omniscience Non-Halluc.": [
-      0,
-      1
-    ],
     "EQ-Bench Creative Writing": [
       1400,
       2200
-    ],
-    "LiveBench Research": [
-      0,
-      100
     ],
     "LiveBench Design": [
       0,
@@ -119,6 +101,30 @@
     "AA-Briefcase": [
       400,
       1700
+    ],
+    "LiveBench Research": [
+      0,
+      100
+    ],
+    "LiveBench Data Analysis": [
+      0,
+      100
+    ],
+    "MLCR": [
+      0,
+      0.5
+    ],
+    "LCR": [
+      0,
+      1
+    ],
+    "Omniscience Accuracy": [
+      0,
+      0.8
+    ],
+    "Omniscience Non-Halluc.": [
+      0,
+      1
     ]
   },
   "leaderboards": {
@@ -128,80 +134,56 @@
       "validation_json": "validation_general.json",
       "categories": [
         {
-          "name": "代码与 Agent",
-          "weight": 0.35,
+          "name": "代码与终端 Agent",
+          "weight": 0.45,
           "metrics": [
             {
-              "name": "Terminal-Bench v4.0",
+              "name": "FrontierCode 2.0",
               "sub_weight": 0.4
-            },
-            {
-              "name": "LiveBench Long-Horizon",
-              "sub_weight": 0.35
             },
             {
               "name": "LiveBench Coding",
-              "sub_weight": 0.25
+              "sub_weight": 0.3
+            },
+            {
+              "name": "Terminal-Bench v4.0",
+              "sub_weight": 0.3
             }
           ]
         },
         {
-          "name": "业务自动化与 Web",
-          "weight": 0.15,
+          "name": "长程自主与自动化",
+          "weight": 0.25,
           "metrics": [
             {
-              "name": "AutomationBench",
+              "name": "LiveBench Long-Horizon",
               "sub_weight": 0.4
             },
             {
-              "name": "LiveBench Browser",
+              "name": "AutomationBench",
               "sub_weight": 0.35
             },
             {
-              "name": "LiveBench Data Analysis",
+              "name": "LiveBench Browser",
               "sub_weight": 0.25
             }
           ]
         },
         {
-          "name": "指令遵循与长上下文",
-          "weight": 0.2,
+          "name": "科学与硬推理",
+          "weight": 0.3,
           "metrics": [
             {
-              "name": "LCR",
-              "sub_weight": 0.55
-            },
-            {
-              "name": "MLCR",
-              "sub_weight": 0.45
-            }
-          ]
-        },
-        {
-          "name": "终极科学与推理",
-          "weight": 0.2,
-          "metrics": [
-            {
-              "name": "HLE",
-              "sub_weight": 0.6
+              "name": "HLE Diamond",
+              "sub_weight": 0.4
             },
             {
               "name": "CritPt v2 Hard",
-              "sub_weight": 0.25
+              "sub_weight": 0.35
             },
             {
               "name": "LiveBench Reasoning",
-              "sub_weight": 0.15
-            }
-          ]
-        },
-        {
-          "name": "事实准确性",
-          "weight": 0.1,
-          "metrics": [
-            {
-              "name": "Omniscience Index",
-              "sub_weight": 1.0
+              "sub_weight": 0.25
             }
           ]
         }
@@ -213,22 +195,22 @@
       "validation_json": "validation_text.json",
       "categories": [
         {
-          "name": "创意文学与小说创作",
-          "weight": 0.25,
+          "name": "创意写作与文档表现",
+          "weight": 0.3,
           "metrics": [
             {
               "name": "EQ-Bench Creative Writing",
-              "sub_weight": 0.6
+              "sub_weight": 0.65
             },
             {
               "name": "LiveBench Design",
-              "sub_weight": 0.4
+              "sub_weight": 0.35
             }
           ]
         },
         {
           "name": "专业案头与深度研究",
-          "weight": 0.25,
+          "weight": 0.3,
           "metrics": [
             {
               "name": "AA-Briefcase",
@@ -245,44 +227,30 @@
           ]
         },
         {
-          "name": "严格指令与长文本遵循",
-          "weight": 0.2,
+          "name": "长上下文检索与推理",
+          "weight": 0.25,
           "metrics": [
             {
+              "name": "MLCR",
+              "sub_weight": 0.7
+            },
+            {
               "name": "LCR",
+              "sub_weight": 0.3
+            }
+          ]
+        },
+        {
+          "name": "事实与抗幻觉",
+          "weight": 0.15,
+          "metrics": [
+            {
+              "name": "Omniscience Accuracy",
               "sub_weight": 0.55
             },
             {
-              "name": "MLCR",
-              "sub_weight": 0.45
-            }
-          ]
-        },
-        {
-          "name": "事实抗伪与真实性",
-          "weight": 0.15,
-          "metrics": [
-            {
-              "name": "Omniscience Index",
-              "sub_weight": 0.6
-            },
-            {
               "name": "Omniscience Non-Halluc.",
-              "sub_weight": 0.4
-            }
-          ]
-        },
-        {
-          "name": "推理与科研判断",
-          "weight": 0.15,
-          "metrics": [
-            {
-              "name": "LiveBench Reasoning",
-              "sub_weight": 0.6
-            },
-            {
-              "name": "CritPt v2 Hard",
-              "sub_weight": 0.4
+              "sub_weight": 0.45
             }
           ]
         }
@@ -295,80 +263,56 @@
       "rank_by": "score",
       "categories": [
         {
-          "name": "代码与 Agent",
-          "weight": 0.35,
+          "name": "代码与终端 Agent",
+          "weight": 0.45,
           "metrics": [
             {
-              "name": "Terminal-Bench v4.0",
+              "name": "FrontierCode 2.0",
               "sub_weight": 0.4
-            },
-            {
-              "name": "LiveBench Long-Horizon",
-              "sub_weight": 0.35
             },
             {
               "name": "LiveBench Coding",
-              "sub_weight": 0.25
+              "sub_weight": 0.3
+            },
+            {
+              "name": "Terminal-Bench v4.0",
+              "sub_weight": 0.3
             }
           ]
         },
         {
-          "name": "业务自动化与 Web",
-          "weight": 0.15,
+          "name": "长程自主与自动化",
+          "weight": 0.25,
           "metrics": [
             {
-              "name": "AutomationBench",
+              "name": "LiveBench Long-Horizon",
               "sub_weight": 0.4
             },
             {
-              "name": "LiveBench Browser",
+              "name": "AutomationBench",
               "sub_weight": 0.35
             },
             {
-              "name": "LiveBench Data Analysis",
+              "name": "LiveBench Browser",
               "sub_weight": 0.25
             }
           ]
         },
         {
-          "name": "指令遵循与长上下文",
-          "weight": 0.2,
+          "name": "科学与硬推理",
+          "weight": 0.3,
           "metrics": [
             {
-              "name": "LCR",
-              "sub_weight": 0.55
-            },
-            {
-              "name": "MLCR",
-              "sub_weight": 0.45
-            }
-          ]
-        },
-        {
-          "name": "终极科学与推理",
-          "weight": 0.2,
-          "metrics": [
-            {
-              "name": "HLE",
-              "sub_weight": 0.6
+              "name": "HLE Diamond",
+              "sub_weight": 0.4
             },
             {
               "name": "CritPt v2 Hard",
-              "sub_weight": 0.25
+              "sub_weight": 0.35
             },
             {
               "name": "LiveBench Reasoning",
-              "sub_weight": 0.15
-            }
-          ]
-        },
-        {
-          "name": "事实准确性",
-          "weight": 0.1,
-          "metrics": [
-            {
-              "name": "Omniscience Index",
-              "sub_weight": 1.0
+              "sub_weight": 0.25
             }
           ]
         }
@@ -1373,10 +1317,6 @@
   "score_threshold": 0,
   "max_imputed_ratio": 0.6,
   "max_missing_per_domain": 1,
-  "domain_gate_relax": {
-    "min_domain_r2": 0.85,
-    "max_relaxed_domains": 1
-  },
   "ridge_alpha": 0.1,
   "imputation_min_samples": 4,
   "standardize_features": true,
@@ -1390,28 +1330,5 @@
   "cost_fallback": {
     "cache_hit_multiplier": 0.1
   },
-  "domain_hierarchies": {
-    "code_agent": [
-      "LiveBench Coding",
-      "LiveBench Long-Horizon",
-      "Terminal-Bench v4.0"
-    ],
-    "automation_web": [
-      "LiveBench Browser",
-      "AutomationBench"
-    ],
-    "reasoning": [
-      "LiveBench Reasoning",
-      "HLE"
-    ],
-    "creative_literature": [
-      "LiveBench Design",
-      "EQ-Bench Creative Writing"
-    ],
-    "professional_work": [
-      "LiveBench Research",
-      "LiveBench Data Analysis",
-      "AA-Briefcase"
-    ]
-  }
+  "domain_hierarchies": {}
 }

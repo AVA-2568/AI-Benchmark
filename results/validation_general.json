@@ -1,62 +1,47 @@
 {
-  "Terminal-Bench v4.0": {
-    "mae": 0.0644,
-    "pct_over10": 63.2,
-    "n": 38
-  },
-  "LiveBench Long-Horizon": {
-    "mae": 8.3188,
-    "pct_over10": 71.0,
-    "n": 31
+  "FrontierCode 2.0": {
+    "mae": 0.0507,
+    "pct_over10": 69.7,
+    "n": 33
   },
   "LiveBench Coding": {
-    "mae": 8.527,
-    "pct_over10": 48.4,
-    "n": 31
-  },
-  "AutomationBench": {
-    "mae": 0.1055,
-    "pct_over10": 73.7,
-    "n": 38
-  },
-  "LiveBench Browser": {
-    "mae": 14.119,
-    "pct_over10": 61.3,
-    "n": 31
-  },
-  "LiveBench Data Analysis": {
-    "mae": 6.7893,
+    "mae": 6.4087,
     "pct_over10": 32.3,
     "n": 31
   },
-  "LCR": {
-    "mae": 0.0296,
-    "pct_over10": 10.8,
-    "n": 37
+  "Terminal-Bench v4.0": {
+    "mae": 0.086,
+    "pct_over10": 73.7,
+    "n": 38
   },
-  "MLCR": {
-    "mae": 0.0832,
-    "pct_over10": 78.8,
-    "n": 33
+  "LiveBench Long-Horizon": {
+    "mae": 12.075,
+    "pct_over10": 80.6,
+    "n": 31
   },
-  "HLE": {
-    "mae": 0.0391,
-    "pct_over10": 36.1,
-    "n": 36
+  "AutomationBench": {
+    "mae": 0.109,
+    "pct_over10": 76.3,
+    "n": 38
+  },
+  "LiveBench Browser": {
+    "mae": 12.2547,
+    "pct_over10": 64.5,
+    "n": 31
+  },
+  "HLE Diamond": {
+    "mae": 0.052,
+    "pct_over10": 68.4,
+    "n": 38
   },
   "CritPt v2 Hard": {
-    "mae": 0.069,
-    "pct_over10": 57.6,
+    "mae": 0.0568,
+    "pct_over10": 48.5,
     "n": 33
   },
   "LiveBench Reasoning": {
-    "mae": 3.0569,
-    "pct_over10": 3.2,
+    "mae": 3.2264,
+    "pct_over10": 6.5,
     "n": 31
-  },
-  "Omniscience Index": {
-    "mae": 17.5031,
-    "pct_over10": 97.0,
-    "n": 33
   }
 }

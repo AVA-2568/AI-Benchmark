@@ -134,11 +134,8 @@ def run_pipeline(rows, cfg, results_dir, fx_rate=None):
         write_validation(bkey, board_val, val_path)
         print(f"Saved validation [{bkey}] -> {val_path}")
 
-    # R² 提前计算：门槛放宽（ADR-0007）要用它判断被填补指标是否可高置信回测
+    # R² 仅作诊断输出；ADR-0007 放宽条款废止后不再参与上榜门槛判定
     r2 = engine.r2_log()
-    gate_relax = cfg.get("domain_gate_relax") or {}
-    relax_min_r2 = gate_relax.get("min_domain_r2")
-    max_relaxed = gate_relax.get("max_relaxed_domains", 1)
 
     for bkey, board in boards.items():
         out, headers = score_board(
@@ -149,9 +146,7 @@ def run_pipeline(rows, cfg, results_dir, fx_rate=None):
             max_imputed_ratio=board.get("max_imputed_ratio",
                                         cfg.get("max_imputed_ratio")),
             max_missing_per_domain=board.get("max_missing_per_domain",
-                                             cfg.get("max_missing_per_domain")),
-            domain_r2=r2, relax_min_r2=relax_min_r2,
-            max_relaxed_domains=max_relaxed)
+                                             cfg.get("max_missing_per_domain")))
         out_csv = os.path.join(results_dir, board["output_csv"])
         write_scored_csv(out, headers, out_csv)
         print(f"[{bkey}] >={score_threshold} score: {len(out)} rows")

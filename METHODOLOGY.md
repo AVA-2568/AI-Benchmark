@@ -11,7 +11,7 @@
 - **国际**：OpenAI（GPT-6/5.6/5.5/5.4/5.2）、Anthropic（Claude Fable 5 / Opus 5 / Opus 4.x / Sonnet）、Google（Gemini 3.x）、xAI（Grok 4.x/Build）、Meta（Muse Spark）、Thinking Machines（Inkling）
 - **国内**：DeepSeek（V4）、Kimi（K3/K2.6/K2.7）、Qwen（3.8/3.7/3.6）、GLM（5.3/5.2）、MiniMax（M3）、Xiaomi（MiMo）、Tencent（Hy）
 
-**为什么是精选而非全量**：AA 的 1000+ 模型里 90% 是重复变体（同一模型不同推理档）、长尾小厂、已弃用条目。精选池让覆盖率更高（17 个池指标的真值覆盖 31–46/75：LiveBench 系 31/75、AA 系 33–38/75、EQ-Bench 46/75）、填补更少、分数更「实」。停更的 DeepSWE 已淘汰，长程工程位置由 LiveBench 2.0 Long-Horizon 实测承担。
+**为什么是精选而非全量**：AA 的 1000+ 模型里 90% 是重复变体（同一模型不同推理档）、长尾小厂、已弃用条目。精选池让覆盖率更高（18 个池指标的真值覆盖 31–46/75：LiveBench 系 31/75、AA 系 33–38/75、EQ-Bench 46/75）、填补更少、分数更「实」。停更的 DeepSWE 已淘汰，长程工程位置由 LiveBench 2.0 Long-Horizon 实测承担。
 
 > 覆盖率数字随上游 release 变动。2026-11 起 LiveBench 只开放最新 release（34 个模型）且 v1 补充口径下线，因此 LB 系覆盖从 70/73 降到 31/75；落榜模型不是被删，而是**未达上榜门槛**（见「上榜门槛：每个领域最多缺 1 个基准值」）。
 
@@ -21,7 +21,7 @@
 |---|---|---|---|
 | LiveBench 2.0 | Coding / Long-Horizon / Browser / Reasoning / Data Analysis / Research / Design | Abacus.AI + 学界 | `data/<release>/table.csv`（**只取最新 release**；一行一模型、无 effort 后缀，行带 `release` 标记） |
 | EQ-Bench | Creative Writing Elo | 独立 | `creative_writing.js` 内嵌 CSV |
-| Artificial Analysis | Terminal-Bench v4.0 / AA-Briefcase / AutomationBench / LCR / MLCR / Omniscience Index / HLE / CritPt v2 Hard + 官方牌价 | 独立评测机构 | RSC 流（三级解析链，兼容 initialRows 与 scores 体系） |
+| Artificial Analysis | FrontierCode 2.0 / Terminal-Bench v4.0 / AA-Briefcase / AutomationBench / LCR / MLCR / Omniscience Accuracy / HLE Diamond / CritPt v2 Hard + 官方牌价 | 独立评测机构 | RSC 流（三级解析链，兼容 initialRows 与 scores 体系） |
 | Frankfurter | USD→CNY 汇率（ECB 官方） | 开源 | v2 rates API（备源 open.er-api.com） |
 | OpenRouter | 视觉模态元数据（`vision` 字段） | 开源聚合 | `/api/v1/models`（仅元数据，不参与评分） |
 
@@ -118,51 +118,66 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 
 ## 指标选取与权重
 
-本仓库维护**三个榜单**（通用榜 / 文本榜 / 性价比榜），共用同一次抓取、合并与缺失值填补，仅评分权重不同。性价比榜与通用榜同权重、同名次（`rank_by: "score"`，按综合分排序，避免便宜小模型霸榜），每行展示官方 API 混合价、最优订阅套餐的月费 / 倍率 / 套餐内等效价与购买链接；`Value = 综合分 ÷ 套餐内 $/1M` 仅作参考列。配套的「套餐购买指南」按套餐维度汇总：每个套餐取其覆盖厂商在通用榜上的最强模型，`套餐内 Value = 最强模型综合分 ÷ (Blended $/1M × 折扣)`，按该值降序——同时反映套餐可用的模型上限与折算价格（详见「订阅套餐与倍率」一节）。
+本仓库维护**三个榜单**（通用榜 / 文本榜 / 性价比榜），共用同一次抓取、合并与缺失值填补；通用榜与文本榜使用**互不相交的指标集**（见下节），性价比榜与通用榜同指标同权重。性价比榜与通用榜同权重、同名次（`rank_by: "score"`，按综合分排序，避免便宜小模型霸榜），每行展示官方 API 混合价、最优订阅套餐的月费 / 倍率 / 套餐内等效价与购买链接；`Value = 综合分 ÷ 套餐内 $/1M` 仅作参考列。配套的「套餐购买指南」按套餐维度汇总：每个套餐取其覆盖厂商在通用榜上的最强模型，`套餐内 Value = 最强模型综合分 ÷ (Blended $/1M × 折扣)`，按该值降序——同时反映套餐可用的模型上限与折算价格（详见「订阅套餐与倍率」一节）。
 
-### 上榜门槛：每个领域最多缺 1 个基准值（高 R² 域可再放宽 1 个）
+### 上榜门槛：每个领域最多缺 1 个基准值
 
-每个领域由 2–3 个基准值构成（如「代码与 Agent」= Terminal-Bench v4.0 + LiveBench Long-Horizon + LiveBench Coding，来自 AA 与 LiveBench 两个源）。数据缺口的容忍度按**领域内缺失的基准值个数**计算，而不是按数据源个数：
+每个领域由 2–3 个基准值构成（如通用榜「代码与终端 Agent」= FrontierCode 2.0 + LiveBench Coding + Terminal-Bench v4.0，来自 AA 与 LiveBench 两个源）。数据缺口的容忍度按**领域内缺失的基准值个数**计算，而不是按数据源个数：
 
 - **域内缺 1 个** → 可回测：由同域其他基准的岭回归填补，仍上榜。
 - **域内缺 2 个**（或单基准域缺这唯一一个）→ 该行不上榜。纸面证据不足时，补出来的是「猜」不是「测」。
-- **高 R² 例外**：某域恰好缺 2 个时，若这 2 个缺口指标的域内回归 R² 都 ≥ `domain_gate_relax.min_domain_r2`（0.85），视为「上游未公布但可高置信回测」放行；每行最多放宽 `max_relaxed_domains`（1）个域。
-- 参数 `max_missing_per_domain = 1`、`domain_gate_relax`（`config.json`），逐榜按其 `categories` 判定；`max_imputed_ratio`（0.6）作为指标层面的二次保护。
+- 参数 `max_missing_per_domain = 1`（`config.json`），逐榜按其 `categories` 判定；`max_imputed_ratio`（0.6）作为指标层面的二次保护。**门槛无例外**。
 
-例外条款的由来：新模型首发时 AA 常晚于 LiveBench 补测 HLE，按个数一刀切会把已具备 16/17 实测的一线模型挡在榜外。Gemini 4 Carbon（2026-11-12 入池）即此情形——通用榜 5 个域里只有「终极科学与推理」缺 HLE，而该指标域内 R² 为 0.813。反向验证：放宽规则**只**放行 R² ≥0.85 的域，LB 系（R² 0.51–0.79）与 Omniscience（0.137）仍被原门槛拦下。见 [ADR-0006](docs/adr/0006-per-domain-missing-cap.md)、[ADR-0007](docs/adr/0007-r2-gated-domain-gate-relax.md)。
+> ADR-0007 曾允许「域内缺 2 个但缺口指标域内 R² ≥ 0.85」放行，实测本季从未生效（池内最高 R² 为 CritPt v2 Hard 0.776 < 0.85，有/无放宽均为 26 行），2026-11-13 已连同配置、代码、测试一并移除，门槛回到 ADR-0006 的无例外语义。见 [ADR-0006](docs/adr/0006-per-domain-missing-cap.md)、[ADR-0007](docs/adr/0007-r2-gated-domain-gate-relax.md)。
 
-当前效果：75 个池模型中 **26 个达标**（通用榜 / 文本榜 / 性价比榜均 26 行）；通用榜 24/26 行为全实测，文本榜按权重 93% 为实测（其余为域内回测）。门槛的作用是把证据不足的模型挡在榜外，而不是靠填补把行数撑满。
+当前效果（重铸后）：75 个池模型中 **26 个达标**（三榜均 26 行）；通用榜 **26/26 行全实测**，文本榜 11/26 行全实测（15 行带填补，集中在 EQ-Bench Creative Writing）。与重铸前相比，通用榜 Top5 首尾分差 7.4 → 9.2、全榜标准差 15.5 → 20.1，两榜排名 Spearman 0.928 → 0.884。门槛的作用是把证据不足的模型挡在榜外，而不是靠填补把行数撑满。
 
-### 通用榜 General（五维黄金标尺）
 
-面向**真实编程 / 智能体 / 复杂工作流**，全面对齐 OpenAI（GPT-6 / 5.x）与 Anthropic（Claude Fable / Opus）两家官方旗舰发布主表使用的核心共识基准，选取 11 个指标归入 5 大领域。**下表与 `config.json` 的 `leaderboards.general.categories` 一一对应**（改权重必须同步改本表，否则视为文档缺陷）：
+### 两榜重铸：零共享指标的能力链（ADR-0009）
 
-| 领域分类 (权重) | 基准指标 | 子权重 | 官方来源与域内互锁逻辑 |
+旧版把 17 个指标按「任务格子」切成两榜各 5 域，两榜共享 LCR / MLCR / Omniscience / Reasoning / CritPt 等底层指标，结果两榜排名 Spearman 0.928、Top15 重合 13/15——本质是同一张榜换权重。2026-11 重铸为**两条互不相交的能力链**：
+
+- **通用榜（偏编程）= 工程能力链**：3 个域、9 个指标，全部来自 AA + LiveBench。
+- **文本榜 = 内容生产能力链**：4 个域、9 个指标，AA + LiveBench + EQ-Bench。
+- 两榜**零共享评分指标**，各自独立打分；不引用任何上游综合分（AA Intelligence Index / LiveBench 总榜），也不拿一张榜的结论去定义另一张。任何指标入池、替换或权重调整都必须同时在两榜数据上验证，不以单一榜单的结论为准。
+
+**为什么换掉三个基准**：旧指标在头部已饱和——以本季 26 个上榜模型计，Terminal-Bench v4.0 的 Top10 标准差只有 4.4 分、HLE 7.2 分、Omniscience Index 9.1 分，而填补 MAE 分别达 6.4 / 3.9 / 17.5 分，头部名次实际落在噪声里。AA 已拉取但未入池的同构难版在头部区分度显著更高：FrontierCode 2.0（Top10 sd 16.3）、HLE Diamond（16.1）、Omniscience Accuracy（13.8）。三者是**替换**而非叠加，池指标数保持 18、不构成重复计权；其中 Omniscience Accuracy 与 Omniscience Non-Halluc. 的 r 仅 -0.066，是真正独立的一维。
+
+> 已知妥协：FrontierCode 2.0 与 LiveBench Long-Horizon 的 r=0.944，二者分属「代码与终端 Agent」与「长程自主与自动化」两域，存在同源重复计权。保留是因为前者测难题代码上限、后者测长程工程耐力，且长程域权重仅 25%。ADR-0008 否决的是「已有 LB Long-Horizon 时再叠加 FrontierCode 2.0」，与本处的分域共存不是同一情形。
+
+#### 通用榜 General（工程能力链，3 域）
+
+| 领域 (权重) | 基准指标 | 子权重 | 来源 |
 |---|---|---|---|
-| **代码与 Agent** (35%) | **Terminal-Bench v4.0** | 40% | AA 官方统一测试 harness 评测真实终端操作与命令行 Agent，杜绝多平台 scaffold 干扰。v4.0 在 AA v4.3 中取代 v2.1：v2.1 已饱和（精选池 24/39 模型挤在 ≥0.78），v4.0 区分度显著更高（标准差 0.165 vs 0.117），两者 r=0.709 |
-| | **LiveBench Long-Horizon** | 35% | 长程多步工程任务；DeepSWE 退役后由它承担「真实工程耐力」位置 |
-| | **LiveBench Coding** | 25% | 独立防污染算法与严谨代码生成 |
-| **业务自动化与 Web** (15%) | **AutomationBench** | 40% | AA 官方企业级多步骤复杂业务自动化与工作流基准（AA 已用其取代 tau3-Banking） |
-| | **LiveBench Browser** | 35% | 浏览器操作与 Web 交互型 Agent |
-| | **LiveBench Data Analysis** | 25% | 复杂多表关联、数据转换与事件时间线分析 |
-| **指令遵循与长上下文** (20%) | **LCR** | 55% | 1M 超长文本跨文档检索可靠性（英文口径） |
-| | **MLCR** | 45% | 多语言长上下文检索与推理（AA 2026-11 更新 prompt 与三人评审）；与 LCR 仅 r=0.44，补上非英文长文维度 |
-| **终极科学与推理** (20%) | **HLE (Humanity's Last Exam)** | 60% | 博士级多学科前沿终极考场（彻底淘汰已饱和的 GPQA） |
-| | **CritPt v2 Hard** | 25% | 前沿科研批判与复杂系统推理（CritPt v2 困难版）。2026-11 取代 SciCode：AA 已对 SciCode 数据集标注 underReview（独立审计发现疑似错误），且 CritPt v2 在本季 27 个 LiveBench 模型上覆盖 27/27、标准差 0.209（SciCode 为 24/27、0.06） |
-| | **LiveBench Reasoning** | 15% | 防污染复杂多步逻辑推理 |
-| **事实准确性** (10%) | **Omniscience Index** | 100% | 防幻觉与未知边界拒答基准 |
+| **代码与终端 Agent** (45%) | FrontierCode 2.0 | 40% | AA |
+| | LiveBench Coding | 30% | LiveBench |
+| | Terminal-Bench v4.0 | 30% | AA |
+| **长程自主与自动化** (25%) | LiveBench Long-Horizon | 40% | LiveBench |
+| | AutomationBench | 35% | AA |
+| | LiveBench Browser | 25% | LiveBench |
+| **科学与硬推理** (30%) | HLE Diamond | 40% | AA |
+| | CritPt v2 Hard | 35% | AA |
+| | LiveBench Reasoning | 25% | LiveBench |
 
-全局权重之和 = 1.00。
+#### 文本榜 Text（内容生产能力链，4 域）
 
-### 文本榜 Text（五维）
+| 领域 (权重) | 基准指标 | 子权重 | 来源 |
+|---|---|---|---|
+| **创意写作与文档表现** (30%) | EQ-Bench Creative Writing | 65% | EQ-Bench |
+| | LiveBench Design | 35% | LiveBench |
+| **专业案头与深度研究** (30%) | AA-Briefcase | 40% | AA |
+| | LiveBench Research | 35% | LiveBench |
+| | LiveBench Data Analysis | 25% | LiveBench |
+| **长上下文检索与推理** (25%) | MLCR | 70% | AA |
+| | LCR | 30% | AA |
+| **事实与抗幻觉** (15%) | Omniscience Accuracy | 55% | AA |
+| | Omniscience Non-Halluc. | 45% | AA |
 
-| 领域分类 (权重) | 基准指标 | 子权重 |
-|---|---|---|
-| **创意文学与小说创作** (25%) | EQ-Bench Creative Writing 60% / LiveBench Design 40% | 60% / 40% |
-| **专业案头与深度研究** (25%) | AA-Briefcase 40% / LiveBench Research 35% / LiveBench Data Analysis 25% | 40% / 35% / 25% |
-| **严格指令与长文本遵循** (20%) | LCR 55% / MLCR 45% | 55% / 45% |
-| **事实抗伪与真实性** (15%) | Omniscience Index 60% / Omniscience Non-Halluc. 40% | 60% / 40% |
-| **推理与科研判断** (15%) | LiveBench Reasoning 60% / CritPt v2 Hard 40% | 60% / 40% |
+权重按「该指标在头部模型上能否拉开分差 × 信噪比」配置，而不是按语义重要性平均分配：MLCR 的 Top10 sd 达 20.1 而 LCR 仅 2.1，故 70/30；EQ-Bench 实测时 sd 28 而 LiveBench Design 仅 8，故 65/35。
+
+**短板列**：`Bottleneck` / `Bottleneck Domain` 输出每行最低的域分及所属域。加权总分允许长板补偿短板，但真实 agent / 案头任务是串联的，短板才决定能不能把活干完。当前头部模型的短板普遍落在「长程自主与自动化」域，这在单一综合分里完全看不见。
+
+全局权重之和均为 1.00；性价比榜与通用榜同指标、同权重、同名次。
 
 ### 多模态（Vision）特性呈现与前沿标识
 
@@ -174,25 +189,7 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
   - **表格标识**：CSV 与 Top 15 表格增设 `Vision` 显式列（`👁️` / `-`）；
   - **双帕累托前沿图**：散点图清晰区分**实心圆点（支持视觉）**与**三角形点（纯文本）**，帮助用户在同一预算/能力档位下快速直观地做出多模态选型决策。
 
-### 文本榜 Text
 
-适用于小说创作、专业案头分析、长文阅读理解与日常对话，不包含代码生成与数理考试指标。全面剔除更新迟缓的第三方抓取源，回归 100% 官方受控的高覆盖体系（覆盖率均达 92%~100%）：
-
-| 领域分类 (权重) | 核心主基准 (Major) | 关键辅助基准 (Minors) | 子权重分配 | 来源与评估重点 |
-|---|---|---|---|---|
-| **创意文学与小说创作** (25%) | **EQ-Bench Creative Writing** | | 60% | 创意写作 Elo（文笔质感、人物塑造与情感表现力） |
-| | | **LiveBench Design** | 40% | LiveBench 2.0 版面设计、视觉排版与文档表现规范 |
-| **专业案头与深度研究** (25%) | **AA-Briefcase** | | 40% | 真实多周专业案头项目（数千源文件、复杂工作交付） |
-| | | **LiveBench Research** | 35% | LiveBench 2.0 深度研究、学术综述与行业分析 |
-| | | **LiveBench Data Analysis** | 25% | LiveBench 2.0 商业表格合并、数据转换与定量分析 |
-| **严格指令与长文本遵循** (20%) | **LCR** | | 55% | AA 官方 1M 超长文本跨文档精确检索与长程格式遵循 |
-| | | **MLCR** | 45% | AA 多语言长上下文检索与推理（2026-11 更新 prompt 与三人评审），与 LCR 互补 |
-| **事实抗伪与真实性** (15%) | **Omniscience Index** | | 60% | 事实性与未知边界防幻觉得分 (AA) |
-| | | **Omniscience Non-Halluc.** | 40% | AA 官方抗幻觉率 (1 - Hallucination Rate) (AA) |
-| **推理与科研判断** (15%) | **LiveBench Reasoning** | | 60% | LiveBench 2.0 复杂防污染多步逻辑推理 |
-| | | **CritPt v2 Hard** | 40% | Critical Point v2 困难版：前沿科研批判与复杂系统推理 (AA) |
-
-全局权重之和 = 1.00。
 
 > 各榜权重与领域分组均可在 [`config.json`](config.json) 中自定义，无需修改源码。
 
@@ -200,7 +197,7 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 
 ### 跨源合并
 
-`merge.py` 读 `model_registry.json` + 各源 CSV，把 5 个源的分数合并成统一宽表（行 = 统一 slug，列 = 17 个池指标 + Model/Creator）。LiveBench 别名可为列表（如 `deepseek-v4-pro` 的正式版 `-0813` 与预览版），多个匹配时取分数最高者。缺失值留空，交由评分阶段的岭回归填补。
+`merge.py` 读 `model_registry.json` + 各源 CSV，把 5 个源的分数合并成统一宽表（行 = 统一 slug，列 = 18 个池指标 + Model/Creator）。LiveBench 别名可为列表（如 `deepseek-v4-pro` 的正式版 `-0813` 与预览版），多个匹配时取分数最高者。缺失值留空，交由评分阶段的岭回归填补。
 
 **AA 定价取官方行**：AA 是按（Model Slug × Provider）的宽表，同一模型有 N 个 Provider 行（如 `deepseek-v4-flash` 15 行）。各行评测分数完全一致，但定价是各 Provider 自报的分销价——排行榜展示的必须是模型官方牌价（`Provider` 与 `Creator` 归一化互含，如 DeepSeek 行 0.44/1.32），而非 CSV 末行的分销价（Makora 0.09/0.195）。无官方行的模型（如 hy3 纯第三方分销）回退末行。视觉变体是独立 Model Slug（如 `deepseek-v4-flash-vision`），不会混入对应文本模型的行。
 
@@ -220,19 +217,20 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 - 加新模型不影响已有模型的分数（锚点固定，不随样本漂移）
 - **越界裁剪**：原始值超出锚点范围时裁剪到 0–100（如 EQ-Bench Elo 超过 2200 上限不再产生 >100 的异常分）
 
+
 各指标锚点：
 
 | 指标 | 锚点 [lo, hi] | 说明 |
 |---|---|---|
 | LiveBench 2.0 各分类（Coding / Long-Horizon / Browser / Reasoning / Data Analysis / Research / Design） | [0, 100] | 官方 0–100 百分比 |
-| LCR / HLE / AutomationBench / Omniscience Non-Halluc. / Terminal-Bench v4.0 | [0, 1] | 0–1 比例，×100 映射到 0–100 分 |
-| CritPt v2 Hard | [0, 0.8] | 0–1 比例，按本季实测上界 0.77 取锚；锚在 1.0 会把头部压进 80 分以下、损失区分度 |
-| MLCR | [0, 0.5] | 0–1 比例，按本季实测上界 0.44 取锚 |
-| Omniscience Index | [-50, 50] | 净得分实际可达范围（全对/全错几乎不可能，0=中性） |
-| EQ-Bench Creative Writing | [1400, 2200] | Elo 实际分布约 1438~2105，下限设为 1400 |
+| LCR / AutomationBench / Omniscience Non-Halluc. / Terminal-Bench v4.0 | [0, 1] | 0–1 比例，×100 映射到 0–100 分 |
+| CritPt v2 Hard / HLE Diamond | [0, 0.8] | 按本季实测上界取锚；锚在 1.0 会把头部压进 80 分以下 |
+| MLCR / FrontierCode 2.0 | [0, 0.5] | 按本季实测上界取锚 |
+| Omniscience Accuracy | [0, 0.8] | 事实准确率，本季池内最高 0.791 |
+| EQ-Bench Creative Writing | [1400, 2200] | Elo 实际分布约 1438~2105 |
 | AA-Briefcase | [400, 1700] | Elo 实际分布约 459~1662（AA v4.3 重锚后） |
 
-> 与旧版 min-max 的区别：min-max 用「样本最高=100、最低=0」动态锚点，把名次差当能力差（离群值敏感、样本小不稳定、二次归一化抹掉难度）；固定锚点保留绝对难度与稳定性。Omniscience Index 用 [-50,50] 而非官方 [-100,100]：后者把实际样本（约 -19~43）压缩到 40-72 的窄区间、且让负分模型虚高到 40 分，[-50,50] 更贴合实际可达范围，负分模型正确压到 <50 分。
+> 与旧版 min-max 的区别：min-max 用「样本最高=100、最低=0」动态锚点，把名次差当能力差（离群值敏感、样本小不稳定、二次归一化抹掉难度）；固定锚点保留绝对难度与稳定性。难题类指标（FrontierCode 2.0 / HLE Diamond / MLCR / CritPt v2 Hard）按本季实测上界而非理论满分取锚：锚在理论 1.0 会把头部压进 80 分以下、损失区分度，也反映不出题目本身的难度。
 
 ## 特征标准化（岭回归输入）
 
@@ -253,15 +251,18 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 
 填补在 7 个互不相交的领域分组上进行，**严格禁止跨领域特征污染**（如禁止用文学写作分预测终端代码能力）。各领域池成员在 `config.json` `domain_groups` 中声明；`validate_config` 强制每个池指标恰属一域（重叠声明或漏声明都会构建失败，避免静默退化）。
 
-| 域 | 成员（真值覆盖率 n/73） | 说明 |
-|---|---|---|
-| `code_agent` | Terminal-Bench v4.0 (37) / LiveBench Long-Horizon (29) / LiveBench Coding (29) | 通用榜代码与 Agent |
-| `automation_web` | AutomationBench (37) / LiveBench Browser (29) | 通用榜业务自动化 |
-| `instruction` | LCR (37) / MLCR (33) | 两榜共用：长上下文检索（英文 + 多语言） |
-| `reasoning` | HLE (36) / CritPt v2 Hard (33) / LiveBench Reasoning (31) | 通用榜科学与推理（SciCode 因 AA 标注 underReview 于 2026-11 下架，见 ADR-0008） |
-| `factuality` | Omniscience Index (32) / Omniscience Non-Halluc. (32) | 两榜共用：事实抗伪。两列只有 32 行真值，其余靠本域回归填补；Omniscience LOO-MAE 偏高（≈16.4）仅作诚实披露，不影响任何行分数 |
-| `creative_literature` | EQ-Bench Creative Writing (46) / LiveBench Design (29) | 文本榜创意文学 |
-| `professional_work` | AA-Briefcase (38) / LiveBench Research (31) / LiveBench Data Analysis (31) | 文本榜专业案头 |
+
+| 域 | 所属榜 | 成员（真值覆盖 n/75） | 说明 |
+|---|---|---|---|
+| `code_agent` | 通用 | FrontierCode 2.0 (33) / LiveBench Coding (31) / Terminal-Bench v4.0 (38) | 代码与终端 Agent |
+| `long_horizon_automation` | 通用 | LiveBench Long-Horizon (31) / AutomationBench (38) / LiveBench Browser (31) | 长程自主与自动化 |
+| `hard_reasoning` | 通用 | HLE Diamond (38) / CritPt v2 Hard (33) / LiveBench Reasoning (31) | 科学与硬推理 |
+| `creative_writing` | 文本 | EQ-Bench Creative Writing (46) / LiveBench Design (31) | 创意写作与文档表现 |
+| `professional_work` | 文本 | AA-Briefcase (38) / LiveBench Research (31) / LiveBench Data Analysis (31) | 专业案头与深度研究 |
+| `long_context` | 文本 | MLCR (33) / LCR (37) | 长上下文检索（英文 + 多语言） |
+| `factuality` | 文本 | Omniscience Accuracy (33) / Omniscience Non-Halluc. (33) | 事实与抗幻觉 |
+
+每个域只服务一个榜，域内成员与该榜 `categories` 的指标完全一致——回归特征不可能借到另一张榜的指标。`validate_config` 强制每个池指标恰属一域。
 
 ### 填补算法：分域多变量岭回归 + 物理层级单调性约束
 
@@ -272,7 +273,7 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 3. **物理层级单调性与防刷分天花板约束（Hierarchy Envelope）**：
    - 现实中，高阶前沿指标（如 `Terminal-Bench v4.0` 终端交互、`HLE` 博士考场）的难度必然高于基础指标（如 `LiveBench Coding`、`LiveBench Reasoning`）；
    - 算法内置领域层级链（`domain_hierarchies`），强制执行单调性约束：**高层级预测分严格不得脱离底层基础能力分**（防止未公布高难指标的普通模型被盲目抬高虚高分）；
-   - 无实证难度排序的域不设链（`factuality`、`humanities_mind`、`instruction`）：宁可无约束，不设错约束。反例：`humanities_mind` 曾设 `CritPt→Theory of Mind` 链，方向与数据相反（ToM 均值 78 是基础项、CritPt 均值 0.15 是高难项），导致无 ToM 真值的模型被压到 4~5 分，已删除（ToM 指标本身也已随 LiveBench 2.0 升级退出池）；
+   - 重铸后所有域均不设链（`domain_hierarchies` 为空）：新指标的实证难度阶梯尚未建立，按「宁可无约束，不设错约束」清空全部层级链。历史教训：`humanities_mind` 曾设 `CritPt→Theory of Mind` 链，方向与数据相反（ToM 均值 78 是基础项、CritPt 均值 0.15 是高难项），导致无 ToM 真值的模型被压到 4~5 分，已删除（ToM 指标本身也已随 LiveBench 2.0 升级退出池）；
 4. **阻尼更新**：`cur = 0.5 * cur + 0.5 * pred`，迭代直至收敛（量程容差 0.5%）。
 
 ### 最小样本门槛
@@ -293,9 +294,10 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 
 **乐观偏差（须知）**：当前 LOO 在迭代填补写满 `cur` 之后运行，其他指标的已填补值会进入特征，故 MAE 略偏乐观（低估真实填补误差）。解读时按上界参考。
 
+
 ## 模型拟合质量（R²）
 
-用全量训练集拟合后，计算每个指标的训练集 R²（z-score 空间）。R² 越高，该指标的缺失值预测越可信。当前（release 20261106）各指标 R² 约 0.14–0.84，其中 HLE（0.81）、CritPt v2 Hard（0.82）、Terminal-Bench v4.0（0.84）最可预测；LCR（0.25）与 MLCR（0.22）次之——两者互为依据，比单指标时（R²=0）明显改善；Omniscience 系（0.14）、LiveBench Data Analysis（0.24）最低，填补可信度请以留一验证 MAE 为准。
+用全量训练集拟合后，计算每个指标的训练集 R²（z-score 空间），由 `ImputationEngine.r2_log()` 在每次构建时输出到控制台。R² 越高，该指标的缺失值预测越可信。ADR-0007 曾把它用作上榜门槛的放宽依据，实测从未生效（本季最高仅 0.776 < 0.85），该条款已废止；R² 现在**只作诊断，不影响上榜判定**。判断填补可信度请以 `results/validation_*.json` 的留一验证 MAE 为准，数字随上游变动，不在本文档写死。
 
 ## 能力-成本前沿图
 
@@ -313,3 +315,4 @@ AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`
 3. **权重可自定义**：权重设计反映「编程 + 智能体 + 日常对话」的平衡，可通过 `config.json` 调整
 4. **模型池需维护**：主流旗舰模型池与别名映射在 `model_registry.json`，新增模型需同步
 5. **特征独立性**：填补仅用评分指标交叉预测，不含任何合成综合分，避免循环论证
+6. **文本榜填补集中**：文本榜 26 行里 15 行带 `EQ-Bench Creative Writing(reg)`（实测覆盖 46/75，域内回归 R² 仅 0.036）。填补值已在 `Imputed` 列逐行标注；`imputed_weight_discount` 目前保持默认 1.0，后续可按指标 R² 做差异化降权，避免低信噪填补值制造头部名次

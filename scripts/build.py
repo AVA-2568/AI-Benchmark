@@ -265,17 +265,19 @@ def _board_blocks(bkey, board, n_models, today):
                 ))
     else:
         lines = [
-            "| # | Model | Creator | Vision | Score | Imputed |",
-            "|---|---|---|---|---|---|",
+            "| # | Model | Creator | Vision | Score | Bottleneck | Imputed |",
+            "|---|---|---|---|---|---|---|",
         ]
         for r in top:
             imp = (r["Imputed"] or "").strip()
             v_val = r.get("Vision")
             has_v = (v_val is True or str(v_val).strip().lower() in ("yes", "true", "1"))
             v_cell = "👁️" if has_v else "-"
-            lines.append("| {} | {} | {} | {} | {} | {} |".format(
+            bn = (r.get("Bottleneck") or "").strip() or "-"
+            lines.append("| {} | {} | {} | {} | {} | {} | {} |".format(
                 r["Rank"], r["Model"], r["Creator"], v_cell,
                 r.get("Weighted Total") or "",
+                bn,
                 imp or "-",
             ))
     top15_md = "\n".join(lines)

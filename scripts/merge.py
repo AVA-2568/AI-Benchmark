@@ -2,11 +2,11 @@
 """跨源合并：model_registry.json + 各源 CSV -> merged.csv（统一宽表）。
 
 行 = 注册表里的模型（统一 slug），列 = config.imputation_pool 的
-17 个指标 + Model/Creator。各源分数通过别名匹配；livebench 别名可为列表，
+18 个指标 + Model/Creator。各源分数通过别名匹配；livebench 别名可为列表，
 多个匹配时取分数最高者。缺失值留空，交由评分阶段的岭回归填补。
 
 数据源：
-- AA (scripts/aa_providers.csv)         -> Terminal-Bench v4.0 / AutomationBench / LCR / Omniscience / HLE / SciCode / CritPt / 成本列
+- AA (scripts/aa_providers.csv)         -> FrontierCode 2.0 / Terminal-Bench v4.0 / AutomationBench / LCR / MLCR / Omniscience Accuracy / HLE Diamond / CritPt v2 Hard / Briefcase / 成本列
     （同一 Model Slug 有多 Provider 行时：分数各行一致，定价取官方行，
     见 _pick_aa_row；视觉变体是独立 slug，不会混入）
 - LiveBench (scripts/.cache/livebench.csv) -> Coding / Long-Horizon / Browser / Data Analysis / Reasoning / Research / Design
@@ -185,13 +185,12 @@ def build_merged():
 
     # 指标名（与 config.json imputation_pool 一致）
     cols = [
-        "Terminal-Bench v4.0", "LiveBench Long-Horizon", "LiveBench Coding",
-        "AutomationBench", "LiveBench Browser", "LiveBench Data Analysis",
-        "LCR", "MLCR", "HLE", "CritPt v2 Hard", "LiveBench Reasoning",
-        "Omniscience Index", "Omniscience Non-Halluc.",
-        "EQ-Bench Creative Writing",
-        "LiveBench Research", "LiveBench Design",
-        "AA-Briefcase",
+        "FrontierCode 2.0", "LiveBench Coding", "Terminal-Bench v4.0",
+        "LiveBench Long-Horizon", "AutomationBench", "LiveBench Browser",
+        "HLE Diamond", "CritPt v2 Hard", "LiveBench Reasoning",
+        "EQ-Bench Creative Writing", "LiveBench Design",
+        "AA-Briefcase", "LiveBench Research", "LiveBench Data Analysis",
+        "MLCR", "LCR", "Omniscience Accuracy", "Omniscience Non-Halluc.",
     ]
 
     out_rows = []
@@ -218,13 +217,14 @@ def build_merged():
         # AA（分数各 Provider 行一致；定价取官方行，见 _pick_aa_row）
         aa_row, _ = _pick_aa_row(aa_rows, m.get("aa"), m.get("creator"))
         if aa_row:
+            row["FrontierCode 2.0"] = _num(aa_row.get("FrontierCode 2.0"))
             row["Terminal-Bench v4.0"] = _num(aa_row.get("Terminal-Bench v4.0"))
             row["AutomationBench"] = _num(aa_row.get("AutomationBench"))
             row["LCR"] = _num(aa_row.get("LCR"))
             row["MLCR"] = _num(aa_row.get("MLCR"))
-            row["Omniscience Index"] = _num(aa_row.get("Omniscience Index"))
+            row["Omniscience Accuracy"] = _num(aa_row.get("Omniscience Accuracy"))
             row["Omniscience Non-Halluc."] = _num(aa_row.get("Omniscience Non-Halluc."))
-            row["HLE"] = _num(aa_row.get("HLE"))
+            row["HLE Diamond"] = _num(aa_row.get("HLE Diamond"))
             row["CritPt v2 Hard"] = _num(aa_row.get("CritPt v2 Hard"))
             if aa_row.get("AA-Briefcase"):
                 row["AA-Briefcase"] = _num(aa_row.get("AA-Briefcase"))
