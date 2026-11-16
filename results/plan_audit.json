@@ -1,7 +1,7 @@
 {
-  "run_date": "2026-11-12T04:09:33.873908+00:00",
+  "run_date": "2026-11-16T08:43:33.908041+00:00",
   "max_age_days": 21,
-  "online": false,
+  "online": true,
   "summary": {
     "plans": 57,
     "pass": 57,
@@ -10,10 +10,10 @@
   },
   "coverage": {
     "summary": {
-      "total_models": 75,
-      "covered_count": 61,
+      "total_models": 76,
+      "covered_count": 62,
       "uncovered_count": 14,
-      "coverage_rate": 0.8133
+      "coverage_rate": 0.8158
     },
     "forward": [
       {
@@ -3660,6 +3660,14 @@
           "monthly": 199.99,
           "discount": 0.0581,
           "multiplier": 17.21
+        },
+        {
+          "slug": "gemini-4-hydrogen",
+          "creator": "Google",
+          "plan_name": "Google AI Ultra 20x",
+          "monthly": 199.99,
+          "discount": 0.0581,
+          "multiplier": 17.21
         }
       ]
     }
@@ -3670,399 +3678,399 @@
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "ChatGPT Pro 100",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "ChatGPT Plus",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Claude Ultra",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Claude Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Claude Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "MiniMax Max Token Plan",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "MiniMax Ultra Token Plan",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "MiniMax Plus Token Plan",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Kimi 会员 Allegretto",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "SuperGrok Heavy",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "SuperGrok",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "GitHub Copilot Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "GitHub Copilot Pro+",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "GitHub Copilot Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "GLM Coding Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "GLM Coding Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "GLM Coding Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Hy Token Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Hy Token Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "MiMo Token Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "MiMo Token Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Qwen Token Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Qwen Token Plan Standard",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Qwen Token Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "WorkBuddy 高级版",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "WorkBuddy 标准版",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "WorkBuddy 旗舰版",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Hy Token Plan Standard",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Hy Token Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "OpenCode Go",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Kimi Andante",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Factory Droid Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Trae Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Cursor Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Kimi Moderato",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Kimi Allegro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "MiMo Token Plan Standard",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "MiMo Token Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Cursor Pro+",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Cursor Ultra",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Windsurf Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Ollama Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "火山方舟 Coding Plan Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "火山方舟 Coding Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Command Code GOAT",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "R4 Coder Code Lite",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Poe Premium",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Step Plan Mini",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Step Plan Plus",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Step Plan Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Step Plan Max",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Mistral Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Google AI Plus",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Google AI Pro",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Google AI Ultra 5x",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     },
     {
       "name": "Google AI Ultra 20x",
       "status": "pass",
       "errors": [],
       "warnings": [],
-      "url_status": null
+      "url_status": 200
     }
   ]
 }
