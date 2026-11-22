@@ -8,12 +8,15 @@ Creator 一致，如 DeepSeek 行），而非按 CSV 行序取末行（如 Makor
 import os
 import sys
 
+import pytest
+
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _SCRIPTS = os.path.join(_REPO, "scripts")
 if _SCRIPTS not in sys.path:
     sys.path.insert(0, _SCRIPTS)
 
 from merge import (  # noqa: E402
+    _check_aa_join,
     _is_official_aa_row,
     _pick_aa_row,
     _pick_best_row,
@@ -76,6 +79,23 @@ def test_no_match_returns_none():
         [_row("DeepSeek", "deepseek", "0.44", "1.32", model_slug="other")],
         "m", "DeepSeek")
     assert (row, used) == (None, None)
+
+
+# ---- AA join 哨兵：别名全落空 = 上游 slug 口径变了 ----
+
+def test_aa_join_broken_raises():
+    registry = [{"slug": "a", "aa": "gpt-6"}, {"slug": "b", "aa": "claude-opus-5"}]
+    with pytest.raises(RuntimeError, match="AA join 断裂"):
+        _check_aa_join(registry, 0)
+
+
+def test_aa_join_passes_when_any_matched():
+    registry = [{"slug": "a", "aa": "gpt-6"}, {"slug": "b", "aa": "absent"}]
+    _check_aa_join(registry, 1)  # 不抛异常即通过
+
+
+def test_aa_join_skips_when_no_alias_configured():
+    _check_aa_join([{"slug": "a"}, {"slug": "b", "aa": None}], 0)
 
 
 # ---- _pick_best_row：最新 release 优先，同 release 内取最高档 ----

@@ -168,6 +168,23 @@ def _pick_aa_row(rows, alias, creator):
     return None, None
 
 
+def _check_aa_join(registry, matched_count):
+    """AA 别名一条都匹配不上 => join key 断裂，直接失败。
+
+    registry 里配了 aa 别名的模型是 AA 数据的唯一消费者；若全数落空，
+    说明 aa_providers.csv 的 Model Slug 与 registry 口径脱节（上游挪路径、
+    大小写/命名变更等）。此时评分列仍有值、覆盖率统计却是全 0，静默放行
+    会让下游报「指标有效样本 < 2」——与本函数要暴露的真实原因无关。
+    """
+    configured = sum(1 for m in registry if m.get("aa"))
+    if configured and matched_count == 0:
+        raise RuntimeError(
+            f"AA join 断裂：registry 里 {configured} 个模型配了 aa 别名，"
+            "但 aa_providers.csv 里 0 行匹配。"
+            "请检查 parse_aa 的 Model Slug 取值路径是否仍与上游一致。"
+        )
+
+
 def build_merged():
     registry = load_registry()
 
@@ -194,6 +211,7 @@ def build_merged():
     ]
 
     out_rows = []
+    aa_matched = 0
     for m in registry:
         slug = m["slug"]
         row = {"Model": slug, "Creator": m["creator"], "Vision": m.get("vision", False)}
@@ -217,6 +235,7 @@ def build_merged():
         # AA（分数各 Provider 行一致；定价取官方行，见 _pick_aa_row）
         aa_row, _ = _pick_aa_row(aa_rows, m.get("aa"), m.get("creator"))
         if aa_row:
+            aa_matched += 1
             row["FrontierCode 2.0"] = _num(aa_row.get("FrontierCode 2.0"))
             row["Terminal-Bench v4.0"] = _num(aa_row.get("Terminal-Bench v4.0"))
             row["AutomationBench"] = _num(aa_row.get("AutomationBench"))
@@ -244,6 +263,8 @@ def build_merged():
                     row[b_name] = _num(b_val)
 
         out_rows.append(row)
+
+    _check_aa_join(registry, aa_matched)
 
     # 写 merged.csv（列序：Model, Creator, 指标, 成本列）
     price_cols = ["Price 1M Input", "Price 1M Output", "Cache Hit Price",

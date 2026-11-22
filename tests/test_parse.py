@@ -170,6 +170,39 @@ def test_unmapped_score_fields_clean_when_all_registered():
     cols, _ = parse_aa.build_cols(rows)
     assert parse_aa.unmapped_score_fields(rows, cols) == []
 
+# ---- 2026-11 AA slug 迁移：model.slug -> model.release.slug ----
+#
+# 上游把 slug 挪进 release 后，评分列照常有值、旧哨兵全过，但 join key 全空，
+# merge 阶段一条 AA 指标都合不进来（CI 表现为 FrontierCode 2.0 有效样本 0）。
+
+def test_model_slug_reads_release_path():
+    row = {"label": "A", "model": {"release": {"slug": "gpt-6"}}}
+    assert parse_aa.get(row, parse_aa.MODEL_SLUG_SPEC) == "gpt-6"
+
+
+def test_model_slug_falls_back_to_legacy_path():
+    row = {"label": "A", "model": {"slug": "gpt-6"}}
+    assert parse_aa.get(row, parse_aa.MODEL_SLUG_SPEC) == "gpt-6"
+
+
+def test_build_cols_model_slug_uses_both_paths():
+    rows = [{"label": "A", "model": {"release": {"slug": "new"}}},
+            {"label": "B", "model": {"slug": "old"}}]
+    cols, _ = parse_aa.build_cols(rows)
+    spec = next(c for c in cols if c[0] == "Model Slug")
+    assert [parse_aa.get(r, spec) for r in rows] == ["new", "old"]
+
+
+def test_run_sentinel_join_key_broken():
+    """slug 路径漂移必须在此拦下，不能漏到 merge/imputation。"""
+    rows = [_sentinel_row(f"M{i}") for i in range(900)]
+    for r in rows:
+        r["model"].pop("slug")
+        r["model"]["release"] = {"slug": None}
+    with pytest.raises(AssertionError, match="join key 哨兵触发"):
+        parse_aa.run_sentinel(rows)
+
+
 # ---- 新结构 (initialRows 与 model.scores) 支持测试 ----
 
 def test_get_nested_fallback():

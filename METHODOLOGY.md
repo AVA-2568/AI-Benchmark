@@ -203,7 +203,9 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 
 ### 数据哨兵（AA）
 
-AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`）+ 数据哨兵（行数 + 评分字段非空率），不达标即失败退出，避免半残数据静默污染排名。
+AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`）+ 数据哨兵（行数 + join key 非空率 + 评分字段非空率），不达标即失败退出，避免半残数据静默污染排名。
+
+**join key 哨兵**：`Model Slug` 是 merge / 新模型发现把 AA 行对到 registry 的唯一键，要求非空率 ≥ 95%。2026-11-16 上游把 slug 从 `model.slug` 挪进 `model.release.slug`——评分列照常有值、旧的评分哨兵全过、CSV 也照常生成，但 join key 全空，合并后 10 个 AA 指标覆盖率全部归零，最终只在填补阶段报出「有效样本 < 2」。解析侧保留两条 slug 候选路径（`model.release.slug` → `model.slug`），并在 `merge.py` 增加反向哨兵：registry 配了 aa 别名却一行都匹配不上即失败。
 
 ## 归一化方法（固定锚点缩放）
 

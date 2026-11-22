@@ -184,6 +184,16 @@ NEW_SCORE_FIELDS = [
 ]
 
 
+# ---------- join key ----------
+# AA 行的 slug 是 merge.py / detect_new_models.py 把源数据对到 registry 模型的唯一键。
+# 2026-11-16 上游把 model.slug 挪进 model.release.slug：评分列照常有值、CSV 也正常，
+# 但 join key 全空 -> 所有 AA 指标在 merged.csv 里变成空 -> 下游报
+# "FrontierCode 2.0 effective samples 0 < 2" 这种看不出根因的错误。
+# 双候选路径 + 独立哨兵，避免同类静默断链再次漏到评分阶段。
+MODEL_SLUG_SPEC = ("Model Slug", ("model", "release", "slug"), ("model", "slug"))
+JOIN_KEY_RATE_MIN = 0.95   # join key 非空率下限（少量历史行缺失可容忍）
+
+
 # ---------- 字段映射（模块级，供单测） ----------
 KNOWN_PERF = {    "medianOutputTokensPerSecond", "percentile05OutputTokensPerSec",
     "percentile05OutputTokensPerSecond", "quartile25OutputTokensPerSecond",
@@ -241,13 +251,23 @@ def field_rates(rows):
 
 
 def run_sentinel(rows):
-    """数据哨兵：行数 + 字段非空率。不达标抛 AssertionError。"""
+    """数据哨兵：行数 + join key + 字段非空率。不达标抛 AssertionError。"""
     assert len(rows) > MIN_ROWS, (
         f"行数哨兵触发：{len(rows)}（预期 >{MIN_ROWS}），页面结构可能已变化"
     )
     for key in ("label", "model"):
         missing = sum(1 for r in rows if key not in r)
         assert missing == 0, f"{missing} 行缺少字段 '{key}'"
+
+    # join key 哨兵：slug 全空时评分列仍有值、上游哨兵全过，但下游一条 AA 指标
+    # 都合并不进来。必须在解析阶段就拦下，而不是等填补阶段报样本不足。
+    slug_ok = sum(1 for r in rows if get(r, MODEL_SLUG_SPEC) not in (None, ""))
+    slug_rate = slug_ok / len(rows)
+    assert slug_rate >= JOIN_KEY_RATE_MIN, (
+        f"join key 哨兵触发：Model Slug 非空率 {slug_rate:.0%} < "
+        f"{JOIN_KEY_RATE_MIN:.0%}，AA 可能再次挪动了 slug 路径"
+        "（当前支持 model.release.slug / model.slug）"
+    )
 
     rates = field_rates(rows)
     mean_rate = sum(rates.values()) / len(rates)
@@ -277,7 +297,7 @@ def build_cols(rows):
         ("Host API ID", "hostApiId"),
         ("Provider", "host", "name"),
         ("Provider Slug", "host", "slug"),
-        ("Model Slug", "model", "slug"),
+        MODEL_SLUG_SPEC,
         ("Creator", "model", "creator", "name"),
         ("Open Weights", "model", "isOpenWeights"),
         ("Deprecated", "model", "deprecated"),
