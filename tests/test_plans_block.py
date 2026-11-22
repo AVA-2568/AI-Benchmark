@@ -101,3 +101,27 @@ def test_urlless_plan_renders_plain_name():
     md = _plans_block(plans, rows, fx_rate=7.0)
     assert "| Claude Max 20x |" in md  # 无链接时纯文本
     assert "](" not in md
+
+
+def test_plans_block_applies_model_cost_scale():
+    """_plans_block must apply model_cost_scale consistently with scoring._plan_for."""
+    plans = [{
+        "name": "GLM Max",
+        "creator_match": ["Z.AI"],
+        "monthly": 100.0,
+        "discount": 0.1,
+        "multiplier": 10.0,
+        "model_cost_scale": {"glm-flash": 3.0},
+        "url": "https://example.com",
+    }]
+    rows = [{
+        "Model": "glm-flash",
+        "Creator": "Z.AI",
+        "Rank": "1",
+        "Weighted Total": "60.0",
+        "Blended $/1M": "1.0",
+    }]
+    md = _plans_block(plans, rows, fx_rate=7.0)
+    # Effective discount = 0.1 * 3.0 = 0.3 -> eff price = 0.3, value = 60/0.3 = 200.0
+    assert "| 30.0% |" in md
+    assert "| 0.3 | 200.0 |" in md

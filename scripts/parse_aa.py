@@ -81,7 +81,13 @@ def extract_via_next_f_push(path):
     chunks = pat.findall(html)
     if not chunks:
         return None
-    combined = "".join(chunks).encode().decode("unicode_escape")
+    decoded = []
+    for ch in chunks:
+        try:
+            decoded.append(json.loads(f'"{ch}"'))
+        except json.JSONDecodeError:
+            decoded.append(ch.encode("latin-1", "ignore").decode("unicode_escape", "replace"))
+    combined = "".join(decoded)
     for marker in ('"initialRows":[', '"rows":['):
         start = combined.find(marker)
         if start != -1:

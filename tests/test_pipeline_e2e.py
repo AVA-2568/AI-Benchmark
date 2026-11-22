@@ -120,4 +120,11 @@ def test_e2e_text_structure(tmp_path):
 
     with open(os.path.join(out, "validation_text.json"), encoding="utf-8") as f:
         val = json.load(f)
-    assert set(val.keys()) == set(_board_metrics(cfg["leaderboards"]["text"]))
+    min_dm = cfg.get("imputation", {}).get("min_domain_metrics", 3)
+    expected_val = {
+        m["name"]
+        for cat in cfg["leaderboards"]["text"]["categories"]
+        if len(cat["metrics"]) >= min_dm
+        for m in cat["metrics"]
+    }
+    assert set(val.keys()) == expected_val

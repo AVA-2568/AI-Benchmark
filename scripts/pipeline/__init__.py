@@ -30,13 +30,6 @@ from .io_utils import (
     write_scored_csv,
     write_validation,
 )
-from .models import (
-    CategorySpec,
-    ImputationResult,
-    LeaderboardConfig,
-    MetricSpec,
-    ScoredModel,
-)
 from .scoring import fmt_val, norm, score_board
 
 __all__ = [
@@ -55,27 +48,24 @@ __all__ = [
     "fmt_val",
     "score_board",
     "run_pipeline",
-    "MetricSpec",
-    "CategorySpec",
-    "LeaderboardConfig",
-    "ImputationResult",
-    "ScoredModel",
 ]
 
 
 def _creator_cache_price_mean(rows):
-    """Mean Cache Hit Price per Creator (rows with a real value only).
+    """Mean (Cache Hit Price / Price 1M Input) ratio per Creator.
 
-    Used as a fallback cache price for rows whose provider does not
-    publish a cache-hit price, instead of a blind global guess.
+    Uses relative ratio instead of absolute dollar mean so a free or cheap
+    model (e.g. Price 1M Input = 0) never inherits a flagship's cache price.
     """
     sums: dict = {}
     counts: dict = {}
     for r in rows:
         creator = (r.get("Creator") or "").strip()
         p = to_float(r.get("Cache Hit Price"))
-        if creator and p is not None:
-            sums[creator] = sums.get(creator, 0.0) + p
+        pin = to_float(r.get("Price 1M Input"))
+        if creator and p is not None and pin is not None and pin > 0:
+            ratio = min(1.0, max(0.0, p / pin))
+            sums[creator] = sums.get(creator, 0.0) + ratio
             counts[creator] = counts.get(creator, 0) + 1
     return {c: round(sums[c] / counts[c], 4)
             for c in sums if counts[c] > 0}
@@ -154,8 +144,7 @@ def run_pipeline(rows, cfg, results_dir, fx_rate=None):
         print(f"Saved [{bkey}] -> {out_csv}")
 
     print(f"\nData snapshot: {datetime.date.today().isoformat()}")
-    print(f"Training R2 (no II, {len(pool) - 1}->1 cross-predict "
-          f"over shared pool):")
+    print("Training R2 (domain-scoped cross-predict):")
     for m in pool:
         if m in r2:
             print(f"  {m:25} R2={r2[m]:.3f}")

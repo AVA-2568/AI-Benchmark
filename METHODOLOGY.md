@@ -203,7 +203,7 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 
 **AA 同 slug 多 reasoning 档**：2026-11 起 AA 把同一模型的多档并列在同一个 Model Slug 下，靠 label 括号区分（`(non-reasoning)` / `(low)` / `(medium)` / `(high)` / `(xhigh)` / `(max)`）。档位间分数差距极大——`deepseek-v4.1-flash` 的 FrontierCode 在 non-reasoning 档只有 0.061、max 档 0.285。取行按「池内指标覆盖度最高 → 最高 effort 档 → 官方 provider → 末位 tie-break」四级判定（ADR-0010）：覆盖度优先是因为小模型的 non-reasoning 行常常只挂 LCR 一个池指标，纯按档位选会让其余指标全空；量化格式（FP8 / FP4 / NVFP4 / BF16）与部署标记（FAST / ULTRA / Vertex / AI Studio）不是档位，不参与排序。该规则取代了原先「返回第一个官方行」的实现——后者完全依赖上游行序，2026-11-22 因 AA 重排导致 `deepseek-v4.1-flash` 在无任何能力变化的情况下从 #12 跌到 #21。
 
-### 数据哨兵（AA / EQ-Bench）
+### 数据哨兵（AA）
 
 AA 解析沿用三级降级链（RSC 流 → `__next_f.push` → `__NEXT_DATA__`）+ 数据哨兵（行数 + join key 非空率 + 评分字段非空率），不达标即失败退出，避免半残数据静默污染排名。
 

@@ -46,8 +46,10 @@ if BASE not in sys.path:
     sys.path.insert(0, BASE)
 try:
     from pipeline.scoring import _match_pattern, _resolve_scale, _plan_for, _plan_matches
+    from url_guard import assert_safe_url
 except ImportError:
     from scripts.pipeline.scoring import _match_pattern, _resolve_scale, _plan_for, _plan_matches
+    from scripts.url_guard import assert_safe_url
 
 REPO_ROOT = os.path.dirname(BASE)
 CONFIG = os.path.join(REPO_ROOT, "config.json")
@@ -277,6 +279,10 @@ def check_url(plan):
     url = plan.get("url")
     if not url:
         return None, []
+    try:
+        assert_safe_url(url)
+    except ValueError as e:
+        return None, [f"{plan.get('name')}: URL 安全校验未通过（{e}）"]
     req = urllib.request.Request(url, headers=UA, method="GET")
     try:
         with urllib.request.urlopen(req, timeout=URL_TIMEOUT) as resp:
@@ -485,7 +491,8 @@ def audit(plans, max_age_days, today, online, registry_models=None):
         "run_date": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "max_age_days": max_age_days,
         "online": online,
-        "summary": {"plans": len(plans), "pass": len(plans) + len(family_errors) - fail - warn,
+        "summary": {"plans": len(plans),
+                    "pass": sum(1 for e in entries if e["status"] == "pass"),
                     "warn": warn, "fail": fail},
         "coverage": coverage_data,
         "entries": entries,

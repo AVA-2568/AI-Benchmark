@@ -56,7 +56,7 @@
   "metric_scales": {
     "FrontierCode 2.0": [
       0,
-      0.5
+      0.6
     ],
     "LiveBench Coding": [
       0,
@@ -80,7 +80,7 @@
     ],
     "HLE Diamond": [
       0,
-      0.8
+      0.9
     ],
     "CritPt v2 Hard": [
       0,
@@ -99,8 +99,8 @@
       100
     ],
     "AA-Briefcase": [
-      400,
-      1700
+      350,
+      2000
     ],
     "LiveBench Research": [
       0,
@@ -120,7 +120,7 @@
     ],
     "Omniscience Accuracy": [
       0,
-      0.8
+      0.9
     ],
     "Omniscience Non-Halluc.": [
       0,

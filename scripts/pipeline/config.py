@@ -275,4 +275,29 @@ def validate_config(cfg: Dict[str, Any]) -> bool:
                     f"domain_hierarchies['{g}'] metric '{m}' "
                     "not in imputation_pool"
                 )
+        # 固定锚点完整性：若声明了 metric_scales，必须覆盖池内全部指标且 lo < hi
+    scales = cfg.get("metric_scales")
+    if scales is not None:
+        if not isinstance(scales, dict):
+            raise ConfigError("metric_scales must be a mapping")
+        for m in pool:
+            if m not in scales:
+                raise ConfigError(
+                    f"metric '{m}' in imputation_pool missing from metric_scales"
+                )
+            bounds = scales[m]
+            if (not isinstance(bounds, (list, tuple)) or len(bounds) != 2
+                    or float(bounds[0]) >= float(bounds[1])):
+                raise ConfigError(
+                    f"metric_scales['{m}'] must be [lo, hi] with lo < hi, got {bounds}"
+                )
+    # 两榜零共享不变量（ADR-0009）：general 与 text 不得共享评分指标
+    if "general" in boards and "text" in boards:
+        _, g_glob = board_weights(boards["general"])
+        _, t_glob = board_weights(boards["text"])
+        overlap = sorted(set(g_glob) & set(t_glob))
+        if overlap:
+            raise ConfigError(
+                f"general and text leaderboards must share zero metrics, got {overlap}"
+            )
     return True

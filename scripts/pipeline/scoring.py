@@ -159,10 +159,15 @@ def _cost_terms(r, cost, cache_multiplier, cache_price_fallback, plans):
         return None, None, None, None, None, pin, pout, None
 
     pcache_eff = pcache
-    if pcache_eff is None and (cache_price_fallback or {}).get(creator):
-        pcache_eff = cache_price_fallback[creator]
     if pcache_eff is None and pin is not None:
-        pcache_eff = pin * cache_multiplier
+        fb_val = (cache_price_fallback or {}).get(creator)
+        if fb_val is not None:
+            # cache_price_fallback stores per-creator mean cache-to-input ratio
+            pcache_eff = pin * fb_val
+        else:
+            pcache_eff = pin * cache_multiplier
+    if pcache_eff is not None and pin is not None:
+        pcache_eff = min(pcache_eff, pin)
     # blend write + read for cached input; no write price -> hit only
     write_ratio = float(cost.get("cache_write_ratio", 0.20))
     if pwrite is not None and write_ratio > 0:
@@ -190,17 +195,30 @@ def _cost_terms(r, cost, cache_multiplier, cache_price_fallback, plans):
             eff_hit, plan, pin, pout, pcache_eff)
 
 
-def _weighted_total(glob, nrm, imputed_set, discount):
-    """加权总分；有效权重和不为 1 时按实际权重重新归一化。
+def _weighted_total(glob, nrm, imputed_set, discount, cats=None):
+    """加权总分；按域内重归一化保域权重不变（ADR-0011）。
 
-    两种让权重和偏离 1 的情形：
-
-    - ``discount < 1``：填补指标降权，其余真实指标权重相对上升。
-    - 指标完全不可用（短域不填补，见 ADR-0011）：该项不进入 ``nrm``，
-      权重由剩余指标分担，总分仍落在 0-100 的可比区间。
-
-    无缺失、不降权时权重和恰为 1，退化为普通加权和。
+    当提供 ``cats`` 时：先在每个域内按有效子权重（含填补降权）归一化得到
+    域分，再按域权重加权求和（若某域全缺则按剩余域权重归一化）。这样短域
+    缺测某指标时，该域权重保持设计值不变，不会被扁平重归一化压缩。
+    未提供 ``cats`` 时退回扁平权重归一化以兼容单测直接调用。
     """
+    if cats:
+        dom_total = 0.0
+        dom_wsum = 0.0
+        for _, cw, subs in cats:
+            avail = [
+                (m, sw * (discount if m in imputed_set else 1.0))
+                for m, sw in subs if m in nrm
+            ]
+            if not avail:
+                continue
+            sw_sum = sum(w for _, w in avail)
+            if sw_sum > 0:
+                dom_score = sum(w * nrm[m] for m, w in avail) / sw_sum
+                dom_total += cw * dom_score
+                dom_wsum += cw
+        return dom_total / dom_wsum if dom_wsum else 0.0
     w = {m: glob[m] * (discount if m in imputed_set else 1.0) for m in nrm}
     ws = sum(w.values())
     return sum(w[m] * nrm[m] for m in nrm) / ws if ws else 0.0
@@ -276,7 +294,7 @@ def score_board(rows, board, engine, cost, cache_multiplier, score_threshold,
         nrm = {m: norm(eff[m], scales[m][0], scales[m][1]) for m in eff}
         imputed_set = {m.split("(low)")[0] for m in imputed}
         total = _weighted_total(glob, nrm, imputed_set,
-                                imputed_weight_discount)
+                                imputed_weight_discount, cats=cats)
         # 短板视角：域内按子权重加权的能力分，取最低域。加权总分允许
         # 长板补偿短板，而真实 agent / 案头任务是串联的，短板才决定成败。
         # 域内若有不可用指标，按剩余子权重归一化，否则缺指标的域会被

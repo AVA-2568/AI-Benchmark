@@ -70,3 +70,10 @@ def test_render_requires_fx_rate():
 def test_render_raises_on_empty():
     with pytest.raises(ValueError):
         render([], "unused.svg", fx_rate=7.0)
+
+
+def test_pareto_same_price_picks_highest_score_only():
+    """Same-price lower-score model appearing first must not enter the Pareto frontier."""
+    pts = [(1.0, 50.0, "weak"), (1.0, 80.0, "strong"), (2.0, 90.0, "top")]
+    front = pareto_frontier(pts)
+    assert [p[2] for p in front] == ["strong", "top"]

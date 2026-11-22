@@ -38,7 +38,7 @@ REPO_ROOT = os.path.dirname(BASE)
 sys.path.insert(0, BASE)
 
 from pipeline.config import plan_params  # noqa: E402
-from pipeline.scoring import _plan_matches  # noqa: E402
+from pipeline.scoring import _match_pattern, _plan_matches, _resolve_scale  # noqa: E402
 from url_guard import assert_safe_url  # noqa: E402
 from plot_frontier import render as render_frontier  # noqa: E402
 
@@ -105,7 +105,7 @@ def fetch_data(allow_stale=False, offline=False):
     if offline:
         if os.path.exists(RSC) or os.path.exists(HTML):
             print("offline mode: using existing cache")
-            return True, True
+            return True, False
         raise BuildError("offline mode requested but no input cache exists")
     if _fetch(URL, RSC, RSC_MIN_SIZE, {"RSC": "1"}):
         return True, False
@@ -162,7 +162,7 @@ def _fmt_usd(v):
 # hero_block() 从 scored CSV 渲染，文案本身不随数据变化。
 _HERO_COPY = {
     "general": ("干重活与写代码（通用榜）",
-                "看编程、智能体、复杂逻辑与长上下文能力"),
+                "看编程、智能体、复杂逻辑与科学推理能力"),
     "text": ("写文章与专业案头（文本榜）",
              "看创意写作、文风质感、长文阅读与日常问答"),
     "value": ("算钱包与真实花销（性价比榜）",
@@ -370,9 +370,22 @@ def _plans_block(plans, rows, fx_rate):
             continue
         if not (blended > 0 and 0 < discount <= 1 and score > 0):
             continue
-        eff = blended * discount
+        # 与 _plan_for 保持一致：应用 model_cost_scale（如 GLM 对 flash 的 3× 修正）
+        scale_map = p.get("model_cost_scale") or {}
+        best_model = best.get("Model")
+        eff_discount = discount
+        if scale_map and best_model and discount < 1.0:
+            scale = _resolve_scale(best_model, scale_map)
+            if scale is None and p.get("model_match"):
+                if best_model not in p["model_match"] and _match_pattern(best_model, p["model_match"]):
+                    scale = max(float(v) for v in scale_map.values())
+            eff_discount = min(discount * (scale or 1.0), 1.0)
+        eff = blended * eff_discount
         monthly = p.get("monthly")
-        mult = p.get("multiplier")
+        mult = (round(1.0 / eff_discount, 1)
+                if eff_discount != discount and eff_discount > 0
+                else p.get("multiplier"))
+        discount = eff_discount
         tokens_cell = (p.get("tokens") or "").strip()
         if not tokens_cell:
             value_usd = p.get("implied_value") or p.get("credit_value")

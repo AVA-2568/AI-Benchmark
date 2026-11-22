@@ -27,7 +27,7 @@ def pareto_frontier(points):
     保留原元组的所有元素（兼容 vision 等附加字段）。
     """
     pts = sorted((p for p in points if p[0] and p[1] is not None),
-                 key=lambda p: p[0])
+                 key=lambda p: (p[0], -p[1]))
     out = []
     best = float("-inf")
     for pt in pts:

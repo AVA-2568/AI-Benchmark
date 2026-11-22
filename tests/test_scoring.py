@@ -261,7 +261,7 @@ def test_effective_cost_uses_creator_cache_rate():
 
 
 def test_effective_cost_falls_back_to_creator_mean_cache_price():
-    """Missing Cache Hit Price falls back to the per-creator mean."""
+    """Missing Cache Hit Price falls back to the per-creator mean cache ratio."""
     eng = FakeEngine()
     eng.raw = {"m1": [80.0, 20.0], "m2": [40.0, 10.0]}
     eng.cur = dict(eng.raw)
@@ -273,12 +273,58 @@ def test_effective_cost_falls_back_to_creator_mean_cache_price():
          "Price 1M Input": "5.0", "Price 1M Output": "25.0",
          "Cache Hit Price": ""},
     ]
-    fb = {"OpenAI": 0.5}
+    fb = {"OpenAI": 0.1}  # 0.5 / 5.0 = 0.1 ratio
     out, _ = score_board(rows, _BOARD, eng, _COST_EFF, 0.1, 0.0,
                          cache_price_fallback=fb)
     by_model = {r["Model"]: r for r in out}
     assert float(by_model["A"]["Effective $/1M"]) == \
         float(by_model["B"]["Effective $/1M"])
+
+
+def test_free_model_cache_fallback_never_exceeds_input_price():
+    """Free model (Price 1M Input = 0) must keep Cache Hit = 0, never inherit flagship cache price."""
+    eng = FakeEngine()
+    eng.raw = {"m1": [80.0, 20.0], "m2": [40.0, 10.0]}
+    eng.cur = dict(eng.raw)
+    rows = [
+        {"Model": "FreeModel", "Creator": "Google",
+         "Price 1M Input": "0.0", "Price 1M Output": "0.0",
+         "Cache Hit Price": ""},
+        {"Model": "PaidModel", "Creator": "Google",
+         "Price 1M Input": "2.0", "Price 1M Output": "10.0",
+         "Cache Hit Price": "0.2"},
+    ]
+    out, _ = score_board(rows, _BOARD, eng, _COST_EFF, 0.1, 0.0,
+                         cache_price_fallback={"Google": 0.1})
+    by_model = {r["Model"]: r for r in out}
+    assert float(by_model["FreeModel"]["Cache Hit"]) == 0.0
+    assert float(by_model["FreeModel"]["Total $/1M"]) == 0.0
+
+
+def test_short_domain_missing_preserves_domain_weight():
+    """ADR-0011: missing one metric in a 2-metric domain must preserve that domain's weight."""
+    board = {
+        "categories": [
+            {"name": "d1", "weight": 0.5, "metrics": [
+                {"name": "a1", "sub_weight": 0.7},
+                {"name": "a2", "sub_weight": 0.3},
+            ]},
+            {"name": "d2", "weight": 0.5, "metrics": [
+                {"name": "b1", "sub_weight": 1.0},
+            ]},
+        ]
+    }
+    class Eng:
+        stats = {"a1": (0, 100, 50, 90, 95), "a2": (0, 100, 50, 90, 95), "b1": (0, 100, 50, 90, 95)}
+        raw = {"a1": [None], "a2": [100.0], "b1": [0.0]}
+        cur = {"a1": [50.0], "a2": [100.0], "b1": [0.0]}
+        imputation_quality = {"a1": {"n_train": 0}, "a2": {"n_train": 1}, "b1": {"n_train": 1}}
+        min_samples = 3
+        imputable = {"a1": False, "a2": False, "b1": True}
+    rows = [{"Model": "M", "Price 1M Input": "1.0", "Price 1M Output": "2.0", "Cache Hit Price": "0.1"}]
+    out, _ = score_board(rows, board, Eng(), _COST, 0.1, 0.0)
+    # d1 (weight 0.5) has only a2=100 -> domain score 100; d2 (weight 0.5) = 0 -> total must be 50.0
+    assert out[0]["Weighted Total"] == 50.0
 
 
 def test_effective_cost_blends_cache_write_price():

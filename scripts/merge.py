@@ -40,7 +40,7 @@ AA_CSV = os.path.join(BASE, "aa_providers.csv")
 
 def _read_csv(path):
     if not os.path.exists(path):
-        return {}
+        return []
     with open(path, encoding="utf-8-sig", newline="") as f:
         rows = list(csv.DictReader(f))
     return rows

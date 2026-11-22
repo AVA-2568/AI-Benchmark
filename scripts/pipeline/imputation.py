@@ -15,7 +15,23 @@ from __future__ import annotations
 
 
 import numpy as np
-from sklearn.preprocessing import StandardScaler
+class _StandardScaler:
+    """Pure-numpy z-score scaler (equivalent to sklearn StandardScaler)."""
+
+    def __init__(self):
+        self.mean_ = None
+        self.scale_ = None
+
+    def fit(self, x):
+        x = np.asarray(x, dtype=float)
+        self.mean_ = x.mean(axis=0)
+        std = x.std(axis=0)
+        self.scale_ = np.where(std == 0.0, 1.0, std)
+        return self
+
+    def transform(self, x):
+        x = np.asarray(x, dtype=float)
+        return (x - self.mean_) / self.scale_
 
 from .config import to_float
 
@@ -101,7 +117,7 @@ class ImputationEngine:
                      for i in range(n)]
                     for mm in d_metrics
                 ], dtype=float)  # N_DOMAIN x n
-                scaler = StandardScaler()
+                scaler = _StandardScaler()
                 scaler.fit(x_raw_real.T)
                 self.scalers[m] = scaler
         else:
@@ -190,7 +206,9 @@ class ImputationEngine:
                 xtr_arr = np.array(xtr, dtype=float)
                 ytr_arr = np.array(ytr, dtype=float)
                 x1 = self.to_X(xtr_arr, m)
-                a = x1.T @ x1 + self.alpha * np.eye(x1.shape[1])
+                reg = self.alpha * np.eye(x1.shape[1])
+                reg[0, 0] = 0.0  # do not penalize intercept
+                a = x1.T @ x1 + reg
                 try:
                     beta = np.linalg.solve(a, x1.T @ ytr_arr)
                 except np.linalg.LinAlgError:
@@ -215,7 +233,7 @@ class ImputationEngine:
             if max_delta < rel_tol:
                 stable_count += 1
                 if stable_count >= stable_rounds:
-                    converged_iter = it - 1
+                    converged_iter = max(0, it - stable_rounds + 1)
                     break
             else:
                 stable_count = 0
@@ -227,6 +245,8 @@ class ImputationEngine:
         n = len(self.rows)
         validation = {}
         for target_m in self.pool:
+            if not self.imputable[target_m]:
+                continue
             has_true = [j for j in range(n) if self.raw[target_m][j] is not None]
             nn = len(has_true)
             if nn < 10:
@@ -246,7 +266,9 @@ class ImputationEngine:
                 xtr_arr = np.array(xtr, dtype=float)
                 ytr_arr = np.array(ytr, dtype=float)
                 x1 = self.to_X(xtr_arr, target_m)
-                a = x1.T @ x1 + self.alpha * np.eye(x1.shape[1])
+                reg = self.alpha * np.eye(x1.shape[1])
+                reg[0, 0] = 0.0  # do not penalize intercept
+                a = x1.T @ x1 + reg
                 try:
                     beta = np.linalg.solve(a, x1.T @ ytr_arr)
                 except np.linalg.LinAlgError:

@@ -25,7 +25,7 @@ fetch(多源) -> detect(新模型发现，`--apply` 自动入池) -> merge(跨�
 - leaderboard 权重总和必须为 1。
 - 每个评分指标必须存在于 imputation_pool，且其固定锚点必须在 metric_scales 中。
 - **两榜零共享、各自独立**：通用榜（偏编程，3 域）与文本榜（内容生产，4 域）不共享任何评分指标；每榜都同时含 Artificial Analysis 与 LiveBench 2.0 的原始基准（文本榜另用 EQ-Bench）。**不使用单一榜单的结论**——不引用任何上游综合分（AA Intelligence Index / LiveBench 总榜），不拿一张榜的结论定义另一张；指标入池、替换与权重调整必须同时在两榜数据上验证。见 ADR-0009。
-- **基准准绳 = 本季 LiveBench 模型的 AA 覆盖率 + 头部区分度**（ADR-0008 / ADR-0009），不是全池覆盖率，也不是语义贴题：池里一半历史条目早已不被上游跟踪；Terminal-Bench v4.0 / HLE / Omniscience Index 在头部已饱和（Top10 sd 4.4 / 7.2 / 9.1），分别由 AA 已拉取未入池的同构难版 FrontierCode 2.0 / HLE Diamond / Omniscience Accuracy **替换**（不是叠加，池指标数保持 18、不重复计权）。AA 新增评分字段必须登记到 `parse_aa.NEW_SCORE_FIELDS`，未登记会被 `unmapped_score_fields()` 点名告警。
+- **基准准绳 = 本季 LiveBench 模型的 AA 覆盖率 + 头部区分度**（ADR-0008 / ADR-0009），不是全池覆盖率，也不是语义贴题：池里一半历史条目早已不被上游跟踪；HLE / Omniscience Index 在头部已饱和，分别由 HLE Diamond / Omniscience Accuracy **替换**，并引入 FrontierCode 2.0 强化代码域（Terminal-Bench v4.0 保留以覆盖终端 Agent 维度，见 ADR-0009 / ADR-0012）（不是叠加，池指标数保持 18、不重复计权）。AA 新增评分字段必须登记到 `parse_aa.NEW_SCORE_FIELDS`，未登记会被 `unmapped_score_fields()` 点名告警。
 - **域定义唯一**：`domain_groups` 的 7 个域与两榜 `categories` 一一对应，每个域只服务一个榜；`validate_config` 强制每个池指标恰属一域，回归特征不可能借到另一张榜的指标。`domain_hierarchies` 因新指标难度阶梯未实证而清空，遵循「宁可无约束，不设错约束」。
 - **结果字段**：除 `Weighted Total` 外输出 `Bottleneck`（最低域分）与 `Bottleneck Domain`，暴露加权平均抹平的短板；改这两个字段必须同步测试与 README。
 - 上榜门槛：每个领域最多缺 1 个基准值（`max_missing_per_domain=1`；3 基准域至少 2 个实测，2 基准域至少 1 个实测，单基准域必须实测），缺的那个值由域内回归回测，缺 2 个则整行不上榜，**无例外**（ADR-0007 的 R² 放宽条款从未生效，已废止移除）。
