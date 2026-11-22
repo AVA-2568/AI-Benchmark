@@ -773,6 +773,46 @@
       "vision": true,
       "auto_added": "2026-11-13",
       "openrouter": "google/gemini-4-hydrogen"
+    },
+    {
+      "slug": "gemini-4-neon",
+      "creator": "Google",
+      "aa": "gemini-4-neon",
+      "livebench": "gemini-4-neon",
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-11-22",
+      "openrouter": "google/gemini-4-neon"
+    },
+    {
+      "slug": "gpt-6.2-astra",
+      "creator": "OpenAI",
+      "aa": "gpt-6-2-astra",
+      "livebench": "gpt-6.2-astra",
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-11-22",
+      "openrouter": "openai/gpt-6.2-astra"
+    },
+    {
+      "slug": "gpt-6.2-sol",
+      "creator": "OpenAI",
+      "aa": "gpt-6-2-sol",
+      "livebench": "gpt-6.2-sol",
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-11-22",
+      "openrouter": "openai/gpt-6.2-sol"
+    },
+    {
+      "slug": "qwen4-max",
+      "creator": "Alibaba",
+      "aa": "qwen4-max",
+      "livebench": "qwen4-max",
+      "eqbench": null,
+      "vision": true,
+      "auto_added": "2026-11-22",
+      "openrouter": "qwen/qwen4-max"
     }
   ]
 }
