@@ -199,7 +199,9 @@ FAIL（算术硬伤 / 档位额度反降 / 字段缺失）使脚本 exit 1。离
 
 `merge.py` 读 `model_registry.json` + 各源 CSV，把 5 个源的分数合并成统一宽表（行 = 统一 slug，列 = 18 个池指标 + Model/Creator）。LiveBench 别名可为列表（如 `deepseek-v4-pro` 的正式版 `-0813` 与预览版），多个匹配时取分数最高者。缺失值留空，交由评分阶段的岭回归填补。
 
-**AA 定价取官方行**：AA 是按（Model Slug × Provider）的宽表，同一模型有 N 个 Provider 行（如 `deepseek-v4-flash` 15 行）。各行评测分数完全一致，但定价是各 Provider 自报的分销价——排行榜展示的必须是模型官方牌价（`Provider` 与 `Creator` 归一化互含，如 DeepSeek 行 0.44/1.32），而非 CSV 末行的分销价（Makora 0.09/0.195）。无官方行的模型（如 hy3 纯第三方分销）回退末行。视觉变体是独立 Model Slug（如 `deepseek-v4-flash-vision`），不会混入对应文本模型的行。
+**AA 定价取官方行**：AA 是按（Model Slug × Provider）的宽表，同一模型有 N 个 Provider 行（如 `deepseek-v4-flash` 15 行）。定价是各 Provider 自报的分销价——排行榜展示的必须是模型官方牌价（`Provider` 与 `Creator` 归一化互含，如 DeepSeek 行 0.44/1.32），而非 CSV 末行的分销价（Makora 0.09/0.195）。无官方行的模型（如 hy3 纯第三方分销）回退末行。视觉变体是独立 Model Slug（如 `deepseek-v4-flash-vision`），不会混入对应文本模型的行。
+
+**AA 同 slug 多 reasoning 档**：2026-11 起 AA 把同一模型的多档并列在同一个 Model Slug 下，靠 label 括号区分（`(non-reasoning)` / `(low)` / `(medium)` / `(high)` / `(xhigh)` / `(max)`）。档位间分数差距极大——`deepseek-v4.1-flash` 的 FrontierCode 在 non-reasoning 档只有 0.061、max 档 0.285。取行按「池内指标覆盖度最高 → 最高 effort 档 → 官方 provider → 末位 tie-break」四级判定（ADR-0010）：覆盖度优先是因为小模型的 non-reasoning 行常常只挂 LCR 一个池指标，纯按档位选会让其余指标全空；量化格式（FP8 / FP4 / NVFP4 / BF16）与部署标记（FAST / ULTRA / Vertex / AI Studio）不是档位，不参与排序。该规则取代了原先「返回第一个官方行」的实现——后者完全依赖上游行序，2026-11-22 因 AA 重排导致 `deepseek-v4.1-flash` 在无任何能力变化的情况下从 #12 跌到 #21。
 
 ### 数据哨兵（AA）
 

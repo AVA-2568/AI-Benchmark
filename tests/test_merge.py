@@ -98,6 +98,85 @@ def test_aa_join_skips_when_no_alias_configured():
     _check_aa_join([{"slug": "a"}, {"slug": "b", "aa": None}], 0)
 
 
+# ---- AA 同 slug 多档：覆盖度优先，同覆盖度取最高 effort 档 ----
+#
+# 回归：AA 把 non-reasoning / high / max 并列在同一 Model Slug 下，旧实现取
+# 「第一个官方行」完全取决于页面行序，2026-11-22 吃到 non-reasoning 档，
+# deepseek-v4.1-flash 的 AA 指标全线腰斩（FrontierCode 0.285 → 0.061），
+# 排名 #12 → #21。
+
+def _aa_row(label, fc, lcr=None, provider="DeepSeek", slug="m"):
+    row = {"Model": label, "Model Slug": slug, "Provider": provider,
+           "FrontierCode 2.0": fc}
+    if lcr is not None:
+        row["LCR"] = lcr
+    return row
+
+
+def test_picks_highest_effort_tier():
+    rows = [
+        _aa_row("M (non-reasoning)", "0.06"),
+        _aa_row("M (high)", "0.17"),
+        _aa_row("M (max)", "0.28"),
+    ]
+    row, _ = _pick_aa_row(rows, "m", "DeepSeek")
+    assert row["Model"] == "M (max)"
+    assert row["FrontierCode 2.0"] == "0.28"
+
+
+def test_tier_selection_ignores_quantization_suffix():
+    """FP8 / NVFP4 / FAST 是量化或部署标记，不是档位，不能压过 max。"""
+    rows = [
+        _aa_row("M (max)", "0.28"),
+        _aa_row("M (max) (FP8) (FAST)", "0.28", provider="Other"),
+        _aa_row("M (NVFP4)", "0.10", provider="Other"),
+    ]
+    row, _ = _pick_aa_row(rows, "m", "DeepSeek")
+    assert row["Model"] == "M (max)"
+
+
+def test_coverage_beats_tier():
+    """non-reasoning 档只挂着 LCR 一个指标时不能被选中（会整行掉数据）。
+
+    回归：gemma-4-31b 的 non-reasoning 行只有 LCR，纯按档位选会让 9 个
+    池指标变空。
+    """
+    rows = [
+        _aa_row("M (non-reasoning)", "", lcr="0.5"),
+        _aa_row("M", "0.10", lcr="0.5", provider="Other"),
+    ]
+    row, _ = _pick_aa_row(rows, "m", "Google")
+    assert row["Model"] == "M"
+
+
+def test_empty_tier_rows_lose_to_scored_ones():
+    """全空档位行（只有定价）不能入选。"""
+    rows = [
+        _aa_row("M (max)", "", provider="Other"),
+        _aa_row("M", "0.10", provider="Other"),
+    ]
+    row, _ = _pick_aa_row(rows, "m", "Google")
+    assert row["Model"] == "M"
+
+
+def test_official_provider_wins_within_same_coverage_and_tier():
+    rows = [
+        _aa_row("M (max)", "0.28", provider="SomeReseller"),
+        _aa_row("M (max)", "0.28", provider="DeepSeek"),
+    ]
+    row, _ = _pick_aa_row(rows, "m", "DeepSeek")
+    assert row["Provider"] == "DeepSeek"
+
+
+def test_aa_metrics_subset_of_pool():
+    """AA_METRICS 必须都在 build_merged 的池指标里，否则覆盖度判据会失效。"""
+    from merge import AA_METRICS, build_merged  # noqa: F401
+    import inspect
+    src = inspect.getsource(build_merged)
+    for m in AA_METRICS:
+        assert f'"{m}"' in src, f"{m} 不在 build_merged 的 cols 里"
+
+
 # ---- _pick_best_row：最新 release 优先，同 release 内取最高档 ----
 
 def _lb(name, coding, release=""):

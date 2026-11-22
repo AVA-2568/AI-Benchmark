@@ -144,15 +144,55 @@ def _is_official_aa_row(row, registry_creator):
     return any(p and any(w in p or p in w for w in wants) for p in provs)
 
 
-def _pick_aa_row(rows, alias, creator):
-    """AA 定价行选择：同 slug 多 Provider 行时优先官方行。
+# ---------- AA 行选取 ----------
+# AA 的 label 把 reasoning effort 档位写在括号里，且同一 Model Slug 下并列多档
+# （non-reasoning / low / medium / high / xhigh / max）。括号里还会出现量化格式
+# （FP8 / FP4 / NVFP4 / BF16）与部署标记（FAST / ULTRA / Vertex / AI Studio），
+# 这些不代表档位，不参与排序。
+AA_TIER_ORDER = {"non-reasoning": 0, "low": 1, "medium": 2,
+                 "high": 3, "xhigh": 4, "max": 5}
+_TIER_RE = re.compile(r"\(([^()]*)\)")
 
-    背景：AA 是按 (Model Slug × Provider) 的宽表，同一模型有 N 个
-    Provider 行（如 deepseek-v4-flash 有 15 行）。各行评测分数完全
-    一致，但定价是各 Provider 自报的分销价。旧逻辑按 CSV 行序取最后
-    一行（Makora 0.09/0.195），而榜单展示的应是模型官方牌价
-    （DeepSeek 0.44/1.32）。无官方行时（如 hy3 纯第三方分销）回退
-    旧语义（末行），保证总有值。
+# AA 来源的池指标。用于判断「该档位行是否真的带评测分数」：小模型的
+# non-reasoning 行常常只有定价与老基准，池指标全空，按档位盲选会取到空行。
+# 必须与 build_merged 的 cols 中的 AA 项一致（tests/test_merge.py 有断言）。
+AA_METRICS = (
+    "FrontierCode 2.0", "Terminal-Bench v4.0", "AutomationBench", "LCR", "MLCR",
+    "Omniscience Accuracy", "Omniscience Non-Halluc.", "HLE Diamond",
+    "CritPt v2 Hard", "AA-Briefcase",
+)
+
+
+def _aa_tier(label):
+    """label 中的 reasoning 档位序数；无档位词返回 -1（默认档 / 量化变体）。"""
+    ranks = [AA_TIER_ORDER[t.strip().lower()]
+             for t in _TIER_RE.findall(label or "")
+             if t.strip().lower() in AA_TIER_ORDER]
+    return max(ranks) if ranks else -1
+
+
+def _aa_coverage(row):
+    """该档位行在池内指标上的实测覆盖数（0 = 只有定价的空档）。"""
+    return sum(1 for c in AA_METRICS if _num(row.get(c)) is not None)
+
+
+def _pick_aa_row(rows, alias, creator):
+    """AA 取行：覆盖度最高的一批里取最高 reasoning 档，同档内取官方行。
+
+    背景（2026-11）：AA 把 reasoning effort 档位并列在同一 Model Slug 下，
+    label 形如 `DeepSeek V4.1 Flash 1017 (non-reasoning | high | max)`，
+    三档分数差距极大（FrontierCode 0.061 / 0.168 / 0.285）。旧实现取
+    「第一个官方行」，结果完全取决于 AA 页面的行序——2026-11-22 恰好吃到
+    non-reasoning 档，deepseek-v4.1-flash 的 AA 指标全线腰斩、排名 #12 → #21。
+
+    判据顺序（缺一不可）：
+    1. **覆盖度优先**：先取池内指标实测覆盖数最多的那批行。小模型的
+       non-reasoning 行常常只挂着 LCR 一个池指标（如 gemma-4-31b：1/10），
+       纯按档位选会选中它，其余 9 个指标全空、整行被打成填补值。
+    2. **档位次之**：覆盖度相同时取最高 effort 档（与 LiveBench 口径一致，
+       见 ADR-0004：同模型取最高档，不混档）。
+    3. 同档内官方 provider 优先（定价取官方牌价，AA 各档 token 单价一致，
+       仅 costPerTask 随档位变化）。
     """
     if alias is None:
         return None, None
@@ -161,10 +201,15 @@ def _pick_aa_row(rows, alias, creator):
         cands = [r for r in rows if (r.get("Model Slug") or "").strip() == a]
         if not cands:
             continue
-        for r in cands:
-            if _is_official_aa_row(r, creator):
-                return r, a
-        return cands[-1], a
+        best_cov = max(_aa_coverage(r) for r in cands)
+        finalists = [(i, r) for i, r in enumerate(cands)
+                     if _aa_coverage(r) == best_cov]
+        # 末位 tie-break 保留旧语义：无官方行时回退末行（旧的定价回退规则），
+        # 保证同一份 CSV 每次选出同一行。
+        _, best = max(finalists,
+                      key=lambda t: (_aa_tier(t[1].get("Model")),
+                                     _is_official_aa_row(t[1], creator), t[0]))
+        return best, a
     return None, None
 
 

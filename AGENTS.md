@@ -34,6 +34,7 @@ fetch(多源) -> detect(新模型发现，`--apply` 自动入池) -> merge(跨�
 - README 只能替换标记区块；标记缺失时构建失败。头部结论（`HERO`）同样由 `build.hero_block()` 从 scored CSV + registry 渲染，**禁止手写**，`tests/test_readme_hero.py` 会校验一致性。
 - 抓取失败时默认失败；`--allow-stale` 仅用于显式诊断，且不刷新 README。
 - 每次构建生成 `results/manifest.json`，记录输入哈希、配置哈希、`stale`（输入可能过期）与 `offline`（本次未联网复算）两个独立状态，`algorithm_version` 由 `pipeline/*.py` 源码摘要派生，禁止写死。
+- **AA 取行规则**（ADR-0010）：AA 把同一 Model Slug 的多推理档（non-reasoning / low / medium / high / xhigh / max）并列，取行按「池内指标覆盖度最高 → 最高 effort 档 → 官方 provider → 末位 tie-break」。覆盖度优先是硬约束：小模型的 non-reasoning 行常只挂 LCR 一个池指标，纯按档位选会导致整行指标变空。量化格式（FP8/FP4/NVFP4/BF16）与部署标记（FAST/ULTRA/Vertex/AI Studio）不是档位；禁止逐指标取各档最大值（拼接模型）。
 - 模型池与别名映射在 `scripts/model_registry.json`，新增模型需同步维护。
 - `detect_new_models.py` 默认只读，输出 `results/new_model_candidates.json` 候选清单（新模型 + 别名漏配两类）；build 以 `--apply` 运行：双源确认（LiveBench 出现 + AA 精确匹配）的新模型自动入池，条目带 `auto_added` 日期标记；单源孤立候选只报告不入池；registry 顶层可选 `auto_add_exclude`（fnmatch 通配）永久排除误报名称；发现候选不视为构建失败。
 
