@@ -29,6 +29,7 @@ fetch(多源) -> detect(新模型发现，`--apply` 自动入池) -> merge(跨�
 - **域定义唯一**：`domain_groups` 的 7 个域与两榜 `categories` 一一对应，每个域只服务一个榜；`validate_config` 强制每个池指标恰属一域，回归特征不可能借到另一张榜的指标。`domain_hierarchies` 因新指标难度阶梯未实证而清空，遵循「宁可无约束，不设错约束」。
 - **结果字段**：除 `Weighted Total` 外输出 `Bottleneck`（最低域分）与 `Bottleneck Domain`，暴露加权平均抹平的短板；改这两个字段必须同步测试与 README。
 - 上榜门槛：每个领域最多缺 1 个基准值（`max_missing_per_domain=1`；3 基准域至少 2 个实测，2 基准域至少 1 个实测，单基准域必须实测），缺的那个值由域内回归回测，缺 2 个则整行不上榜，**无例外**（ADR-0007 的 R² 放宽条款从未生效，已废止移除）。
+- **2 指标域不填补**（ADR-0011）：填补严格域内，排除目标列后特征维度 = 域内指标数 − 1，所以 `imputation.min_domain_metrics=3` 以下的域缺值一律留空、不参与评分，权重按剩余项重新归一化。文本榜 3 个短域（`creative_writing` / `long_context` / `factuality`）占其 70% 权重，EQ-Bench 缺值曾被 LiveBench Design 的仿射变换顶替（`EQ ≈ −140 + 27.2·Design`，域得分偏差 < 0.5 分）。**禁止用 `imputed_weight_discount` 代替本规则**：同域降权只是重归一化，实测 ×0.5/×0.3 的排名 ρ 均 ≥ 0.995，等于没改。
 - 原始值与填补值必须区分。
 - 填补仅用评分指标交叉预测，不得引入任何合成综合分。
 - README 只能替换标记区块；标记缺失时构建失败。头部结论（`HERO`）同样由 `build.hero_block()` 从 scored CSV + registry 渲染，**禁止手写**，`tests/test_readme_hero.py` 会校验一致性。

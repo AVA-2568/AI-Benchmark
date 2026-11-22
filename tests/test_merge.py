@@ -17,6 +17,7 @@ if _SCRIPTS not in sys.path:
 
 from merge import (  # noqa: E402
     _check_aa_join,
+    _check_eqbench_join,
     _is_official_aa_row,
     _pick_aa_row,
     _pick_best_row,
@@ -96,6 +97,25 @@ def test_aa_join_passes_when_any_matched():
 
 def test_aa_join_skips_when_no_alias_configured():
     _check_aa_join([{"slug": "a"}, {"slug": "b", "aa": None}], 0)
+
+
+def test_eqbench_join_broken_raises():
+    """eqbench 源整体改名时，「创意写作」覆盖会静默归零，退化成对标
+    LiveBench Design 的单变量填补（ADR-0011）。必须当场失败。"""
+    registry = [{"slug": "a", "eqbench": "claude-opus-5"},
+                {"slug": "b", "eqbench": "gpt-6-astra"}]
+    with pytest.raises(RuntimeError, match="EQ-Bench join 断裂"):
+        _check_eqbench_join(registry, 0)
+
+
+def test_eqbench_join_passes_when_any_matched():
+    registry = [{"slug": "a", "eqbench": "claude-opus-5"},
+                {"slug": "b", "eqbench": "absent"}]
+    _check_eqbench_join(registry, 1)  # 不抛异常即通过
+
+
+def test_eqbench_join_skips_when_no_alias_configured():
+    _check_eqbench_join([{"slug": "a"}, {"slug": "b", "eqbench": None}], 0)
 
 
 # ---- AA 同 slug 多档：覆盖度优先，同覆盖度取最高 effort 档 ----

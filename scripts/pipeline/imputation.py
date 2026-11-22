@@ -4,6 +4,12 @@ The imputation pool is partitioned into domain groups (1 major + 2 minors)
 so that missing metrics are predicted strictly within their own domain features.
 Imputation uses cross-feature ridge regression with z-score standardization
 and damped updates.
+
+Domains holding fewer than ``min_domain_metrics`` metrics are NOT imputed:
+after dropping the target column only one feature would remain, which turns
+the regression into an affine copy of a sibling metric. Those metrics become
+"unavailable" instead, and scoring renormalizes over the observed ones.
+See ADR-0011.
 """
 from __future__ import annotations
 
@@ -46,6 +52,7 @@ class ImputationEngine:
         self.domain_groups = cfg_params.get("domain_groups") or {}
         self.domain_hierarchies = cfg_params.get("domain_hierarchies") or {}
         self.metric_scales = cfg_params.get("metric_scales") or {}
+        self.min_domain_metrics = cfg_params.get("min_domain_metrics", 3)
 
         # 构建 metric -> domain metrics 映射
         self.metric_domains = {}
@@ -56,6 +63,21 @@ class ImputationEngine:
                     assigned = [x for x in d_metrics if x in pool]
                     break
             self.metric_domains[m] = assigned or pool
+
+        # 域内指标数不足 min_domain_metrics 时不做填补（ADR-0011）。
+        # 填补严格限定在域内，排除目标列后特征维度 = 域内指标数 - 1：
+        #   - 2 指标域：只剩 1 列特征 -> 单变量 OLS，预测值 = 另一指标的
+        #     仿射变换。文本榜的 EQ-Bench 因此被 LiveBench Design 完全决定
+        #     （EQ ≈ -140 + 27.2·Design），「创意写作」域对 17/26 行只剩
+        #     一个自由度，却仍按 0.65 子权重参与评分。
+        #   - 「能跑通」也不等于可信：同域两指标的相关系数可以接近 0
+        #     （Omniscience Accuracy ~ Non-Halluc. r=-0.13），此时单特征
+        #     回归比取均值更差，只是恰好还没遇到缺值。
+        # 这类域改为「缺值即不可用」，由 scoring 侧按实测重归一化。
+        self.imputable = {
+            m: len(self.metric_domains[m]) >= self.min_domain_metrics
+            for m in pool
+        }
 
         n = len(rows)
         self.raw = {m: [to_float(r.get(m)) for r in rows] for m in pool}
@@ -154,6 +176,10 @@ class ImputationEngine:
         converged_iter = None
         for it in range(max_iters):
             for m in self.pool:
+                if not self.imputable[m]:
+                    # 短域不填补：cur 保持初始化值（域内中位数），
+                    # scoring 侧会把该指标当作「不可用」排除，不会读到这里。
+                    continue
                 xtr, ytr = [], []
                 for i in range(n):
                     if self.raw[m][i] is not None:

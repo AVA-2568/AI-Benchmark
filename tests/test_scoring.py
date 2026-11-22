@@ -60,6 +60,8 @@ class FakeEngine:
             "m2": {"n_train": 2},
         }
         self.min_samples = 3
+        # 真实引擎按域规模决定哪些指标可填补（ADR-0011）；默认全部可填补
+        self.imputable = {"m1": True, "m2": True}
 
 
 _BOARD = {
@@ -121,6 +123,35 @@ def test_score_board_imputed_marker():
     b = next(r for r in out if r["Model"] == "B")
     # imputed AND below min_samples -> "(reg,low)" marker in Imputed column
     assert "m1(reg,low)" in b["Imputed"]
+
+
+def test_short_domain_missing_metric_is_blank_not_imputed():
+    """短域缺值不填补：单元格留空、不进入加权、权重按剩余项归一化。ADR-0011"""
+    eng = FakeEngine()
+    eng.raw = {"m1": [80.0, 20.0], "m2": [40.0, None]}
+    eng.cur = {"m1": [80.0, 20.0], "m2": [40.0, 25.0]}   # 25.0 是伪造值，不得采用
+    eng.imputable = {"m1": True, "m2": False}
+    out, _ = score_board(_ROWS, _BOARD, eng, _COST, 0.1, 0.0)
+    b = next(r for r in out if r["Model"] == "B")
+    assert b["m2"] == ""
+    assert b["m2 (norm)"] == ""
+    assert b["Imputed"] == ""
+    assert b["_unavailable"] == ["m2"]
+    # 只剩 m1 -> 重归一化后总分就是 m1 的归一化值
+    assert b["Weighted Total"] == 20.0
+
+
+def test_short_domain_bottleneck_renormalizes_within_category():
+    """缺指标的域按剩余子权重归一化，不能被 0.35×Design 误判成短板。"""
+    eng = FakeEngine()
+    eng.raw = {"m1": [80.0, 20.0], "m2": [40.0, None]}
+    eng.cur = dict(eng.raw)
+    eng.imputable = {"m1": True, "m2": False}
+    # 该行只剩 c1(m1)；c2 整域无可用指标 -> 不参与 Bottleneck 比较
+    out, _ = score_board(_ROWS, _BOARD, eng, _COST, 0.1, 0.0)
+    b = next(r for r in out if r["Model"] == "B")
+    assert b["Bottleneck Domain"] == "c1"
+    assert b["Bottleneck"] == 20.0      # m1 norm=20，而不是 0.5*20
 
 
 # ---- cost is unit-price only (thinking effort NOT a factor) ----

@@ -191,14 +191,16 @@ def _cost_terms(r, cost, cache_multiplier, cache_price_fallback, plans):
 
 
 def _weighted_total(glob, nrm, imputed_set, discount):
-    """加权总分；填补指标的权重按 discount 打折后重新归一化。
+    """加权总分；有效权重和不为 1 时按实际权重重新归一化。
 
-    discount >= 1 时退化为普通加权和（不降权）。填补不可信时 discount<1，
-    填补指标对总分贡献降低、其余真实指标权重相对上升，总分仍落在
-    0-100 可比较（权重重归一化，总和恒为 1）。
+    两种让权重和偏离 1 的情形：
+
+    - ``discount < 1``：填补指标降权，其余真实指标权重相对上升。
+    - 指标完全不可用（短域不填补，见 ADR-0011）：该项不进入 ``nrm``，
+      权重由剩余指标分担，总分仍落在 0-100 的可比区间。
+
+    无缺失、不降权时权重和恰为 1，退化为普通加权和。
     """
-    if discount >= 1.0:
-        return sum(glob[m] * nrm[m] for m in nrm)
     w = {m: glob[m] * (discount if m in imputed_set else 1.0) for m in nrm}
     ws = sum(w.values())
     return sum(w[m] * nrm[m] for m in nrm) / ws if ws else 0.0
@@ -257,24 +259,36 @@ def score_board(rows, board, engine, cost, cache_multiplier, score_threshold,
     for i, r in enumerate(rows):
         eff = {}
         imputed = []
+        unavailable = []
         for m in metrics:
             if raw[m][i] is not None:
                 eff[m] = raw[m][i]
-            else:
+            elif engine.imputable[m]:
                 n_train = imp_q[m]["n_train"]
                 eff[m] = cur[m][i]
                 if n_train < min_samples:
                     imputed.append(m + "(low)")
                 else:
                     imputed.append(m)
-        nrm = {m: norm(eff[m], scales[m][0], scales[m][1]) for m in metrics}
+            else:
+                # 短域不做填补（ADR-0011）：缺值直接不参与评分，不编造数值。
+                unavailable.append(m)
+        nrm = {m: norm(eff[m], scales[m][0], scales[m][1]) for m in eff}
         imputed_set = {m.split("(low)")[0] for m in imputed}
         total = _weighted_total(glob, nrm, imputed_set,
                                 imputed_weight_discount)
         # 短板视角：域内按子权重加权的能力分，取最低域。加权总分允许
         # 长板补偿短板，而真实 agent / 案头任务是串联的，短板才决定成败。
-        domain_scores = [(name, sum(sw * nrm[m] for m, sw in subs))
-                         for name, _, subs in cats]
+        # 域内若有不可用指标，按剩余子权重归一化，否则缺指标的域会被
+        # 系统性地判成短板（0.35×Design 被当成 35 分而不是 85 分）。
+        domain_scores = []
+        for name, _, subs in cats:
+            avail = [(m, sw) for m, sw in subs if m in nrm]
+            if not avail:
+                continue
+            wsum = sum(sw for _, sw in avail)
+            domain_scores.append(
+                (name, sum(sw * nrm[m] for m, sw in avail) / wsum))
         if domain_scores:
             worst_name, worst_score = min(domain_scores, key=lambda x: x[1])
             bottleneck = round(worst_score, 1)
@@ -304,14 +318,17 @@ def score_board(rows, board, engine, cost, cache_multiplier, score_threshold,
         out.append({
             # 内部字段：是否满足域内缺失门槛（不写入 CSV）
             "_domain_ok": _domain_ok(raw, i, board, max_missing_per_domain),
+            # 内部字段：短域缺值、不填补的指标（不写入 CSV，供诊断/测试用）
+            "_unavailable": unavailable,
             "Model": r.get("Model"),
             "Creator": r.get("Creator"),
             "Vision": "Yes" if has_vision else "No",
             "Reasoning": r.get("Reasoning Model"),
             "Orig Intelligence Index": to_float(r.get("Intelligence Index")),
-            **{m: fmt_val(eff[m], m in imputed_set, m in low_set)
+            **{m: (fmt_val(eff[m], m in imputed_set, m in low_set)
+                   if m in eff else "") for m in metrics},
+            **{m + " (norm)": (round(nrm[m], 1) if m in nrm else "")
                for m in metrics},
-            **{m + " (norm)": round(nrm[m], 1) for m in metrics},
             "Weighted Total": round(total, 1),
             "Bottleneck": bottleneck,
             "Bottleneck Domain": worst_name,

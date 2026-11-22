@@ -15,6 +15,7 @@ if _SCRIPTS not in sys.path:
 
 import build as build_mod  # noqa: E402
 import score_aa as score  # noqa: E402
+from pipeline import imputation_params  # noqa: E402
 from pipeline.scoring import _weighted_total  # noqa: E402
 
 
@@ -71,6 +72,17 @@ def test_weighted_total_discount_downweights_imputed():
     # b 为填补：权重 0.4 -> 0.2；a 真实 0.6；重归一化后总权重 0.8
     # total = (0.6*80 + 0.2*60) / 0.8 = 75.0
     assert _weighted_total(glob, nrm, {"b"}, 0.5) == 75.0
+
+
+def test_weighted_total_renormalizes_when_metric_unavailable():
+    """短域缺值不填补 -> 该指标不进入 nrm，权重由剩余项分担。ADR-0011"""
+    glob = {"a": 0.6, "b": 0.4}
+    nrm = {"a": 80.0}          # b 不可用
+    assert _weighted_total(glob, nrm, set(), 1.0) == 80.0
+
+
+def test_weighted_total_zero_weights_is_zero():
+    assert _weighted_total({"a": 1.0}, {}, set(), 1.0) == 0.0
 
 
 # ---- fmt_val ----
@@ -143,6 +155,20 @@ def test_validate_config_rejects_non_http_plan_url():
     cfg["plans"][0]["url"] = "javascript:alert(1)"
     with pytest.raises(score.ConfigError, match="url must start with"):
         score.validate_config(cfg)
+
+
+def test_validate_config_rejects_degenerate_min_domain_metrics():
+    """min_domain_metrics=1 会让排除目标列后特征矩阵为空（只剩截距）。"""
+    cfg = copy.deepcopy(_load_config())
+    cfg["imputation"]["min_domain_metrics"] = 1
+    with pytest.raises(score.ConfigError, match="min_domain_metrics"):
+        score.validate_config(cfg)
+
+
+def test_imputation_params_defaults_min_domain_metrics_to_three():
+    assert imputation_params({})["min_domain_metrics"] == 3
+    assert imputation_params(
+        {"imputation": {"min_domain_metrics": 4}})["min_domain_metrics"] == 4
 
 
 # ---- _replace_block ----

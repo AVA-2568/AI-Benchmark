@@ -230,6 +230,23 @@ def _check_aa_join(registry, matched_count):
         )
 
 
+def _check_eqbench_join(registry, matched_count):
+    """EQ-Bench 别名一条都匹配不上 => 源侧改名或整表抓空，直接失败。
+
+    与 ``_check_aa_join`` 同类的静默断链防护：eqbench 表照常解析、行数
+    正常，但 model 列整体换写法（``claude-opus-5`` -> ``claude-opus-5-1``）
+    时不会有任何报错，只会让「创意写作」域的可信覆盖悄悄归零，退化成
+    对标兄弟指标的单变量填补。见 ADR-0011。
+    """
+    configured = sum(1 for m in registry if m.get("eqbench"))
+    if configured and matched_count == 0:
+        raise RuntimeError(
+            f"EQ-Bench join 断裂：registry 里 {configured} 个模型配了 eqbench "
+            "别名，但 eqbench.csv 里 0 行匹配。"
+            "请检查 eqbench 源的 model 列命名是否已变更。"
+        )
+
+
 def build_merged():
     registry = load_registry()
 
@@ -257,6 +274,7 @@ def build_merged():
 
     out_rows = []
     aa_matched = 0
+    eq_matched = 0
     for m in registry:
         slug = m["slug"]
         row = {"Model": slug, "Creator": m["creator"], "Vision": m.get("vision", False)}
@@ -275,6 +293,7 @@ def build_merged():
         # EQ-Bench
         eq_row, _ = _pick_best_row(eq, m.get("eqbench"))
         if eq_row:
+            eq_matched += 1
             row["EQ-Bench Creative Writing"] = _num(eq_row.get("Elo"))
 
         # AA（分数各 Provider 行一致；定价取官方行，见 _pick_aa_row）
@@ -310,6 +329,7 @@ def build_merged():
         out_rows.append(row)
 
     _check_aa_join(registry, aa_matched)
+    _check_eqbench_join(registry, eq_matched)
 
     # 写 merged.csv（列序：Model, Creator, 指标, 成本列）
     price_cols = ["Price 1M Input", "Price 1M Output", "Cache Hit Price",

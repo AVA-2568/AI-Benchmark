@@ -122,7 +122,14 @@ def to_float(v):
 
 
 def imputation_params(cfg: Dict[str, Any]) -> Dict[str, Any]:
-    """Resolve imputation / cost-fallback parameters with defaults."""
+    """Resolve imputation / cost-fallback parameters with defaults.
+
+    ``min_domain_metrics`` (default 3): 域内指标数下限，低于此值的域不做
+    填补。填补是严格域内的岭回归，排除目标列后特征维度 = 域内指标数 - 1；
+    域内只有 2 个指标时特征只剩 1 列，预测值退化为另一指标的仿射变换，
+    等于宣称两个指标可互相替代——而事实上它们常常互不相关
+    （Omniscience Accuracy ~ Non-Halluc. 的 r 仅 -0.13）。见 ADR-0011。
+    """
     imp = cfg.get("imputation", {})
     fb = cfg.get("cost_fallback", {})
     return {
@@ -131,6 +138,7 @@ def imputation_params(cfg: Dict[str, Any]) -> Dict[str, Any]:
         "stable_rounds": imp.get("stable_rounds", 3),
         "damping": imp.get("damping", 0.5),
         "clip_quantile": imp.get("clip_quantile", 0.95),
+        "min_domain_metrics": int(imp.get("min_domain_metrics", 3)),
         "cache_hit_multiplier": fb.get("cache_hit_multiplier", 0.1),
     }
 
@@ -164,6 +172,13 @@ def validate_config(cfg: Dict[str, Any]) -> bool:
         raise ConfigError("imputation.damping must be in (0, 1]")
     if not 0 < imp.get("clip_quantile", 0) <= 1:
         raise ConfigError("imputation.clip_quantile must be in (0, 1]")
+    # 域内指标数下限必须 >= 2：为 1 时排除目标列后特征矩阵为空（只剩截距），
+    # 填补值会退化成全体均值。ADR-0011
+    if imp.get("min_domain_metrics", 3) < 2:
+        raise ConfigError(
+            "imputation.min_domain_metrics must be >= 2 "
+            "(a smaller domain leaves no predictor after dropping the target)"
+        )
     if not 0 < fb.get("cache_hit_multiplier", 0) <= 1:
         raise ConfigError("cost_fallback.cache_hit_multiplier must be in (0, 1]")
     if (not 0 <= cost.get("input_share", -1) <= 1

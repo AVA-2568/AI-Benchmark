@@ -145,7 +145,7 @@
       "creator": "OpenAI",
       "aa": "gpt-5-4-nano",
       "livebench": "gpt-5.4-nano-xhigh",
-      "eqbench": "gpt-5.4-nano",
+      "eqbench": null,
       "vision": true
     },
     {
@@ -161,7 +161,7 @@
       "creator": "OpenAI",
       "aa": "gpt-5-2-codex",
       "livebench": "gpt-5.2-codex",
-      "eqbench": "gpt-5.2-codex",
+      "eqbench": null,
       "vision": true
     },
     {
@@ -180,7 +180,7 @@
       "creator": "Google",
       "aa": "gemini-3-5-flash",
       "livebench": "gemini-3.5-flash-high",
-      "eqbench": "gemini-3.5-flash",
+      "eqbench": null,
       "vision": true
     },
     {
@@ -222,7 +222,7 @@
         "grok-4.6",
         "grok-4.6-xhigh"
       ],
-      "eqbench": "grok-4.6",
+      "eqbench": null,
       "vision": true
     },
     {
@@ -238,7 +238,7 @@
       "creator": "xAI",
       "aa": "grok-4-3",
       "livebench": "grok-4.3",
-      "eqbench": "grok-4.3",
+      "eqbench": null,
       "vision": true
     },
     {
@@ -322,7 +322,7 @@
       "creator": "Moonshot AI",
       "aa": "kimi-k2-7-code",
       "livebench": "kimi-k2.7-code",
-      "eqbench": "kimi-k2.7-code",
+      "eqbench": null,
       "vision": true
     },
     {
@@ -338,7 +338,7 @@
       "creator": "Alibaba",
       "aa": "qwen3-7-max",
       "livebench": "qwen3.7-max",
-      "eqbench": "qwen3.7-max",
+      "eqbench": null,
       "vision": false
     },
     {

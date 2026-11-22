@@ -88,6 +88,45 @@ def test_engine_respects_min_samples_gate():
     assert eng.cur["m1"][3] == eng.stats["m1"][2]
 
 
+def test_short_domain_is_not_imputable():
+    """域内只有 2 个指标时，排除目标列后只剩 1 列特征，预测值退化为
+    兄弟指标的仿射变换——因此不做填补。见 ADR-0011。"""
+    params = _params()
+    params["domain_groups"] = {"triple": ["m1", "m2", "m3"],
+                              "pair": ["m4", "m5"]}
+    pool = ["m1", "m2", "m3", "m4", "m5"]
+    rows = [{"Model": r["Model"], "m1": r["m1"], "m2": r["m2"],
+             "m3": r["m3"], "m4": r["m2"], "m5": r["m3"]} for r in _ROWS]
+    eng = ImputationEngine(rows, pool, params)
+    assert eng.metric_domains["m1"] == ["m1", "m2", "m3"]
+    assert eng.imputable["m1"] is True
+    assert eng.metric_domains["m4"] == ["m4", "m5"]
+    assert eng.imputable["m4"] is False
+    assert eng.imputable["m5"] is False
+
+
+def test_short_domain_leaves_missing_at_fallback():
+    """短域缺值保持 top50mean，不被写入伪造的预测值。"""
+    params = _params()
+    params["domain_groups"] = {"pair": ["m1", "m2"], "triple": ["m3"]}
+    eng = ImputationEngine(_ROWS, POOL, params)
+    eng.run(100, 0.005, 3)
+    # D.m1 缺值：不填补 -> 仍是初始化用的 top50mean
+    assert eng.cur["m1"][3] == eng.stats["m1"][2]
+    # C.m2 同域（m1,m2）-> 也不填补
+    assert eng.cur["m2"][2] == eng.stats["m2"][2]
+
+
+def test_three_metric_domain_still_imputes():
+    params = _params()
+    params["domain_groups"] = {"triple": ["m1", "m2", "m3"]}
+    eng = ImputationEngine(_ROWS, POOL, params)
+    assert all(eng.imputable[m] for m in POOL)
+    eng.run(100, 0.005, 3)
+    assert eng.cur["m1"][3] is not None      # D.m1 已填补
+    assert eng.cur["m1"][3] <= eng.stats["m1"][4]   # 且在 clip 内
+
+
 def test_loo_validation_structure():
     # 12 rows; each metric missing in exactly one row -> 11 observed
     # (LOO requires >=10 observed to emit a non-None mae).
