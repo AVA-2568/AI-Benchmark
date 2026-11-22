@@ -3,7 +3,7 @@
 <!--HERO_START-->
 精选 80 个主流旗舰大模型，针对三大真实需求提供三张榜单：
 - **干重活与写代码（通用榜）**：看编程、智能体、复杂逻辑与长上下文能力（当前 claude-fable-5.2 第一，85.4 分）；
-- **写文章与专业案头（文本榜）**：看创意写作、文风质感、长文阅读与日常问答（当前 claude-fable-5.2 第一，87.4 分）；
+- **写文章与专业案头（文本榜）**：看创意写作、文风质感、长文阅读与日常问答（当前 claude-fable-5.2 第一，86.3 分）；
 - **算钱包与真实花销（性价比榜）**：看折算真实订阅套餐与 API 折扣后的到手单价（订阅折算后最低约 $0.001/M）。
 <!--HERO_END-->
 
@@ -73,26 +73,26 @@
 
 <!--SNAPSHOT_TEXT_START-->
 > 2026-11-22 数据（80 精选模型 -> 26 行；日期为上游抓取实际时点，stale 构建不刷新）。
-> 填补验证：EQ-Bench Creative Writing MAE=77.31 (>10%: 13.0%/46) ; LiveBench Design MAE=3.13 (>10%: 11.1%/36) ; AA-Briefcase MAE=130.88 (>10%: 38.9%/36) ; LiveBench Research MAE=4.89 (>10%: 8.3%/36) ; LiveBench Data Analysis MAE=6.21 (>10%: 25.0%/36) ; MLCR MAE=0.07 (>10%: 68.8%/32) ; LCR MAE=0.03 (>10%: 16.7%/30) ; Omniscience Accuracy MAE=0.13 (>10%: 68.8%/32) ; Omniscience Non-Halluc. MAE=0.22 (>10%: 84.4%/32)
+> 填补验证：EQ-Bench Creative Writing MAE=181.17 (>10%: 43.5%/46) ; LiveBench Design MAE=5.21 (>10%: 16.7%/36) ; AA-Briefcase MAE=130.88 (>10%: 38.9%/36) ; LiveBench Research MAE=4.89 (>10%: 8.3%/36) ; LiveBench Data Analysis MAE=6.21 (>10%: 25.0%/36) ; MLCR MAE=0.08 (>10%: 78.1%/32) ; LCR MAE=0.03 (>10%: 13.3%/30) ; Omniscience Accuracy MAE=0.13 (>10%: 68.8%/32) ; Omniscience Non-Halluc. MAE=0.22 (>10%: 84.4%/32)
 <!--SNAPSHOT_TEXT_END-->
 
 <!--TOP15_TEXT_START-->
 | # | Model | Creator | Vision | Score | Bottleneck | Imputed |
 |---|---|---|---|---|---|---|
-| 1 | claude-fable-5.2 | Anthropic | 👁️ | 87.4 | 72.7 | EQ-Bench Creative Writing(reg) |
-| 2 | gpt-6.2-astra | OpenAI | 👁️ | 83.6 | 65.6 | EQ-Bench Creative Writing(reg), LCR(reg) |
-| 3 | gemini-4-neon | Google | 👁️ | 82.8 | 69.1 | EQ-Bench Creative Writing(reg), LCR(reg) |
-| 4 | kimi-k3.1-pro | Moonshot AI | 👁️ | 82.0 | 61.8 | - |
-| 5 | claude-sonnet-5.5 | Anthropic | 👁️ | 80.6 | 60.9 | EQ-Bench Creative Writing(reg) |
-| 6 | gpt-6.2-sol | OpenAI | 👁️ | 79.4 | 62.4 | EQ-Bench Creative Writing(reg), LCR(reg) |
+| 1 | claude-fable-5.2 | Anthropic | 👁️ | 86.3 | 72.7 | - |
+| 2 | gemini-4-neon | Google | 👁️ | 82.1 | 63.3 | - |
+| 3 | kimi-k3.1-pro | Moonshot AI | 👁️ | 82.0 | 61.8 | - |
+| 4 | gpt-6.2-astra | OpenAI | 👁️ | 81.8 | 65.6 | - |
+| 5 | claude-sonnet-5.5 | Anthropic | 👁️ | 79.7 | 60.9 | - |
+| 6 | gpt-6.2-sol | OpenAI | 👁️ | 78.8 | 62.4 | - |
 | 7 | claude-opus-5.5 | Anthropic | 👁️ | 78.1 | 64.3 | - |
-| 8 | gemini-4-carbon | Google | 👁️ | 76.3 | 51.0 | EQ-Bench Creative Writing(reg) |
-| 9 | gpt-6.1-terra | OpenAI | 👁️ | 73.7 | 62.2 | EQ-Bench Creative Writing(reg) |
-| 10 | claude-haiku-5.5 | Anthropic | 👁️ | 73.6 | 53.4 | EQ-Bench Creative Writing(reg) |
-| 11 | gemini-4-hydrogen | Google | 👁️ | 72.8 | 53.5 | EQ-Bench Creative Writing(reg), LCR(reg) |
-| 12 | muse-wonder-1.0 | Meta | 👁️ | 72.8 | 55.3 | - |
-| 13 | qwen4-max | Alibaba | 👁️ | 72.4 | 51.0 | EQ-Bench Creative Writing(reg), LCR(reg) |
-| 14 | grok-4.7 | xAI | 👁️ | 71.9 | 51.0 | - |
+| 8 | gemini-4-carbon | Google | 👁️ | 75.2 | 51.0 | - |
+| 9 | muse-wonder-1.0 | Meta | 👁️ | 72.8 | 55.3 | - |
+| 10 | claude-haiku-5.5 | Anthropic | 👁️ | 72.6 | 53.4 | - |
+| 11 | gemini-4-hydrogen | Google | 👁️ | 72.6 | 42.2 | - |
+| 12 | gpt-6.1-terra | OpenAI | 👁️ | 72.4 | 62.2 | - |
+| 13 | grok-4.7 | xAI | 👁️ | 71.9 | 51.0 | - |
+| 14 | qwen4-max | Alibaba | 👁️ | 70.5 | 38.9 | - |
 | 15 | gemini-4-argon | Google | 👁️ | 63.8 | 43.3 | - |
 <!--TOP15_TEXT_END-->
 

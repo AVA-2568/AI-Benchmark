@@ -1,12 +1,12 @@
 {
   "EQ-Bench Creative Writing": {
-    "mae": 77.307,
-    "pct_over10": 13.0,
+    "mae": 181.1684,
+    "pct_over10": 43.5,
     "n": 46
   },
   "LiveBench Design": {
-    "mae": 3.1308,
-    "pct_over10": 11.1,
+    "mae": 5.2066,
+    "pct_over10": 16.7,
     "n": 36
   },
   "AA-Briefcase": {
@@ -25,13 +25,13 @@
     "n": 36
   },
   "MLCR": {
-    "mae": 0.072,
-    "pct_over10": 68.8,
+    "mae": 0.0774,
+    "pct_over10": 78.1,
     "n": 32
   },
   "LCR": {
-    "mae": 0.0305,
-    "pct_over10": 16.7,
+    "mae": 0.0329,
+    "pct_over10": 13.3,
     "n": 30
   },
   "Omniscience Accuracy": {
