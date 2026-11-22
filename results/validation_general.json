@@ -1,46 +1,46 @@
 {
   "FrontierCode 2.0": {
-    "mae": 0.0499,
+    "mae": 0.0497,
     "pct_over10": 68.8,
     "n": 32
   },
   "LiveBench Coding": {
-    "mae": 5.4265,
+    "mae": 5.3363,
     "pct_over10": 19.4,
     "n": 36
   },
   "Terminal-Bench v4.0": {
-    "mae": 0.0838,
+    "mae": 0.0841,
     "pct_over10": 72.2,
     "n": 36
   },
   "LiveBench Long-Horizon": {
-    "mae": 11.1884,
+    "mae": 11.1683,
     "pct_over10": 80.6,
     "n": 36
   },
   "AutomationBench": {
-    "mae": 0.094,
-    "pct_over10": 58.3,
+    "mae": 0.0938,
+    "pct_over10": 63.9,
     "n": 36
   },
   "LiveBench Browser": {
-    "mae": 10.7963,
+    "mae": 10.7701,
     "pct_over10": 55.6,
     "n": 36
   },
   "HLE Diamond": {
-    "mae": 0.0592,
+    "mae": 0.0595,
     "pct_over10": 66.7,
     "n": 36
   },
   "CritPt v2 Hard": {
-    "mae": 0.0648,
-    "pct_over10": 53.1,
+    "mae": 0.0643,
+    "pct_over10": 50.0,
     "n": 32
   },
   "LiveBench Reasoning": {
-    "mae": 2.9643,
+    "mae": 2.9028,
     "pct_over10": 5.6,
     "n": 36
   }
