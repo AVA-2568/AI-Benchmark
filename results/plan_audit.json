@@ -1,5 +1,5 @@
 {
-  "run_date": "2026-11-16T08:43:33.908041+00:00",
+  "run_date": "2026-11-23T09:56:21.263220+00:00",
   "max_age_days": 21,
   "online": true,
   "summary": {
@@ -10,17 +10,17 @@
   },
   "coverage": {
     "summary": {
-      "total_models": 76,
-      "covered_count": 62,
-      "uncovered_count": 14,
-      "coverage_rate": 0.8158
+      "total_models": 80,
+      "covered_count": 65,
+      "uncovered_count": 15,
+      "coverage_rate": 0.8125
     },
     "forward": [
       {
         "name": "GitHub Copilot Max",
         "monthly": 100,
         "discount": 0.5,
-        "hit_count": 18,
+        "hit_count": 20,
         "hits": [
           {
             "slug": "claude-sonnet-5",
@@ -160,6 +160,22 @@
           },
           {
             "slug": "gpt-6.1-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-sol",
             "creator": "OpenAI",
             "scale": 1.0,
             "effective_discount": 0.5,
@@ -172,7 +188,7 @@
         "name": "GitHub Copilot Pro+",
         "monthly": 39,
         "discount": 0.557,
-        "hit_count": 18,
+        "hit_count": 20,
         "hits": [
           {
             "slug": "claude-sonnet-5",
@@ -312,6 +328,22 @@
           },
           {
             "slug": "gpt-6.1-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.557,
+            "multiplier": 1.8,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-sol",
             "creator": "OpenAI",
             "scale": 1.0,
             "effective_discount": 0.557,
@@ -324,7 +356,7 @@
         "name": "GitHub Copilot Pro",
         "monthly": 10,
         "discount": 0.667,
-        "hit_count": 18,
+        "hit_count": 20,
         "hits": [
           {
             "slug": "claude-sonnet-5",
@@ -464,6 +496,22 @@
           },
           {
             "slug": "gpt-6.1-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.667,
+            "multiplier": 1.5,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-sol",
             "creator": "OpenAI",
             "scale": 1.0,
             "effective_discount": 0.667,
@@ -1116,7 +1164,7 @@
         "name": "Factory Droid Pro",
         "monthly": 20.0,
         "discount": 0.417,
-        "hit_count": 19,
+        "hit_count": 21,
         "hits": [
           {
             "slug": "claude-opus-5",
@@ -1264,6 +1312,22 @@
           },
           {
             "slug": "gpt-6.1-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.417,
+            "multiplier": 2.4,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-sol",
             "creator": "OpenAI",
             "scale": 1.0,
             "effective_discount": 0.417,
@@ -1276,7 +1340,7 @@
         "name": "Trae Pro",
         "monthly": 10.0,
         "discount": 0.5,
-        "hit_count": 13,
+        "hit_count": 15,
         "hits": [
           {
             "slug": "claude-sonnet-5",
@@ -1376,6 +1440,22 @@
           },
           {
             "slug": "gpt-6.1-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-sol",
             "creator": "OpenAI",
             "scale": 1.0,
             "effective_discount": 0.5,
@@ -1388,7 +1468,7 @@
         "name": "Cursor Pro",
         "monthly": 20.0,
         "discount": 1.0,
-        "hit_count": 28,
+        "hit_count": 30,
         "hits": [
           {
             "slug": "claude-opus-5",
@@ -1608,6 +1688,22 @@
           },
           {
             "slug": "gpt-6.1-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-sol",
             "creator": "OpenAI",
             "scale": 1.0,
             "effective_discount": 1.0,
@@ -1620,7 +1716,7 @@
         "name": "Cursor Pro+",
         "monthly": 60.0,
         "discount": 0.8571,
-        "hit_count": 28,
+        "hit_count": 30,
         "hits": [
           {
             "slug": "claude-opus-5",
@@ -1840,6 +1936,22 @@
           },
           {
             "slug": "gpt-6.1-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.8571,
+            "multiplier": 1.17,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-sol",
             "creator": "OpenAI",
             "scale": 1.0,
             "effective_discount": 0.8571,
@@ -1852,7 +1964,7 @@
         "name": "Cursor Ultra",
         "monthly": 200.0,
         "discount": 0.5,
-        "hit_count": 28,
+        "hit_count": 30,
         "hits": [
           {
             "slug": "claude-opus-5",
@@ -2077,6 +2189,22 @@
             "effective_discount": 0.5,
             "multiplier": 2.0,
             "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.5,
+            "multiplier": 2.0,
+            "fallback": false
           }
         ]
       },
@@ -2084,7 +2212,7 @@
         "name": "Windsurf Pro",
         "monthly": 15.0,
         "discount": 0.6,
-        "hit_count": 13,
+        "hit_count": 15,
         "hits": [
           {
             "slug": "claude-sonnet-5",
@@ -2184,6 +2312,22 @@
           },
           {
             "slug": "gpt-6.1-terra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 0.6,
+            "multiplier": 1.67,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-sol",
             "creator": "OpenAI",
             "scale": 1.0,
             "effective_discount": 0.6,
@@ -2740,7 +2884,7 @@
         "name": "Poe Premium",
         "monthly": 19.99,
         "discount": 1.0,
-        "hit_count": 33,
+        "hit_count": 35,
         "hits": [
           {
             "slug": "claude-opus-5",
@@ -3005,6 +3149,22 @@
             "effective_discount": 1.0,
             "multiplier": 1.0,
             "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-astra",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
+          },
+          {
+            "slug": "gpt-6.2-sol",
+            "creator": "OpenAI",
+            "scale": 1.0,
+            "effective_discount": 1.0,
+            "multiplier": 1.0,
+            "fallback": false
           }
         ]
       },
@@ -3168,6 +3328,14 @@
           "creator": "Anthropic",
           "status": "API 按量",
           "plan_name": null,
+          "discount": 1.0,
+          "multiplier": 1.0
+        },
+        {
+          "slug": "qwen4-max",
+          "creator": "Alibaba",
+          "status": "名义原价 (Qwen Token Plan Lite)",
+          "plan_name": "Qwen Token Plan Lite",
           "discount": 1.0,
           "multiplier": 1.0
         }
@@ -3668,6 +3836,30 @@
           "monthly": 199.99,
           "discount": 0.0581,
           "multiplier": 17.21
+        },
+        {
+          "slug": "gemini-4-neon",
+          "creator": "Google",
+          "plan_name": "Google AI Ultra 20x",
+          "monthly": 199.99,
+          "discount": 0.0581,
+          "multiplier": 17.21
+        },
+        {
+          "slug": "gpt-6.2-astra",
+          "creator": "OpenAI",
+          "plan_name": "ChatGPT Pro 200",
+          "monthly": 200,
+          "discount": 0.0143,
+          "multiplier": 69.93
+        },
+        {
+          "slug": "gpt-6.2-sol",
+          "creator": "OpenAI",
+          "plan_name": "ChatGPT Pro 200",
+          "monthly": 200,
+          "discount": 0.0143,
+          "multiplier": 69.93
         }
       ]
     }
